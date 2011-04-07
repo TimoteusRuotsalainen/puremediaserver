@@ -1,0 +1,10 @@
+#summary Objetivos del proyecto
+
+Estos son los objetivos del proyect.
+
+  * Crear un interface multimedia que vaya más allá de los tradicionales media server, que sólo reproducen de forma que se pueda crear en el moemnto.
+  * Es multimedia, de forma que admita muchos formatos de salida (DMX, MIDI, video, pixelmapping, audio, relés, motores,...)
+  * Es multientrada, o sea que acepta cualquier tipo de entrada o interacción para entrar datos al sistema: DMX, MIDI, movimiento, faders analógicos....
+  * Es código abierto y libre. Es gratis, o por lo menos asequible.
+  
+
