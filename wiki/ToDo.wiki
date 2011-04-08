@@ -12,7 +12,7 @@ http://opendmx.net/index.php/OLA_developer_info
 
   * Entrada en pure data.
 
- * mirar output en Max y ver si es viable cambiar a Max, o comunicar Max y Pure Data. El output de Max sólo está disponible para Mac. Vigilar si sacan nueva versión mientras tanto olvidar.
+ * mirar output en Max y ver si es viable cambiar a Max, o comunicar Max y Pure Data. El output de Max sólo está disponible para Mac. Vigilar si sacan nueva versión mientras tanto olvidar.*Max no es adecuado para este proyecto*
       
 == Patch PureData ==
 
