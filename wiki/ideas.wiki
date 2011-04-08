@@ -12,3 +12,5 @@ Lista de posibles mejoras y cambios en el proyecto.
   * manejar la imagen con movimientos. Webcam? investigar sistemas laser.
 
   * Fractales, generar y mezclar.
+
+  * Interactuar con blender de forma que puedan hacerse animaciones controladas en tiempo real.
