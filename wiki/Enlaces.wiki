@@ -9,3 +9,5 @@ http://opendmx.net/index.php/Arduino_RGB_Mixer
 http://opendmx.net/index.php/USB_Protocol_Extensions
 
 http://opendmx.net/index.php/OlaOutput_Max_External
+
+http://opendmx.net/index.php/OLA_Client_API
