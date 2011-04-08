@@ -1,10 +1,39 @@
-#summary Objetivos del proyecto
+#summary Página de inicio
+
+
+
+== Filosofía ==
+
+Crear un sistema que vaya más allá de los tradicionales media server que reproducen videos de forma que los artistas y/o técnicos puedan modificar y/o generar una salida de video.
+
+== Audiencia ==
+
+* Artistas y técnicos escénicos
+* Instalaciones artísticas
+* Perfomances
+
+== Objetivos ==
 
 Estos son los objetivos del proyect.
 
-  * Crear un interface multimedia que vaya más allá de los tradicionales media server, que sólo reproducen de forma que se pueda crear en el moemnto.
-  * Es multimedia, de forma que admita muchos formatos de salida (DMX, MIDI, video, pixelmapping, audio, relés, motores,...)
-  * Es multientrada, o sea que acepta cualquier tipo de entrada o interacción para entrar datos al sistema: DMX, MIDI, movimiento, faders analógicos....
+    * Capacidades, de forma que admita muchos formatos de salida (DMX, MIDI, video, pixelmapping, audio, RS-232, relés, motores,...)
+  * Es multientrada, o sea que acepta cualquier tipo de entrada o interacción para entrar datos al sistema: DMX, MIDI, movimiento, faders analógicos, webcam... 
   * Es código abierto y libre. Es gratis, o por lo menos asequible.
-  
 
+== Plataforma ==
+
+El desarrollo principal es sobre Debian 6 Squeeze. Se portará a Windows y Mac, incluso es factible crear un live-cd de forma que sea independiente del sistema operativo...
+
+De momento estoy investigando con Pure Data, Enttec Open DMX Pro, Arduino y Open Lighting Arquitecture.
+
+== Roadmap ==
+
+* V 0.0.1 Escayola. En proyecto sin fecha de lanzamiento. Prueba de concepto, será un media server sencillo con dos capas controlado por DMX512. En las próximas semanas iré subiendo algo de código 
+
+  
+== Enlaces ==
+
+OLA
+Arduino
+Puredata
+enttec
