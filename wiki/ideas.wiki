@@ -1,0 +1,14 @@
+#summary Ideas qué investigar
+
+= Introduction =
+
+Lista de posibles mejoras y cambios en el proyecto.
+
+
+= Details =
+
+  * Hardware: Construir una caja barata como Guruplug http://opendmx.net/index.php/OLAGuruPlug de forma que sea autónoma (entrada dmx, salida video) 
+  
+  * manejar la imagen con movimientos. Webcam? investigar sistemas laser.
+
+  * Fractales, generar y mezclar.
