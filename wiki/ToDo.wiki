@@ -1,0 +1,9 @@
+#Lista de tareas por hacer
+
+== V 0.0.1 Escayola ==
+ 
+ * Comunicación OLA y Pure Data; mirar output en Max y ver si es viable cambiar a Max, o comunicar Max y Pure Data
+
+ * Limpiar el patch y adaptar la entrada a DMX
+
+ * Crear .tar con la estructura de archivos y algunos videos libres de derechos y muy ligeros de ejemplos.
