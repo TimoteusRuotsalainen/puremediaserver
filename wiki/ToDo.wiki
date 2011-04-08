@@ -2,12 +2,30 @@
 
 == V 0.0.1 Escayola ==
  
- * Comunicación OLA y Pure Data; es sencillo construir un lector de OLA. Entrada en pure data?
-
-     * mirar output en Max y ver si es viable cambiar a Max, o comunicar Max y Pure Data. El output de Max sólo está disponible para Mac.
-
-     * Mirar librerías artnet y posibilidad de construir un objeto pure data.  
+=== Comunicación OLA y Pure Data === 
       
- * Limpiar el patch y adaptar la entrada a DMX
+ * es sencillo construir un lector de OLA. C++ o Python
+
+http://opendmx.net/index.php/OLA_Client_API
+http://opendmx.net/index.php/OLA_Python_API
+http://opendmx.net/index.php/OLA_developer_info
+
+  * Entrada en pure data.
+
+ * mirar output en Max y ver si es viable cambiar a Max, o comunicar Max y Pure Data. El output de Max sólo está disponible para Mac. Vigilar si sacan nueva versión mientras tanto olvidar.
+      
+== Patch PureData ==
+
+ * Buscar
+
+ * Limpiar
+
+ * Adaptar entrada a nuevo objeto
+
+== Otros ==
 
  * Crear .tar con la estructura de archivos y algunos videos libres de derechos y muy ligeros de ejemplos.
+
+ * Documentación
+
+ * Empaquetado
