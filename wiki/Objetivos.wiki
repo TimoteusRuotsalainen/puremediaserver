@@ -8,9 +8,9 @@ Crear un sistema que vaya más allá de los tradicionales media server que repro
 
 == Audiencia ==
 
-* Artistas y técnicos escénicos
-* Instalaciones artísticas
-* Perfomances
+ * Artistas y técnicos escénicos
+ * Instalaciones artísticas
+ * Perfomances
 
 == Objetivos ==
 
