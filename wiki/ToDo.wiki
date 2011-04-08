@@ -2,7 +2,7 @@
 
 == V 0.0.1 Escayola ==
  
- * Comunicación OLA y Pure Data; 
+ * Comunicación OLA y Pure Data; es sencillo construir un lector de OLA. Entrada en pure data?
 
      * mirar output en Max y ver si es viable cambiar a Max, o comunicar Max y Pure Data. El output de Max sólo está disponible para Mac.
 
