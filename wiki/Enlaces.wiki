@@ -13,3 +13,5 @@ http://opendmx.net/index.php/OlaOutput_Max_External
 http://opendmx.net/index.php/OLA_Client_API
 
 http://opendmx.net/index.php/OLA_developer_info
+
+http://blog.wingedvictorydesign.com/2009/04/29/arduino-dmx-512-io-shield/2/
