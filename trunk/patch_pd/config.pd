@@ -1,0 +1,20 @@
+#N canvas 8 360 377 333 10;
+#X text -98 7 *** Este es el único archivo que se tendrá que configurar
+;
+#X obj -68 363 outlet;
+#X msg -69 240 /home/santi/media;
+#X obj -143 40 loadbang;
+#X obj -69 41 inlet;
+#X obj -68 326 symbol;
+#X obj 112 109 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 111 335 outlet;
+#X obj 20 287 t b;
+#X connect 2 0 5 0;
+#X connect 2 0 8 0;
+#X connect 3 0 2 0;
+#X connect 4 0 2 0;
+#X connect 5 0 1 0;
+#X connect 6 0 2 0;
+#X connect 6 0 7 0;
+#X connect 8 0 7 0;

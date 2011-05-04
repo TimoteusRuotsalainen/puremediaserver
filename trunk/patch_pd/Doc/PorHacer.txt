@@ -1,0 +1,58 @@
+0.01-test (23-5-09):
+
+La 0.01 será una versión de prueba de concepto más que una versión dedicada a aplicaciones.
+
+Cuando los marcados por asteriscos se consideren implementados se congelará la 0.01 y se pasará a la fase de test. Los marcados con almohadilla se considerará implementados.
+
+Main:
+
+*- Crear arranque único. Loadbang más creación de ventana.
+- GUI? 2 versiones: GUI + DMX?
+*- Accesos al resto del software
+
+Video:
+
+- Implementar otros métodos de mezcla
+- Implementar diferentes formas de reproducción
+- Audio?
+
+Imagen:
+
+- Entero
+
+Texto:
+
+- Entero
+- Módulo de configuración de textos
+
+Config:
+
+*- Implementar directorio por defecto el de la carpeta del patch/Media
+- Número de capas; La 0.01 sólo tendrá 2 capas
+- Precisión de la entrada DMX
+- Resolución de salida
+- Directorio de plugins FreeFrame. Por defecto el del patch/Media/FreeFrame
+
+Selector media:
+
+- Implementar diferentes directorios para diferentes medias (./Video/001/001.mov ./Imagenes/001/001.mov ...)
+- Hacer nombre de directorios y ficheros más humanos (./Video/001-Fuego/001-boladefuego.mov)
+- Entrada tipo de media
+
+Efectos:
+
+*- Implementar FreeFrame
+
+DMX:
+
+*- OpenDMXUSB
+- DMX4Linux?
+- Art-Net
+- CITP/MSEX
+
+Documentación:
+
+- Manual de instalación (incluye DMX)
+- Manual de uso
+- Tabla canales DMX512
+- Archivo Head MagicQ

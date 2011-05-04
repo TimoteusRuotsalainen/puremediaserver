@@ -1,0 +1,10 @@
+0.01-Desarrollo (23-05-09)
+
+- Tras varias pruebas se desestima pdp y se adopta Gem por:
+      - Es mucho más estable
+      - Es más fácil escalar varias capas
+      - El flujo de video admite muchas más modificaciones
+      - Utiliza OpenGL, por lo que libera de mucha carga al procesador principal
+      - En GNU/Linux permite utilizar más tipos de archivos de video (Mpg2, avi, mpg4, Quictime)
+
+- La versión 0.01 consta de dos capas operativas de video con efectos y mezcla. 
