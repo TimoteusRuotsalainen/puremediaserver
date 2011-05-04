@@ -6,9 +6,3 @@ Pure Data es un lenguaje de flujo GPL y bla, bla, bla
 
 Tendrá Licencia GPL y será gratuito.
 
-Numeración de versiones:
-
-0.0x-Desarrollo. Creación en el PorHacer de las características de esta versión. Cuando se alcanzen se pasa a test.
-0.0x-Test. Congelación de características. Actualización del Changelog. Elaboración de documentación.
-
-0.0x-1 Lanzamiento final. El -1 indica la revisión, por si hubiera algún problema no detectado y hace falta sacar una corrección sin añadir nuevas características.

@@ -1,1 +1,11 @@
- 
+*****Pure Data extended
+
+Paquetes Debian
+
+****** Libartnet
+
+Descarga e instalación
+
+***** Artnetin 
+
+- Compiliación
