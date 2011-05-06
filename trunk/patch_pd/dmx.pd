@@ -76,10 +76,9 @@ f f f f f f f f f;
 #X floatatom 6 244 5 0 0 0 - - -;
 #X floatatom 47 244 5 0 0 0 - - -;
 #X obj 47 276 s c4;
-#X text 607 -196 1 Alpha - Dimmer 2 Rojo 3 Verde 4 Azul 5 Speed 6 Directorio
-7 Archivo 8 tipo Media;
 #X obj 270 -160 inlet;
-#X text 25 -124;
+#X text 607 -196 1 Alpha - Dimmer 2 Rojo 3 Verde 4 Azul 5 Speed 6 Directorio
+7 Archivo 8 tipo Media 9 Reproduccion;
 #X connect 0 0 36 0;
 #X connect 1 0 0 0;
 #X connect 2 0 4 0;
@@ -154,4 +153,4 @@ f f f f f f f f f;
 #X connect 71 0 40 0;
 #X connect 72 0 41 0;
 #X connect 73 0 74 0;
-#X connect 76 0 1 0;
+#X connect 75 0 1 0;
