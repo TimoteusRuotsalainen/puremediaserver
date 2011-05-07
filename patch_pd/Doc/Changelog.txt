@@ -1,4 +1,0 @@
-0.01-Desarrollo
-
-- Primera versión!
-
