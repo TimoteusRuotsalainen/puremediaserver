@@ -1,4 +1,4 @@
-#N canvas 0 25 1272 689 10;
+#N canvas 39 25 1272 689 10;
 #X declare -lib zexy;
 #X declare -lib cyclone;
 #X declare -lib cyclone;
@@ -13,7 +13,7 @@
 #X msg 238 -58 destroy;
 #X msg 593 -125 reset;
 #X obj 475 -20 gemwin;
-#X obj 46 -174 tgl 15 1 empty empty Go! 17 7 0 10 -260097 -1 -260097
+#X obj 278 -290 tgl 50 1 empty empty Go! 17 7 0 25 -232576 -1 -260097
 0 1;
 #X obj 16 3 dmx;
 #X obj 414 28 video_2;
@@ -26,13 +26,12 @@
 0 1;
 #X msg 506 -160 border \$1;
 #X obj 405 -208 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
-0 1;
+1 1;
 #X msg 405 -160 fullscreen \$1;
 #X msg 557 -4 offset 40 40;
 #X msg 579 -160 topmost \$1;
 #X obj 579 -204 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
 0 1;
-#X msg 291 -199 dimen 1024 400;
 #X obj 218 -128 key;
 #X floatatom 218 30 5 0 0 0 - - -;
 #X obj 59 -88 select 114;
@@ -44,6 +43,7 @@
 para para la renderizacion;
 #X text 650 -2 1280 0 para la segunda pantalla \, o la resolucion que
 sea;
+#X msg 291 -199 dimen 1280 768;
 #X connect 0 0 11 0;
 #X connect 1 0 6 0;
 #X connect 2 0 6 0;
@@ -62,13 +62,13 @@ sea;
 #X connect 19 0 6 0;
 #X connect 20 0 6 0;
 #X connect 21 0 20 0;
-#X connect 22 0 6 0;
-#X connect 23 0 24 0;
-#X connect 23 0 25 0;
-#X connect 23 0 27 0;
-#X connect 23 0 28 0;
-#X connect 25 0 26 0;
-#X connect 26 0 7 0;
-#X connect 27 0 4 0;
-#X connect 28 0 29 0;
-#X connect 29 0 7 0;
+#X connect 22 0 23 0;
+#X connect 22 0 24 0;
+#X connect 22 0 26 0;
+#X connect 22 0 27 0;
+#X connect 24 0 25 0;
+#X connect 25 0 7 0;
+#X connect 26 0 4 0;
+#X connect 27 0 28 0;
+#X connect 28 0 7 0;
+#X connect 31 0 6 0;
