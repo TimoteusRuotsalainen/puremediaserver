@@ -16,3 +16,5 @@ Lista de posibles mejoras y cambios en el proyecto.
   * Fractales, generar y mezclar.
 
   * Interactuar con blender de forma que puedan hacerse animaciones controladas en tiempo real.
+
+  * Clusters de ordenadores, granjas de procesado. Compartir la renderización o meter efectos en un streaming de video sumistrado por otra máquina. Reciclaje de máquinas viejas. 
