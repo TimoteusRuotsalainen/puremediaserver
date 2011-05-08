@@ -19,15 +19,15 @@
 #X obj 609 70 t b;
 #X obj 400 162 counter;
 #X obj 368 -259 import cyclone;
-#X obj 496 5 t b;
+#X obj 506 20 t b;
 #X obj 399 87 metro 20;
 #X obj 566 -29 spigot 1;
 #X obj 592 -124 spigot 1;
 #X obj 783 -136 spigot 1;
-#X msg 232 72 1;
+#X msg 248 40 1;
 #X msg 233 142 0;
 #X msg 668 -19 0;
-#X msg 335 -61 1;
+#X msg 674 -67 1;
 #X text 155 -58 Detector Anti rebotes Bang;
 #X text 401 -194 Detector de cambio de valor;
 #X obj 580 -216 pipe 60;
@@ -35,6 +35,7 @@
 #X obj 399 232 select 100;
 #X obj 630 -288 r c6;
 #X obj 825 -299 r c7;
+#X floatatom 398 282 5 0 0 0 - - -;
 #X connect 4 0 5 2;
 #X connect 5 0 7 0;
 #X connect 6 0 5 1;
@@ -68,6 +69,7 @@
 #X connect 31 0 23 0;
 #X connect 31 0 24 0;
 #X connect 31 0 26 0;
+#X connect 31 0 34 0;
 #X connect 32 0 3 0;
 #X connect 32 0 11 0;
 #X connect 32 0 29 0;
