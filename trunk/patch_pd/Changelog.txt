@@ -1,0 +1,7 @@
+* 0.01 (16-05-2011)
+
+- Primera versión liberada!
+- 2 capas de video con control de reproducción avanzado mediante pix_film_player.
+- Control de Alpha y Color RGB
+- Control por ArtNet mediante Artnetin, sólo en el universo 0, subnet 0.
+ 
