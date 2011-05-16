@@ -1,0 +1,45 @@
+*************************************
+Pure Media Server v0.0.1 (16-05-2011)
+
+Santiago Noreña belfegor@gmail.com
+*************************************
+
+PMS sólo está probado en Debian Squezee, aunque debería funcionar en todos los Linux y con pocas modificaciones se podría hacer funcionar en MacOs X. Se dan instrucciones sólo para Debian.
+
+1. Instala pd-extended y sus dependencias:
+    
+	apt-get install pd-extended
+
+2. Descarga libartnet de la web del autor.
+
+	wget http://linux-lighting.googlecode.com/files/libartnet-1.1.0.tar.gz
+
+3. Descomprime el paquete en un directorio.
+
+	tar -zxf artnet-1.1.0.tar.gz
+	
+4. Entra en el directorio.
+  
+  	cd artnet-0.x.y.tar.gz
+	
+5. Corre el script de configuración.
+	
+        ./configure
+	
+6. Construye los ficheros fuentes.
+  
+  	make
+ 
+7. Conviértete en root
+  	
+	su
+	(enter root password)
+
+8. Instala las bibliotecas
+
+  	make install
+
+9. Vuelve al directorio donde descomprimiste el PMS y descomprime la estructura de directorios de los media (estructura-media.tar.gz) en el directorio que quieras. Abre config.pd y cambia el path por el del directorio de tus media.
+
+10. Arrancando main.pd con pure data ya debería de estar funcionando. 
+

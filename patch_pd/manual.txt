@@ -1,0 +1,43 @@
+******************************
+Pure Media Server v0.0.1
+
+Copyright (c) Santiago Noreña 2011 
+
+belfegor@gmail.com
+******************************
+
+Mira instalacion.txt para realizar correctamente la instalación.
+
+Arranca PMS abriendo main.pd con pure data extended. La única acción que se requiere en el patch es crear la ventana y empezar la renderización. Esto se hace pulsando "c". Si queremos cambiar las opciones de la ventana tendremos que hacerlo antes de crear la ventana. Si pulsamos "f" antes de crear la ventana esta se creará a pantalla completa. Se destruye la ventana pulsando Escape.
+
+Una vez creada la ventana todo el control se realiza mediante ArtNet.
+
+******************************
+
+Listado de canales DMX:
+
+De momento Artnetin escucha sólo en el universo 0 de la subnet 0, y las capas no son direccionables todavía:
+
+El listado se refiere a la capa 1; para la capa dos sumar 32:
+Entre paréntesis el valor normal de uso.
+
+1 Alpha/Dimmer (255)
+2 Rojo	(127)
+3 Verde (127)
+4 Azul  (127)
+5 Speed (40; esto se corresponde a 25 fps. El valor del canal son los milisegundos del metro, por lo que la inversa es el valor real de FPS).
+6 Directorio
+7 Archivo 
+8 tipo Media (Reservado para próximas veriones)
+9 Reproduccion: Valores en 100%
+     0-10 Normal loop 
+     11-20 Back loop 
+     21-30 Ping-pong loop 
+     31-40 Normal una vez
+     41-50 Back una vez 
+     51-60 Ping-Pong una vez 
+     61-70 Stop/pause
+     71-80 Continue
+10 Inicio loop (0 principio peli- 255 final)
+11 Final Loop  (0 principio peli - 255 final)
+12-32: Reservados
