@@ -1,8 +1,0 @@
-Pure Media Server 0.01
-
-PMS es un patch de Pure Data comandado mediante DMX512 que pretende ser un media server operativo. 
-
-Pure Data es un lenguaje de flujo GPL y bla, bla, bla
-
-Tendrá Licencia GPL y será gratuito.
-
