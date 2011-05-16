@@ -23,32 +23,16 @@
  */
 
 /*
- * Modificado por Santiago Noreña (santiluces@gmail.com)
+ * Modificado por Santiago Noreña (belfegor@gmail.com)
  * para Pure Data
  * 
 */
 
-//#ifdef HAVE_CONFIG_H
-//#include <config.h>
-//#endif
 
-//#include <curses.h>
-#include <errno.h>
-#include <fcntl.h>
-#include <getopt.h>
-#include <malloc.h>
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
-#include <sys/ioctl.h>
-//#include <sys/time.h>
-#include <termios.h>
-//#include <time.h>
-#include <unistd.h>
-#include <sys/timeb.h>
 #include "artnet.h"
 #include "m_pd.h"
+#include <malloc.h>
 
 static t_class *artnetin_class;
 
@@ -135,7 +119,7 @@ void *artnetin_new(void)
 {
         t_artnetin *x = (t_artnetin *)pd_new(artnetin_class);
         x->CHANNELS=120;
-//	floatinlet_new(&x->x_obj, &x->lower); // inlets for dynamic bound and step values
+//	floatinlet_new(&x->x_obj, &x->lower);
 //	floatinlet_new(&x->x_obj, &x->upper);
 //	floatinlet_new(&x->x_obj, &x->step);
 	x->outlet1 = outlet_new(&x->x_obj, &s_list); // Saca todos los canales  mediante una lista
@@ -155,17 +139,13 @@ void *artnetin_new(void)
 //		return (1) ;
 	}
        artnet_set_dmx_handler(x->node, dmx_handler, x); 
-//		if (i=0)                                       // No seguro cuál es el código de vuelta			
-//		printf("Failed to install handler\n") ;
-//		return (1) ;
-//	}
 	artnet_set_subnet_addr(x->node, subnet_addr) ;
 	artnet_set_port_type(x->node, 0, ARTNET_ENABLE_OUTPUT, ARTNET_PORT_DMX) ;
 	artnet_set_port_addr(x->node, 0, ARTNET_OUTPUT_PORT, port_addr);
 	artnet_start(x->node) ;
         int i = artnet_read(x->node,0);
 	if (i == 0) { 
-//		post("artnetin: Read OK\n");		
+		post("artnetin: Read OK\n");		
 		}
 	else error ("artNetin: Read Error\n");	
 	return (void *)x;

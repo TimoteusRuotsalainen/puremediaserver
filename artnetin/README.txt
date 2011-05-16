@@ -1,3 +1,54 @@
+******************************
+Artnetin v0.0.1 (16-05-2011)
 
-This readme file should describe what this library does, where to find more
-info and get help, and any specific instructions for building it.
+Santiago Noreña 2011
+
+belfegor@gmail.com
+******************************
+
+Artnetin es un objeto de Pure Data que permite leer un universo entero de DMX512 y tratarlo canal a canal como entrada de datos de Pure Data.
+
+*****************************
+
+Disclaimer:
+
+Yo no soy programador ni de cerca, soy técnico de iluminación y el código lo demuestra. Seguramente esté haciendo cosas mal y sucias que un programador de verdad se llevaría las manos a la cabeza, pero por lo menos puedo asegurar que funciona. Cualquier sugerencia siempre es bien recibida.
+
+*****************************
+
+Instalación:
+
+Supongo que ya tienes Pure Data instalado, si no dirígete a la página del proyecto.
+
+Artnetin depende de la biblioteca libartnet del proyecto OLA, por lo que antes de compilar el objeto deberías instalar libartnet. Se pueden descargar en 
+
+http://code.google.com/p/linux-lighting/downloads/detail?name=libartnet-1.1.0.tar.gz
+
+De momento esta versión compila y funciona en Debian Squeezy. No he probado en más sistemas. 
+Para compilar:
+
+	make
+
+y ya está, si todo va bien. Ahora deberías copiar el archivo artnetin.pd_linux en una carpeta que esté dentro de la ruta de Pure Data. Se supone que debería de funcionar en cualquier Linux con Pure Data y libartnet instalados.
+
+*****************************
+
+Uso:
+
+En esta versión del objeto no admite ninguna configuración mediante Pure Data, está todo hard-coded. En próximas versiones añadiré estas configuraciones.
+
+El objeto escucha en el interface activo con la IP más baja, típicamente 2.x.x.x, en la subnet 0 y en el universo 0. 
+
+Están disponibles los 512 canales; El objeto saca una lista de 512 enteros con el universo entero.
+
+El objeto realiza una lectura por cada bang, por lo que necesita un metro para hacer medidas continuas. Si hago un bucle parece que se ralentiza el ordenador, imagino que habría que hacer un fork a otro proceso...
+
+*****************************
+
+Ayuda:
+
+Subforo Pure Media Server en palmadores.net
+Lista de correo google
+
+*****************************
+
