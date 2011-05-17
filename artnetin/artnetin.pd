@@ -1,22 +1,26 @@
-#N canvas 0 25 1272 689 10;
-#X obj 119 98 artnetin;
-#X floatatom 118 203 5 0 0 0 - - -;
-#X floatatom 169 206 5 0 0 0 - - -;
-#X floatatom 213 208 5 0 0 0 - - -;
-#X floatatom 256 212 5 0 0 0 - - -;
-#X floatatom 366 211 5 0 0 0 - - -;
-#X floatatom 464 219 5 0 0 0 - - -;
-#X obj 120 52 metro 50;
-#X obj 124 10 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
-1;
-#X obj 119 144 unpack f f f f f f f f f f f f f f f f f f f f f f f
+#N canvas 0 25 588 689 10;
+#X obj 157 287 artnetin;
+#X floatatom 156 392 5 0 0 0 - - -;
+#X floatatom 207 395 5 0 0 0 - - -;
+#X floatatom 251 397 5 0 0 0 - - -;
+#X floatatom 294 401 5 0 0 0 - - -;
+#X floatatom 404 400 5 0 0 0 - - -;
+#X floatatom 502 408 5 0 0 0 - - -;
+#X obj 157 333 unpack f f f f f f f f f f f f f f f f f f f f f f f
 f f f f f f f;
-#X connect 0 0 9 0;
-#X connect 7 0 0 0;
-#X connect 8 0 7 0;
-#X connect 9 0 1 0;
-#X connect 9 1 2 0;
-#X connect 9 2 3 0;
-#X connect 9 3 4 0;
-#X connect 9 19 5 0;
-#X connect 9 29 6 0;
+#X msg 74 236 destroy;
+#X obj 156 11 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 157 85 metro 50;
+#X msg 248 236 create;
+#X connect 0 0 7 0;
+#X connect 7 0 1 0;
+#X connect 7 1 2 0;
+#X connect 7 2 3 0;
+#X connect 7 3 4 0;
+#X connect 7 19 5 0;
+#X connect 7 29 6 0;
+#X connect 8 0 0 0;
+#X connect 9 0 10 0;
+#X connect 10 0 0 0;
+#X connect 11 0 0 0;

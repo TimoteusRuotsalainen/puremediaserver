@@ -1,8 +1,6 @@
 ******************************
-Artnetin v0.0.1 (16-05-2011)
-
+Artnetin v0.0.2 
 Santiago Noreña 2011
-
 belfegor@gmail.com
 ******************************
 
@@ -25,6 +23,7 @@ Artnetin depende de la biblioteca libartnet del proyecto OLA, por lo que antes d
 http://code.google.com/p/linux-lighting/downloads/detail?name=libartnet-1.1.0.tar.gz
 
 De momento esta versión compila y funciona en Debian Squeezy. No he probado en más sistemas. 
+
 Para compilar:
 
 	make
@@ -35,20 +34,20 @@ y ya está, si todo va bien. Ahora deberías copiar el archivo artnetin.pd_linux
 
 Uso:
 
-En esta versión del objeto no admite ninguna configuración mediante Pure Data, está todo hard-coded. En próximas versiones añadiré estas configuraciones.
-
-El objeto escucha en el interface activo con la IP más baja, típicamente 2.x.x.x, en la subnet 0 y en el universo 0. 
+El objeto escucha en el interface activo con la IP más baja, típicamente 2.x.x.x.
 
 Están disponibles los 512 canales; El objeto saca una lista de 512 enteros con el universo entero.
 
-El objeto realiza una lectura por cada bang, por lo que necesita un metro para hacer medidas continuas. Si hago un bucle parece que se ralentiza el ordenador, imagino que habría que hacer un fork a otro proceso...
+Antes de que el objeto empiece a sacar valores hay que crear el nodo. Para ello hay que mandar un mensaje [create "nº subnet" "nº universo"]. Si sólo le pasamos un create a secas, escuchará en la subnet 0, universo 0. Si queremos cambiar el universo de escucha hay que mandar un mensaje [destroy]. Después se puede volver a mandar un nuevo mensaje create con la nueva configuración. 
+
+El objeto realiza una lectura por cada bang, por lo que necesita un metro para hacer medidas continuas. Si hacemos un bucle parece que se ralentiza el ordenador, imagino que habría que hacer un fork a otro proceso o algo parecido.
+
 
 *****************************
 
-Ayuda:
+Ayuda y soporte:
 
-Subforo Pure Media Server en palmadores.net
-Lista de correo google
+puremediaserver@googlegroups.com
 
 *****************************
 

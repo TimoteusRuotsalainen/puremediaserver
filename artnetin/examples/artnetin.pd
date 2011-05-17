@@ -1,30 +1,26 @@
-#N canvas 663 120 450 300 10;
-#X obj 138 87 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
--1;
-#X text 257 129 La salida es una lista de 512 con los canales;
-#X text 84 30 No se puede configurar \, lee el universo 0 de la subnet
-0 En próximas versiones se implementará un método de configuración.
-;
-#X obj 138 135 artnetin;
-#X obj 138 174 unpack f f f f f;
-#X floatatom 53 258 5 0 0 3 Canal_1 - -;
-#X floatatom 104 260 5 0 0 3 Canal_2 - -;
-#X floatatom 158 260 5 0 0 3 canal_3 - -;
-#X floatatom 222 269 5 0 0 3 Canal_4 - -;
-#X obj 322 174 list split 10;
-#X obj 322 220 unpack f;
-#X floatatom 324 263 5 0 0 3 Canal_15 - -;
-#X obj 37 109 metro 50;
-#X obj 33 72 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1 1
-;
-#X connect 0 0 3 0;
-#X connect 3 0 4 0;
-#X connect 3 0 9 0;
-#X connect 4 0 5 0;
-#X connect 4 1 6 0;
-#X connect 4 2 7 0;
-#X connect 4 3 8 0;
+#N canvas 0 25 588 689 10;
+#X obj 157 287 artnetin;
+#X floatatom 156 392 5 0 0 0 - - -;
+#X floatatom 207 395 5 0 0 0 - - -;
+#X floatatom 251 397 5 0 0 0 - - -;
+#X floatatom 294 401 5 0 0 0 - - -;
+#X floatatom 404 400 5 0 0 0 - - -;
+#X floatatom 502 408 5 0 0 0 - - -;
+#X obj 157 333 unpack f f f f f f f f f f f f f f f f f f f f f f f
+f f f f f f f;
+#X msg 74 236 destroy;
+#X obj 156 11 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X obj 157 85 metro 50;
+#X msg 248 236 create 0 5;
+#X connect 0 0 7 0;
+#X connect 7 0 1 0;
+#X connect 7 1 2 0;
+#X connect 7 2 3 0;
+#X connect 7 3 4 0;
+#X connect 7 19 5 0;
+#X connect 7 29 6 0;
+#X connect 8 0 0 0;
 #X connect 9 0 10 0;
-#X connect 10 0 11 0;
-#X connect 12 0 3 0;
-#X connect 13 0 12 0;
+#X connect 10 0 0 0;
+#X connect 11 0 0 0;
