@@ -1,5 +1,7 @@
-Pure Media Server 0.01
-Copyright (c) 2011 Santiago Noreña 
+**************************************************************
+
+Pure Media Server 0.02
+2011 Santiago Noreña 
 belfegor@gmail.com
 
 **************************************************************
@@ -22,5 +24,17 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 PMS es un conjunto de patches y objetos de Pure Data controlados mediante ArtNet
 que pretende emular un media server operativo y añadirle nuevas opciones creativas.
+
+****************************************************************
+
+Para instalar PMS vea instalacion.txt
+ 
+Para usar PMS vea manual.txt
+
+****************************************************************
+
+Desarrollo y soporte:
+
+puremediaserver@googlecode.com
 
 ****************************************************************

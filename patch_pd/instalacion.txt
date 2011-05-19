@@ -1,5 +1,5 @@
 *************************************
-Pure Media Server v0.0.1 (16-05-2011)
+Pure Media Server v0.0.2 SVN
 
 Santiago Noreña belfegor@gmail.com
 *************************************
@@ -41,5 +41,20 @@ PMS sólo está probado en Debian Squezee, aunque debería funcionar en todos lo
 
 9. Vuelve al directorio donde descomprimiste el PMS y descomprime la estructura de directorios de los media (estructura-media.tar.gz) en el directorio que quieras. Abre config.pd y cambia el path por el del directorio de tus media.
 
-10. Arrancando main.pd con pure data ya debería de estar funcionando. 
+10. Arrancando main.pd con pure data extended ya debería de estar funcionando. 
+
+*************************************
+
+Para usar textos:
+
+for font support you need "ftgl-dev" (nowadays often called "libftgl-dev")
+
+a good start on debian (and clones, like ubuntu) is to install all the
+build-dependencies for the regular "gem" package by issuing
+# apt-get build-dep gem
+(or for those feeble at heart:
+% sudo apt-get build-dep gem
+
+*************************************
+
 

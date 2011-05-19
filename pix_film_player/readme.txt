@@ -1,5 +1,5 @@
 ***************************************
-pix_film_player 0.0.1 (16-05-2011)
+pix_film_player 0.0.2 SVN
 
 Santiago Noreña
 
@@ -33,8 +33,14 @@ Consta de 4 canales de control, cada uno de ellos de rango 0-255:
   50 ms =  20 fps
   100 ms = 10 fps
 
-Bugs:
+Speed: 
+     0-244: Velocidad
+     245-249: Autodeteccion fps, una sola vez
+     250-255: Autodeteccion fps, loop	
 
-- en algunos casos de loops he observado que se pasa por el frame 0; hay que investigar en qué casos y si afecta realmente a la reproduccion, por lo menos a velocidades normales (25 fps) no creo que sea apreciable.
-- Lanza errores de stack overflow cuando acaba un loop
+En los modos auto el inicio y el fin del loop no son aplicables, se reproduce la película completa.
+
+
+
+
 
