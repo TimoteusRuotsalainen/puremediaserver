@@ -85,8 +85,8 @@ void artnetin_create(t_artnetin *x, t_floatarg f1, t_floatarg f2) {
 	artnet_set_subnet_addr(x->node, subnet_addr);
 	artnet_set_port_type(x->node, 0, ARTNET_ENABLE_OUTPUT, ARTNET_PORT_DMX) ;
 	artnet_set_port_addr(x->node, 0, ARTNET_OUTPUT_PORT, port_addr);
-	artnet_set_short_name(x->node, "Artnetin");
-	artnet_set_long_name(x->node, "Artnetin-0.0.2");	
+	artnet_set_short_name(x->node, "Artnetin Pure Data 0.0.2t");
+	artnet_set_long_name(x->node, "Artnetin-0.0.2t");	
 	artnet_start(x->node);
         int i = artnet_read(x->node,0);
 	if (i == 0) { 
