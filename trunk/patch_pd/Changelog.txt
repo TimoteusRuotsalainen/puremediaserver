@@ -4,12 +4,15 @@ Santiago Noreña
 belfegor@gmail.com
 ********************************
 
-* 0.02-SVN
+* 0.02 (9-6-2011) SVN Rev 58
 
 - Direccionamiento de las capas (issue 14).
 - Metodos de creacion y destruccion de nodo ArtNet. Configuracion del nodo por patch dmx.pd (issue 15).
 - imágenes (issue 5).
 - Metodos de reproduccion auto (issue 8). pix_film_player.pd
+- Nuevo subpatch de control manual
+- Añadidos canales DMX de tamaños por ejes (XYZ), rotacion y posicion (issue 9) 
+- Textos - Nuevo archivo Gem compilado con soporte de fuentes (issue 4)
 
 * 0.01 (16-05-2011)
 

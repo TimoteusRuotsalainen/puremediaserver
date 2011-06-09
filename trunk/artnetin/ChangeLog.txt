@@ -1,0 +1,15 @@
+***********************************
+Artnetin
+Santiago Noreña 2011
+belfegor@gmail.com
+***********************************
+
+* 0.0.2 (9-06-2011) SVN Rev 58 
+		
+	- Añadidos métodos "create" y "destroy" para manejar el nodo Art-Net 
+	- Configuración de universo y subnet mediante patch (issue 14).
+	- Limpieza Makefile.am
+
+* 0.0.1 (16-05-2011)
+
+	- Primera versión! 

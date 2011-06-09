@@ -1,5 +1,5 @@
 ***************************************
-pix_film_player 0.0.2 SVN
+pix_film_player 0.0.2 - SVN rev 58
 
 Santiago Noreña
 
@@ -35,12 +35,8 @@ Consta de 4 canales de control, cada uno de ellos de rango 0-255:
 
 Speed: 
      0-244: Velocidad
-     245-249: Autodeteccion fps, una sola vez
-     250-255: Autodeteccion fps, loop	
+     245-249: Reproduccion normal con autodeteccion fps, una sola vez
+     250-255: Reproduccion normal con autodeteccion fps, loop	
 
 En los modos auto el inicio y el fin del loop no son aplicables, se reproduce la película completa.
-
-
-
-
 
