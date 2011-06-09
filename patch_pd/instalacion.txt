@@ -39,21 +39,31 @@ PMS sólo está probado en Debian Squezee, aunque debería funcionar en todos lo
 
   	make install
 
-9. Vuelve al directorio donde descomprimiste el PMS y descomprime la estructura de directorios de los media (estructura-media.tar.gz) en el directorio que quieras. Abre config.pd y cambia el path por el del directorio de tus media.
+8.5 Instala Gem para control de textos, problema en las fuentes con paquete debian:
 
-10. Arrancando main.pd con pure data extended ya debería de estar funcionando. 
+Añade las fuentes a /etx/apt/sources.list deb http://www.debian-multimedia.org squeeze main non-free
+	apt-get install debian-multimedia-keyring
+	apt-get update
+	apt-get install
+        apt-get build-dep puredata gem pdp
+	apt-get install ttf-dejavu libfftw3-dev libspeex-dev libvorbis-dev libflac-dev libsndfile1-dev libsamplerate0-dev libgavl-dev libmad0-dev dssi-dev liblo-dev flite1-dev libtk-img tcllib ftgl-dev
+	wget http://gem.iem.at/releases/0.92.3/gem-0.92-3.tar.gz
+	Descomprime el tar y compila con:
+		./configure
+		make
+	
+	(Alternativamente a la compilación hemos compilado y subido a la web el Gem con soporte de textos - Puedes ahorrarte estos pasos si te lo descargas) 
+	
+	Haz una copia de seguridad o renombra /usr/lib/pd/Gem/Gem.pd_linux 
+	Copia Gem.pd_linux a /usr/lib/pd/Gem
 
-*************************************
+9. Vuelve al directorio donde descomprimiste el PMS y descomprime la estructura de directorios de los media (estructura-media.tar.gz) en el directorio que quieras. Abre config.pd y cambia el path por el del directorio de tus media. Alternativamente crea una estructura de directorios que PMS pueda entender:
 
-Para usar textos:
+- Números del 0 al 255: Videos, dentro de cada directorio los videos deben de estar numerados también del 0 al 255 y con la extensión .mov
+- Directorio "imagenes"; PMS espera encontrar ficheros de imagen nombrados de 0 a 255 con extensión .jpg
+- Directorio "fonts"; PMS espera encontrar ficheros de fuentes True Type numerados de 0 a 255 y con extensión .ttf	
 
-for font support you need "ftgl-dev" (nowadays often called "libftgl-dev")
-
-a good start on debian (and clones, like ubuntu) is to install all the
-build-dependencies for the regular "gem" package by issuing
-# apt-get build-dep gem
-(or for those feeble at heart:
-% sudo apt-get build-dep gem
+10. Arrancando main.pd con pure data extended ya debería de estar funcionando. Dentro del programa puedes configurar más cosas como las direcciones DMX y textos para mostrar. Ver manual.txt.
 
 *************************************
 

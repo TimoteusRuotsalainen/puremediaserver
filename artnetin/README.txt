@@ -27,6 +27,7 @@ De momento esta versión compila y funciona en Debian Squeezy. No he probado en 
 Para compilar:
 
 	make
+	make install
 
 y ya está, si todo va bien. Ahora deberías copiar el archivo artnetin.pd_linux en una carpeta que esté dentro de la ruta de Pure Data. Se supone que debería de funcionar en cualquier Linux con Pure Data y libartnet instalados.
 
@@ -40,7 +41,7 @@ Están disponibles los 512 canales; El objeto saca una lista de 512 enteros con 
 
 Antes de que el objeto empiece a sacar valores hay que crear el nodo. Para ello hay que mandar un mensaje [create "nº subnet" "nº universo"]. Si sólo le pasamos un create a secas, escuchará en la subnet 0, universo 0. Si queremos cambiar el universo de escucha hay que mandar un mensaje [destroy]. Después se puede volver a mandar un nuevo mensaje create con la nueva configuración. 
 
-El objeto realiza una lectura por cada bang, por lo que necesita un metro para hacer medidas continuas. Si hacemos un bucle parece que se ralentiza el ordenador, imagino que habría que hacer un fork a otro proceso o algo parecido.
+El objeto realiza una lectura por cada bang, por lo que necesita un metro para hacer medidas continuas. Si hacemos un bucle parece que se ralentiza el ordenador, imagino que habría que hacer un fork a otro proceso o algo parecido. En próximas versiones depuraré esto.
 
 
 *****************************

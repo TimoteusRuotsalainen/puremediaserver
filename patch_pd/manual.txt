@@ -12,14 +12,30 @@ Arranca PMS abriendo main.pd con pure data extended.
 
 ******************************
 
-Configuración:
+Configuración de directorios de medias:
 
-- Directorio de archivos medias en config.pd.
-- Configuraciones artnet y direccionamiento de capas en dmx.pd:
+Tienes que modificar el path del mensaje en el patch config.pd y este debe apuntar al directorio donde tienes tu estructura de medias. PMS espera encontrar en el siguiente nivel los directorios:
+
+- Números del 0 al 255: Videos, dentro de cada directorio los videos deben de estar numerados también del 0 al 255 y con la extensión .mov
+- Directorio "imagenes"; PMS espera encontrar ficheros de imagen nombrados de 0 a 255 con extensión .jpg
+- Directorio "fonts"; PMS espera encontrar ficheros de fuentes True Type numerados de 0 a 255 y con extensión .ttf	
+
+******************************
+
+Configuraciones DMX:
+
+En el subpatch dmx.pd se encuentra toda la configuración DMX 512:
+	
 	- Universo Artnet
  	- Subnet Artnet
- 	- Direcciones por capa
+ 	- Direcciones DMX por capa
 	
+******************************
+
+Textos:
+
+En el subpatch texto.pd puedes cambiar los textos para mostrar cambiando los mensajes de los textos.
+
 ******************************
 
 Uso:
@@ -38,8 +54,7 @@ Una vez creada la ventana y renderizando todo el control se realiza mediante Art
 
 Listado de canales DMX:
 
-El listado se refiere a la capa 1; para la capa dos sumar 32:
-Entre paréntesis el valor normal de uso.
+Entre paréntesis el valor normal de uso (locate).
 
 1 Alpha/Dimmer (255)
 2 Rojo	(127)
@@ -52,8 +67,8 @@ Entre paréntesis el valor normal de uso.
 
 En los modos auto el inicio y el fin del loop no son aplicables, se reproduce la película completa.
 
-6 Directorio
-7 Archivo 
+6 Directorio / Fuente
+7 Archivo / Texto
 8 tipo Media
     0-10: Video
     11-20: Imagenes
@@ -71,4 +86,13 @@ En los modos auto el inicio y el fin del loop no son aplicables, se reproduce la
     71-80 Continue
 10 Inicio loop (0 principio peli- 255 final)
 11 Final Loop  (0 principio peli - 255 final)
-12-32: Reservados
+12 Rotate X (0)
+13 Rotate Y (0)
+14 Rotate Z (0)
+15 Size X Size Font (32)
+16 Size Y (32)
+17 Size Z (32)
+18 X (128)
+19 Y (128)
+20 Z (128)
+21-32: Reservados
