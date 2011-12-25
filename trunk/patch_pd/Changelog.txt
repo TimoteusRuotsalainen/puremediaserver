@@ -1,8 +1,12 @@
 *******************************
 Pure Media Server
 Santiago Noreña
-belfegor@gmail.com
+puremediaserver@googlegroups.com
 ********************************
+
+* 0.03 
+
+
 
 * 0.02 (9-6-2011) SVN Rev 58
 

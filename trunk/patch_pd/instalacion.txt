@@ -1,11 +1,11 @@
 *************************************
-Pure Media Server v0.0.3
+Pure Media Server 0.0.3
 Santiago Noreña 
 puremediaserver@googlegroups.com
 *************************************
 
 0. Requeriminetos
-PMS sólo está probado en Debian Squezee, aunque debería funcionar en todos los Linux. Necesita una tarjeta gráfica OpenGL y que los drivers para Xorg con aceleración por hardware estén correctamente instalados. Ejecutando "glxgears" en una terminal debería de abrir una ventana con tres engranajes girando. Si no es así, revis la documentación de tu distribución.
+PMS sólo está probado en Debian Squezee, aunque debería funcionar en todos los Linux. Necesita una tarjeta gráfica OpenGL y que los drivers para Xorg con aceleración por hardware estén correctamente instalados. Ejecutando "glxgears" en una terminal debería de abrir una ventana con tres engranajes girando. Si no es así, revisa la documentación de tu distribución.
 
 1. Instala pd-extended y sus dependencias:
     
@@ -24,12 +24,11 @@ Método B: Este método es necesario para utilizar textos en PMS.
 
 	sudo apt-get install fakeroot ttf-dejavu libfftw3-dev libspeex-dev libvorbis-dev libflac-dev libsndfile1-dev libsamplerate0-dev libgavl-dev libmad0-dev dssi-dev liblo-dev libhid-dev flite1-dev libtk-img tcllib swig tcl8.5-dev tk8.5-dev liblua5.1-0-dev libmp3lame0 libmp3lame-dev
 
-
 	apt-get build-dep puredata gem pdp
 	wget http://sourceforge.net/projects/pure-data/files/pd-extended/0.42.5/Pd-0.42.5-extended.tar.gz/download
 	tar -xf Pd-0.42.5-extended.tar.gz
 	cd Pd-0.42.5-extended/packages/linux_make        
-	make install	
+	make install prefix=/usrfix=/usr
 	
 Método C: Instala desde repositorios:
 
@@ -87,7 +86,7 @@ Or Ubuntu:
 		- Directorio "imagenes"; PMS espera encontrar ficheros de imagen nombrados de 0 a 255 con extensión .jpg
 		- Directorio "fonts"; PMS espera encontrar ficheros de fuentes True Type numerados de 0 a 255 y con extensión .ttf	
 
-4. Arrancando main.pd con pure data extended ya debería de estar funcionando. Dentro del programa puedes configurar más cosas como las direcciones DMX y textos para mostrar. Ver manual.txt.
+4. Arrancando main.pd con pure data extended ya debería de estar funcionando. Dentro del programa puedes configurar más cosas como las direcciones DMX, subnet y universos artnet, las dimensiones d ela pantalla y los textos para mostrar. Ver manual.txt para más detalles.
 *************************************
 
 

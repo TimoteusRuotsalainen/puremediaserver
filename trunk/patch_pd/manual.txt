@@ -1,13 +1,10 @@
 ******************************
-Pure Media Server v0.0.2 SVN
-
-Copyright (c) Santiago Noreña 2011 
-
-belfegor@gmail.com
+Pure Media Server 0.0.3
+Santiago Noreña
+puremediaserver@googlegroups.com
 ******************************
 
 Mira instalacion.txt para realizar correctamente la instalación.
-
 Arranca PMS abriendo main.pd con pure data extended. 
 
 ******************************
@@ -24,7 +21,7 @@ Tienes que modificar el path del mensaje en el patch config.pd y este debe apunt
 
 Configuraciones DMX:
 
-En el subpatch dmx.pd se encuentra toda la configuración DMX 512:
+En el subpatch dmx.pd se encuentra toda la configuración DMX512:
 	
 	- Universo Artnet
  	- Subnet Artnet
@@ -49,6 +46,7 @@ Uso:
 	F: Fullscreen (antes de crear la pantalla).	
 
 Una vez creada la ventana y renderizando todo el control se realiza mediante ArtNet.
+Mediante los mensajes a Genwin en main.pd se pueden definir las posiciones y resolución de la pantalla de video.
 	
 ******************************
 

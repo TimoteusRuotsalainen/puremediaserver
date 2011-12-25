@@ -23,9 +23,9 @@
  */
 
 /*
- * Modificado por Santiago Noreña (belfegor@gmail.com)
- * para Pure Data
- * V 0.0.2-test
+ * Modificado por Santiago Noreña para Pure Data
+ * puremediaserver@googlegroups.com
+ * V 0.0.3
 */
 
 #include <string.h>
@@ -73,7 +73,7 @@ void artnetin_destroy(t_artnetin *x) {
 }
 
 void artnetin_create(t_artnetin *x, t_floatarg f1, t_floatarg f2) {
-	post("Artnetin: Creando nodo Artnet...");
+	post("Artnetin: Creando nodo Artnet");
 	int subnet_addr = f1;
 	int port_addr = f2;    
 	char *ip_addr=NULL;
@@ -85,14 +85,14 @@ void artnetin_create(t_artnetin *x, t_floatarg f1, t_floatarg f2) {
 	artnet_set_subnet_addr(x->node, subnet_addr);
 	artnet_set_port_type(x->node, 0, ARTNET_ENABLE_OUTPUT, ARTNET_PORT_DMX) ;
 	artnet_set_port_addr(x->node, 0, ARTNET_OUTPUT_PORT, port_addr);
-	artnet_set_short_name(x->node, "Artnetin Pure Data 0.0.2t");
-	artnet_set_long_name(x->node, "Artnetin-0.0.2t");	
+	artnet_set_short_name(x->node, "Artnetin");
+	artnet_set_long_name(x->node, "Artnetin Pure Data 0.0.3");	
 	artnet_start(x->node);
         int i = artnet_read(x->node,0);
 	if (i == 0) { 
-		post("Artnetin: Read OK");		
+		post("Artnetin: Init OK");		
 		}
-	else error ("ArtNetin: Read Error");	
+	else error ("ArtNetin: Init Error");	
 }
 
 int artnetin_bang(t_artnetin *x)
@@ -131,9 +131,9 @@ return(0);
 void *artnetin_new(void)
 {
 	post("**************************");
-	post("   Artnetin 0.0.2-test");
+	post("   Artnetin 0.0.3");
 	post("     Santiago Noreña");
-	post("    belfegor@gmail.com");
+
 	post("**************************");        
 	t_artnetin *x = (t_artnetin *)pd_new(artnetin_class);
 	x->outlet1 = outlet_new(&x->x_obj, &s_list); // Saca todos los canales  mediante una lista
