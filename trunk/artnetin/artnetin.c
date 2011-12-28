@@ -23,9 +23,15 @@
  */
 
 /*
+<<<<<<< .mine
+ * Modificado por Santiago Noreña (belfegor<AT>gmail.com)
+ * para Pure Data
+ * V 0.0.3
+=======
  * Modificado por Santiago Noreña para Pure Data
  * puremediaserver@googlegroups.com
  * V 0.0.3
+>>>>>>> .r61
 */
 
 #include <string.h>
@@ -72,11 +78,12 @@ void artnetin_destroy(t_artnetin *x) {
 //    artnet_destroy(x->node) ; //segfault si se ejecuta dos veces
 }
 
-void artnetin_create(t_artnetin *x, t_floatarg f1, t_floatarg f2) {
+void artnetin_create(t_artnetin *x, t_floatarg f1, t_floatarg f2, t_symbol *f3) {
 	post("Artnetin: Creando nodo Artnet");
 	int subnet_addr = f1;
 	int port_addr = f2;    
-	char *ip_addr=NULL;
+	char * ip_addr =  NULL;
+	ip_addr = "127.0.0.1";
 	x->node = artnet_new(ip_addr, 0 ) ;
 	if(x->node == NULL) {
 		error("Artnetin: Unable to connect") ;
@@ -85,8 +92,13 @@ void artnetin_create(t_artnetin *x, t_floatarg f1, t_floatarg f2) {
 	artnet_set_subnet_addr(x->node, subnet_addr);
 	artnet_set_port_type(x->node, 0, ARTNET_ENABLE_OUTPUT, ARTNET_PORT_DMX) ;
 	artnet_set_port_addr(x->node, 0, ARTNET_OUTPUT_PORT, port_addr);
+<<<<<<< .mine
+	artnet_set_short_name(x->node, "Artnetin Pure Data 0.0.3");
+	artnet_set_long_name(x->node, "Artnetin-0.0.3");	
+=======
 	artnet_set_short_name(x->node, "Artnetin");
 	artnet_set_long_name(x->node, "Artnetin Pure Data 0.0.3");	
+>>>>>>> .r61
 	artnet_start(x->node);
         int i = artnet_read(x->node,0);
 	if (i == 0) { 
@@ -131,9 +143,15 @@ return(0);
 void *artnetin_new(void)
 {
 	post("**************************");
+<<<<<<< .mine
+	post("   Artnetin 0.0.3");
+	
+
+=======
 	post("   Artnetin 0.0.3");
 	post("     Santiago Noreña");
 
+>>>>>>> .r61
 	post("**************************");        
 	t_artnetin *x = (t_artnetin *)pd_new(artnetin_class);
 	x->outlet1 = outlet_new(&x->x_obj, &s_list); // Saca todos los canales  mediante una lista
@@ -152,6 +170,6 @@ void artnetin_setup(void) {
         0, sizeof(t_artnetin),
         CLASS_DEFAULT,A_GIMME, 0);
   class_addbang(artnetin_class, artnetin_bang);
-  class_addmethod(artnetin_class, (t_method)artnetin_create, gensym("create"), A_DEFFLOAT, A_DEFFLOAT,0);
+  class_addmethod(artnetin_class, (t_method)artnetin_create, gensym("create"), A_DEFFLOAT, A_DEFFLOAT, A_DEFSYMBOL, 0);
   class_addmethod(artnetin_class,(t_method)artnetin_destroy, gensym("destroy"),0);
 }
