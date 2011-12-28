@@ -1,7 +1,15 @@
 ******************************
+<<<<<<< .mine
+Pure Media Server v0.0.2 SVN
+
+Copyright (c) Santiago Noreña 2011 
+
+puremediaserver@googlegroups.com
+=======
 Pure Media Server 0.0.3
 Santiago Noreña
 puremediaserver@googlegroups.com
+>>>>>>> .r67
 ******************************
 
 Mira instalacion.txt para realizar correctamente la instalación.
