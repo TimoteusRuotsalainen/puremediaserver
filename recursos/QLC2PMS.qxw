@@ -1,0 +1,1177 @@
+<!DOCTYPE Workspace>
+<Workspace>
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>3.2.0-3-r2623</Version>
+  <Author>santi,,,</Author>
+ </Creator>
+ <Engine>
+  <Fixture>
+   <Manufacturer>Pure Media Server</Manufacturer>
+   <Model>0.0.3</Model>
+   <Mode>Basico</Mode>
+   <ID>0</ID>
+   <Name>0.0.3 #1</Name>
+   <Universe>0</Universe>
+   <Address>0</Address>
+   <Channels>32</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Pure Media Server</Manufacturer>
+   <Model>0.0.3</Model>
+   <Mode>Basico</Mode>
+   <ID>1</ID>
+   <Name>0.0.3 #2</Name>
+   <Universe>0</Universe>
+   <Address>32</Address>
+   <Channels>32</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Pure Media Server</Manufacturer>
+   <Model>0.0.3</Model>
+   <Mode>Basico</Mode>
+   <ID>2</ID>
+   <Name>0.0.3 #3</Name>
+   <Universe>0</Universe>
+   <Address>64</Address>
+   <Channels>32</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Pure Media Server</Manufacturer>
+   <Model>0.0.3</Model>
+   <Mode>Basico</Mode>
+   <ID>3</ID>
+   <Name>0.0.3 #4</Name>
+   <Universe>0</Universe>
+   <Address>96</Address>
+   <Channels>32</Channels>
+  </Fixture>
+  <Function Type="Scene" Name="Locate 1" ID="0">
+   <Bus Role="Fade">0</Bus>
+   <Value Fixture="0" Channel="0">255</Value>
+   <Value Fixture="0" Channel="1">127</Value>
+   <Value Fixture="0" Channel="2">127</Value>
+   <Value Fixture="0" Channel="3">124</Value>
+   <Value Fixture="0" Channel="4">40</Value>
+   <Value Fixture="0" Channel="5">3</Value>
+   <Value Fixture="0" Channel="6">3</Value>
+   <Value Fixture="0" Channel="7">8</Value>
+   <Value Fixture="0" Channel="8">2</Value>
+   <Value Fixture="0" Channel="9">0</Value>
+   <Value Fixture="0" Channel="10">255</Value>
+   <Value Fixture="0" Channel="11">0</Value>
+   <Value Fixture="0" Channel="12">0</Value>
+   <Value Fixture="0" Channel="13">0</Value>
+   <Value Fixture="0" Channel="14">32</Value>
+   <Value Fixture="0" Channel="15">32</Value>
+   <Value Fixture="0" Channel="16">32</Value>
+   <Value Fixture="0" Channel="17">128</Value>
+   <Value Fixture="0" Channel="18">128</Value>
+   <Value Fixture="0" Channel="19">128</Value>
+   <Value Fixture="1" Channel="0">255</Value>
+   <Value Fixture="1" Channel="1">127</Value>
+   <Value Fixture="1" Channel="2">127</Value>
+   <Value Fixture="1" Channel="3">124</Value>
+   <Value Fixture="1" Channel="4">40</Value>
+   <Value Fixture="1" Channel="5">2</Value>
+   <Value Fixture="1" Channel="6">4</Value>
+   <Value Fixture="1" Channel="7">2</Value>
+   <Value Fixture="1" Channel="8">2</Value>
+   <Value Fixture="1" Channel="9">0</Value>
+   <Value Fixture="1" Channel="10">255</Value>
+   <Value Fixture="1" Channel="11">0</Value>
+   <Value Fixture="1" Channel="12">0</Value>
+   <Value Fixture="1" Channel="13">0</Value>
+   <Value Fixture="1" Channel="14">32</Value>
+   <Value Fixture="1" Channel="15">32</Value>
+   <Value Fixture="1" Channel="16">32</Value>
+   <Value Fixture="1" Channel="17">128</Value>
+   <Value Fixture="1" Channel="18">128</Value>
+   <Value Fixture="1" Channel="19">128</Value>
+   <Value Fixture="2" Channel="0">255</Value>
+   <Value Fixture="2" Channel="1">127</Value>
+   <Value Fixture="2" Channel="2">127</Value>
+   <Value Fixture="2" Channel="3">124</Value>
+   <Value Fixture="2" Channel="4">40</Value>
+   <Value Fixture="2" Channel="5">2</Value>
+   <Value Fixture="2" Channel="6">4</Value>
+   <Value Fixture="2" Channel="7">2</Value>
+   <Value Fixture="2" Channel="8">2</Value>
+   <Value Fixture="2" Channel="9">0</Value>
+   <Value Fixture="2" Channel="10">255</Value>
+   <Value Fixture="2" Channel="11">0</Value>
+   <Value Fixture="2" Channel="12">0</Value>
+   <Value Fixture="2" Channel="13">0</Value>
+   <Value Fixture="2" Channel="14">32</Value>
+   <Value Fixture="2" Channel="15">32</Value>
+   <Value Fixture="2" Channel="16">32</Value>
+   <Value Fixture="2" Channel="17">128</Value>
+   <Value Fixture="2" Channel="18">128</Value>
+   <Value Fixture="2" Channel="19">128</Value>
+   <Value Fixture="3" Channel="0">255</Value>
+   <Value Fixture="3" Channel="1">127</Value>
+   <Value Fixture="3" Channel="2">127</Value>
+   <Value Fixture="3" Channel="3">124</Value>
+   <Value Fixture="3" Channel="4">40</Value>
+   <Value Fixture="3" Channel="5">2</Value>
+   <Value Fixture="3" Channel="6">4</Value>
+   <Value Fixture="3" Channel="7">2</Value>
+   <Value Fixture="3" Channel="8">2</Value>
+   <Value Fixture="3" Channel="9">0</Value>
+   <Value Fixture="3" Channel="10">255</Value>
+   <Value Fixture="3" Channel="11">0</Value>
+   <Value Fixture="3" Channel="12">0</Value>
+   <Value Fixture="3" Channel="13">0</Value>
+   <Value Fixture="3" Channel="14">32</Value>
+   <Value Fixture="3" Channel="15">32</Value>
+   <Value Fixture="3" Channel="16">32</Value>
+   <Value Fixture="3" Channel="17">128</Value>
+   <Value Fixture="3" Channel="18">128</Value>
+   <Value Fixture="3" Channel="19">128</Value>
+  </Function>
+  <Function Type="Scene" Name="Locate 2" ID="1">
+   <Bus Role="Fade">0</Bus>
+  </Function>
+  <Bus ID="0">
+   <Name>Fade</Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="1">
+   <Name>Hold</Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="2">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="3">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="4">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="5">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="6">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="7">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="8">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="9">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="10">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="11">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="12">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="13">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="14">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="15">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="16">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="17">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="18">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="19">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="20">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="21">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="22">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="23">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="24">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="25">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="26">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="27">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="28">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="29">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="30">
+   <Name></Name>
+   <Value>0</Value>
+  </Bus>
+  <Bus ID="31">
+   <Name>Palette</Name>
+   <Value>0</Value>
+  </Bus>
+ </Engine>
+ <VirtualConsole>
+  <Frame Caption="">
+   <Appearance>
+    <FrameStyle>Sunken</FrameStyle>
+    <ForegroundColor>Default</ForegroundColor>
+    <BackgroundColor>Default</BackgroundColor>
+    <BackgroundImage>None</BackgroundImage>
+    <Font>Default</Font>
+   </Appearance>
+   <Frame Caption="">
+    <Appearance>
+     <FrameStyle>Sunken</FrameStyle>
+     <ForegroundColor>Default</ForegroundColor>
+     <BackgroundColor>Default</BackgroundColor>
+     <BackgroundImage>None</BackgroundImage>
+     <Font>Default</Font>
+    </Appearance>
+    <WindowState Width="1940" X="-660" Y="50" Height="220" Visible="True"/>
+    <Slider Caption="Fade" InvertedAppearance="true">
+     <WindowState Width="60" X="10" Y="10" Height="200" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+     <Bus HighLimit="10" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+     <Playback>
+      <Function>4294967295</Function>
+     </Playback>
+    </Slider>
+    <Slider Caption="Fade" InvertedAppearance="true">
+     <WindowState Width="60" X="70" Y="10" Height="200" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+     <Bus HighLimit="10" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+     <Playback>
+      <Function>4294967295</Function>
+     </Playback>
+    </Slider>
+    <Slider Caption="Fade" InvertedAppearance="true">
+     <WindowState Width="60" X="130" Y="10" Height="200" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+     <Bus HighLimit="10" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+     <Playback>
+      <Function>4294967295</Function>
+     </Playback>
+    </Slider>
+    <Slider Caption="Fade" InvertedAppearance="true">
+     <WindowState Width="60" X="190" Y="10" Height="200" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+     <Bus HighLimit="10" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+     <Playback>
+      <Function>4294967295</Function>
+     </Playback>
+    </Slider>
+    <Slider Caption="Fade" InvertedAppearance="true">
+     <WindowState Width="60" X="250" Y="10" Height="200" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+     <Bus HighLimit="10" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+     <Playback>
+      <Function>4294967295</Function>
+     </Playback>
+    </Slider>
+    <Slider Caption="Fade" InvertedAppearance="true">
+     <WindowState Width="60" X="310" Y="10" Height="200" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+     <Bus HighLimit="10" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+     <Playback>
+      <Function>4294967295</Function>
+     </Playback>
+    </Slider>
+    <Slider Caption="Fade" InvertedAppearance="true">
+     <WindowState Width="60" X="370" Y="10" Height="200" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+     <Bus HighLimit="10" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+     <Playback>
+      <Function>4294967295</Function>
+     </Playback>
+    </Slider>
+    <Slider Caption="Fade" InvertedAppearance="true">
+     <WindowState Width="60" X="430" Y="10" Height="200" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+     <Bus HighLimit="10" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+     <Playback>
+      <Function>4294967295</Function>
+     </Playback>
+    </Slider>
+    <Slider Caption="Fade" InvertedAppearance="true">
+     <WindowState Width="60" X="490" Y="10" Height="200" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+     <Bus HighLimit="10" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+     <Playback>
+      <Function>4294967295</Function>
+     </Playback>
+    </Slider>
+    <Slider Caption="Fade" InvertedAppearance="true">
+     <WindowState Width="60" X="550" Y="10" Height="200" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+     <Bus HighLimit="10" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+     <Playback>
+      <Function>4294967295</Function>
+     </Playback>
+    </Slider>
+    <Slider Caption="Fade" InvertedAppearance="true">
+     <WindowState Width="60" X="610" Y="10" Height="200" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+     <Bus HighLimit="10" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+     <Playback>
+      <Function>4294967295</Function>
+     </Playback>
+    </Slider>
+    <Slider Caption="Locate 1" InvertedAppearance="false">
+     <WindowState Width="60" X="670" Y="10" Height="200" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>4279239430</ForegroundColor>
+      <BackgroundColor>4281539310</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Playback</SliderMode>
+     <Bus HighLimit="10" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+     <Playback>
+      <Function>0</Function>
+     </Playback>
+    </Slider>
+    <Slider Caption="Fade" InvertedAppearance="true">
+     <WindowState Width="60" X="730" Y="10" Height="200" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+     <Bus HighLimit="10" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+     <Playback>
+      <Function>4294967295</Function>
+     </Playback>
+    </Slider>
+    <Slider Caption="Escena Nueva" InvertedAppearance="false">
+     <WindowState Width="60" X="790" Y="10" Height="200" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Percentage">Playback</SliderMode>
+     <Bus HighLimit="10" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="255"/>
+     <Playback>
+      <Function>4294967295</Function>
+     </Playback>
+    </Slider>
+    <Slider Caption="" InvertedAppearance="false">
+     <WindowState Width="60" X="850" Y="10" Height="200" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Level</SliderMode>
+     <Bus HighLimit="10" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0">
+      <Channel Fixture="0">0</Channel>
+     </Level>
+     <Playback>
+      <Function>4294967295</Function>
+     </Playback>
+    </Slider>
+    <Slider Caption="Fade" InvertedAppearance="true">
+     <WindowState Width="60" X="910" Y="10" Height="200" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+     <Bus HighLimit="10" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+     <Playback>
+      <Function>4294967295</Function>
+     </Playback>
+    </Slider>
+    <Slider Caption="Fade" InvertedAppearance="true">
+     <WindowState Width="60" X="970" Y="10" Height="200" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+     <Bus HighLimit="10" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+     <Playback>
+      <Function>4294967295</Function>
+     </Playback>
+    </Slider>
+    <Slider Caption="Fade" InvertedAppearance="true">
+     <WindowState Width="60" X="1030" Y="10" Height="200" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+     <Bus HighLimit="10" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+     <Playback>
+      <Function>4294967295</Function>
+     </Playback>
+    </Slider>
+    <Slider Caption="Fade" InvertedAppearance="true">
+     <WindowState Width="60" X="1090" Y="10" Height="200" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+     <Bus HighLimit="10" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+     <Playback>
+      <Function>4294967295</Function>
+     </Playback>
+    </Slider>
+    <Slider Caption="Fade" InvertedAppearance="true">
+     <WindowState Width="60" X="1150" Y="10" Height="200" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+     <Bus HighLimit="10" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+     <Playback>
+      <Function>4294967295</Function>
+     </Playback>
+    </Slider>
+    <Slider Caption="Fade" InvertedAppearance="true">
+     <WindowState Width="60" X="1210" Y="10" Height="200" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+     <Bus HighLimit="10" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+     <Playback>
+      <Function>4294967295</Function>
+     </Playback>
+    </Slider>
+    <Slider Caption="Fade" InvertedAppearance="true">
+     <WindowState Width="60" X="1270" Y="10" Height="200" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+     <Bus HighLimit="10" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+     <Playback>
+      <Function>4294967295</Function>
+     </Playback>
+    </Slider>
+    <Slider Caption="Fade" InvertedAppearance="true">
+     <WindowState Width="60" X="1330" Y="10" Height="200" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+     <Bus HighLimit="10" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+     <Playback>
+      <Function>4294967295</Function>
+     </Playback>
+    </Slider>
+    <Slider Caption="Fade" InvertedAppearance="true">
+     <WindowState Width="60" X="1390" Y="10" Height="200" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+     <Bus HighLimit="10" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+     <Playback>
+      <Function>4294967295</Function>
+     </Playback>
+    </Slider>
+    <Slider Caption="Fade" InvertedAppearance="true">
+     <WindowState Width="60" X="1450" Y="10" Height="200" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+     <Bus HighLimit="10" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+     <Playback>
+      <Function>4294967295</Function>
+     </Playback>
+    </Slider>
+    <Slider Caption="Fade" InvertedAppearance="true">
+     <WindowState Width="60" X="1510" Y="10" Height="200" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+     <Bus HighLimit="10" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+     <Playback>
+      <Function>4294967295</Function>
+     </Playback>
+    </Slider>
+    <Slider Caption="Fade" InvertedAppearance="true">
+     <WindowState Width="60" X="1570" Y="10" Height="200" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+     <Bus HighLimit="10" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+     <Playback>
+      <Function>4294967295</Function>
+     </Playback>
+    </Slider>
+    <Slider Caption="Fade" InvertedAppearance="true">
+     <WindowState Width="60" X="1630" Y="10" Height="200" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+     <Bus HighLimit="10" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+     <Playback>
+      <Function>4294967295</Function>
+     </Playback>
+    </Slider>
+    <Slider Caption="Fade" InvertedAppearance="true">
+     <WindowState Width="60" X="1690" Y="10" Height="200" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+     <Bus HighLimit="10" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+     <Playback>
+      <Function>4294967295</Function>
+     </Playback>
+    </Slider>
+    <Slider Caption="Fade" InvertedAppearance="true">
+     <WindowState Width="60" X="1750" Y="10" Height="200" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+     <Bus HighLimit="10" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+     <Playback>
+      <Function>4294967295</Function>
+     </Playback>
+    </Slider>
+    <Slider Caption="Fade" InvertedAppearance="true">
+     <WindowState Width="60" X="1810" Y="10" Height="200" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+     <Bus HighLimit="10" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+     <Playback>
+      <Function>4294967295</Function>
+     </Playback>
+    </Slider>
+    <Slider Caption="Fade" InvertedAppearance="true">
+     <WindowState Width="60" X="1870" Y="10" Height="200" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+     <Bus HighLimit="10" LowLimit="0">0</Bus>
+     <Level HighLimit="255" LowLimit="0" Value="0"/>
+     <Playback>
+      <Function>4294967295</Function>
+     </Playback>
+    </Slider>
+    <XYPad Caption="XY Pad">
+     <Position X="60" Y="60"/>
+     <WindowState Width="120" X="0" Y="0" Height="120" Visible="True"/>
+     <Appearance>
+      <FrameStyle>Sunken</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </XYPad>
+   </Frame>
+   <XYPad Caption="XY Pad">
+    <Fixture ID="0">
+     <Axis HighLimit="1" LowLimit="0" Reverse="False" ID="X"/>
+     <Axis HighLimit="1" LowLimit="0" Reverse="False" ID="Y"/>
+    </Fixture>
+    <Position X="61" Y="63"/>
+    <WindowState Width="120" X="0" Y="270" Height="120" Visible="True"/>
+    <Appearance>
+     <FrameStyle>Sunken</FrameStyle>
+     <ForegroundColor>Default</ForegroundColor>
+     <BackgroundColor>Default</BackgroundColor>
+     <BackgroundImage>None</BackgroundImage>
+     <Font>Default</Font>
+    </Appearance>
+   </XYPad>
+   <Frame Caption="">
+    <Appearance>
+     <FrameStyle>Sunken</FrameStyle>
+     <ForegroundColor>Default</ForegroundColor>
+     <BackgroundColor>Default</BackgroundColor>
+     <BackgroundImage>None</BackgroundImage>
+     <Font>Default</Font>
+    </Appearance>
+    <WindowState Width="270" X="120" Y="270" Height="270" Visible="True"/>
+    <Button Icon="" Caption="Locate">
+     <Function ID="0"/>
+     <Action>Toggle</Action>
+     <Intensity Adjust="False">100</Intensity>
+     <WindowState Width="50" X="10" Y="10" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="">
+     <Function ID="4294967295"/>
+     <Action>Toggle</Action>
+     <Intensity Adjust="False">100</Intensity>
+     <WindowState Width="50" X="60" Y="10" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="">
+     <Function ID="4294967295"/>
+     <Action>Toggle</Action>
+     <Intensity Adjust="False">100</Intensity>
+     <WindowState Width="50" X="110" Y="10" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="">
+     <Function ID="4294967295"/>
+     <Action>Toggle</Action>
+     <Intensity Adjust="False">100</Intensity>
+     <WindowState Width="50" X="160" Y="10" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="">
+     <Function ID="4294967295"/>
+     <Action>Toggle</Action>
+     <Intensity Adjust="False">100</Intensity>
+     <WindowState Width="50" X="210" Y="10" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="">
+     <Function ID="4294967295"/>
+     <Action>Toggle</Action>
+     <Intensity Adjust="False">100</Intensity>
+     <WindowState Width="50" X="10" Y="60" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="">
+     <Function ID="4294967295"/>
+     <Action>Toggle</Action>
+     <Intensity Adjust="False">100</Intensity>
+     <WindowState Width="50" X="60" Y="60" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="">
+     <Function ID="4294967295"/>
+     <Action>Toggle</Action>
+     <Intensity Adjust="False">100</Intensity>
+     <WindowState Width="50" X="110" Y="60" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="">
+     <Function ID="4294967295"/>
+     <Action>Toggle</Action>
+     <Intensity Adjust="False">100</Intensity>
+     <WindowState Width="50" X="160" Y="60" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="">
+     <Function ID="4294967295"/>
+     <Action>Toggle</Action>
+     <Intensity Adjust="False">100</Intensity>
+     <WindowState Width="50" X="210" Y="60" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="">
+     <Function ID="4294967295"/>
+     <Action>Toggle</Action>
+     <Intensity Adjust="False">100</Intensity>
+     <WindowState Width="50" X="10" Y="110" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="">
+     <Function ID="4294967295"/>
+     <Action>Toggle</Action>
+     <Intensity Adjust="False">100</Intensity>
+     <WindowState Width="50" X="60" Y="110" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="">
+     <Function ID="4294967295"/>
+     <Action>Toggle</Action>
+     <Intensity Adjust="False">100</Intensity>
+     <WindowState Width="50" X="110" Y="110" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="">
+     <Function ID="4294967295"/>
+     <Action>Toggle</Action>
+     <Intensity Adjust="False">100</Intensity>
+     <WindowState Width="50" X="160" Y="110" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="">
+     <Function ID="4294967295"/>
+     <Action>Toggle</Action>
+     <Intensity Adjust="False">100</Intensity>
+     <WindowState Width="50" X="210" Y="110" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="">
+     <Function ID="4294967295"/>
+     <Action>Toggle</Action>
+     <Intensity Adjust="False">100</Intensity>
+     <WindowState Width="50" X="10" Y="160" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="">
+     <Function ID="4294967295"/>
+     <Action>Toggle</Action>
+     <Intensity Adjust="False">100</Intensity>
+     <WindowState Width="50" X="60" Y="160" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="">
+     <Function ID="4294967295"/>
+     <Action>Toggle</Action>
+     <Intensity Adjust="False">100</Intensity>
+     <WindowState Width="50" X="110" Y="160" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="">
+     <Function ID="4294967295"/>
+     <Action>Toggle</Action>
+     <Intensity Adjust="False">100</Intensity>
+     <WindowState Width="50" X="160" Y="160" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="">
+     <Function ID="4294967295"/>
+     <Action>Toggle</Action>
+     <Intensity Adjust="False">100</Intensity>
+     <WindowState Width="50" X="210" Y="160" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="">
+     <Function ID="4294967295"/>
+     <Action>Toggle</Action>
+     <Intensity Adjust="False">100</Intensity>
+     <WindowState Width="50" X="10" Y="210" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="">
+     <Function ID="4294967295"/>
+     <Action>Toggle</Action>
+     <Intensity Adjust="False">100</Intensity>
+     <WindowState Width="50" X="60" Y="210" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="">
+     <Function ID="4294967295"/>
+     <Action>Toggle</Action>
+     <Intensity Adjust="False">100</Intensity>
+     <WindowState Width="50" X="110" Y="210" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="">
+     <Function ID="4294967295"/>
+     <Action>Toggle</Action>
+     <Intensity Adjust="False">100</Intensity>
+     <WindowState Width="50" X="160" Y="210" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+    <Button Icon="" Caption="">
+     <Function ID="4294967295"/>
+     <Action>Toggle</Action>
+     <Intensity Adjust="False">100</Intensity>
+     <WindowState Width="50" X="210" Y="210" Height="50" Visible="True"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Button>
+   </Frame>
+  </Frame>
+  <Properties>
+   <Grid Enabled="True" YResolution="10" XResolution="10"/>
+   <Keyboard RepeatOff="True" Grab="True"/>
+   <DefaultSlider High="10" Role="Fade" Visible="True" Low="0"/>
+   <DefaultSlider High="10" Role="Hold" Low="0"/>
+   <GrandMaster ChannelMode="Intensity" ValueMode="Reduce"/>
+   <Blackout/>
+   <WidgetProperties>
+    <X>2</X>
+    <Y>349</Y>
+    <Width>1286</Width>
+    <Height>525</Height>
+    <State>0</State>
+    <Visible>1</Visible>
+   </WidgetProperties>
+  </Properties>
+ </VirtualConsole>
+</Workspace>
+
