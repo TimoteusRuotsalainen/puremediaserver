@@ -1,15 +1,7 @@
 *************************************
-<<<<<<< .mine
-Pure Media Server v0.0.2 SVN
-
-Santiago Noreña
-
-puremediaserver@googlecode.com
-=======
 Pure Media Server 0.0.3
 Santiago Noreña 
 puremediaserver@googlegroups.com
->>>>>>> .r64
 *************************************
 
 0. Requeriminetos

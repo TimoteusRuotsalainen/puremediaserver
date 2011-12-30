@@ -1,15 +1,7 @@
 ******************************
-<<<<<<< .mine
-Pure Media Server v0.0.2 SVN
-
-Copyright (c) Santiago Noreña 2011 
-
-puremediaserver@googlegroups.com
-=======
 Pure Media Server 0.0.3
 Santiago Noreña
 puremediaserver@googlegroups.com
->>>>>>> .r67
 ******************************
 
 Mira instalacion.txt para realizar correctamente la instalación.
@@ -95,10 +87,10 @@ En los modos auto el inicio y el fin del loop no son aplicables, se reproduce la
 12 Rotate X (0)
 13 Rotate Y (0)
 14 Rotate Z (0)
-15 Size X Size Font (32)
-16 Size Y (32)
-17 Size Z (32)
-18 X (128)
-19 Y (128)
-20 Z (128)
+15 Size X Size Font (127)
+16 Size Y (127)
+17 Size Z (127)
+18 X (127)
+19 Y (127)
+20 Z (127)
 21-32: Reservados
