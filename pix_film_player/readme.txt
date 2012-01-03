@@ -1,10 +1,7 @@
 ***************************************
-pix_film_player 0.0.2 - SVN rev 58
-
+pix_film_player 0.0.3
 Santiago Noreña
-
-blefegor@gmail.com
-
+puremediaserver@googlegroups.com
 ***************************************
 
 pix_film_player es un subpatch de Pure Data que interactúa con el objeto pix_film y permite la reproducción avanzada de películas a través de éste.

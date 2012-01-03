@@ -1,4 +1,4 @@
-#N canvas 481 25 770 668 10;
+#N canvas 0 0 1202 668 10;
 #X obj 356 1236 spigot;
 #X floatatom 422 1253 5 0 0 0 - - -;
 #X obj 301 223 r c5;
@@ -106,7 +106,7 @@ una vez 41-50 Back una vez 51-60 Ping-Pong una vez 61-70 Stop/pause
 #X obj 727 475 cambio;
 #X text 711 234 Final loop;
 #X obj 727 532 t b;
-#X obj 618 530 int;
+#X obj 620 565 int;
 #X obj 727 648 *;
 #X text 764 690 loop superior;
 #X obj 565 757 t b;
@@ -124,7 +124,7 @@ una vez 41-50 Back una vez 51-60 Ping-Pong una vez 61-70 Stop/pause
 #X floatatom 256 255 5 0 0 0 - - -;
 #X text 183 201 0-244 Speed 244-249 auto 1 vez 250-255 auto loop;
 #X obj 279 1063 spigot;
-#X obj 309 1275 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 308 1273 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X text 158 552 Metodos Auto;
 #X text 237 624 Auto 1 vez;
@@ -136,15 +136,11 @@ una vez 41-50 Back una vez 51-60 Ping-Pong una vez 61-70 Stop/pause
 #X floatatom 684 609 10 0 0 0 - - -;
 #X floatatom 790 665 5 0 0 0 - - -;
 #X floatatom 792 492 5 0 0 0 - - -;
-#X floatatom 770 316 5 0 0 0 - - -;
-#X obj 300 254 cambio;
-#X obj 483 529 cambio;
-#X obj 1076 293 cambio;
+#X floatatom 776 272 5 0 0 0 - - -;
 #X obj 684 592 * 0.00392157;
 #X obj 694 549 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X obj 727 706 int;
-#X obj 633 591 t b;
 #X floatatom 647 1489 5 0 0 0 - - -;
 #X floatatom 537 1199 5 0 0 0 - - -;
 #X floatatom 846 1424 5 0 0 0 - - -;
@@ -154,10 +150,13 @@ una vez 41-50 Back una vez 51-60 Ping-Pong una vez 61-70 Stop/pause
 #X obj 543 1235 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X text 153 142 pix_film_player 0.0.3;
+#X obj 300 254 cambio;
+#X obj 483 529 cambio;
+#X obj 1076 293 cambio;
 #X connect 0 0 1 0;
 #X connect 0 0 21 0;
 #X connect 2 0 117 0;
-#X connect 2 0 132 0;
+#X connect 2 0 142 0;
 #X connect 4 0 3 0;
 #X connect 4 0 17 0;
 #X connect 4 0 18 1;
@@ -190,7 +189,7 @@ una vez 41-50 Back una vez 51-60 Ping-Pong una vez 61-70 Stop/pause
 #X connect 27 0 60 0;
 #X connect 27 0 73 0;
 #X connect 27 0 0 0;
-#X connect 28 0 134 0;
+#X connect 28 0 144 0;
 #X connect 29 0 27 1;
 #X connect 30 0 31 0;
 #X connect 31 0 32 0;
@@ -245,8 +244,8 @@ una vez 41-50 Back una vez 51-60 Ping-Pong una vez 61-70 Stop/pause
 #X connect 45 0 44 0;
 #X connect 46 0 67 1;
 #X connect 46 0 67 0;
+#X connect 46 0 136 0;
 #X connect 46 0 140 0;
-#X connect 46 0 144 0;
 #X connect 47 0 49 0;
 #X connect 49 0 51 1;
 #X connect 50 0 51 1;
@@ -257,7 +256,7 @@ una vez 41-50 Back una vez 51-60 Ping-Pong una vez 61-70 Stop/pause
 #X connect 55 0 54 1;
 #X connect 58 0 54 1;
 #X connect 63 0 65 0;
-#X connect 64 0 133 0;
+#X connect 64 0 143 0;
 #X connect 65 0 73 1;
 #X connect 65 0 27 2;
 #X connect 65 0 92 1;
@@ -272,7 +271,7 @@ una vez 41-50 Back una vez 51-60 Ping-Pong una vez 61-70 Stop/pause
 #X connect 68 0 75 1;
 #X connect 69 0 75 1;
 #X connect 70 0 81 0;
-#X connect 70 0 143 0;
+#X connect 70 0 139 0;
 #X connect 71 0 70 1;
 #X connect 72 0 70 1;
 #X connect 73 0 80 0;
@@ -288,16 +287,16 @@ una vez 41-50 Back una vez 51-60 Ping-Pong una vez 61-70 Stop/pause
 #X connect 80 0 85 0;
 #X connect 80 0 96 0;
 #X connect 80 0 97 0;
-#X connect 80 0 141 0;
+#X connect 80 0 137 0;
 #X connect 81 0 51 0;
 #X connect 81 0 27 4;
-#X connect 81 0 142 0;
+#X connect 81 0 138 0;
 #X connect 85 0 80 1;
 #X connect 87 0 89 1;
 #X connect 89 0 93 0;
 #X connect 90 0 89 1;
 #X connect 92 0 27 3;
-#X connect 92 0 139 0;
+#X connect 92 0 135 0;
 #X connect 93 0 27 1;
 #X connect 94 0 93 0;
 #X connect 95 0 89 0;
@@ -310,14 +309,13 @@ una vez 41-50 Back una vez 51-60 Ping-Pong una vez 61-70 Stop/pause
 #X connect 100 0 113 0;
 #X connect 100 0 130 0;
 #X connect 102 0 104 0;
-#X connect 102 0 136 0;
+#X connect 102 0 133 0;
 #X connect 103 0 45 0;
 #X connect 103 0 114 0;
 #X connect 103 0 115 0;
-#X connect 103 0 135 0;
-#X connect 103 0 138 0;
+#X connect 103 0 132 0;
 #X connect 104 0 129 0;
-#X connect 104 0 137 0;
+#X connect 104 0 134 0;
 #X connect 106 0 65 0;
 #X connect 107 0 97 1;
 #X connect 108 0 44 1;
@@ -327,18 +325,17 @@ una vez 41-50 Back una vez 51-60 Ping-Pong una vez 61-70 Stop/pause
 #X connect 116 0 14 0;
 #X connect 120 0 5 0;
 #X connect 125 0 63 0;
-#X connect 132 0 4 0;
-#X connect 132 0 10 0;
-#X connect 132 0 25 0;
-#X connect 132 0 108 0;
-#X connect 132 0 118 0;
-#X connect 133 0 66 0;
-#X connect 133 0 74 0;
-#X connect 134 0 30 0;
-#X connect 135 0 128 0;
-#X connect 135 0 104 1;
-#X connect 137 0 27 4;
-#X connect 137 0 106 0;
-#X connect 137 0 112 0;
-#X connect 137 0 46 1;
-#X connect 138 0 104 0;
+#X connect 132 0 128 0;
+#X connect 132 0 104 1;
+#X connect 134 0 27 4;
+#X connect 134 0 106 0;
+#X connect 134 0 112 0;
+#X connect 134 0 46 1;
+#X connect 142 0 4 0;
+#X connect 142 0 10 0;
+#X connect 142 0 25 0;
+#X connect 142 0 108 0;
+#X connect 142 0 118 0;
+#X connect 143 0 66 0;
+#X connect 143 0 74 0;
+#X connect 144 0 30 0;

@@ -46,24 +46,24 @@
    <Address>96</Address>
    <Channels>32</Channels>
   </Fixture>
-  <Function Type="Scene" Name="Locate 1" ID="0">
+  <Function Type="Scene" Name="Video" ID="1">
    <Bus Role="Fade">0</Bus>
    <Value Fixture="0" Channel="0">255</Value>
    <Value Fixture="0" Channel="1">127</Value>
-   <Value Fixture="0" Channel="2">127</Value>
-   <Value Fixture="0" Channel="3">124</Value>
-   <Value Fixture="0" Channel="4">40</Value>
+   <Value Fixture="0" Channel="2">131</Value>
+   <Value Fixture="0" Channel="3">120</Value>
+   <Value Fixture="0" Channel="4">255</Value>
    <Value Fixture="0" Channel="5">3</Value>
    <Value Fixture="0" Channel="6">3</Value>
-   <Value Fixture="0" Channel="7">8</Value>
+   <Value Fixture="0" Channel="7">0</Value>
    <Value Fixture="0" Channel="8">2</Value>
    <Value Fixture="0" Channel="9">0</Value>
    <Value Fixture="0" Channel="10">255</Value>
    <Value Fixture="0" Channel="11">0</Value>
    <Value Fixture="0" Channel="12">0</Value>
    <Value Fixture="0" Channel="13">0</Value>
-   <Value Fixture="0" Channel="14">32</Value>
-   <Value Fixture="0" Channel="15">32</Value>
+   <Value Fixture="0" Channel="14">127</Value>
+   <Value Fixture="0" Channel="15">127</Value>
    <Value Fixture="0" Channel="16">32</Value>
    <Value Fixture="0" Channel="17">128</Value>
    <Value Fixture="0" Channel="18">128</Value>
@@ -129,8 +129,283 @@
    <Value Fixture="3" Channel="18">128</Value>
    <Value Fixture="3" Channel="19">128</Value>
   </Function>
-  <Function Type="Scene" Name="Locate 2" ID="1">
+  <Function Type="Scene" Name="Texto" ID="2">
    <Bus Role="Fade">0</Bus>
+   <Value Fixture="0" Channel="0">255</Value>
+   <Value Fixture="0" Channel="1">127</Value>
+   <Value Fixture="0" Channel="2">131</Value>
+   <Value Fixture="0" Channel="3">120</Value>
+   <Value Fixture="0" Channel="4">255</Value>
+   <Value Fixture="0" Channel="5">3</Value>
+   <Value Fixture="0" Channel="6">3</Value>
+   <Value Fixture="0" Channel="7">64</Value>
+   <Value Fixture="0" Channel="8">2</Value>
+   <Value Fixture="0" Channel="9">0</Value>
+   <Value Fixture="0" Channel="10">255</Value>
+   <Value Fixture="0" Channel="11">0</Value>
+   <Value Fixture="0" Channel="12">0</Value>
+   <Value Fixture="0" Channel="13">0</Value>
+   <Value Fixture="0" Channel="14">127</Value>
+   <Value Fixture="0" Channel="15">127</Value>
+   <Value Fixture="0" Channel="16">32</Value>
+   <Value Fixture="0" Channel="17">128</Value>
+   <Value Fixture="0" Channel="18">128</Value>
+   <Value Fixture="0" Channel="19">128</Value>
+   <Value Fixture="1" Channel="0">255</Value>
+   <Value Fixture="1" Channel="1">127</Value>
+   <Value Fixture="1" Channel="2">127</Value>
+   <Value Fixture="1" Channel="3">124</Value>
+   <Value Fixture="1" Channel="4">40</Value>
+   <Value Fixture="1" Channel="5">2</Value>
+   <Value Fixture="1" Channel="6">4</Value>
+   <Value Fixture="1" Channel="7">2</Value>
+   <Value Fixture="1" Channel="8">2</Value>
+   <Value Fixture="1" Channel="9">0</Value>
+   <Value Fixture="1" Channel="10">255</Value>
+   <Value Fixture="1" Channel="11">0</Value>
+   <Value Fixture="1" Channel="12">0</Value>
+   <Value Fixture="1" Channel="13">0</Value>
+   <Value Fixture="1" Channel="14">32</Value>
+   <Value Fixture="1" Channel="15">32</Value>
+   <Value Fixture="1" Channel="16">32</Value>
+   <Value Fixture="1" Channel="17">128</Value>
+   <Value Fixture="1" Channel="18">128</Value>
+   <Value Fixture="1" Channel="19">128</Value>
+   <Value Fixture="2" Channel="0">255</Value>
+   <Value Fixture="2" Channel="1">127</Value>
+   <Value Fixture="2" Channel="2">127</Value>
+   <Value Fixture="2" Channel="3">124</Value>
+   <Value Fixture="2" Channel="4">40</Value>
+   <Value Fixture="2" Channel="5">2</Value>
+   <Value Fixture="2" Channel="6">4</Value>
+   <Value Fixture="2" Channel="7">2</Value>
+   <Value Fixture="2" Channel="8">2</Value>
+   <Value Fixture="2" Channel="9">0</Value>
+   <Value Fixture="2" Channel="10">255</Value>
+   <Value Fixture="2" Channel="11">0</Value>
+   <Value Fixture="2" Channel="12">0</Value>
+   <Value Fixture="2" Channel="13">0</Value>
+   <Value Fixture="2" Channel="14">32</Value>
+   <Value Fixture="2" Channel="15">32</Value>
+   <Value Fixture="2" Channel="16">32</Value>
+   <Value Fixture="2" Channel="17">128</Value>
+   <Value Fixture="2" Channel="18">128</Value>
+   <Value Fixture="2" Channel="19">128</Value>
+   <Value Fixture="3" Channel="0">255</Value>
+   <Value Fixture="3" Channel="1">127</Value>
+   <Value Fixture="3" Channel="2">127</Value>
+   <Value Fixture="3" Channel="3">124</Value>
+   <Value Fixture="3" Channel="4">40</Value>
+   <Value Fixture="3" Channel="5">2</Value>
+   <Value Fixture="3" Channel="6">4</Value>
+   <Value Fixture="3" Channel="7">2</Value>
+   <Value Fixture="3" Channel="8">2</Value>
+   <Value Fixture="3" Channel="9">0</Value>
+   <Value Fixture="3" Channel="10">255</Value>
+   <Value Fixture="3" Channel="11">0</Value>
+   <Value Fixture="3" Channel="12">0</Value>
+   <Value Fixture="3" Channel="13">0</Value>
+   <Value Fixture="3" Channel="14">32</Value>
+   <Value Fixture="3" Channel="15">32</Value>
+   <Value Fixture="3" Channel="16">32</Value>
+   <Value Fixture="3" Channel="17">128</Value>
+   <Value Fixture="3" Channel="18">128</Value>
+   <Value Fixture="3" Channel="19">128</Value>
+  </Function>
+  <Function Type="Scene" Name="Todo Zero" ID="14">
+   <Bus Role="Fade">0</Bus>
+   <Value Fixture="0" Channel="0">0</Value>
+   <Value Fixture="0" Channel="1">0</Value>
+   <Value Fixture="0" Channel="2">0</Value>
+   <Value Fixture="0" Channel="3">0</Value>
+   <Value Fixture="0" Channel="4">0</Value>
+   <Value Fixture="0" Channel="5">0</Value>
+   <Value Fixture="0" Channel="6">0</Value>
+   <Value Fixture="0" Channel="7">0</Value>
+   <Value Fixture="0" Channel="8">0</Value>
+   <Value Fixture="0" Channel="9">0</Value>
+   <Value Fixture="0" Channel="10">0</Value>
+   <Value Fixture="0" Channel="11">0</Value>
+   <Value Fixture="0" Channel="12">0</Value>
+   <Value Fixture="0" Channel="13">0</Value>
+   <Value Fixture="0" Channel="14">0</Value>
+   <Value Fixture="0" Channel="15">0</Value>
+   <Value Fixture="0" Channel="16">0</Value>
+   <Value Fixture="0" Channel="17">0</Value>
+   <Value Fixture="0" Channel="18">0</Value>
+   <Value Fixture="0" Channel="19">0</Value>
+   <Value Fixture="1" Channel="0">0</Value>
+   <Value Fixture="1" Channel="1">0</Value>
+   <Value Fixture="1" Channel="2">0</Value>
+   <Value Fixture="1" Channel="3">0</Value>
+   <Value Fixture="1" Channel="4">0</Value>
+   <Value Fixture="1" Channel="5">0</Value>
+   <Value Fixture="1" Channel="6">0</Value>
+   <Value Fixture="1" Channel="7">0</Value>
+   <Value Fixture="1" Channel="8">0</Value>
+   <Value Fixture="1" Channel="9">0</Value>
+   <Value Fixture="1" Channel="10">0</Value>
+   <Value Fixture="1" Channel="11">0</Value>
+   <Value Fixture="1" Channel="12">0</Value>
+   <Value Fixture="1" Channel="13">0</Value>
+   <Value Fixture="1" Channel="14">0</Value>
+   <Value Fixture="1" Channel="15">0</Value>
+   <Value Fixture="1" Channel="16">0</Value>
+   <Value Fixture="1" Channel="17">0</Value>
+   <Value Fixture="1" Channel="18">0</Value>
+   <Value Fixture="1" Channel="19">0</Value>
+   <Value Fixture="2" Channel="0">0</Value>
+   <Value Fixture="2" Channel="1">0</Value>
+   <Value Fixture="2" Channel="2">0</Value>
+   <Value Fixture="2" Channel="3">0</Value>
+   <Value Fixture="2" Channel="4">0</Value>
+   <Value Fixture="2" Channel="5">0</Value>
+   <Value Fixture="2" Channel="6">0</Value>
+   <Value Fixture="2" Channel="7">0</Value>
+   <Value Fixture="2" Channel="8">0</Value>
+   <Value Fixture="2" Channel="9">0</Value>
+   <Value Fixture="2" Channel="10">0</Value>
+   <Value Fixture="2" Channel="11">0</Value>
+   <Value Fixture="2" Channel="12">0</Value>
+   <Value Fixture="2" Channel="13">0</Value>
+   <Value Fixture="2" Channel="14">0</Value>
+   <Value Fixture="2" Channel="15">0</Value>
+   <Value Fixture="2" Channel="16">0</Value>
+   <Value Fixture="2" Channel="17">0</Value>
+   <Value Fixture="2" Channel="18">0</Value>
+   <Value Fixture="2" Channel="19">0</Value>
+   <Value Fixture="3" Channel="0">0</Value>
+   <Value Fixture="3" Channel="1">0</Value>
+   <Value Fixture="3" Channel="2">0</Value>
+   <Value Fixture="3" Channel="3">0</Value>
+   <Value Fixture="3" Channel="4">0</Value>
+   <Value Fixture="3" Channel="5">0</Value>
+   <Value Fixture="3" Channel="6">0</Value>
+   <Value Fixture="3" Channel="7">0</Value>
+   <Value Fixture="3" Channel="8">0</Value>
+   <Value Fixture="3" Channel="9">0</Value>
+   <Value Fixture="3" Channel="10">0</Value>
+   <Value Fixture="3" Channel="11">0</Value>
+   <Value Fixture="3" Channel="12">0</Value>
+   <Value Fixture="3" Channel="13">0</Value>
+   <Value Fixture="3" Channel="14">0</Value>
+   <Value Fixture="3" Channel="15">0</Value>
+   <Value Fixture="3" Channel="16">0</Value>
+   <Value Fixture="3" Channel="17">0</Value>
+   <Value Fixture="3" Channel="18">0</Value>
+   <Value Fixture="3" Channel="19">0</Value>
+  </Function>
+  <Function Type="Scene" Name="Todo Full" ID="15">
+   <Bus Role="Fade">0</Bus>
+   <Value Fixture="0" Channel="0">255</Value>
+   <Value Fixture="0" Channel="1">255</Value>
+   <Value Fixture="0" Channel="2">255</Value>
+   <Value Fixture="0" Channel="3">255</Value>
+   <Value Fixture="0" Channel="4">255</Value>
+   <Value Fixture="0" Channel="5">255</Value>
+   <Value Fixture="0" Channel="6">255</Value>
+   <Value Fixture="0" Channel="7">255</Value>
+   <Value Fixture="0" Channel="8">255</Value>
+   <Value Fixture="0" Channel="9">255</Value>
+   <Value Fixture="0" Channel="10">255</Value>
+   <Value Fixture="0" Channel="11">255</Value>
+   <Value Fixture="0" Channel="12">255</Value>
+   <Value Fixture="0" Channel="13">255</Value>
+   <Value Fixture="0" Channel="14">255</Value>
+   <Value Fixture="0" Channel="15">255</Value>
+   <Value Fixture="0" Channel="16">255</Value>
+   <Value Fixture="0" Channel="17">255</Value>
+   <Value Fixture="0" Channel="18">255</Value>
+   <Value Fixture="0" Channel="19">255</Value>
+   <Value Fixture="1" Channel="0">255</Value>
+   <Value Fixture="1" Channel="1">255</Value>
+   <Value Fixture="1" Channel="2">255</Value>
+   <Value Fixture="1" Channel="3">255</Value>
+   <Value Fixture="1" Channel="4">255</Value>
+   <Value Fixture="1" Channel="5">255</Value>
+   <Value Fixture="1" Channel="6">255</Value>
+   <Value Fixture="1" Channel="7">255</Value>
+   <Value Fixture="1" Channel="8">255</Value>
+   <Value Fixture="1" Channel="9">255</Value>
+   <Value Fixture="1" Channel="10">255</Value>
+   <Value Fixture="1" Channel="11">255</Value>
+   <Value Fixture="1" Channel="12">255</Value>
+   <Value Fixture="1" Channel="13">255</Value>
+   <Value Fixture="1" Channel="14">255</Value>
+   <Value Fixture="1" Channel="15">255</Value>
+   <Value Fixture="1" Channel="16">255</Value>
+   <Value Fixture="1" Channel="17">255</Value>
+   <Value Fixture="1" Channel="18">255</Value>
+   <Value Fixture="1" Channel="19">255</Value>
+   <Value Fixture="2" Channel="0">255</Value>
+   <Value Fixture="2" Channel="1">255</Value>
+   <Value Fixture="2" Channel="2">255</Value>
+   <Value Fixture="2" Channel="3">255</Value>
+   <Value Fixture="2" Channel="4">255</Value>
+   <Value Fixture="2" Channel="5">255</Value>
+   <Value Fixture="2" Channel="6">255</Value>
+   <Value Fixture="2" Channel="7">255</Value>
+   <Value Fixture="2" Channel="8">255</Value>
+   <Value Fixture="2" Channel="9">255</Value>
+   <Value Fixture="2" Channel="10">255</Value>
+   <Value Fixture="2" Channel="11">255</Value>
+   <Value Fixture="2" Channel="12">255</Value>
+   <Value Fixture="2" Channel="13">255</Value>
+   <Value Fixture="2" Channel="14">255</Value>
+   <Value Fixture="2" Channel="15">255</Value>
+   <Value Fixture="2" Channel="16">255</Value>
+   <Value Fixture="2" Channel="17">255</Value>
+   <Value Fixture="2" Channel="18">255</Value>
+   <Value Fixture="2" Channel="19">255</Value>
+   <Value Fixture="3" Channel="0">255</Value>
+   <Value Fixture="3" Channel="1">255</Value>
+   <Value Fixture="3" Channel="2">255</Value>
+   <Value Fixture="3" Channel="3">255</Value>
+   <Value Fixture="3" Channel="4">255</Value>
+   <Value Fixture="3" Channel="5">255</Value>
+   <Value Fixture="3" Channel="6">255</Value>
+   <Value Fixture="3" Channel="7">255</Value>
+   <Value Fixture="3" Channel="8">255</Value>
+   <Value Fixture="3" Channel="9">255</Value>
+   <Value Fixture="3" Channel="10">255</Value>
+   <Value Fixture="3" Channel="11">255</Value>
+   <Value Fixture="3" Channel="12">255</Value>
+   <Value Fixture="3" Channel="13">255</Value>
+   <Value Fixture="3" Channel="14">255</Value>
+   <Value Fixture="3" Channel="15">255</Value>
+   <Value Fixture="3" Channel="16">255</Value>
+   <Value Fixture="3" Channel="17">255</Value>
+   <Value Fixture="3" Channel="18">255</Value>
+   <Value Fixture="3" Channel="19">255</Value>
+  </Function>
+  <Function Type="Scene" Name="Imagen" ID="16">
+   <Bus Role="Fade">0</Bus>
+   <Value Fixture="0" Channel="0">255</Value>
+   <Value Fixture="0" Channel="6">0</Value>
+   <Value Fixture="0" Channel="7">40</Value>
+   <Value Fixture="0" Channel="14">127</Value>
+   <Value Fixture="0" Channel="15">127</Value>
+   <Value Fixture="0" Channel="17">127</Value>
+   <Value Fixture="0" Channel="18">127</Value>
+   <Value Fixture="0" Channel="19">127</Value>
+  </Function>
+  <Function Type="Scene" Name="New Scene" ID="17">
+   <Bus Role="Fade">0</Bus>
+   <Value Fixture="0" Channel="0">255</Value>
+   <Value Fixture="0" Channel="1">255</Value>
+   <Value Fixture="0" Channel="2">255</Value>
+   <Value Fixture="0" Channel="3">255</Value>
+   <Value Fixture="0" Channel="4">255</Value>
+   <Value Fixture="0" Channel="5">4</Value>
+   <Value Fixture="0" Channel="6">4</Value>
+   <Value Fixture="0" Channel="7">48</Value>
+   <Value Fixture="0" Channel="11">235</Value>
+   <Value Fixture="0" Channel="12">0</Value>
+   <Value Fixture="0" Channel="13">120</Value>
+   <Value Fixture="0" Channel="14">60</Value>
+   <Value Fixture="0" Channel="15">96</Value>
+   <Value Fixture="0" Channel="17">124</Value>
+   <Value Fixture="0" Channel="18">120</Value>
   </Function>
   <Bus ID="0">
    <Name>Fade</Name>
@@ -471,7 +746,7 @@
       <Function>0</Function>
      </Playback>
     </Slider>
-    <Slider Caption="Fade" InvertedAppearance="true">
+    <Slider Caption="Speed 1" InvertedAppearance="false">
      <WindowState Width="60" X="730" Y="10" Height="200" Visible="True"/>
      <Appearance>
       <FrameStyle>Sunken</FrameStyle>
@@ -480,14 +755,16 @@
       <BackgroundImage>None</BackgroundImage>
       <Font>Default</Font>
      </Appearance>
-     <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+     <SliderMode ValueDisplayStyle="Exact">Level</SliderMode>
      <Bus HighLimit="10" LowLimit="0">0</Bus>
-     <Level HighLimit="255" LowLimit="0" Value="0"/>
+     <Level HighLimit="255" LowLimit="0" Value="246">
+      <Channel Fixture="0">4</Channel>
+     </Level>
      <Playback>
       <Function>4294967295</Function>
      </Playback>
     </Slider>
-    <Slider Caption="Escena Nueva" InvertedAppearance="false">
+    <Slider Caption="Play" InvertedAppearance="false">
      <WindowState Width="60" X="790" Y="10" Height="200" Visible="True"/>
      <Appearance>
       <FrameStyle>Sunken</FrameStyle>
@@ -496,14 +773,16 @@
       <BackgroundImage>None</BackgroundImage>
       <Font>Default</Font>
      </Appearance>
-     <SliderMode ValueDisplayStyle="Percentage">Playback</SliderMode>
+     <SliderMode ValueDisplayStyle="Percentage">Level</SliderMode>
      <Bus HighLimit="10" LowLimit="0">0</Bus>
-     <Level HighLimit="255" LowLimit="0" Value="255"/>
+     <Level HighLimit="255" LowLimit="0" Value="0">
+      <Channel Fixture="0">8</Channel>
+     </Level>
      <Playback>
       <Function>4294967295</Function>
      </Playback>
     </Slider>
-    <Slider Caption="" InvertedAppearance="false">
+    <Slider Caption="File 1" InvertedAppearance="false">
      <WindowState Width="60" X="850" Y="10" Height="200" Visible="True"/>
      <Appearance>
       <FrameStyle>Sunken</FrameStyle>
@@ -514,14 +793,14 @@
      </Appearance>
      <SliderMode ValueDisplayStyle="Exact">Level</SliderMode>
      <Bus HighLimit="10" LowLimit="0">0</Bus>
-     <Level HighLimit="255" LowLimit="0" Value="0">
-      <Channel Fixture="0">0</Channel>
+     <Level HighLimit="255" LowLimit="0" Value="28">
+      <Channel Fixture="0">6</Channel>
      </Level>
      <Playback>
       <Function>4294967295</Function>
      </Playback>
     </Slider>
-    <Slider Caption="Fade" InvertedAppearance="true">
+    <Slider Caption="Size Z" InvertedAppearance="false">
      <WindowState Width="60" X="910" Y="10" Height="200" Visible="True"/>
      <Appearance>
       <FrameStyle>Sunken</FrameStyle>
@@ -530,14 +809,16 @@
       <BackgroundImage>None</BackgroundImage>
       <Font>Default</Font>
      </Appearance>
-     <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+     <SliderMode ValueDisplayStyle="Exact">Level</SliderMode>
      <Bus HighLimit="10" LowLimit="0">0</Bus>
-     <Level HighLimit="255" LowLimit="0" Value="0"/>
+     <Level HighLimit="255" LowLimit="0" Value="0">
+      <Channel Fixture="0">16</Channel>
+     </Level>
      <Playback>
       <Function>4294967295</Function>
      </Playback>
     </Slider>
-    <Slider Caption="Fade" InvertedAppearance="true">
+    <Slider Caption="Z" InvertedAppearance="false">
      <WindowState Width="60" X="970" Y="10" Height="200" Visible="True"/>
      <Appearance>
       <FrameStyle>Sunken</FrameStyle>
@@ -546,14 +827,16 @@
       <BackgroundImage>None</BackgroundImage>
       <Font>Default</Font>
      </Appearance>
-     <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+     <SliderMode ValueDisplayStyle="Exact">Level</SliderMode>
      <Bus HighLimit="10" LowLimit="0">0</Bus>
-     <Level HighLimit="255" LowLimit="0" Value="0"/>
+     <Level HighLimit="255" LowLimit="0" Value="117">
+      <Channel Fixture="0">19</Channel>
+     </Level>
      <Playback>
       <Function>4294967295</Function>
      </Playback>
     </Slider>
-    <Slider Caption="Fade" InvertedAppearance="true">
+    <Slider Caption="Size X" InvertedAppearance="false">
      <WindowState Width="60" X="1030" Y="10" Height="200" Visible="True"/>
      <Appearance>
       <FrameStyle>Sunken</FrameStyle>
@@ -562,14 +845,16 @@
       <BackgroundImage>None</BackgroundImage>
       <Font>Default</Font>
      </Appearance>
-     <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+     <SliderMode ValueDisplayStyle="Exact">Level</SliderMode>
      <Bus HighLimit="10" LowLimit="0">0</Bus>
-     <Level HighLimit="255" LowLimit="0" Value="0"/>
+     <Level HighLimit="255" LowLimit="0" Value="26">
+      <Channel Fixture="0">14</Channel>
+     </Level>
      <Playback>
       <Function>4294967295</Function>
      </Playback>
     </Slider>
-    <Slider Caption="Fade" InvertedAppearance="true">
+    <Slider Caption="Size Y" InvertedAppearance="false">
      <WindowState Width="60" X="1090" Y="10" Height="200" Visible="True"/>
      <Appearance>
       <FrameStyle>Sunken</FrameStyle>
@@ -578,9 +863,11 @@
       <BackgroundImage>None</BackgroundImage>
       <Font>Default</Font>
      </Appearance>
-     <SliderMode ValueDisplayStyle="Exact">Bus</SliderMode>
+     <SliderMode ValueDisplayStyle="Exact">Level</SliderMode>
      <Bus HighLimit="10" LowLimit="0">0</Bus>
-     <Level HighLimit="255" LowLimit="0" Value="0"/>
+     <Level HighLimit="255" LowLimit="0" Value="9">
+      <Channel Fixture="0">15</Channel>
+     </Level>
      <Playback>
       <Function>4294967295</Function>
      </Playback>
@@ -810,7 +1097,7 @@
      <Axis HighLimit="1" LowLimit="0" Reverse="False" ID="X"/>
      <Axis HighLimit="1" LowLimit="0" Reverse="False" ID="Y"/>
     </Fixture>
-    <Position X="61" Y="63"/>
+    <Position X="62" Y="60"/>
     <WindowState Width="120" X="0" Y="270" Height="120" Visible="True"/>
     <Appearance>
      <FrameStyle>Sunken</FrameStyle>
@@ -829,8 +1116,8 @@
      <Font>Default</Font>
     </Appearance>
     <WindowState Width="270" X="120" Y="270" Height="270" Visible="True"/>
-    <Button Icon="" Caption="Locate">
-     <Function ID="0"/>
+    <Button Icon="" Caption="Imagen">
+     <Function ID="16"/>
      <Action>Toggle</Action>
      <Intensity Adjust="False">100</Intensity>
      <WindowState Width="50" X="10" Y="10" Height="50" Visible="True"/>
@@ -842,8 +1129,8 @@
       <Font>Default</Font>
      </Appearance>
     </Button>
-    <Button Icon="" Caption="">
-     <Function ID="4294967295"/>
+    <Button Icon="" Caption="Video">
+     <Function ID="1"/>
      <Action>Toggle</Action>
      <Intensity Adjust="False">100</Intensity>
      <WindowState Width="50" X="60" Y="10" Height="50" Visible="True"/>
@@ -855,8 +1142,8 @@
       <Font>Default</Font>
      </Appearance>
     </Button>
-    <Button Icon="" Caption="">
-     <Function ID="4294967295"/>
+    <Button Icon="" Caption="Texto">
+     <Function ID="2"/>
      <Action>Toggle</Action>
      <Intensity Adjust="False">100</Intensity>
      <WindowState Width="50" X="110" Y="10" Height="50" Visible="True"/>
@@ -868,8 +1155,8 @@
       <Font>Default</Font>
      </Appearance>
     </Button>
-    <Button Icon="" Caption="">
-     <Function ID="4294967295"/>
+    <Button Icon="" Caption="Todo Full">
+     <Function ID="15"/>
      <Action>Toggle</Action>
      <Intensity Adjust="False">100</Intensity>
      <WindowState Width="50" X="160" Y="10" Height="50" Visible="True"/>
@@ -881,8 +1168,8 @@
       <Font>Default</Font>
      </Appearance>
     </Button>
-    <Button Icon="" Caption="">
-     <Function ID="4294967295"/>
+    <Button Icon="" Caption="Todo Zero">
+     <Function ID="14"/>
      <Action>Toggle</Action>
      <Intensity Adjust="False">100</Intensity>
      <WindowState Width="50" X="210" Y="10" Height="50" Visible="True"/>
@@ -894,8 +1181,8 @@
       <Font>Default</Font>
      </Appearance>
     </Button>
-    <Button Icon="" Caption="">
-     <Function ID="4294967295"/>
+    <Button Icon="" Caption="New Scene">
+     <Function ID="17"/>
      <Action>Toggle</Action>
      <Intensity Adjust="False">100</Intensity>
      <WindowState Width="50" X="10" Y="60" Height="50" Visible="True"/>
@@ -1167,8 +1454,8 @@
     <X>2</X>
     <Y>349</Y>
     <Width>1286</Width>
-    <Height>525</Height>
-    <State>0</State>
+    <Height>530</Height>
+    <State>8</State>
     <Visible>1</Visible>
    </WidgetProperties>
   </Properties>
