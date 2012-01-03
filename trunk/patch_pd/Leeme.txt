@@ -29,7 +29,7 @@ Este proyecto, como Pure Data mismo, es altamente experimental, por lo que será
 
 Sistemas operativos
 
-De momento estoy desarrollando en Debian Squeeze, debería ser ácil portarlo a Ubuntu u otros Linux. 
+De momento estoy desarrollando en Debian Squeeze, debería ser fácil portarlo a Ubuntu u otros Linux. 
 
 Una alternativa al problema de tener diferentes sistemas operativos sería empaquetarlo en un live-cd o live-usb, de forma que se pudiera ejecutar sin necesidad de tener un ordenador dedicado a ello, y no habría que portar nada de código. Cuando tenga una versión decente me plantearé "empaquetarlo" así.
 
