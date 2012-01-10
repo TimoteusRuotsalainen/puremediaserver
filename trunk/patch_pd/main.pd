@@ -1,11 +1,11 @@
-#N canvas 705 0 567 668 10;
+#N canvas 0 0 1280 939 10;
 #X declare -lib zexy;
 #X msg 1034 -158 color 0 0 0;
 #X msg 281 -163 create;
 #X msg 863 -159 destroy;
 #X msg 665 -160 reset;
-#X obj 544 117 video_1;
-#X obj 227 -37 pipe 500;
+#X obj 840 40 video_1;
+#X obj 226 -59 pipe 500;
 #X msg 726 -159 print;
 #X obj 506 -205 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
 0 1;
@@ -14,12 +14,12 @@
 #X msg 579 -160 topmost \$1;
 #X obj 579 -204 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
 0 1;
-#X floatatom 414 -306 5 0 0 0 - - -;
+#X floatatom 453 -345 5 0 0 0 - - -;
 #X msg 113 -50 1;
 #X obj 863 -199 select 27;
 #X obj 34 -208 select 115;
 #X msg 34 -52 0;
-#X text 42 -188 s;
+#X text 50 -194 s;
 #X text 870 -217 Escape;
 #X obj 200 -202 select 99;
 #X obj 405 -236 select 102;
@@ -28,9 +28,9 @@
 #X text 918 -176 Escritorio extendido;
 #X obj 665 -198 select 114;
 #X obj 113 -205 select 97;
-#X text 120 -182 a;
+#X text 128 -190 a;
 #X msg 340 -162 cursor 0;
-#X floatatom 732 -321 5 0 0 0 - - -;
+#X floatatom 836 -343 5 0 0 0 - - -;
 #X obj 864 -253 select 9;
 #X obj 580 -15 gemwin 25;
 #X obj 113 -159 select 38;
@@ -38,26 +38,27 @@
 S para la renderizacion C para crear la pantalla f pantalla completa
 R resetea propiedades graficas;
 #X obj 34 -165 select 39;
-#X text 242 -220 c;
-#X obj 8 -345 loadbang;
+#X text 262 -205 c;
+#X obj 13 -355 loadbang;
 #X obj 226 165 tgl 50 1 empty empty Go! 17 7 0 25 -232576 -1 -260097
-1 1;
-#X text 324 258 Quitar la x final (dejar en "manual") y renombrar dmx
+0 1;
+#X text 320 188 Quitar la x final (dejar en "manual") y renombrar dmx
 para tener acceso al control mediante una pantalla de faders. Solo
 la capa 1 de momento.;
 #X obj 395 -362 keyx;
 #X obj 733 -360 gemkeyboardx;
-#X obj 411 74 fondo;
-#X obj 660 118 imagen_2x;
-#X obj 772 120 texto_2x;
-#X obj 718 119 video_2x;
-#X obj 475 116 imagen_1;
-#X obj 602 117 texto_1;
-#X obj 269 257 manualx;
-#X obj 131 253 midi;
-#X obj 226 253 dmxx;
+#X obj 786 -7 fondo;
+#X obj 788 77 imagen_2x;
+#X obj 899 78 texto_2x;
+#X obj 846 78 video_2x;
+#X obj 787 40 imagen_1;
+#X obj 887 40 texto_1;
+#X obj 446 166 manualx;
+#X obj 367 164 midi;
+#X obj 409 165 dmxx;
 #X msg 1101 -87 dimen 640 480;
 #X msg 1104 -120 dimen 1024 768;
+#X obj 934 41 audio_1;
 #X connect 0 0 30 0;
 #X connect 1 0 30 0;
 #X connect 2 0 30 0;

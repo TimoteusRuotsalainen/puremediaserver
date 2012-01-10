@@ -15,7 +15,8 @@ Tienes que modificar el path del mensaje en el patch config.pd y este debe apunt
 
 - Números del 0 al 255: Videos, dentro de cada directorio los videos deben de estar numerados también del 0 al 255 y con la extensión .mov
 - Directorio "imagenes"; PMS espera encontrar ficheros de imagen nombrados de 0 a 255 con extensión .jpg
-- Directorio "fonts"; PMS espera encontrar ficheros de fuentes True Type numerados de 0 a 255 y con extensión .ttf	
+- Directorio "fonts"; PMS espera encontrar ficheros de fuentes True Type numerados de 0 a 255 y con extensión .ttf
+- Directorio "mp3"; Directorio para reproducir archivos .mp3. El canal de control de archivo se corresponde con el listado alfabético en este directorio. 	
 
 ******************************
 
@@ -31,7 +32,7 @@ En el subpatch dmx.pd se encuentra toda la configuración DMX512:
 
 Textos:
 
-En el subpatch texto.pd puedes cambiar los textos para mostrar cambiando los mensajes de los textos.
+En el subpatch texto.pd puedes cambiar los textos para mostrar cambiando los mensajes.
 
 ******************************
 
@@ -67,12 +68,12 @@ En los modos auto el inicio y el fin del loop no son aplicables, se reproduce la
 
 6 Directorio / Fuente
 7 Archivo / Texto
-8 tipo Media
-    0-10: Video
-    11-20: Imagenes
-    21-30: Texto
-    31-40: Live cam	
-    41-100: Reservado	
+8 Tipo de Media
+    0-24:    Video
+    25-49:   Imagenes
+    50-75:   Texto
+    75-99:   Audio	
+    100-255: Reservado	
 9 Reproduccion: Valores en 100%
     0-10 Normal loop 
     11-20 Back loop 
@@ -82,8 +83,8 @@ En los modos auto el inicio y el fin del loop no son aplicables, se reproduce la
     51-60 Ping-Pong una vez 
     61-70 Stop/pause
     71-80 Continue
-10 Inicio loop (0 principio peli- 255 final)
-11 Final Loop  (0 principio peli - 255 final)
+10 Inicio loop (0 principio peli- 255 final)  (0)
+11 Final Loop  (0 principio peli - 255 final) (255)
 12 Rotate X (0)
 13 Rotate Y (0)
 14 Rotate Z (0)

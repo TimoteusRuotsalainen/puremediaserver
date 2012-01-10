@@ -49,22 +49,6 @@ For pd-extended, you can use the apt repository. You can either add this line to
 
 Or Ubuntu:
 
- # Ubuntu/dapper 06.04 LTS
- deb http://apt.puredata.info/releases dapper main
- # Ubuntu/edgy 06.10
- deb http://apt.puredata.info/releases edgy main
- # Ubuntu/feisty 07.04
- deb http://apt.puredata.info/releases feisty main
- # Ubuntu/gutsy 07.10
- deb http://apt.puredata.info/releases gutsy main
- # Ubuntu/hardy 08.04 LTS
- deb http://apt.puredata.info/releases hardy main
- # Ubuntu/intrepid 08.10
- deb http://apt.puredata.info/releases intrepid main
- # Ubuntu/jaunty 09.04
- deb http://apt.puredata.info/releases jaunty main
- # Ubuntu/karmic 09.10
- deb http://apt.puredata.info/releases karmic main
  # Ubuntu/lucid 10.04 LTS
  deb http://apt.puredata.info/releases lucid main
 
@@ -86,7 +70,7 @@ Or Ubuntu:
 		- Directorio "imagenes"; PMS espera encontrar ficheros de imagen nombrados de 0 a 255 con extensión .jpg
 		- Directorio "fonts"; PMS espera encontrar ficheros de fuentes True Type numerados de 0 a 255 y con extensión .ttf	
 
-4. Arrancando main.pd con pure data extended ya debería de estar funcionando. Dentro del programa puedes configurar más cosas como las direcciones DMX, subnet y universos artnet, las dimensiones d ela pantalla y los textos para mostrar. Ver manual.txt para más detalles.
+4. Arrancando main.pd con pure data extended ya debería de estar funcionando. Dentro del programa puedes configurar más cosas como las direcciones DMX, subnet y universos artnet, las dimensiones de la pantalla y los textos para mostrar. Ver manual.txt para más detalles.
 *************************************
 
 
