@@ -1,0 +1,6 @@
+- Pure Data Extended (Gem, pdp, pidip, zexy, cyclone)
+- QLC (para controlar dese el mismo ordenador)
+- libartnet y artnetin (para control artnet)
+- Gridflow (#eye) para previews
+- ezfile/getfilenames para manejo de directorios
+

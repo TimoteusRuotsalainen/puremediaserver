@@ -1,0 +1,34 @@
+*******************************
+Pure Media Server
+Santiago Noreña
+puremediaserver@googlegroups.com
+********************************
+
+* 0.03 
+
+- Eliminados los subpatches media_x.pd. Quedan integrados en video_x y la entrada saneada por cambio.pd 
+- Añadido midi.pd para control de cuatro capas por midi. 
+- Añadida carpeta resources para archivos de configuración de otros programas (QLC, MagicQ,...) que interactúan con PMS
+- Añadidos archivos de definición de fixture y entorno de trabajo de QLC para manejar PMS desde este programa, sustituyendo a manual.pd como método de trabajo desde el mismo PC
+- Modificados valores en cambio.pd
+- Pequeños ajustes en módulos corrigiendo fallos
+- Actualización del método de instalación en instalación.txt (todavía falta más trabajo en él).
+- Cambiados valores de locate para hacerlos más sensibles.
+
+* 0.02 (9-6-2011) SVN Rev 58
+
+- Direccionamiento de las capas (issue 14).
+- Metodos de creacion y destruccion de nodo ArtNet. Configuracion del nodo por patch dmx.pd (issue 15).
+- imágenes (issue 5).
+- Metodos de reproduccion auto (issue 8). pix_film_player.pd
+- Nuevo subpatch de control manual
+- Añadidos canales DMX de tamaños por ejes (XYZ), rotacion y posicion (issue 9) 
+- Textos - Nuevo archivo Gem compilado con soporte de fuentes (issue 4)
+
+* 0.01 (16-05-2011)
+
+- Primera versión liberada!
+- 2 capas de video con control de reproducción avanzado mediante pix_film_player.
+- Control de Alpha y Color RGB
+- Control por ArtNet mediante Artnetin, sólo en el universo 0, subnet 0.
+ 
