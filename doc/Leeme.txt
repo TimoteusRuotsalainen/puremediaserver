@@ -1,0 +1,58 @@
+**************************************************************
+Pure Media Server 0.03
+Santiago Noreña 
+puremediaserver@googlegroups.com
+**************************************************************
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+
+****************************************************************
+¿Qué es PMS?
+
+Pure Media Server es un proyecto experimental que intenta crear un media server adaptado a las necesidades artísticas de hoy utilizando herramientas y códigos libres.
+
+Los actuales media server son softwares pensados para reproducir; en este proyecto pretendemos hacer que el software sea capaz no sólo de reproducir y modificar mediante efectos, sino que también pueda crear imágenes a través de parámetros que le suministremos. Fractales y animaciones en tiempo real son claros ejemplos de lo que pretendemos. Incluso sonido, de forma que podamos utilizar nuestra mesa de luces como sintetizador o controlador de efectos de sonido... Queremos añadir el factor "pure data" de experimentación y creatividad a los media servers tradicionales. Por qué? Para poder abrir nuevas vías de expresión en los espectáculos en directo, perfomances o instalaciones.
+
+Este proyecto, como Pure Data mismo, es altamente experimental, por lo que será difícil de usar y habrá que bucear bastante para realizar la instalación. 
+
+Sistemas operativos
+
+De momento estoy desarrollando en Debian Squeeze, debería ser fácil portarlo a Ubuntu u otros Linux. 
+
+Una alternativa al problema de tener diferentes sistemas operativos sería empaquetarlo en un live-cd o live-usb, de forma que se pudiera ejecutar sin necesidad de tener un ordenador dedicado a ello, y no habría que portar nada de código. Cuando tenga una versión decente me plantearé "empaquetarlo" así.
+
+Roadmap
+
+1.0 - No publicada - Sin fecha de publicación. Seguramente no se publique nunca, igual que la 1.0 de Pure Data. Esto significa que el proyecto siempre estará en fase beta.
+0.1.0 - No publicada - Prevista para 2012 - Capacidades iguales a los de un media server tradicional. Esta versión se toma como base para desarrollar las nuevas capacidades y empezar a portar a otras plataformas. Ya debe ser usable y traer documentacion.
+0.0.3 - En desarrollo, disponible en el SVN.
+0.0.2 - Liberada el 9-06-2011. Revisión 58 del SVN. Dos capas de video con posibilidad de reproducción de películas .mov, imágenes jpeg y texto renderizado en tiempo real. Se pueden modificar la posición, el tamaño y la rotación de cada capa. Artnetin se puede configurar en diferentes universos-subnet de artnet, y las capas de video son direccionables.
+0.0.1 - Liberada el 16-05-2011. Actualmente controla dos capas de video sin efectos y con capacidades básicas de reproducción de videos. Es una prueba de concepto más que algo usable, pero es una base sobre la que seguir desarrollando.
+
+Para que funcione mediante Artnet es necesario instalar la biblioteca libartnet del proyecto Open Lighting Arquitecture y el external de Pure Data artnetin desarrollado por Pure Media Server. Se puede adpatar fácilmente a MIDI u otro tipo de entrada de datos.  
+
+****************************************************************
+
+Para instalar PMS vea instalacion.txt
+ 
+Para usar PMS vea manual.txt
+
+****************************************************************
+
+Desarrollo y soporte:
+
+puremediaserver@googlecode.com
+
+****************************************************************

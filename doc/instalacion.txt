@@ -1,0 +1,76 @@
+*************************************
+Pure Media Server 0.0.3
+Santiago Noreña 
+puremediaserver@googlegroups.com
+*************************************
+
+0. Requeriminetos
+PMS sólo está probado en Debian Squezee, aunque debería funcionar en todos los Linux. Necesita una tarjeta gráfica OpenGL y que los drivers para Xorg con aceleración por hardware estén correctamente instalados. Ejecutando "glxgears" en una terminal debería de abrir una ventana con tres engranajes girando. Si no es así, revisa la documentación de tu distribución.
+
+1. Instala pd-extended y sus dependencias:
+    
+Método A:
+	Descarga de http://puredata.info/community/projects/software/pd-extended el paquete para tu sistema
+	Instálalo con dpkg 
+
+Método B: Este método es necesario para utilizar textos en PMS.
+
+	Resolver dependencias en Ubuntu:
+
+	sudo apt-get install ttf-dejavu libfftw3-dev libspeex-dev libvorbis-dev libflac-dev libsndfile1-dev libgavl-dev libmad0-dev dssi-dev liblo-dev flite1-dev libtk-img tcllib libmp3lame0 libmp3lame-dev libimlib2-dev libtheora-dev libusb-0.1-4 libusb-dev
+	sudo apt-get install libnetpbm10-dev ruby nasm libcv-dev libdc1394-22-dev
+
+	Resolver dependencias en Debian:
+
+	sudo apt-get install fakeroot ttf-dejavu libfftw3-dev libspeex-dev libvorbis-dev libflac-dev libsndfile1-dev libsamplerate0-dev libgavl-dev libmad0-dev dssi-dev liblo-dev libhid-dev flite1-dev libtk-img tcllib swig tcl8.5-dev tk8.5-dev liblua5.1-0-dev libmp3lame0 libmp3lame-dev
+
+	apt-get build-dep puredata gem pdp
+	wget http://sourceforge.net/projects/pure-data/files/pd-extended/0.42.5/Pd-0.42.5-extended.tar.gz/download
+	tar -xf Pd-0.42.5-extended.tar.gz
+	cd Pd-0.42.5-extended/packages/linux_make        
+	make install prefix=/usrfix=/usr
+	
+Método C: Instala desde repositorios:
+
+For pd-extended, you can use the apt repository. You can either add this line to the bottom of /etc/apt/sources.list Or you can add it in the GUI administration program Synaptic (in the Settings -> Repositories menu, then the Third-Party Software tab). Choose the line for your version of Debian or Ubuntu from the options below:
+
+ # Debian/stable
+ deb http://apt.puredata.info/releases stable main
+ # Debian/testing
+ deb http://apt.puredata.info/releases testing main
+ # Debian/sarge
+ deb http://apt.puredata.info/releases sarge main
+ # Debian/etch
+ deb http://apt.puredata.info/releases etch main
+ # Debian/lenny
+ deb http://apt.puredata.info/releases lenny main
+ # Debian/squeeze
+ deb http://apt.puredata.info/releases squeeze main
+
+Or Ubuntu:
+
+ # Ubuntu/lucid 10.04 LTS
+ deb http://apt.puredata.info/releases lucid main
+
+2. Instala libartnet:
+
+	wget http://linux-lighting.googlecode.com/files/libartnet-1.1.0.tar.gz
+	tar -zxf libartnet-1.1.0.tar.gz
+  	cd libartnet-1.1.0
+        ./configure
+  	make
+	sudo make install
+
+3. Instala el árbol de directorios de medios:
+
+	Descomprime la estructura de directorios de los media (estructura-media.tar.gz) en el directorio que quieras. 
+	Abre config.pd y cambia el path por el del directorio de tus media. 
+	Alternativamente crea una estructura de directorios que PMS pueda entender:
+		- Números del 0 al 255: Videos, dentro de cada directorio los videos deben de estar numerados también del 0 al 255 y con la 			extensión .mov
+		- Directorio "imagenes"; PMS espera encontrar ficheros de imagen nombrados de 0 a 255 con extensión .jpg
+		- Directorio "fonts"; PMS espera encontrar ficheros de fuentes True Type numerados de 0 a 255 y con extensión .ttf	
+
+4. Arrancando main.pd con pure data extended ya debería de estar funcionando. Dentro del programa puedes configurar más cosas como las direcciones DMX, subnet y universos artnet, las dimensiones de la pantalla y los textos para mostrar. Ver manual.txt para más detalles.
+*************************************
+
+
