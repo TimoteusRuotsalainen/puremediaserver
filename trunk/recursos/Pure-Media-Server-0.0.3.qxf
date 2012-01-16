@@ -68,11 +68,11 @@
  <Channel Name="Z">
   <Group Byte="0">Prism</Group>
  </Channel>
- <Channel Name="Reserved21">
-  <Group Byte="0">Nothing</Group>
+ <Channel Name="Volumen">
+  <Group Byte="0">Effect</Group>
  </Channel>
- <Channel Name="Reserved22">
-  <Group Byte="0">Nothing</Group>
+ <Channel Name="Pan">
+  <Group Byte="0">Effect</Group>
  </Channel>
  <Channel Name="Reserved23">
   <Group Byte="0">Nothing</Group>
@@ -132,8 +132,8 @@
   <Channel Number="17">X</Channel>
   <Channel Number="18">Y</Channel>
   <Channel Number="19">Z</Channel>
-  <Channel Number="20">Reserved21</Channel>
-  <Channel Number="21">Reserved22</Channel>
+  <Channel Number="20">Volumen</Channel>
+  <Channel Number="21">Pan</Channel>
   <Channel Number="22">Reserved23</Channel>
   <Channel Number="23">Reserved24</Channel>
   <Channel Number="24">Reserved25</Channel>

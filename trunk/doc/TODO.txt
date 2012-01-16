@@ -7,11 +7,15 @@
 [ ] Previews de capa mediante #eye
 [ ] Módulo de configuración de pantalla
 [ ] Módulo de teclas 
-[ ] Diferentes extensiones de rchivos
+[X] Diferentes extensiones de archivos .mpg .avi .tiff
+[ ] Limpiar artnetin --> Pthread? ejemplo sendvims veejay
+[X] Ficheros de medias con nombres descriptivos
+[ ] Canales de doble precisión
 
 Método de lanzamiento:
 
 1. Descarga de SVN
+2. Limpiar elementos depuración
 2. Compilar y añadir binarios
 3. Añadir medios libres
 4. Revisar Doc

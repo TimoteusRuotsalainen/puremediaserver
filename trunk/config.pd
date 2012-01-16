@@ -2,7 +2,7 @@
 #X obj 12 147 outlet;
 #X obj 12 49 inlet;
 #X obj 12 79 t b;
-#X msg 12 112 /home/santi/PMS/media;
+#X msg 12 112 /home/santi/PMS/svn/media;
 #X connect 1 0 2 0;
 #X connect 2 0 3 0;
 #X connect 3 0 0 0;

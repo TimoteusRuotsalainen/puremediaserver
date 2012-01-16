@@ -94,4 +94,6 @@ En los modos auto el inicio y el fin del loop no son aplicables, se reproduce la
 18 X (127)
 19 Y (127)
 20 Z (127)
-21-32: Reservados
+21 Volumen (0)
+22 Pan (127)
+23-32: Reservados
