@@ -1,0 +1,28 @@
+[ ] 4 capas
+[ ] Capa master: Audio Master, Black Out Master
+[ ] Gui molona
+[ ] Script conversor de medios a .ogg
+[ ] Añadir medios libres de ejemplo
+[ ] Selector de entrada
+[ ] Previews de capa mediante #eye
+[ ] Módulo de configuración de pantalla
+[ ] Módulo de teclas 
+[ ] Diferentes extensiones de rchivos
+
+Método de lanzamiento:
+
+1. Descarga de SVN
+2. Compilar y añadir binarios
+3. Añadir medios libres
+4. Revisar Doc
+5. Testeo
+6. Empaquetar .tar.gz
+7 Subir a Google
+8. Anuncios:
+	palmadores.net
+	puredata.info
+	puredata.hurleur.com
+
+	
+
+
