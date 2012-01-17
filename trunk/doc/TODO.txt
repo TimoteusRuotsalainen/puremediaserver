@@ -1,5 +1,5 @@
 [ ] 4 capas
-[ ] Capa master: Audio Master, Black Out Master
+[ ] Capa master: Audio Master, Black Out Master, Keystone
 [ ] Gui molona
 [ ] Script conversor de medios a .ogg
 [ ] Añadir medios libres de ejemplo
@@ -9,8 +9,9 @@
 [ ] Módulo de teclas 
 [X] Diferentes extensiones de archivos .mpg .avi .tiff
 [ ] Limpiar artnetin --> Pthread? ejemplo sendvims veejay
-[X] Ficheros de medias con nombres descriptivos
-[ ] Canales de doble precisión
+[X] Ficheros y directorios de medias con nombres descriptivos
+[ ] Canales de doble precisión: X/Y
+[ ] Implementar pan~
 
 Método de lanzamiento:
 

@@ -1,4 +1,4 @@
-#N canvas 48 25 1144 689 10;
+#N canvas 0 54 1144 689 10;
 #X obj 205 -51 artnetin;
 #X obj 581 136 unpack f f f f f f f f f f f f f f f f f f f f f f f
 f f f f f f f f f;
@@ -84,11 +84,11 @@ f f f f f f f f f;
 #X obj 644 -16 - 1;
 #X msg 124 -75 1;
 #X msg 643 -55 33;
-#X msg 391 -88 create 0 0 127.0.0.1;
 #X floatatom 70 371 5 0 0 0 - - -;
 #X obj 133 384 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 205 -115 metro 1000;
+#X msg 391 -88 create 0 0;
+#X obj 205 -115 metro 50;
 #X connect 0 0 72 0;
 #X connect 0 0 76 0;
 #X connect 1 0 2 0;
@@ -125,8 +125,8 @@ f f f f f f f f f;
 #X connect 1 31 33 0;
 #X connect 34 0 64 0;
 #X connect 64 0 35 0;
+#X connect 64 0 83 0;
 #X connect 64 0 84 0;
-#X connect 64 0 85 0;
 #X connect 64 1 36 0;
 #X connect 64 2 37 0;
 #X connect 64 3 67 0;
@@ -171,5 +171,5 @@ f f f f f f f f f;
 #X connect 80 0 76 1;
 #X connect 81 0 79 0;
 #X connect 82 0 80 0;
-#X connect 83 0 0 0;
+#X connect 85 0 0 0;
 #X connect 86 0 0 0;
