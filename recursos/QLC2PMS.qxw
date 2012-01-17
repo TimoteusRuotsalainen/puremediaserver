@@ -131,7 +131,7 @@
    <Value Fixture="0" Channel="1">127</Value>
    <Value Fixture="0" Channel="2">127</Value>
    <Value Fixture="0" Channel="3">127</Value>
-   <Value Fixture="0" Channel="4">40</Value>
+   <Value Fixture="0" Channel="4">255</Value>
    <Value Fixture="0" Channel="9">0</Value>
    <Value Fixture="0" Channel="10">255</Value>
    <Value Fixture="0" Channel="11">0</Value>
@@ -180,6 +180,41 @@
   <Function Type="Scene" Name="Back" ID="24">
    <Bus Role="Fade">0</Bus>
    <Value Fixture="0" Channel="8">43</Value>
+  </Function>
+  <Function Type="Scene" Name="All Full" ID="25">
+   <Bus Role="Fade">0</Bus>
+   <Value Fixture="0" Channel="0">255</Value>
+   <Value Fixture="0" Channel="1">255</Value>
+   <Value Fixture="0" Channel="2">255</Value>
+   <Value Fixture="0" Channel="3">255</Value>
+   <Value Fixture="0" Channel="4">255</Value>
+   <Value Fixture="0" Channel="5">255</Value>
+   <Value Fixture="0" Channel="6">255</Value>
+   <Value Fixture="0" Channel="7">255</Value>
+   <Value Fixture="0" Channel="8">255</Value>
+   <Value Fixture="0" Channel="9">255</Value>
+   <Value Fixture="0" Channel="10">255</Value>
+   <Value Fixture="0" Channel="11">255</Value>
+   <Value Fixture="0" Channel="12">255</Value>
+   <Value Fixture="0" Channel="13">255</Value>
+   <Value Fixture="0" Channel="14">255</Value>
+   <Value Fixture="0" Channel="15">255</Value>
+   <Value Fixture="0" Channel="16">255</Value>
+   <Value Fixture="0" Channel="17">255</Value>
+   <Value Fixture="0" Channel="18">255</Value>
+   <Value Fixture="0" Channel="19">255</Value>
+   <Value Fixture="0" Channel="20">255</Value>
+   <Value Fixture="0" Channel="21">255</Value>
+   <Value Fixture="0" Channel="22">255</Value>
+   <Value Fixture="0" Channel="23">255</Value>
+   <Value Fixture="0" Channel="24">255</Value>
+   <Value Fixture="0" Channel="25">255</Value>
+   <Value Fixture="0" Channel="26">255</Value>
+   <Value Fixture="0" Channel="27">255</Value>
+   <Value Fixture="0" Channel="28">255</Value>
+   <Value Fixture="0" Channel="29">255</Value>
+   <Value Fixture="0" Channel="30">255</Value>
+   <Value Fixture="0" Channel="31">255</Value>
   </Function>
   <Bus ID="0">
    <Name>Fade</Name>
@@ -324,8 +359,8 @@
      <Axis HighLimit="1" LowLimit="0" Reverse="False" ID="X"/>
      <Axis HighLimit="1" LowLimit="0" Reverse="False" ID="Y"/>
     </Fixture>
-    <Position X="62" Y="60"/>
-    <WindowState Width="120" X="0" Y="0" Height="120" Visible="True"/>
+    <Position X="59" Y="61"/>
+    <WindowState Width="120" X="220" Y="70" Height="120" Visible="True"/>
     <Appearance>
      <FrameStyle>Sunken</FrameStyle>
      <ForegroundColor>Default</ForegroundColor>
@@ -397,7 +432,7 @@
     </Button>
    </Frame>
    <Slider Caption="Dimmer" InvertedAppearance="false">
-    <WindowState Width="60" X="0" Y="120" Height="200" Visible="True"/>
+    <WindowState Width="60" X="0" Y="0" Height="200" Visible="True"/>
     <Appearance>
      <FrameStyle>Sunken</FrameStyle>
      <ForegroundColor>Default</ForegroundColor>
@@ -553,7 +588,7 @@
     </Button>
    </Frame>
    <Slider Caption="Vol" InvertedAppearance="false">
-    <WindowState Width="60" X="60" Y="120" Height="200" Visible="True"/>
+    <WindowState Width="60" X="60" Y="0" Height="200" Visible="True"/>
     <Appearance>
      <FrameStyle>Sunken</FrameStyle>
      <ForegroundColor>Default</ForegroundColor>
@@ -695,6 +730,19 @@
      </Appearance>
     </Button>
    </Frame>
+   <Button Icon="" Caption="All Full">
+    <Function ID="25"/>
+    <Action>Toggle</Action>
+    <Intensity Adjust="False">100</Intensity>
+    <WindowState Width="50" X="170" Y="70" Height="50" Visible="True"/>
+    <Appearance>
+     <FrameStyle>None</FrameStyle>
+     <ForegroundColor>Default</ForegroundColor>
+     <BackgroundColor>Default</BackgroundColor>
+     <BackgroundImage>None</BackgroundImage>
+     <Font>Default</Font>
+    </Appearance>
+   </Button>
   </Frame>
   <Properties>
    <Grid Enabled="True" YResolution="10" XResolution="10"/>
@@ -704,10 +752,10 @@
    <GrandMaster ChannelMode="Intensity" ValueMode="Reduce"/>
    <Blackout/>
    <WidgetProperties>
-    <X>10</X>
-    <Y>242</Y>
+    <X>-5</X>
+    <Y>137</Y>
     <Width>1286</Width>
-    <Height>391</Height>
+    <Height>498</Height>
     <State>8</State>
     <Visible>1</Visible>
    </WidgetProperties>
