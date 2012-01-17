@@ -8,7 +8,7 @@
 #X text 497 496 Note : you can scroll the list by dragging;
 #X text 495 507 the mouse in the yellow area;
 #X text 497 518 You can select and scroll in the blue area;
-#X obj 95 426 playlist * 400 200 {Helvetica 14 normal} grey yellow
+#X obj 95 426 playlist all 400 200 {Helvetica 14 normal} grey yellow
 black red;
 #X msg 95 176 seek \$1;
 #X symbolatom 291 654 50 0 0 0 - - -;
@@ -63,6 +63,8 @@ black red;
 #X obj 1126 97 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X obj 1222 96 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 584 291 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X connect 0 0 3 0;
 #X connect 0 0 1 0;
@@ -121,6 +123,7 @@ black red;
 #X connect 50 0 53 0;
 #X connect 51 0 52 0;
 #X connect 52 0 22 0;
+#X connect 52 0 59 0;
 #X connect 53 0 52 1;
 #X connect 54 0 51 0;
 #X connect 55 0 54 1;

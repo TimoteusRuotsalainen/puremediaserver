@@ -30,7 +30,7 @@ Método B: Este método es necesario para utilizar textos en PMS.
 	cd Pd-0.42.5-extended/packages/linux_make        
 	make install prefix=/usrfix=/usr
 	
-Método C: Instala desde repositorios:
+Método C: Instala desde repositorios: (preferido)
 
 For pd-extended, you can use the apt repository. You can either add this line to the bottom of /etc/apt/sources.list Or you can add it in the GUI administration program Synaptic (in the Settings -> Repositories menu, then the Third-Party Software tab). Choose the line for your version of Debian or Ubuntu from the options below:
 
@@ -57,7 +57,7 @@ Or Ubuntu:
 	wget http://linux-lighting.googlecode.com/files/libartnet-1.1.0.tar.gz
 	tar -zxf libartnet-1.1.0.tar.gz
   	cd libartnet-1.1.0
-        ./configure
+        ./configure --prefix=/usr
   	make
 	sudo make install
 
