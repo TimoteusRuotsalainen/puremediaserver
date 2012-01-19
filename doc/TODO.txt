@@ -1,5 +1,5 @@
 [ ] 4 capas
-[ ] Capa master: Audio Master, Black Out Master, Keystone
+[ ] Capa master: Audio Master, Black Out Master, Keystone, render on/off
 [ ] Gui molona
 [ ] Script conversor de medios a .ogg
 [ ] Añadir medios libres de ejemplo
@@ -11,14 +11,18 @@
 [ ] Limpiar artnetin --> Pthread? ejemplo sendvims veejay
 [X] Ficheros y directorios de medias con nombres descriptivos
 [ ] Canales de doble precisión: X/Y
-[ ] Implementar pan~
+[ ] Implementar pan
+[ ] Efectos video
+[ ] Lux y Croma
+[ ] Opción de no renderizado por capa
+[ ] audio de videos
 
 Método de lanzamiento:
 
 1. Descarga de SVN
-2. Limpiar elementos depuración
+2. Limpiar elementos depuración y .svn de directorios
 2. Compilar y añadir binarios
-3. Añadir medios libres
+3. Añadir árbol de directorios de medias
 4. Revisar Doc
 5. Testeo
 6. Empaquetar .tar.gz

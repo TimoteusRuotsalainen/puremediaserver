@@ -1,7 +1,7 @@
-#N canvas 0 548 948 686 10;
-#X obj 702 -148 notein;
-#X floatatom 584 -131 5 0 0 0 - - -;
-#X floatatom 824 -131 5 0 0 0 - - -;
+#N canvas 281 374 1178 686 10;
+#X obj 703 -230 notein;
+#X floatatom 669 -230 5 0 0 0 - - -;
+#X floatatom 745 -230 5 0 0 0 - - -;
 #X obj 58 308 s c1;
 #X obj 58 277 int;
 #X obj 100 277 int;
@@ -178,18 +178,27 @@
 #X floatatom 189 327 5 0 0 0 - - -;
 #X floatatom 477 765 5 0 0 0 - - -;
 #X floatatom 1044 747 5 0 0 0 - - -;
-#X obj 718 -61 spigot;
-#X obj 824 -98 != 0;
-#X floatatom 882 -76 5 0 0 0 - - -;
+#X obj 719 -13 spigot;
+#X obj 908 -60 != 0;
+#X floatatom 938 -60 5 0 0 0 - - -;
 #X obj 719 97 int;
 #X obj 719 44 + 1;
 #X obj 719 22 * 2;
-#X msg 882 -54 0;
-#X obj 914 -76 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X msg 908 -20 0;
+#X obj 892 -60 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X floatatom 230 326 5 0 0 0 - - -;
 #X floatatom 671 61 5 0 0 0 - - -;
 #X floatatom 320 330 5 0 0 0 - - -;
+#X obj 719 -81 spigot;
+#X obj 820 -221 r input_selector;
+#X obj 820 -170 select 1;
+#X msg 820 -118 1;
+#X msg 865 -118 0;
+#X obj 801 -117 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 892 -114 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
 #X connect 0 0 1 0;
 #X connect 0 0 16 0;
 #X connect 0 0 128 0;
@@ -197,7 +206,7 @@
 #X connect 0 0 129 0;
 #X connect 0 1 2 0;
 #X connect 0 1 176 0;
-#X connect 0 1 175 0;
+#X connect 0 1 186 0;
 #X connect 4 0 3 0;
 #X connect 4 0 171 0;
 #X connect 5 0 6 0;
@@ -457,3 +466,11 @@
 #X connect 179 0 184 0;
 #X connect 180 0 179 0;
 #X connect 181 0 178 0;
+#X connect 186 0 175 0;
+#X connect 187 0 188 0;
+#X connect 188 0 189 0;
+#X connect 188 1 190 0;
+#X connect 189 0 186 1;
+#X connect 189 0 191 0;
+#X connect 190 0 186 1;
+#X connect 190 0 192 0;
