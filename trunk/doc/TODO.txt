@@ -2,10 +2,9 @@
 [ ] Capa master: Audio Master, Black Out Master, Keystone, render on/off
 [ ] Gui molona
 [ ] Script conversor de medios a .ogg
-[ ] Añadir medios libres de ejemplo
-[ ] Selector de entrada
+[X] Selector de entrada
 [ ] Previews de capa mediante #eye
-[ ] Módulo de configuración de pantalla
+[X] Módulo de configuración de pantalla
 [ ] Módulo de teclas 
 [X] Diferentes extensiones de archivos .mpg .avi .tiff
 [ ] Limpiar artnetin --> Pthread? ejemplo sendvims veejay

@@ -69,11 +69,11 @@ En los modos auto el inicio y el fin del loop no son aplicables, se reproduce la
 6 Directorio / Texto
 7 Archivo / Fuente
 8 Tipo de Media
-    0-24:    Video
-    25-49:   Imagenes
-    50-75:   Texto
-    75-99:   Audio	
-    100-255: Reservado	
+    0-24:    OFF
+    25-49:   Video
+    50-75:   Imagenes
+    75-99:   Texto	
+    100-125: Audio	
 9 Reproduccion: Valores en 100%
     0-10 Normal loop 
     11-20 Back loop 
