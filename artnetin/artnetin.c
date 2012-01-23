@@ -52,9 +52,9 @@ unsigned char *dmx; // El array DMX
 // ==============================================================================
 // Function Prototypes
 // ------------------------------------------------------------------------------
-void *artnetin_new(t_symbol *s);
-void artnetin_close(t_artnetin *x);
-void artnetin_open(t_artnetin *x, t_floatarg f1, t_floatarg f2 );
+//void *artnetin_new(t_symbol *s);
+//void artnetin_close(t_artnetin *x);
+//void artnetin_open(t_artnetin *x, t_floatarg f1, t_floatarg f2 );
 
 // ==============================================================================
 // subroutines
@@ -72,20 +72,30 @@ void values (t_artnetin *x){
 }
 
 static int dmx_handler(artnet_node node, int prt , void *d) {
+	int z;
+	t_artnetin *x = (t_artnetin*) d;
         uint8_t *g=dmx;
 	int len;
 	uint8_t *data;
 	data = artnet_read_dmx(node, prt, &len) ;
 	memcpy(g, data,len) ;
-	values(d);
+//	values(d);
+	t_atom dmxa[x->CHANNELS];
+	uint8_t *b = dmx;	
+	for(z=0; z<x->CHANNELS; z++){ 
+		SETFLOAT(dmxa+z, *b);		
+		b++;
+	}
+	outlet_list(x->outlet1 ,gensym("list"), x->CHANNELS, dmxa);
 	return (0);
 } 
 
 //--------------------------------------------------------------------------
 // - bang
 //--------------------------------------------------------------------------
+/*
 void artnetin_bang(t_artnetin *x) {
-	post("bang");
+//	post("bang");
 	int n, max;
 	int i = 0;
 	int artnet_sd;	
@@ -111,18 +121,54 @@ void artnetin_bang(t_artnetin *x) {
 			}	
 		} 
 }
-
+*/
 // =============================================================================
 // Thread
 // =============================================================================
 static void *thread_read(void *w)
 {
 	t_artnetin *x = (t_artnetin*) w;
+	int n, max, z;
+	int i = 0;
+	int artnet_sd;	
 	while(1) {
 		pthread_testcancel();
-		artnetin_bang(x);
+//		artnetin_bang(x);
+		artnet_sd = artnet_get_sd(x->node) ;
+		fd_set rd_fds;
+		struct timeval tv;
+		FD_ZERO(&rd_fds);
+		FD_SET(0, &rd_fds);
+		FD_SET(artnet_sd, &rd_fds) ;
+		max = artnet_sd ;
+		tv.tv_sec = 1;
+		tv.tv_usec = 0;
+		n = select(max+1, &rd_fds, NULL, NULL, &tv);
+		if(n>0) {
+			if (FD_ISSET(artnet_sd , &rd_fds)){
+			        i = artnet_read(x->node,0);
+				}
+			if (i == 0) { 
+//				values(x);
+			
+			t_atom dmxa[x->CHANNELS];
+			uint8_t *b = dmx;	
+			for(z=0; z<x->CHANNELS; z++){ 
+				SETFLOAT(dmxa+z, *b);		
+			b++;
+		}
+		outlet_list(x->outlet1 ,gensym("list"), x->CHANNELS, dmxa);
+	     		}
+		else {
+			error("Artnetin: Bucle Read Error"); 
+			}	
+		} 
 	}
 }
+
+// =============================================================================
+// Start Thread
+// =============================================================================
 
 static void thread_start(t_artnetin *x)
 {
@@ -137,23 +183,23 @@ static void thread_start(t_artnetin *x)
     }
     if(pthread_attr_setdetachstate(&x->artnetin_thread_attr, PTHREAD_CREATE_DETACHED) < 0)
 	{
-       sys_lock();
+       	   sys_lock();
 	   error("artnetin: could not launch receive thread");
-       sys_unlock();
+           sys_unlock();
 	   return;
     }
     if(pthread_create(&x->x_threadid, &x->artnetin_thread_attr, thread_read, x) < 0)
 	{
-       sys_lock();
-	   error("artnetin: could not launch receive thread");
+   	   sys_lock();
+   	   error("artnetin: could not launch receive thread");
 	   sys_unlock();
-       return;
+       	   return;
     }
     else
-    {
-		   sys_lock();
-		   post("artnetin: thread %d launched", (int)x->x_threadid );
-		   sys_unlock();
+    	{
+	   sys_lock();
+	   post("artnetin: thread %d launched", (int)x->x_threadid );
+	   sys_unlock();
     }
 }
 
@@ -162,9 +208,10 @@ static void thread_start(t_artnetin *x)
 //--------------------------------------------------------------------------
 void artnetin_open(t_artnetin *x, t_floatarg f1, t_floatarg f2)
 {
-	post("Artnetin: Creando nodo Artnet");
+	
 	int subnet_addr = f1;
 	int port_addr = f2;    
+	post("Artnetin: Creando nodo Artnet Subnet %d Universo %d", subnet_addr, port_addr);
 	char * ip_addr =  NULL;
 	x->node = artnet_new(ip_addr, 0 ) ;
 	if(x->node == NULL) {
@@ -181,7 +228,7 @@ void artnetin_open(t_artnetin *x, t_floatarg f1, t_floatarg f2)
 	if (i == 0) { 
 		post("Artnetin: Init OK");		
 		}
-	else error ("ArtNetin: Init Error");	
+	else error ("Artnetin: Init Error");	
 	thread_start(x);
 //	thread_read(x);
 }
@@ -191,51 +238,53 @@ void artnetin_open(t_artnetin *x, t_floatarg f1, t_floatarg f2)
 //--------------------------------------------------------------------------
 void artnetin_close(t_artnetin *x)
 {	
-	post("Cerrando artnetin");
+	post("Artnetin:Cerrando");
 	artnet_stop(x->node) ;
     	artnet_destroy(x->node) ;
 	while(pthread_cancel(x->x_threadid) < 0);
 }
+//--------------------------------------------------------------------------
+// - Initialization
+//--------------------------------------------------------------------------
 
-//--------------------------------------------------------------------------
-// - Object creation and setup
-//--------------------------------------------------------------------------
-int artnetin_setup(void)
-{
-	artnetin_class = class_new ( gensym("artnetin"),(t_newmethod)artnetin_new, 0, sizeof(t_artnetin), CLASS_DEFAULT,0);
-	// Add message handlers
-	class_addmethod(artnetin_class, (t_method)artnetin_open, gensym("open"), A_DEFFLOAT, A_DEFFLOAT, 0);
-	class_addmethod(artnetin_class, (t_method)artnetin_close, gensym("close"), 0);
-	class_addbang(artnetin_class, artnetin_bang);
-	return 1;
-}
-
-//--------------------------------------------------------------------------
-void *artnetin_new(t_symbol *s)		// s = optional argument typed into object box (A_SYM) -- defaults to 0 if no args are typed
+void *artnetin_new(void)
 {
 	post("**************************");
-	post("Artnetin 0.0.3e");
+	post("Artnetin 0.0.3");
 	post("by Santiago Noreña");
 	post("**************************"); 
-	t_artnetin *x;							// local variable (pointer to a t_artnetin data structure)
-	x = (t_artnetin *)pd_new(artnetin_class);			 // create a new instance of this object
-	x->outlet1 = outlet_new(&x->x_obj, &s_list); // Saca todos los canales  mediante una lista
-	x->CHANNELS=512;
+	t_artnetin *x = (t_artnetin *)pd_new(artnetin_class);	// local variable (pointer to a t_artnetin data structure)
+	x->outlet1 = outlet_new(&x->x_obj, &s_list); 		// Saca todos los canales  mediante una lista
+	x->CHANNELS = 512;
 	dmx = malloc(512) ;
 	if(!dmx) {
 		error("Artnetin: malloc failed") ;
 	}
-	memset(dmx, 0x00, x->CHANNELS) ;
+	memset(dmx, 0x05, x->CHANNELS) ;
 	return (void *)x;
-	return x; // return a reference to the object instance 
 }
 
 //--------------------------------------------------------------------------
 // - Object destruction
 //--------------------------------------------------------------------------
+
 void artnetin_free(t_artnetin *x)
 {
+	post("Artnetin: Cerrando");	
 	artnet_stop(x->node) ;
     	artnet_destroy(x->node) ;
 	while(pthread_cancel(x->x_threadid) < 0);	
+}
+
+//--------------------------------------------------------------------------
+// - Object creation and setup
+//--------------------------------------------------------------------------
+
+void artnetin_setup(void)
+{
+	artnetin_class = class_new ( gensym("artnetin"),(t_newmethod)artnetin_new, 0, sizeof(t_artnetin), CLASS_DEFAULT, A_GIMME, 0);
+	// Add message handlers
+	class_addmethod(artnetin_class, (t_method)artnetin_open, gensym("open"), A_DEFFLOAT, A_DEFFLOAT, 0);
+	class_addmethod(artnetin_class, (t_method)artnetin_close, gensym("close"), 0);
+//	class_addbang(artnetin_class, artnetin_bang);
 }
