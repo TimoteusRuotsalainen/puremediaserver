@@ -30,12 +30,12 @@ EXTRA_DIST =
 #
 # things you might need to edit if you are using other C libraries
 #
-#------------------------------------------------------------------------------#
+#-------------------------------------lpthread------------------------------------------#
 
 # -I"$(PD_INCLUDE)/pd" supports the header location for 0.43
 CFLAGS = -I"$(PD_INCLUDE)/pd" -Wall -W -g -I/usr/local/lib -I. -I..
 LDFLAGS = -L/usr/local/lib -I. -I..
-LIBS = -L/usr/local/lib -lartnet -I. -I..
+LIBS = -L/usr/local/lib -lartnet -lpthread -I. -I..
 
 #------------------------------------------------------------------------------#
 #
