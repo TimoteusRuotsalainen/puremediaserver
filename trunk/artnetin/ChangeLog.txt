@@ -1,8 +1,13 @@
 ***********************************
 Artnetin
-Santiago Noreña 2011
-belfegor@gmail.com
+Santiago Noreña 2011-2012
+puremediaserver@googlegrups.com
 ***********************************
+
+* 0.0.3 
+
+	- Ahora utiliza pthread
+	- Cambio de nombres: Open y close
 
 * 0.0.2 (9-06-2011) SVN Rev 58 
 		
