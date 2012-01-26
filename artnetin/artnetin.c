@@ -50,26 +50,8 @@ typedef struct _artnetin
 unsigned char *dmx; // El array DMX
 
 // ==============================================================================
-// Function Prototypes
+// dmx handler - 
 // ------------------------------------------------------------------------------
-//void *artnetin_new(t_symbol *s);
-//void artnetin_close(t_artnetin *x);
-//void artnetin_open(t_artnetin *x, t_floatarg f1, t_floatarg f2 );
-
-// ==============================================================================
-// subroutines
-// ------------------------------------------------------------------------------
-
-void values (t_artnetin *x){
-	int z;
-	t_atom dmxa[x->CHANNELS];
-	uint8_t *b = dmx;	
-	for(z=0; z<x->CHANNELS; z++){ 
-		SETFLOAT(dmxa+z, *b);		
-		b++;
-	}
-	outlet_list(x->outlet1 ,gensym("list"), x->CHANNELS, dmxa);
-}
 
 static int dmx_handler(artnet_node node, int prt , void *d) {
 	int z;
@@ -79,7 +61,7 @@ static int dmx_handler(artnet_node node, int prt , void *d) {
 	uint8_t *data;
 	data = artnet_read_dmx(node, prt, &len) ;
 	memcpy(g, data,len) ;
-//	values(d);
+
 	t_atom dmxa[x->CHANNELS];
 	uint8_t *b = dmx;	
 	for(z=0; z<x->CHANNELS; z++){ 
@@ -91,35 +73,11 @@ static int dmx_handler(artnet_node node, int prt , void *d) {
 } 
 
 //--------------------------------------------------------------------------
-// - bang
+// - bang - no usado 
 //--------------------------------------------------------------------------
 /*
 void artnetin_bang(t_artnetin *x) {
-//	post("bang");
-	int n, max;
-	int i = 0;
-	int artnet_sd;	
-	artnet_sd = artnet_get_sd(x->node) ;
-	fd_set rd_fds;
-	struct timeval tv;
-	FD_ZERO(&rd_fds);
-	FD_SET(0, &rd_fds);
-	FD_SET(artnet_sd, &rd_fds) ;
-	max = artnet_sd ;
-	tv.tv_sec = 1;
-	tv.tv_usec = 0;
-	n = select(max+1, &rd_fds, NULL, NULL, &tv);
-	if(n>0) {
-		if (FD_ISSET(artnet_sd , &rd_fds)){
-		        i = artnet_read(x->node,0);
-			}
-		if (i == 0) { 
-			values(x);
-	     		}
-		else {
-			error("Artnetin: Bucle Read Error"); 
-			}	
-		} 
+
 }
 */
 // =============================================================================
@@ -133,7 +91,6 @@ static void *thread_read(void *w)
 	int artnet_sd;	
 	while(1) {
 		pthread_testcancel();
-//		artnetin_bang(x);
 		artnet_sd = artnet_get_sd(x->node) ;
 		fd_set rd_fds;
 		struct timeval tv;
@@ -149,7 +106,7 @@ static void *thread_read(void *w)
 			        i = artnet_read(x->node,0);
 				}
 			if (i == 0) { 
-//				values(x);
+
 			
 			t_atom dmxa[x->CHANNELS];
 			uint8_t *b = dmx;	
@@ -164,6 +121,7 @@ static void *thread_read(void *w)
 			}	
 		} 
 	}
+return 0;
 }
 
 // =============================================================================
@@ -196,7 +154,7 @@ static void thread_start(t_artnetin *x)
        	   return;
     }
     else
-    	{
+    	   {
 	   sys_lock();
 	   post("artnetin: thread %d launched", (int)x->x_threadid );
 	   sys_unlock();
@@ -204,33 +162,40 @@ static void thread_start(t_artnetin *x)
 }
 
 //--------------------------------------------------------------------------
-// - Message: open
+// - Message: open - Empieza el nodo artnet y lanza el thread que escuchará en ese nodo
 //--------------------------------------------------------------------------
 void artnetin_open(t_artnetin *x, t_floatarg f1, t_floatarg f2)
 {
 	
-	int subnet_addr = f1;
-	int port_addr = f2;    
-	post("Artnetin: Creando nodo Artnet Subnet %d Universo %d", subnet_addr, port_addr);
-	char * ip_addr =  NULL;
-	x->node = artnet_new(ip_addr, 0 ) ;
-	if(x->node == NULL) {
-		error("Artnetin: Unable to connect") ;
-	}
-        artnet_set_dmx_handler(x->node, dmx_handler, x); 
-	artnet_set_subnet_addr(x->node, subnet_addr);
-	artnet_set_port_type(x->node, 0, ARTNET_ENABLE_OUTPUT, ARTNET_PORT_DMX) ;
-	artnet_set_port_addr(x->node, 0, ARTNET_OUTPUT_PORT, port_addr);
-	artnet_set_long_name(x->node, "Artnetin Pure Data 0.0.3");	
-	artnet_set_short_name(x->node, "Artnetin-PD");
-	artnet_start(x->node);
-        int i = artnet_read(x->node,0);
-	if (i == 0) { 
-		post("Artnetin: Init OK");		
+
+	if ((int)x->x_threadid == 0) {
+		int subnet_addr = f1;
+		int port_addr = f2;    
+		post("Artnetin: Creando nodo Artnet Subnet %d Universo %d", subnet_addr, port_addr);
+		char * ip_addr =  NULL;
+		x->node = artnet_new(ip_addr, 0 ) ;
+		if(x->node == NULL) {
+			error("Artnetin: Unable to connect") ;
 		}
-	else error ("Artnetin: Init Error");	
-	thread_start(x);
-//	thread_read(x);
+        	artnet_set_dmx_handler(x->node, dmx_handler, x); 
+		artnet_set_subnet_addr(x->node, subnet_addr);
+		artnet_set_port_type(x->node, 0, ARTNET_ENABLE_OUTPUT, ARTNET_PORT_DMX) ;
+		artnet_set_port_addr(x->node, 0, ARTNET_OUTPUT_PORT, port_addr);
+		artnet_set_long_name(x->node, "Artnetin Pure Data 0.0.3");	
+		artnet_set_short_name(x->node, "Artnetin-PD");
+		artnet_start(x->node);
+	        int i = artnet_read(x->node,0);
+		if (i == 0) { 
+			post("Artnetin: Init OK");		
+		}
+		else error ("Artnetin: Init Error");	
+		thread_start(x);
+		post ("Artnetin %d", (int)x->x_threadid);
+	}
+	else 
+		{
+		post ("Artnetin: Nodo created. Close it before try reopen");
+		}	
 }
 
 //--------------------------------------------------------------------------
@@ -238,10 +203,16 @@ void artnetin_open(t_artnetin *x, t_floatarg f1, t_floatarg f2)
 //--------------------------------------------------------------------------
 void artnetin_close(t_artnetin *x)
 {	
-	post("Artnetin:Cerrando");
-	artnet_stop(x->node) ;
-    	artnet_destroy(x->node) ;
-	while(pthread_cancel(x->x_threadid) < 0);
+	if ((int)x->x_threadid == 0) {
+		post("Artnetin: Nodo not created. Doing nothing");
+		}
+	else {
+		post("Artnetin: closing node");
+		artnet_stop(x->node) ;
+    		artnet_destroy(x->node) ;
+		while(pthread_cancel(x->x_threadid) < 0);
+		x->x_threadid = 0;
+	}
 }
 //--------------------------------------------------------------------------
 // - Initialization
@@ -286,5 +257,5 @@ void artnetin_setup(void)
 	// Add message handlers
 	class_addmethod(artnetin_class, (t_method)artnetin_open, gensym("open"), A_DEFFLOAT, A_DEFFLOAT, 0);
 	class_addmethod(artnetin_class, (t_method)artnetin_close, gensym("close"), 0);
-//	class_addbang(artnetin_class, artnetin_bang);
+//	class_addbang(artnetin_class, artnetin_bang); //No usado
 }

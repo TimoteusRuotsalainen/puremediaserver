@@ -8,11 +8,21 @@
 #X floatatom 502 408 5 0 0 0 - - -;
 #X obj 157 333 unpack f f f f f f f f f f f f f f f f f f f f f f f
 f f f f f f f;
-#X msg 74 236 destroy;
-#X obj 156 11 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
-1;
-#X obj 157 85 metro 50;
-#X msg 248 236 create 0 5;
+#X msg 74 236 close;
+#X msg 227 213 open \$1;
+#X obj 227 158 pack f f;
+#X floatatom 222 116 5 0 0 0 - - -;
+#X floatatom 300 117 5 0 0 0 - - -;
+#X text 182 118 Subnet;
+#X text 338 119 universe;
+#X text 288 212 Open the node at subnet/universe;
+#X text 63 192 Close the node;
+#X text 218 303 List 512 floats (DMX array);
+#X text -40 271 You must close the node and reopen it before new settings
+take effect;
+#X obj 264 25 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X text 292 25 Bang to start node;
 #X connect 0 0 7 0;
 #X connect 7 0 1 0;
 #X connect 7 1 2 0;
@@ -21,6 +31,9 @@ f f f f f f f;
 #X connect 7 19 5 0;
 #X connect 7 29 6 0;
 #X connect 8 0 0 0;
-#X connect 9 0 10 0;
-#X connect 10 0 0 0;
-#X connect 11 0 0 0;
+#X connect 9 0 0 0;
+#X connect 10 0 9 0;
+#X connect 11 0 10 0;
+#X connect 12 0 10 1;
+#X connect 19 0 11 0;
+#X connect 19 0 12 0;

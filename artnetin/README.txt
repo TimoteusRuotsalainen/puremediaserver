@@ -26,7 +26,7 @@ Uso:
 
 El objeto escucha en el interface activo con la IP más baja, típicamente 2.x.x.x.
 Están disponibles los 512 canales; El objeto saca una lista de 512 enteros con el universo entero.
-Antes de que el objeto empiece a sacar valores hay que crear el nodo. Para ello hay que mandar un mensaje [create "nº subnet" "nº universo"]. Si sólo le pasamos un create a secas, escuchará en la subnet 0, universo 0. Si queremos cambiar el universo de escucha hay que mandar un mensaje [destroy]. Después se puede volver a mandar un nuevo mensaje create con la nueva configuración. 
+Antes de que el objeto empiece a sacar valores hay que crear el nodo. Para ello hay que mandar un mensaje [open "nº subnet" "nº universo"]. Si sólo le pasamos open, escuchará en la subnet 0, universo 0. Si queremos cambiar el universo de escucha hay que mandar un mensaje [close]. Después se puede volver a mandar un nuevo mensaje open con la nueva configuración. 
 
 *****************************
 Ayuda y soporte:
