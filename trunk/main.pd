@@ -1,4 +1,4 @@
-#N canvas 0 511 1392 480 10;
+#N canvas 0 130 1392 667 10;
 #X obj 169 -314 tgl 50 1 render_status_send render_status_receive Render
 -20 -15 0 25 -260097 -1 -260097 0 1;
 #X obj -25 -192 fondo;
@@ -253,6 +253,7 @@ R resetea propiedades graficas;
 #X connect 45 0 16 0;
 #X restore 84 -10 pd videomix_1;
 #X obj 66 -87 video_1;
+#X obj 319 102 audio_mix_1;
 #X connect 2 0 23 1;
 #X connect 7 0 6 0;
 #X connect 7 0 2 0;
