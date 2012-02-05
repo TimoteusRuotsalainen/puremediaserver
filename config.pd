@@ -1,4 +1,4 @@
-#N canvas 160 412 703 354 10;
+#N canvas 156 412 703 354 10;
 #X obj 12 225 outlet;
 #X obj 230 23 inlet;
 #X obj 230 53 t b;
@@ -20,7 +20,7 @@
 #X text 20 61 Default Path \; Edit this to your media path;
 #X text 327 203 Path to medias;
 #X connect 1 0 2 0;
-#X connect 2 0 5 0;
+#X connect 2 0 3 0;
 #X connect 3 0 5 0;
 #X connect 4 0 10 0;
 #X connect 5 0 0 0;
@@ -34,4 +34,4 @@
 #X connect 14 0 15 1;
 #X connect 15 0 16 0;
 #X connect 16 0 5 0;
-#X coords 0 -1 1 1 400 60 1 200 200;
+#X coords 0 354 1 353 400 60 0;
