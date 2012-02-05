@@ -1,0 +1,40 @@
+#N canvas 658 30 588 689 10;
+#X obj 157 287 artnetin;
+#X floatatom 156 392 5 0 0 0 - - -;
+#X floatatom 207 395 5 0 0 0 - - -;
+#X floatatom 251 397 5 0 0 0 - - -;
+#X floatatom 294 401 5 0 0 0 - - -;
+#X floatatom 404 400 5 0 0 0 - - -;
+#X floatatom 502 408 5 0 0 0 - - -;
+#X obj 157 333 unpack f f f f f f f f f f f f f f f f f f f f f f f
+f f f f f f f;
+#X msg 74 236 close;
+#X obj 227 179 pack f f;
+#X floatatom 222 116 5 0 0 0 - - -;
+#X floatatom 300 117 5 0 0 0 - - -;
+#X text 212 87 Subnet;
+#X text 296 88 universe;
+#X text 302 212 Open the node at subnet/universe;
+#X text 63 192 Close the node;
+#X text 218 303 List 512 floats (DMX array);
+#X text -40 271 You must close the node and reopen it before new settings
+take effect;
+#X obj 269 43 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 249 151 t b;
+#X msg 227 213 open \$1 \$2;
+#X connect 0 0 7 0;
+#X connect 7 0 1 0;
+#X connect 7 1 2 0;
+#X connect 7 2 3 0;
+#X connect 7 3 4 0;
+#X connect 7 19 5 0;
+#X connect 7 29 6 0;
+#X connect 8 0 0 0;
+#X connect 9 0 20 0;
+#X connect 10 0 9 0;
+#X connect 11 0 9 1;
+#X connect 11 0 19 0;
+#X connect 18 0 10 0;
+#X connect 18 0 11 0;
+#X connect 20 0 0 0;
