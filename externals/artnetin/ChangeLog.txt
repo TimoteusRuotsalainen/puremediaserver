@@ -4,11 +4,11 @@ Santiago Noreña 2011-2012
 puremediaserver@gmail.com
 ***********************************
 
-* 0.0.3 
+* 0.0.3 (5/02/2012) SVN Rev 94
 
 	- Thread independiente
 	- Cambio de nombres: Open y close
-	- Comprobación de modo activo
+	- Comprobación de nodo activo antes de intentar crear otro
 	- Método free y comprobación antes de salir
 
 * 0.0.2 (9-06-2011) SVN Rev 58 
