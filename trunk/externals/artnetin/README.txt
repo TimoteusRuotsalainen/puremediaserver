@@ -2,9 +2,15 @@
 Artnetin 0.0.3 
 Santiago Noreña
 puremediaserver@gmail.com
+
+Based on previous works by: 
+ * 	Dirk Jagdmann (doj@cubic.org) dmxmonitor
+ *	Simon Newton (nomis52@westnet.com.au) Modified dmxmonitor to use ArtNet	
+ * 	Patrick Sébastien http://www.workinprogress.ca/ pure data external pthread template
+
 ******************************
 
-Artnetin es un objeto de Pure Data que permite leer un universo entero de ArtNet y tratarlo como entrada de datos de Pure Data.
+Artnetin es un objeto de Pure Data que permite leer un universo entero de ArtNet y tratarlo como una lista de enteros en Pure Data.
 
 *****************************
 
