@@ -27,8 +27,8 @@ Los archivos de medios que utiliza PMS deben de estar ordenados según el siguie
 	+ images
 		+001-miprimerafoto.jpg
 		...
-		+255.miultimafot.jpg
+		+255.miultimafoto.jpg
 
-Los números al principio de ficheros y directorios no son obligatorios, pero ayudan mucho a organizar el material. PMS busca por orden alfabético en los directorios/ficheros, por lo que un valor de 64 en el canal de selección de fichero (c7 para la capa 1) será el fichero que esté en la posición 65 (el 0 sería el primero) en ese directorio ordenado alfabéticamente. Nótese que los directorios en en el subdirectorio video deben de acabar en .vid y no tener más puntos en el nombre.
+Los números al principio de ficheros y directorios no son obligatorios, pero ayudan mucho a organizar el material. PMS busca por orden alfabético en los directorios/ficheros, por lo que un valor de 64 en el canal de selección de fichero (c7 para la capa 1) será el fichero que esté en la posición 65 (el 0 sería el primero) en ese directorio ordenado alfabéticamente. Nótese que los directorios en el subdirectorio video deben de acabar en .vid y no tener más puntos en el nombre.
 
 		
