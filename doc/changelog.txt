@@ -1,7 +1,7 @@
 *******************************
 Pure Media Server
 Santiago Noreña
-puremediaserver@googlegroups.com
+puremediaserver@gmail.com
 ********************************
 
 * 0.03 

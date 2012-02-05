@@ -1,20 +1,20 @@
 [ ] 4 capas
 [ ] Capa master: Audio Master, Black Out Master, Keystone, render on/off
-[ ] Gui molona
+[X] Gui molona
 [ ] Script conversor de medios a .ogg
 [X] Selector de entrada
 [ ] Previews de capa mediante #eye
 [X] Módulo de configuración de pantalla
 [ ] Módulo de teclas 
 [X] Diferentes extensiones de archivos .mpg .avi .tiff
-[ ] Limpiar artnetin --> Pthread? ejemplo sendvims veejay
+[X] Limpiar artnetin
 [X] Ficheros y directorios de medias con nombres descriptivos
 [ ] Canales de doble precisión: X/Y
 [ ] Implementar pan
 [ ] Efectos video
 [ ] Lux y Croma
-[ ] Opción de no renderizado por capa
-[ ] audio de videos
+[X] Opción de no renderizado por capa
+[X] audio de videos
 
 Método de lanzamiento:
 
@@ -30,7 +30,4 @@ Método de lanzamiento:
 	palmadores.net
 	puredata.info
 	puredata.hurleur.com
-
-	
-
 
