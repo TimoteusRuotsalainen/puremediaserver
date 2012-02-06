@@ -1,13 +1,13 @@
-#N canvas 0 25 1272 689 10;
+#N canvas -11 524 1272 689 10;
 #X obj 615 -134 color 0 0 0;
 #X obj 615 -178 alpha;
 #X obj 615 21 pix_alpha;
 #X text 598 -237 Pantalla fondo Negra;
 #X floatatom 627 -59 5 0 0 0 - - -;
 #X floatatom 667 -58 5 0 0 0 - - -;
-#X obj 627 -95 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 627 -95 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
-#X obj 667 -95 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 667 -95 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
 #X msg 865 -52 0 0 0;
 #X msg 712 -56 0 0 0;
@@ -20,6 +20,7 @@
 #X obj 833 95 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X msg 712 53 -50;
+#X msg 703 -160 1 1 1;
 #X connect 0 0 2 0;
 #X connect 1 0 0 0;
 #X connect 2 0 13 0;
@@ -36,3 +37,4 @@
 #X connect 14 0 17 0;
 #X connect 16 0 17 0;
 #X connect 17 0 13 3;
+#X connect 18 0 0 1;
