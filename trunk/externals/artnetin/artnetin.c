@@ -17,11 +17,11 @@
 /*
  * Santiago Noreña 
  * puremediaserver@gmail.com.com
- * Versión 0.0.3
+ * Versión 0.0.4
  *
  * Based on previous works by: 
  * 	Dirk Jagdmann (doj@cubic.org) dmxmonitor
- *	Simon Newton (nomis52@westnet.com.au) Modified to dmxmonitor to use ArtNet	
+ *	Simon Newton (nomis52@westnet.com.au) Modified dmxmonitor to use ArtNet	
  * 	Patrick Sébastien http://www.workinprogress.ca/ pure data external pthread template
  *
 */
@@ -45,12 +45,14 @@ t_class *artnetin_class;
 typedef struct _artnetin
 {
 	t_object x_obj;
-	artnet_node node;
-	int CHANNELS;
+	artnet_node node; // el nodo artnet 
+	int CHANNELS;     // la longitud del array dmx
 	t_outlet *outlet1; // outlet pointer
-	t_float subnet, universe;
+	int subnet;  // variables subnet y universo; solo utiles para mostrar informacion del nodo en bang
+	int universe;	
 	pthread_attr_t 	artnetin_thread_attr;
-	pthread_t		x_threadid;
+	pthread_t		x_threadid; // Control de thread
+	char *ip; // variable para definir el interface donde se creará el nodo.
 } t_artnetin;
 
 unsigned char *dmx; // El array DMX
@@ -61,31 +63,38 @@ unsigned char *dmx; // El array DMX
 
 static int dmx_handler(artnet_node node, int prt , void *d) {
 	int z;
-	t_artnetin *x = (t_artnetin*) d;
-        uint8_t *g=dmx;
 	int len;
-	uint8_t *data;
-	data = artnet_read_dmx(node, prt, &len) ;
-	memcpy(g, data,len) ;
+	t_artnetin *x = (t_artnetin*) d;
+	uint8_t *g = dmx; 			  // Puntero al array dmx 
+	uint8_t *data; 				  // Puntero 
+	data = artnet_read_dmx(node, prt, &len) ; // Nos devuelve el array dmx en data?
+	memcpy(g, data, len) ; 			  // Copia el array dmx devuelto a g
 
-	t_atom dmxa[x->CHANNELS];
-	uint8_t *b = dmx;	
-	for(z=0; z<x->CHANNELS; z++){ 
+	t_atom dmxa[x->CHANNELS];		  // Crea un array dmx en formato float pure dat
+	uint8_t *b = dmx;			  // Otro puntero a dmx; no podemos usar g?	
+	for(z=0; z < x->CHANNELS; z++){ 	  // Copiamos el array dmx al array dmxa	
 		SETFLOAT(dmxa+z, *b);		
 		b++;
 	}
-	outlet_list(x->outlet1 ,gensym("list"), x->CHANNELS, dmxa);
+	outlet_list(x->outlet1 ,gensym("list"), x->CHANNELS, dmxa); // Saca el array dmxa mediante una lista
 	return (0);
 } 
 
 //--------------------------------------------------------------------------
-// - bang - no usado 
+// - bang - Devuelve información del estado del nodo
 //--------------------------------------------------------------------------
-/*
 void artnetin_bang(t_artnetin *x) {
-
+	if ((int)x->x_threadid == 0) {
+		post ("Artnetin: Node not created");
+	}
+	else
+	{
+		post ("Artnetin: Node created on thread %d", x->x_threadid); 
+		post ("listening on Subnet %d Universe %d and IP address %s", x->subnet, x->universe, x->ip);  
+	}
+return;
 }
-*/
+
 // =============================================================================
 // Thread
 // =============================================================================
@@ -95,8 +104,8 @@ static void *thread_read(void *w)
 	int n, max, z;
 	int i = 0;
 	int artnet_sd;	
+	pthread_testcancel();	
 	while(1) {
-		pthread_testcancel();
 		artnet_sd = artnet_get_sd(x->node) ;
 		fd_set rd_fds;
 		struct timeval tv;
@@ -162,9 +171,19 @@ static void thread_start(t_artnetin *x)
     else
     	   {
 	   sys_lock();
-	   post("artnetin: thread %d launched", (int)x->x_threadid );
+	   post("Artnetin: thread %d launched", (int)x->x_threadid );
 	   sys_unlock();
     }
+}
+
+//--------------------------------------------------------------------------
+// - Message: ip - define el interface donde escuchará el nodo mediante la ip
+//--------------------------------------------------------------------------
+
+void artnetin_ip(t_artnetin *x, t_symbol ip_addres)
+{
+//	x->ip = ip_addres;
+
 }
 
 //--------------------------------------------------------------------------
@@ -175,32 +194,34 @@ void artnetin_open(t_artnetin *x, t_floatarg f1, t_floatarg f2)
 	
 
 	if ((int)x->x_threadid == 0) {
-		int subnet_addr = f1;
-		int port_addr = f2;    
-		post("Artnetin: Creando nodo Artnet Subnet %d Universo %d", subnet_addr, port_addr);
+		x->subnet = f1;
+		x->universe = f2;    
+		post("Artnetin: opening node Artnet Subnet %d Universe %d", x->subnet, x->universe);
+
 		char * ip_addr =  NULL;
-		x->node = artnet_new(ip_addr, 0 ) ;
+		
+		x->node = artnet_new(ip_addr, 0 );
 		if(x->node == NULL) {
 			error("Artnetin: Unable to connect") ;
 		}
         	artnet_set_dmx_handler(x->node, dmx_handler, x); 
-		artnet_set_subnet_addr(x->node, subnet_addr);
+		artnet_set_subnet_addr(x->node, x->subnet);
 		artnet_set_port_type(x->node, 0, ARTNET_ENABLE_OUTPUT, ARTNET_PORT_DMX) ;
-		artnet_set_port_addr(x->node, 0, ARTNET_OUTPUT_PORT, port_addr);
-		artnet_set_long_name(x->node, "Artnetin Pure Data 0.0.3");	
+		artnet_set_port_addr(x->node, 0, ARTNET_OUTPUT_PORT, x->universe);
+		artnet_set_long_name(x->node, "Artnetin Pure Data 0.0.4");	
 		artnet_set_short_name(x->node, "Artnetin-PD");
 		artnet_start(x->node);
 	        int i = artnet_read(x->node,0);
 		if (i == 0) { 
-			post("Artnetin: Init OK");		
+			post("Artnetin: Init OK");	
+			thread_start(x);
 		}
 		else error ("Artnetin: Init Error");	
-		thread_start(x);
-		post ("Artnetin %d", (int)x->x_threadid);
+		
 	}
 	else 
 		{
-		post ("Artnetin: Nodo created. Close it before try reopen");
+		error ("Artnetin: Node created. Close it before try reopen");
 		}	
 }
 
@@ -210,7 +231,7 @@ void artnetin_open(t_artnetin *x, t_floatarg f1, t_floatarg f2)
 void artnetin_close(t_artnetin *x)
 {	
 	if ((int)x->x_threadid == 0) {
-		post("Artnetin: Nodo not created. Doing nothing");
+		error("Artnetin: node not created. Doing nothing");
 		}
 	else {
 		post("Artnetin: closing node");
@@ -226,18 +247,18 @@ void artnetin_close(t_artnetin *x)
 
 void *artnetin_new(void)
 {
-	post("**************************");
-	post("Artnetin 0.0.3");
-	post("by Santiago Noreña");
-	post("**************************"); 
+
+	post("Artnetin: an ArtNet interface : v0.0.4 written by Santiago Noreña (puremediaserver@gmail.com)");
+
 	t_artnetin *x = (t_artnetin *)pd_new(artnetin_class);	// local variable (pointer to a t_artnetin data structure)
 	x->outlet1 = outlet_new(&x->x_obj, &s_list); 		// Saca todos los canales  mediante una lista
-	x->CHANNELS = 512;
-	dmx = malloc(512) ;
+	x->CHANNELS = 512;					// Define el número de canales del array dmx
+	dmx = malloc(512) ;					// localiza memoria para el array dmx
 	if(!dmx) {
 		error("Artnetin: malloc failed") ;
 	}
-	memset(dmx, 0x05, x->CHANNELS) ;
+	memset(dmx, 0x00, x->CHANNELS) ;  			// Inicializa el array dmx a 0
+//	* x->ip = NULL;						// Inicializa la dirección ip a NULL; Por defecto coge la interface más baja   
 	return (void *)x;
 }
 
@@ -247,10 +268,7 @@ void *artnetin_new(void)
 
 void artnetin_free(t_artnetin *x)
 {
-	post("Artnetin: Cerrando");	
-	artnet_stop(x->node) ;
-    	artnet_destroy(x->node) ;
-	while(pthread_cancel(x->x_threadid) < 0);	
+	artnetin_close(x);
 }
 
 //--------------------------------------------------------------------------
@@ -263,5 +281,6 @@ void artnetin_setup(void)
 	// Add message handlers
 	class_addmethod(artnetin_class, (t_method)artnetin_open, gensym("open"), A_DEFFLOAT, A_DEFFLOAT, 0);
 	class_addmethod(artnetin_class, (t_method)artnetin_close, gensym("close"), 0);
-//	class_addbang(artnetin_class, artnetin_bang); //No usado
+	class_addmethod(artnetin_class, (t_method)artnetin_ip, gensym("ip"), A_SYMBOL, 0);
+	class_addbang(artnetin_class, artnetin_bang);
 }
