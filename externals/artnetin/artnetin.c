@@ -1,4 +1,9 @@
 /*
+ * artnetin is an external for Pure Data that reads an artnet universe
+ * and outputs it in an outlet like a list of 512 int.
+ *
+ * artnetin needs libartnet installed in the sytem to work
+ *
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -21,11 +26,18 @@
  *
  * Based on previous works by: 
  * 	Dirk Jagdmann (doj@cubic.org) dmxmonitor
- *	Simon Newton (nomis52@westnet.com.au) Modified dmxmonitor to use ArtNet	
+ *	Simon Newton (nomis52@westnet.com.au) libartnet and modified dmxmonitor to use ArtNet
  * 	Patrick Sébastien http://www.workinprogress.ca/ pure data external pthread template
  *
 */
-
+/*
+ * ToDo:
+ * - Cambiar funciones Unix por funciones PD (getbytes, freebytes,...)
+ * - cambiar variables a syntaxis pure data (x_subnet)
+ * - método max channels distinto de 512
+ * - meter thread_start en función principal
+ * - IP Null si no hay configuración --> interfaz con ip más baja por defecto 	
+*/ 
 
 #include "m_pd.h"
 #include <stdio.h>
@@ -52,7 +64,7 @@ typedef struct _artnetin
 	int universe;	
 	pthread_attr_t 	artnetin_thread_attr;
 	pthread_t		x_threadid; // Control de thread
-	char *ip; // variable para definir el interface donde se creará el nodo.
+	char ip[15]; // variable para definir el interface donde se creará el nodo.
 } t_artnetin;
 
 unsigned char *dmx; // El array DMX
@@ -90,7 +102,7 @@ void artnetin_bang(t_artnetin *x) {
 	else
 	{
 		post ("Artnetin: Node created on thread %d", x->x_threadid); 
-		post ("listening on Subnet %d Universe %d and IP address %s", x->subnet, x->universe, x->ip);  
+		post ("Artnetin: listening on Subnet %d Universe %d and IP address %s", x->subnet, x->universe, x->ip);  
 	}
 return;
 }
@@ -180,10 +192,10 @@ static void thread_start(t_artnetin *x)
 // - Message: ip - define el interface donde escuchará el nodo mediante la ip
 //--------------------------------------------------------------------------
 
-void artnetin_ip(t_artnetin *x, t_symbol ip_addres)
+void artnetin_ip(t_artnetin *x, t_symbol *ip_addres)
 {
-//	x->ip = ip_addres;
-
+	strcpy(x->ip, ip_addres->s_name);
+	post("Artnetin: IP %s", x->ip);	
 }
 
 //--------------------------------------------------------------------------
@@ -196,11 +208,11 @@ void artnetin_open(t_artnetin *x, t_floatarg f1, t_floatarg f2)
 	if ((int)x->x_threadid == 0) {
 		x->subnet = f1;
 		x->universe = f2;    
-		post("Artnetin: opening node Artnet Subnet %d Universe %d", x->subnet, x->universe);
+		post("Artnetin: opening node Artnet Subnet %d Universe %d IP %s", x->subnet, x->universe, x->ip);
 
-		char * ip_addr =  NULL;
+//		char * ip_addr =  NULL;
 		
-		x->node = artnet_new(ip_addr, 0 );
+		x->node = artnet_new(x->ip, 0 );
 		if(x->node == NULL) {
 			error("Artnetin: Unable to connect") ;
 		}
@@ -248,17 +260,17 @@ void artnetin_close(t_artnetin *x)
 void *artnetin_new(void)
 {
 
-	post("Artnetin: an ArtNet interface : v0.0.4 written by Santiago Noreña (puremediaserver@gmail.com)");
-
+	post("Artnetin: an ArtNet interface : v0.0.4"); 
+	post("          written by Santiago Noreña (puremediaserver@gmail.com)");
 	t_artnetin *x = (t_artnetin *)pd_new(artnetin_class);	// local variable (pointer to a t_artnetin data structure)
 	x->outlet1 = outlet_new(&x->x_obj, &s_list); 		// Saca todos los canales  mediante una lista
 	x->CHANNELS = 512;					// Define el número de canales del array dmx
-	dmx = malloc(512) ;					// localiza memoria para el array dmx
+	dmx = malloc(512) ;					// localiza memoria para el array dmx; Cambiar por freebytes,,,
 	if(!dmx) {
 		error("Artnetin: malloc failed") ;
 	}
 	memset(dmx, 0x00, x->CHANNELS) ;  			// Inicializa el array dmx a 0
-//	* x->ip = NULL;						// Inicializa la dirección ip a NULL; Por defecto coge la interface más baja   
+	*x->ip = NULL;						// Inicializa la dirección ip a NULL; Por defecto coge la interface más baja   
 	return (void *)x;
 }
 
@@ -284,3 +296,4 @@ void artnetin_setup(void)
 	class_addmethod(artnetin_class, (t_method)artnetin_ip, gensym("ip"), A_SYMBOL, 0);
 	class_addbang(artnetin_class, artnetin_bang);
 }
+
