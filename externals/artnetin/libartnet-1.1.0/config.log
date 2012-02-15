@@ -820,8 +820,8 @@ configure:21194: $? = 0
 configure:21212: result: yes
 configure:21219: checking for _doprnt
 configure:21275: gcc -o conftest -g -O2   conftest.c  >&5
-/tmp/ccxQ8wx1.o: In function `main':
-/home/santi/PMS/externals/artnetin/libartnet-1.1.0/conftest.c:79: undefined reference to `_doprnt'
+/tmp/ccoJlRju.o: In function `main':
+/home/santi/PMS2/externals/artnetin/libartnet-1.1.0/conftest.c:79: undefined reference to `_doprnt'
 collect2: ld returned 1 exit status
 configure:21281: $? = 1
 configure: failed program was:
@@ -1256,16 +1256,16 @@ lt_lt_cv_sys_global_symbol_to_cdecl='"sed -n -e '\''s/^. .* \\(.*\\)\$/extern in
 ## Output variables. ##
 ## ----------------- ##
 
-ACLOCAL='${SHELL} /home/santi/PMS/externals/artnetin/libartnet-1.1.0/missing --run aclocal-1.10'
+ACLOCAL='${SHELL} /home/santi/PMS2/externals/artnetin/libartnet-1.1.0/missing --run aclocal-1.10'
 AMDEPBACKSLASH='\'
 AMDEP_FALSE='#'
 AMDEP_TRUE=''
-AMTAR='${SHELL} /home/santi/PMS/externals/artnetin/libartnet-1.1.0/missing --run tar'
+AMTAR='${SHELL} /home/santi/PMS2/externals/artnetin/libartnet-1.1.0/missing --run tar'
 AR='ar'
 AS='as'
-AUTOCONF='${SHELL} /home/santi/PMS/externals/artnetin/libartnet-1.1.0/missing --run autoconf'
-AUTOHEADER='${SHELL} /home/santi/PMS/externals/artnetin/libartnet-1.1.0/missing --run autoheader'
-AUTOMAKE='${SHELL} /home/santi/PMS/externals/artnetin/libartnet-1.1.0/missing --run automake-1.10'
+AUTOCONF='${SHELL} /home/santi/PMS2/externals/artnetin/libartnet-1.1.0/missing --run autoconf'
+AUTOHEADER='${SHELL} /home/santi/PMS2/externals/artnetin/libartnet-1.1.0/missing --run autoheader'
+AUTOMAKE='${SHELL} /home/santi/PMS2/externals/artnetin/libartnet-1.1.0/missing --run automake-1.10'
 AWK='gawk'
 CC='gcc'
 CCDEPMODE='depmode=gcc3'
@@ -1299,7 +1299,7 @@ LIBS=''
 LIBTOOL='$(SHELL) $(top_builddir)/libtool'
 LN_S='ln -s'
 LTLIBOBJS=''
-MAKEINFO='${SHELL} /home/santi/PMS/externals/artnetin/libartnet-1.1.0/missing --run makeinfo'
+MAKEINFO='${SHELL} /home/santi/PMS2/externals/artnetin/libartnet-1.1.0/missing --run makeinfo'
 OBJDUMP='objdump'
 OBJEXT='o'
 PACKAGE='libartnet'
@@ -1348,7 +1348,7 @@ host_vendor='pc'
 htmldir='${docdir}'
 includedir='${prefix}/include'
 infodir='${datarootdir}/info'
-install_sh='$(SHELL) /home/santi/PMS/externals/artnetin/libartnet-1.1.0/install-sh'
+install_sh='$(SHELL) /home/santi/PMS2/externals/artnetin/libartnet-1.1.0/install-sh'
 libdir='${exec_prefix}/lib'
 libexecdir='${exec_prefix}/libexec'
 localedir='${datarootdir}/locale'

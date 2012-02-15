@@ -21,7 +21,7 @@
 */
 /*
  * Santiago Noreña 
- * puremediaserver@gmail.com.com
+ * puremediaserver@gmail.com
  * Versión 0.0.4
  *
  * Based on previous works by: 
@@ -36,7 +36,7 @@
  * - cambiar variables a syntaxis pure data (x_subnet)
  * - método max channels distinto de 512
  * - meter thread_start en función principal
- * - IP Null si no hay configuración --> interfaz con ip más baja por defecto 	
+ * 
 */ 
 
 #include "m_pd.h"
@@ -57,17 +57,17 @@ t_class *artnetin_class;
 typedef struct _artnetin
 {
 	t_object x_obj;
-	artnet_node node; // el nodo artnet 
-	int CHANNELS;     // la longitud del array dmx
-	t_outlet *outlet1; // outlet pointer
-	int subnet;  // variables subnet y universo; solo utiles para mostrar informacion del nodo en bang
+	artnet_node node; 			// el nodo artnet 
+	int CHANNELS;     			// la longitud del array dmx
+	t_outlet *outlet1; 			// outlet pointer
+	int subnet;  				// variables subnet y universo; solo utiles para mostrar informacion del nodo en bang
 	int universe;	
 	pthread_attr_t 	artnetin_thread_attr;
-	pthread_t		x_threadid; // Control de thread
-	char ip[15]; // variable para definir el interface donde se creará el nodo.
+	pthread_t		x_threadid; 	// Control de thread
+	char *ip; 				// variable para definir el interface donde se creará el nodo.
 } t_artnetin;
 
-unsigned char *dmx; // El array DMX
+unsigned char *dmx; 				// El array DMX
 
 // ==============================================================================
 // dmx handler - 
@@ -77,14 +77,14 @@ static int dmx_handler(artnet_node node, int prt , void *d) {
 	int z;
 	int len;
 	t_artnetin *x = (t_artnetin*) d;
-	uint8_t *g = dmx; 			  // Puntero al array dmx 
-	uint8_t *data; 				  // Puntero 
-	data = artnet_read_dmx(node, prt, &len) ; // Nos devuelve el array dmx en data?
-	memcpy(g, data, len) ; 			  // Copia el array dmx devuelto a g
+	uint8_t *g = dmx; 			  		// Puntero al array dmx 
+	uint8_t *data; 				  		// Puntero 
+	data = artnet_read_dmx(node, prt, &len) ; 		// Nos devuelve el array dmx en data?
+	memcpy(g, data, len) ; 			  		// Copia el array dmx devuelto a g
 
-	t_atom dmxa[x->CHANNELS];		  // Crea un array dmx en formato float pure dat
-	uint8_t *b = dmx;			  // Otro puntero a dmx; no podemos usar g?	
-	for(z=0; z < x->CHANNELS; z++){ 	  // Copiamos el array dmx al array dmxa	
+	t_atom dmxa[x->CHANNELS];		  		// Crea un array dmx en formato float pure dat
+	uint8_t *b = dmx;			  		// Otro puntero a dmx; no podemos usar g?	
+	for(z=0; z < x->CHANNELS; z++){ 	  		// Copiamos el array dmx al array dmxa	
 		SETFLOAT(dmxa+z, *b);		
 		b++;
 	}
@@ -108,7 +108,7 @@ return;
 }
 
 // =============================================================================
-// Thread
+// Worker Thread
 // =============================================================================
 static void *thread_read(void *w)
 {
@@ -162,21 +162,21 @@ static void thread_start(t_artnetin *x)
     if(pthread_attr_init(&x->artnetin_thread_attr) < 0)
 	{
 	   sys_lock();
-       error("artnetin: could not launch receive thread");
+       error("Artnetin: could not launch receive thread");
 	   sys_unlock();
        return;
     }
     if(pthread_attr_setdetachstate(&x->artnetin_thread_attr, PTHREAD_CREATE_DETACHED) < 0)
 	{
        	   sys_lock();
-	   error("artnetin: could not launch receive thread");
+	   error("Artnetin: could not launch receive thread");
            sys_unlock();
 	   return;
     }
     if(pthread_create(&x->x_threadid, &x->artnetin_thread_attr, thread_read, x) < 0)
 	{
    	   sys_lock();
-   	   error("artnetin: could not launch receive thread");
+   	   error("Artnetin: could not launch receive thread");
 	   sys_unlock();
        	   return;
     }
@@ -194,6 +194,7 @@ static void thread_start(t_artnetin *x)
 
 void artnetin_ip(t_artnetin *x, t_symbol *ip_addres)
 {
+	x->ip = getbytes(15);	
 	strcpy(x->ip, ip_addres->s_name);
 	post("Artnetin: IP %s", x->ip);	
 }
@@ -265,12 +266,12 @@ void *artnetin_new(void)
 	t_artnetin *x = (t_artnetin *)pd_new(artnetin_class);	// local variable (pointer to a t_artnetin data structure)
 	x->outlet1 = outlet_new(&x->x_obj, &s_list); 		// Saca todos los canales  mediante una lista
 	x->CHANNELS = 512;					// Define el número de canales del array dmx
-	dmx = malloc(512) ;					// localiza memoria para el array dmx; Cambiar por freebytes,,,
+	dmx = malloc(512) ;					// localiza memoria para el array dmx; Cambiar por getbytes
 	if(!dmx) {
 		error("Artnetin: malloc failed") ;
 	}
 	memset(dmx, 0x00, x->CHANNELS) ;  			// Inicializa el array dmx a 0
-	*x->ip = NULL;						// Inicializa la dirección ip a NULL; Por defecto coge la interface más baja   
+	x->ip = NULL;						// Inicializa la dirección ip a NULL = interface con ip más baja
 	return (void *)x;
 }
 
@@ -281,6 +282,7 @@ void *artnetin_new(void)
 void artnetin_free(t_artnetin *x)
 {
 	artnetin_close(x);
+	freebytes(x->ip, 15);
 }
 
 //--------------------------------------------------------------------------
