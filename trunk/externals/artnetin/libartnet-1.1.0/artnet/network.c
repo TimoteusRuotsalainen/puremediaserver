@@ -183,7 +183,7 @@ static void add_iface_if_needed(iface_t **head, iface_t **tail,
   // skip down, loopback and non inet interfaces
   if (!ifa || !ifa->ifa_addr) return;
   if (!(ifa->ifa_flags & IFF_UP)) return;
-  if (ifa->ifa_flags & IFF_LOOPBACK) return;
+//  if (ifa->ifa_flags & IFF_LOOPBACK) return;
   if (ifa->ifa_addr->sa_family != AF_INET) return;
 
   iface_t *iface = new_iface(head, tail);
@@ -342,8 +342,8 @@ static int get_ifaces(iface_t **if_head) {
       if ((flags & IFF_UP) == 0)
         continue; //skip down interfaces
 
-      if ((flags & IFF_LOOPBACK))
-        continue; //skip lookback
+//      if ((flags & IFF_LOOPBACK))
+//        continue; //skip lookback
 
       iface = new_iface(if_head, &if_tail);
       if (!iface)
