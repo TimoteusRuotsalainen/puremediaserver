@@ -5,12 +5,12 @@
 [X] Selector de entrada
 [ ] Previews de capa mediante #eye
 [X] Módulo de configuración de pantalla
-[ ] Módulo de teclas 
+[X] Módulo de teclas 
 [X] Diferentes extensiones de archivos .mpg .avi .tiff
 [X] Limpiar artnetin
 [X] Ficheros y directorios de medias con nombres descriptivos
 [ ] Canales de doble precisión: X/Y
-[ ] Implementar pan
+[X] Implementar pan
 [ ] Efectos video
 [ ] Lux y Croma
 [X] Opción de no renderizado por capa
