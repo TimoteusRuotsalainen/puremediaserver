@@ -1,4 +1,4 @@
-#N canvas 0 0 1267 930 10;
+#N canvas 1 87 1267 679 10;
 #X msg 12 1041 open \$1;
 #X obj 138 927 gemhead;
 #X obj 12 903 spigot;
@@ -8,7 +8,7 @@
 #X msg 183 852 0;
 #X msg 138 852 1;
 #X obj 138 814 select 1;
-#X obj 158 1099 pdp_qt~;
+#X obj 155 1083 pdp_qt~;
 #X obj 137 1273 pdp2gem;
 #X obj 137 1344 outlet;
 #X msg -2 1193 colorspace YUV;
@@ -385,3 +385,4 @@ una vez 41-50 Back una vez 51-60 Ping-Pong una vez 61-70 Stop/pause
 #X connect 161 0 114 0;
 #X connect 161 0 128 0;
 #X connect 163 0 36 0;
+#X coords 0 679 1 678 85 60 0;
