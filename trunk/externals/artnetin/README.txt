@@ -34,9 +34,12 @@ Instalación:
 
 Uso:
 
-El objeto escucha en el interface activo con la IP más baja, típicamente 2.x.x.x.
+Antes de que el objeto empiece a sacar valores hay que crear el nodo. Para ello hay que mandar un mensaje [open "nº subnet" "nº universo"].
+También podemos especificar la IP del interface ene l que escuchará mandando el mensaje "ip + dirección ip" antes de mandar el mensaje open.
+Si no le mandamos ningún parámetro con el mesaje open el objeto escucha en el interface activo con la IP más baja, típicamente 2.x.x.x, en la subnet 0 y universo 0.
 El objeto saca una lista de 512 enteros con el universo entero.
-Antes de que el objeto empiece a sacar valores hay que crear el nodo. Para ello hay que mandar un mensaje [open "nº subnet" "nº universo"]. Si sólo le pasamos open, escuchará en la subnet 0, universo 0. Si queremos cambiar el universo de escucha hay que mandar un mensaje [close]. Después se puede volver a mandar un nuevo mensaje open con la nueva configuración. 
+Si queremos cambiar el universo, a subnet o la dirección ip hay que mandar un mensaje [close] y luego mandar un nuevo mensaje open con la nueva configuración. 
+Mandando bang al objeto nos imprime en la ventana de estado si el nodo está activo y en caso afirmativo en qué subnet, unverso y direcicń ip está escuchando.
 
 *****************************
 

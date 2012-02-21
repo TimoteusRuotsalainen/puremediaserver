@@ -6,7 +6,7 @@ puremediaserver@gmail.com
 
 Artnetin is based on previous works by: 
  * 	Dirk Jagdmann (doj@cubic.org) dmxmonitor
- *	Simon Newton (nomis52@westnet.com.au) Modified to dmxmonitor to use ArtNet	
+ *	Simon Newton (nomis52@westnet.com.au) libartnet and modified to dmxmonitor to use ArtNet	
  * 	Patrick Sébastien http://www.workinprogress.ca/ pure data external pthread template
 
 ****************************************************************
@@ -29,7 +29,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 Pure Media Server es un proyecto experimental que intenta crear un media server utilizando herramientas y códigos libres.
 
-Pure Media Server ha sido probado en Debian Squeeze y Ubunut Lucid.
+Pure Media Server ha sido probado en Debian Squeeze y Wheezy y Ubuntu Lucid.
 
 ****************************************************************
 
