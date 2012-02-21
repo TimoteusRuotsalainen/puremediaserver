@@ -13,7 +13,8 @@ puremediaserver@gmail.com
 - Modificados valores en cambio.pd
 - Pequeños ajustes en módulos corrigiendo fallos
 - Actualización del método de instalación en instalación.txt (todavía falta más trabajo en él).
-- Cambiados valores de locate para hacerlos más sensibles.
+- Cambiados valores de locate para hacerlos más sensibles
+- 4 capas
 
 * 0.02 (9-6-2011) SVN Rev 58
 

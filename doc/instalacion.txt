@@ -6,7 +6,7 @@ puremediaserver@gmail.com
 
 0. Requeriminetos
 
-PMS está probado en Debian Squezee y Ubunut Lucid. Necesita una tarjeta gráfica OpenGL y que los drivers para Xorg con aceleración por hardware estén correctamente instalados. Ejecutando "glxgears" en una terminal debería de abrir una ventana con tres engranajes girando. Si no es así, revisa la documentación de tu distribución.
+PMS está probado en Debian Squezee y Wheezy y Ubuntu Lucid. Necesita una tarjeta gráfica OpenGL y que los drivers para Xorg con aceleración por hardware estén correctamente instalados. Ejecutando "glxgears" en una terminal debería de abrir una ventana con tres engranajes girando. Si no es así, revisa la documentación de tu distribución.
 
 1. Instala pd-extended y sus dependencias:
     

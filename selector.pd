@@ -1,4 +1,4 @@
-#N canvas 81 87 909 491 10;
+#N canvas 1 98 1361 491 10;
 #X obj 1180 247 symbol;
 #X obj 1489 -30 loadbang;
 #X obj 738 594 outlet;
@@ -20,9 +20,9 @@
 #X text 1220 628 Tipo de media: 0 Off 1 Video 2 Imagen 3 Texto 4 Audio
 ;
 #X obj 738 416 inlet;
-#X obj 635 16 inlet;
+#X obj 635 14 inlet;
 #X obj 1316 -67 inlet;
-#X obj 738 503 getfilenames;
+#X obj 738 510 getfilenames;
 #X msg 807 412 symbol \$1;
 #X obj 636 349 makefilename %s/*;
 #X obj 899 278 makefilename /%s/image/*;
@@ -40,8 +40,13 @@
 #X obj 1316 26 change;
 #X obj 636 215 int;
 #X obj 738 470 int;
-#X obj 568 241 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
+#X symbolatom 858 565 80 0 0 0 - - -;
+#X symbolatom 904 478 40 0 0 0 - - -;
+#X symbolatom 943 388 40 0 0 0 - - -;
+#X floatatom 676 52 5 0 0 0 - - -;
+#X floatatom 1235 -29 5 0 0 0 - - -;
+#X floatatom 648 454 5 0 0 0 - - -;
+#X symbolatom 914 318 40 0 0 0 - - -;
 #X connect 0 0 27 0;
 #X connect 1 0 17 0;
 #X connect 4 0 7 0;
@@ -72,17 +77,24 @@
 #X connect 16 4 17 0;
 #X connect 17 0 3 0;
 #X connect 19 0 39 0;
+#X connect 19 0 45 0;
 #X connect 20 0 9 0;
+#X connect 20 0 43 0;
 #X connect 21 0 4 0;
+#X connect 21 0 44 0;
 #X connect 22 0 2 0;
+#X connect 22 0 40 0;
 #X connect 23 0 22 1;
 #X connect 23 0 32 0;
+#X connect 23 0 41 0;
 #X connect 24 0 23 0;
 #X connect 25 0 23 0;
+#X connect 25 0 46 0;
 #X connect 26 0 23 0;
 #X connect 27 0 23 0;
 #X connect 28 0 31 0;
 #X connect 31 0 8 1;
+#X connect 31 0 42 0;
 #X connect 32 0 22 0;
 #X connect 33 0 28 0;
 #X connect 33 0 6 0;
@@ -94,4 +106,3 @@
 #X connect 37 0 16 0;
 #X connect 38 0 8 0;
 #X connect 39 0 22 0;
-#X connect 40 0 8 0;

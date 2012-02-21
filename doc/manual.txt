@@ -16,8 +16,8 @@ Antes de crear el nodo ArtNet y la ventana es necesario configurarlos. Para camb
 - Teclas pantalla principal
 
 	C : Crea pantalla y empieza a renderizar.
-	S: Para el renderizado y la lectura DMX512.
-	A: Para el renderizado y la lectura DMX512.	
+	S: Para el renderizado.
+	A: Reanuda el renderizado.	
 	Escape: Destruye la pantalla.
 	F: Fullscreen (antes de crear la pantalla).	
 
