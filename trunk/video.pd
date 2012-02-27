@@ -1,6 +1,6 @@
 #N canvas 1 87 1267 679 10;
 #X msg 12 1041 open \$1;
-#X obj 138 927 gemhead;
+#X obj 137 972 gemhead;
 #X obj 12 903 spigot;
 #X floatatom 177 1157 5 0 0 0 - - -;
 #X obj 16 -135 inlet;
@@ -182,14 +182,16 @@ una vez 41-50 Back una vez 51-60 Ping-Pong una vez 61-70 Stop/pause
 #X obj 1606 55 inlet;
 #X text 1891 44 Control y modos de reproduccion c9;
 #X obj 1955 66 inlet;
+#X obj 291 704 loadbang;
+#X msg 212 931 1;
+#X msg 237 1247 colorspace RGBA;
 #X connect 0 0 9 0;
 #X connect 1 0 10 0;
 #X connect 2 0 0 0;
 #X connect 4 0 2 0;
 #X connect 5 0 8 0;
-#X connect 6 0 1 0;
 #X connect 6 0 2 1;
-#X connect 7 0 1 0;
+#X connect 6 0 1 0;
 #X connect 7 0 2 1;
 #X connect 8 0 7 0;
 #X connect 8 1 6 0;
@@ -197,6 +199,7 @@ una vez 41-50 Back una vez 51-60 Ping-Pong una vez 61-70 Stop/pause
 #X connect 9 1 17 0;
 #X connect 9 2 3 0;
 #X connect 9 2 93 0;
+#X connect 9 2 165 0;
 #X connect 9 3 16 0;
 #X connect 9 4 15 0;
 #X connect 10 0 11 0;
@@ -385,4 +388,8 @@ una vez 41-50 Back una vez 51-60 Ping-Pong una vez 61-70 Stop/pause
 #X connect 161 0 114 0;
 #X connect 161 0 128 0;
 #X connect 163 0 36 0;
+#X connect 164 0 6 0;
+#X connect 164 0 166 0;
+#X connect 165 0 1 0;
+#X connect 166 0 10 0;
 #X coords 0 679 1 678 85 60 0;
