@@ -1,5 +1,4 @@
-#N canvas 927 353 434 413 10;
-#X declare -lib Gem -lib pdp -lib zexy -lib gem2pdp;
+#N canvas 925 353 434 413 10;
 #X obj 338 -313 tgl 50 1 render_status_send render_status_receive Render
 -20 -15 0 25 -260097 -1 -260097 0 1;
 #X obj 39 -306 hradio 30 1 0 3 input_selector empty Input_Selector
@@ -150,7 +149,7 @@ R resetea propiedades graficas;
 #X coords 0 -1 1 0 100 100 2 2400 -100;
 #X restore 328 -139 pd interface;
 #X obj 29 -24 config;
-#N canvas 186 157 1173 599 dmx 1;
+#N canvas 184 165 1173 599 dmx 0;
 #X obj 522 345 artnetin;
 #X obj 21 479 list split 32;
 #X text 425 148 Subnet Universo;
@@ -1936,5 +1935,4 @@ f f f f f f f f f;
 #X connect 28 1 5 4;
 #X connect 28 1 6 1;
 #X restore 240 -60 pd capa4;
-#X obj 148 -280 import Gem pdp zexy gem2pdp;
 #X coords 0 0 1 1 85 60 0;
