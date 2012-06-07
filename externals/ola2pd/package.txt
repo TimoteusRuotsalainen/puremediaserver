@@ -1,0 +1,13 @@
+NAME=ola2pd
+SRCS=main.cpp
+# user defined compiler flags
+# UFLAGS += -D FLEXT_THREADS
+
+# user defined linker flags
+ LDFLAGS += -L/usr/local/lib -lola -lpthread
+
+# multithreading
+
+BUILDTYPE=multi
+
+BUILDMODE=release
