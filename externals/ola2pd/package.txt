@@ -10,4 +10,4 @@ SRCS=main.cpp
 
 BUILDTYPE=multi
 
-BUILDMODE=release
+BUILDMODE=debug

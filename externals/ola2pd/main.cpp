@@ -20,8 +20,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
- * The (void) before attrset is due to a bug in curses. See
- * http://www.mail-archive.com/debian-bugs-dist@lists.debian.org/msg682294.html
  */
 
 // Define flext
@@ -38,28 +36,6 @@
 // Define general
 #include <errno.h>
 
-
-/*
-#include <curses.h>
-
-#include <fcntl.h>
-#include <getopt.h>
-#ifdef HAVE_MALLOC_H
-#include <malloc.h>  // Alternativa a malloc en flext    
-#endif
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/ioctl.h>
-#include <sys/time.h>
-#include <termios.h>
-#include <time.h>
-#include <unistd.h>
-#include <sys/timeb.h>
-#include <iostream>
-
-*/
 // Define ola
 
 #include <ola/BaseTypes.h>
@@ -79,6 +55,7 @@ class ola2pd:
 
 	public flext_base
 {
+
 	FLEXT_HEADER_S(ola2pd,flext_base,setup)
 
 public:
