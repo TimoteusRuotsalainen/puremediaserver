@@ -19,7 +19,7 @@ Based on dmxmonitor
 ola2pd es un objeto de Pure Data que permite leer un universo de Open Lighting Arquitecture, que proporciona soporte
 para muchos protocoles de iluminación basados en red (Pathport, ArtNet, ACN, ShowNet, SandNet) e interfaces USB (Enttec Open DMX Pro, Velleman, Robe,...). 
 
-El objeto está desarrollado con las cabeceras Flext de Thomas Miller, por lo que debería de compilar en Windows, Mac y
+El objeto está desarrollado con las cabeceras Flext de Thomas Grill, por lo que debería de compilar en Windows, Mac y
 Linux para Max/MSP y Pure Data. Se proporciona el binario para Pure Data en Linux (Debian Wheezy), que es la única plataforma en que está probado.
 
 *****************************
