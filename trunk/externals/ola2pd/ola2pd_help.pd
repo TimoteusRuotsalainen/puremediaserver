@@ -1,17 +1,21 @@
-#N canvas 628 460 450 300 10;
-#X obj 180 114 ola2pd;
-#X obj 136 61 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#N canvas 626 470 450 300 10;
+#X obj 192 126 ola2pd;
+#X obj 324 52 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X msg 233 73 open;
-#X msg 181 70 close;
-#X msg 47 61 universe 0;
-#X msg 296 69 universe 2;
-#X obj 189 175 list split 4;
+#X msg 190 47 open;
+#X msg 240 49 close;
+#X msg 92 68 universe 0;
+#X msg 8 68 universe 2;
+#X obj 192 175 list split 4;
 #X obj 192 219 unpack f f f f;
-#X floatatom 140 255 5 0 0 0 - - -;
-#X floatatom 225 257 5 0 0 0 - - -;
-#X floatatom 360 272 5 0 0 0 - - -;
-#X floatatom 345 231 5 0 0 0 - - -;
+#X floatatom 110 252 5 0 0 0 - - -;
+#X floatatom 192 253 5 0 0 0 - - -;
+#X floatatom 278 253 5 0 0 0 - - -;
+#X floatatom 356 253 5 0 0 0 - - -;
+#X text 98 268 Channel 1;
+#X text 182 270 Channel 2;
+#X text 267 270 Channel 3;
+#X text 348 270 Channel 4;
 #X connect 0 0 6 0;
 #X connect 1 0 0 0;
 #X connect 2 0 0 0;

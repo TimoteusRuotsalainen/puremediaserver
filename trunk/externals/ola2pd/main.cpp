@@ -78,7 +78,7 @@ public:
     void RegisterComplete(const string &error);
     void StdinReady();
     bool CheckDataLoss();
-    void Run();
+    void Read();
 
 protected:
 
@@ -102,7 +102,7 @@ protected:
             ola::NewCallback(this, &ola2pd::CheckDataLoss));
         m_buffer.Blackout();	
         post("ola2pd: Init complete");
-        Run();
+        Read();
         post("ola2pd: Close complete");
     }    
     
@@ -114,9 +114,9 @@ protected:
             ola::NewSingleCallback(this, &ola2pd::RegisterComplete));        
         m_client.GetSelectServer()->Terminate();
     }
+
 	void m_bang()  // Utilidad del bang?
 	{
-		post("%s: bang",thisName());
 		post("%s: universe %d",thisName(),i_universe);
 	}
 
@@ -144,7 +144,7 @@ private:
 	FLEXT_THREAD(m_open)
 	FLEXT_CALLBACK(m_close) 
 	FLEXT_ATTRVAR_I(i_universe) // wrapper functions (get and set) for integer variable universe
-    FLEXT_THREAD(Run)
+    FLEXT_THREAD(Read)
 };
 
 // instantiate the class (constructor takes no arguments)
@@ -187,19 +187,19 @@ bool ola2pd::CheckDataLoss() {
  * Called when there is input from the keyboard. Necesarios??
  */
 void ola2pd::StdinReady() {
-    post("Stdinready");
+    post("ola2pd:Stdinready");
  }
 
 void ola2pd::RegisterComplete(const string &error) {
   if (!error.empty()) {
-    post("Register command failed");
+    post("ola2pd:Register command failed");
     m_client.GetSelectServer()->Terminate();
   }
 }
 
 // Worker thread
 
-void ola2pd::Run() {m_client.GetSelectServer()->Run();}
+void ola2pd::Read() {m_client.GetSelectServer()->Run();}
 
 /*
 void ola2pd::Clean() {

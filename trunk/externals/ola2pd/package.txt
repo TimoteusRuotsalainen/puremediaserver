@@ -6,8 +6,13 @@ SRCS=main.cpp
 # user defined linker flags
  LDFLAGS += -L/usr/local/lib -lola -lpthread
 
+# FLEXT HEADERS
+
 # multithreading
 
 BUILDTYPE=multi
+
+# Type mode of the release
+# KNOWN ISSUE: Changing this to release will crash Pure Data at library load
 
 BUILDMODE=debug
