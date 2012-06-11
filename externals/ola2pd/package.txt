@@ -1,10 +1,11 @@
 NAME=ola2pd
 SRCS=main.cpp
+
 # user defined compiler flags
-# UFLAGS += -D FLEXT_THREADS
+UFLAGS += -v
 
 # user defined linker flags
- LDFLAGS += -L/usr/local/lib -lola -lpthread
+LDFLAGS += -lola 
 
 # FLEXT HEADERS
 
@@ -13,6 +14,8 @@ SRCS=main.cpp
 BUILDTYPE=multi
 
 # Type mode of the release
-# KNOWN ISSUE: Changing this to release will crash Pure Data at library load
+# KNOWN ISSUE: Changing this to release will crash Pure Data in Debian at library load
+# debug is safe
 
-BUILDMODE=debug
+BUILDMODE=release
+
