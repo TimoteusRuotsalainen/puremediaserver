@@ -26,30 +26,38 @@
 
 #define FLEXT_ATTRIBUTES 1
 #include <flext.h>
-#if !defined(FLEXT_VERSION) || (FLEXT_VERSION < 401)
-#error You need at least flext version 0.4.1
+#if !defined(FLEXT_VERSION) || (FLEXT_VERSION < 500)
+#error You need at least flext version 0.5.0
 #endif
+
+//#define FLEXT_SHARED 1
+//#define FLEXT_USE_CMEM 1
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
 
 // Define general
+
 #include <errno.h>
+#include <string>
 
 // Define ola
 
-#include <ola/BaseTypes.h>
-#include <ola/Callback.h>
-#include <ola/OlaCallbackClient.h>
-#include <ola/OlaClientWrapper.h>
-#include <ola/DmxBuffer.h>
-#include <ola/network/SelectServer.h>
+#include <BaseTypes.h>
+#include <Callback.h>
+#include <OlaCallbackClient.h>
+#include <OlaClientWrapper.h>
+#include <DmxBuffer.h>
+#include <io/SelectServer.h>
+
 
 using ola::DmxBuffer;
 using ola::OlaCallbackClient;
 using ola::OlaCallbackClientWrapper;
-using ola::network::SelectServer;
+using ola::io::SelectServer;
 using std::string;
+
 
 class ola2pd:
 
@@ -62,26 +70,25 @@ public:
 
 	// constructor with no arguments
 	ola2pd():
-		// initialize data members
-		  i_universe(0),
+	// initialize data members
+	  i_universe(0),
           m_universe(0),
-          m_counter(0),
-          m_stdin_descriptor(STDIN_FILENO)
-    {
+          m_counter(0)
+//          m_stdin_descriptor(STDIN_FILENO)
+    	{
 		// --- define inlets and outlets ---
 		AddInAnything(); // default inlet
 		AddOutList();	// outlet for DMX list
+
 	}
 	void NewDmx(unsigned int universe,
                 const DmxBuffer &buffer,
                 const string &error);
-    void RegisterComplete(const string &error);
-    void StdinReady();
-    bool CheckDataLoss();
-    void Read();
+        void RegisterComplete(const string &error);
+//      void StdinReady();
+        bool CheckDataLoss();
 
 protected:
-
 
 	void m_open() {
         m_universe = i_universe;	    
@@ -91,29 +98,21 @@ protected:
         }
         OlaCallbackClient *client = m_client.GetClient();
         client->SetDmxCallback(ola::NewCallback(this, &ola2pd::NewDmx));
-        client->RegisterUniverse(
-            m_universe,
-            ola::REGISTER,
-            ola::NewSingleCallback(this, &ola2pd::RegisterComplete));
-        m_client.GetSelectServer()->AddReadDescriptor(&m_stdin_descriptor);
-        m_stdin_descriptor.SetOnData(ola::NewCallback(this, &ola2pd::StdinReady));
-        m_client.GetSelectServer()->RegisterRepeatingTimeout(
-            500,
-            ola::NewCallback(this, &ola2pd::CheckDataLoss));
+        client->RegisterUniverse(m_universe,ola::REGISTER,ola::NewSingleCallback(this, &ola2pd::RegisterComplete));
+//        m_client.GetSelectServer()->AddReadDescriptor(&m_stdin_descriptor);
+//        m_stdin_descriptor.SetOnData(ola::NewCallback(this, &ola2pd::StdinReady));
+        m_client.GetSelectServer()->RegisterRepeatingTimeout(500,ola::NewCallback(this, &ola2pd::CheckDataLoss));
         m_buffer.Blackout();	
         post("ola2pd: Init complete");
-        Read();
+	m_client.GetSelectServer()->Run();
         post("ola2pd: Close complete");
-    }    
+        }    
     
-	void m_close(){
+	void m_close() {
         OlaCallbackClient *client = m_client.GetClient();
-        client->RegisterUniverse(
-            m_universe,
-            ola::UNREGISTER,
-            ola::NewSingleCallback(this, &ola2pd::RegisterComplete));        
+        client->RegisterUniverse(m_universe,ola::UNREGISTER,ola::NewSingleCallback(this, &ola2pd::RegisterComplete));        
         m_client.GetSelectServer()->Terminate();
-    }
+        }
 
 	void m_bang()  // Utilidad del bang?
 	{
@@ -124,27 +123,28 @@ private:
     int i_universe;
     unsigned int m_universe;
     unsigned int m_counter;
-    ola::network::UnmanagedFileDescriptor m_stdin_descriptor;
+//    ola::io::UnmanagedFileDescriptor m_stdin_descriptor;
     struct timeval m_last_data;
     OlaCallbackClientWrapper m_client;
     DmxBuffer m_buffer;
 //    void Clean(); //o alternativa a free en flext
-	static void setup(t_classid c)
+    static void setup(t_classid c)
 	{
-		// --- set up methods (class scope) ---
-		// register a bang method to the default inlet (0)
-		FLEXT_CADDBANG(c,0,m_bang);
-		// set up tagged methods for the default inlet (0)
-		FLEXT_CADDMETHOD_(c,0,"open",m_open);
-		FLEXT_CADDMETHOD_(c,0,"close",m_close);
-		// --- set up attributes (class scope) ---
-		FLEXT_CADDATTR_VAR1(c,"universe",i_universe);  
+	// --- set up methods (class scope) ---
+	// register a bang method to the default inlet (0)
+	FLEXT_CADDBANG(c,0,m_bang);
+	// set up tagged methods for the default inlet (0)
+	FLEXT_CADDMETHOD_(c,0,"open",m_open);
+	FLEXT_CADDMETHOD_(c,0,"close",m_close);
+	// --- set up attributes (class scope) ---
+	FLEXT_CADDATTR_VAR1(c,"universe",i_universe);  
 	}
 	FLEXT_CALLBACK(m_bang)
 	FLEXT_THREAD(m_open)
 	FLEXT_CALLBACK(m_close) 
 	FLEXT_ATTRVAR_I(i_universe) // wrapper functions (get and set) for integer variable universe
-    FLEXT_THREAD(Read)
+        post("ola2pd v0.0.2-SVN - an interface to Open Lighting Arquitecture");
+	post("Santi Noreña puremediaserver@gmail.com");
 };
 
 // instantiate the class (constructor takes no arguments)
@@ -153,6 +153,7 @@ FLEXT_NEW("ola2pd",ola2pd)
 /*
  * Called when there is new DMX data
  */
+
 void ola2pd::NewDmx(unsigned int universe,
                         const DmxBuffer &buffer,
                         const string &error) {
@@ -169,6 +170,7 @@ void ola2pd::NewDmx(unsigned int universe,
 /*
  * Check for data loss.
  */
+
 bool ola2pd::CheckDataLoss() {
   struct timeval now, diff;
 
@@ -184,11 +186,8 @@ bool ola2pd::CheckDataLoss() {
 }
 
 /*
- * Called when there is input from the keyboard. Necesarios??
- */
-void ola2pd::StdinReady() {
-    post("ola2pd:Stdinready");
- }
+ * Control de errores en el registro de Universos en OLA
+ */ 
 
 void ola2pd::RegisterComplete(const string &error) {
   if (!error.empty()) {
@@ -197,12 +196,21 @@ void ola2pd::RegisterComplete(const string &error) {
   }
 }
 
-// Worker thread
+/*
+ * Called when there is input from the keyboard. Necesarios??
+ *
 
-void ola2pd::Read() {m_client.GetSelectServer()->Run();}
+void ola2pd::StdinReady() {
+    post("ola2pd:Stdinready");
+ }
 
 /*
+ * Método free, ¿cómo hay que declaralos en flext?
+ *
+
+
 void ola2pd::Clean() {
   m_close();
-}*/
+}
+*/
 
