@@ -1,16 +1,48 @@
-- Pure Data => 0.42-5
-- Gem
-- pdp
+Paquetes Ubuntu 12.04:
+
+gem
+pd-libdir
+pd-pdp
+puredata (conflicto...)
+puredata-core
+puredata-dev
+puredata-doc
+puredata-extra
+puredata-gui
+puredata-import
+puredata-utils
+
+-------
+gem
+pdp
+tcl
+tk
+
+
+
+
+----------------------
 - libartnet y artnetin (para control artnet)
 - ezfile/getfilenames para manejo de directorios
-
-
-
-
+- OLA para ola2pd
 
 -- Opcionales/en desarrollo:
 
-- QLC (para controlar dese el mismo ordenador)
 - Gridflow (#eye) para previews
+
+
+--ola2pd
+
+- fuentes de pure data http://puredata.info/downloads/pure-data
+- flext svn co https://svn.grrrr.org/ext/trunk/flext flext
+sudo apt-get install libcppunit-dev libcppunit-1.12-1 uuid-dev pkg-config libncurses5-dev libtool autoconf automake  g++ libmicrohttpd-dev libmicrohttpd5 protobuf-c-compiler libprotobuf-lite7 python-protobuf libprotobuf-dev zlib1g-dev bison flex make
+- OLA http://code.google.com/p/linux-lighting/
+- ola2pd
+
+
+
+
+
+
 
 
