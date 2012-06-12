@@ -6,26 +6,45 @@ puremediaserver@gmail.com
 
 0. Requeriminetos
 
-PMS está probado en Debian Squezee y Wheezy y Ubuntu Lucid. Necesita una tarjeta gráfica OpenGL y que los drivers para Xorg con aceleración por hardware estén correctamente instalados. Ejecutando "glxgears" en una terminal debería de abrir una ventana con tres engranajes girando. Si no es así, revisa la documentación de tu distribución.
+PMS está probado en Debian Wheezy y Ubuntu Precise 12.04. Necesita una tarjeta gráfica OpenGL y que los drivers para Xorg con aceleración por hardware estén correctamente instalados. Ejecutando "glxgears" en una terminal debería de abrir una ventana con tres engranajes girando. Si no es así, revisa la documentación de tu distribución.
 
-1. Instala pd-extended y sus dependencias:
-    
-For pd-extended, you can use the apt repository. You can either add this line to the bottom of /etc/apt/sources.list Or you can add it in the GUI administration program Synaptic (in the Settings -> Repositories menu, then the Third-Party Software tab). Choose the line for your version of Debian or Ubuntu from the options below:
+1. Descarga pd-extended para tu sistema de:
 
- # Debian/squeeze
- deb http://apt.puredata.info/releases squeeze main
+http://puredata.info/downloads/pd-extended/releases/0.43.1
 
- # Ubuntu/lucid 10.04 LTS
- deb http://apt.puredata.info/releases lucid main
+Son cerca de 30MB de descarga.
 
-2. Instala libartnet:
+Instálalo sudo dpkg -i  o gráficamente mediante gdebi
 
-  	cd externals/libartnet-1.1.0
-        ./configure --prefix=/usr
-  	make
-	sudo make install
+2. Instala y OLA. 
 
-3. Arrancando main.pd con pure data extended ya debería de estar funcionando. Dentro del programa puedes configurar más cosas como las direcciones DMX, subnet y universos artnet, las dimensiones de la pantalla y los textos para mostrar. Ver manual.txt para más detalles.
+Instala las dependencias de OLA
+
+sudo apt-get install libcppunit-dev libcppunit-1.12-1 uuid-dev pkg-config libncurses5-dev libtool autoconf automake  g++ libmicrohttpd-dev libmicrohttpd5 protobuf-c-compiler libprotobuf-lite7 python-protobuf libprotobuf-dev zlib1g-dev bison flex make
+
+Descarga de http://code.google.com/p/linux-lighting/
+
+./configure
+make
+sudo make install
+
+Arranca el demonio OLA olad -l 3
+
+Configura un universo com IN mediante el interfaz web localhost:9090
+
+3. Arrancando main.pd con pure data extended ya debería de estar funcionando. Dentro del programa puedes configurar más cosas como el universo de escucha de OLA, las dimensiones de la pantalla y los textos para mostrar. Ver manual.txt para más detalles.
+
+4. Si necesitas compilar ola2pd necesitas descargar e instalar
+
+- fuentes de pure data http://puredata.info/downloads/pure-data
+- flext svn co https://svn.grrrr.org/ext/trunk/flext flext
+
+./buid.sh pd gcc
+retocar los paths en el archivo ./buildsys/cnfg-lnx-gcc.txt 
+./build sh pd gcc
+sudo ./build.sh pd gcc install
+
+Ver documentación de ola2pd para más detalles
 
 *************************************
 
