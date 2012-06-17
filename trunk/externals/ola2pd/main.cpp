@@ -79,7 +79,8 @@ public:
 		// --- define inlets and outlets ---
 		AddInAnything(); // default inlet
 		AddOutList();	// outlet for DMX list
-
+        	post("ola2pd v0.0.2-SVN - an interface to Open Lighting Arquitecture");
+		post("Santi Noreña puremediaserver@gmail.com");
 	}
 	void NewDmx(unsigned int universe,
                 const DmxBuffer &buffer,
@@ -143,8 +144,8 @@ private:
 	FLEXT_THREAD(m_open)
 	FLEXT_CALLBACK(m_close) 
 	FLEXT_ATTRVAR_I(i_universe) // wrapper functions (get and set) for integer variable universe
-        post("ola2pd v0.0.2-SVN - an interface to Open Lighting Arquitecture");
-	post("Santi Noreña puremediaserver@gmail.com");
+
+
 };
 
 // instantiate the class (constructor takes no arguments)
