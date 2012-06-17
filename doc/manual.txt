@@ -71,9 +71,11 @@ En los modos auto el inicio y el fin del loop no son aplicables, se reproduce la
 15 Size X Size Font (127)
 16 Size Y (127)
 17 Size Z (127)
-18 X (127)
-19 Y (127)
-20 Z (127)
-21 Volumen (0)
-22 Pan (127)
-23-32: Reservados
+18 X Coarse (127)
+19 Y Coarse (127)
+20 Z Coarse (127)
+21 X Fine
+22 Y Fine
+23 Z Fine
+24 Volumen (0)
+25 Pan (127)
