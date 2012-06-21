@@ -1,3 +1,9 @@
+***********************
+* ToDO:
+* This will be a selection list for synaptics or apt, if has the option. A script would be nice.
+*
+***********************
+
 Paquetes Ubuntu 12.04:
 
 gem
@@ -39,10 +45,8 @@ sudo apt-get install libcppunit-dev libcppunit-1.12-1 uuid-dev pkg-config libncu
 - OLA http://code.google.com/p/linux-lighting/
 - ola2pd
 
+FreeFrame
 
-
-
-
-
+freeglut3-dev
 
 
