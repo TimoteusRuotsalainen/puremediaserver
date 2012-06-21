@@ -79,3 +79,44 @@ En los modos auto el inicio y el fin del loop no son aplicables, se reproduce la
 23 Z Fine
 24 Volumen (0)
 25 Pan (127)
+
+Los siguientes canales son usados para transparencias
+
+Los High filtran los pixeles con ese y los convierte en transparente (croma)
+
+26 Alpha High Red   (255)
+27 Alpha High Green (255)
+28 Alpha High Blue  (255)
+
+Los Low filtran todo menos los pixel con ese valor (máscara)
+
+29 Alpha Low Red    (0)
+30 Alpha Low Green  (0)
+31 Alpha Low Blue
+
+Los siguientes canales se usan para correción de keystone y videomapping. Hay configuración por capa, el resto de configuraciones de posición y tamaño se reajustarán dentro de la nueva capa
+
+32 Corner Bottom Right X (255)
+33 Corner Bottom Right Y (0)
+34 Corner Top Right X    (255) 
+35 Corner Top Right Y    (255)
+36 Corner Top Left X     (0)
+37 Corner Top Left Y     (255)
+38 Corner Bottom Left X  (0)
+39 Corner Bottom Left Y  (0)
+
+Los siguientes canales son usados para control de efectos
+
+40 Selección FX 1
+0-10 No FX
+11-20 FX 1
+
+41 Param 1 FX 1
+42 Param 2 FX 1
+43 Param 3 FX 1
+44 Param 4 FX 1
+45 Selección FX 2
+46 Param 1 FX 2
+47 Param 2 FX 2
+48 Param 3 FX 2
+49 Param 4 FX 2
