@@ -27,7 +27,12 @@ Una vez creada la ventana y renderizando todo el control se realiza mediante Art
 
 Textos:
 
-En el subpatch texto.pd puedes cambiar los textos para mostrar cambiando los mensajes.
+Puedes definir hasta 255 frases editando con un editor ASCII el fichero text.txt. El formato es:
+
+1, Esto es una frase;
+2, El número es el valor del canal 6 de la capa folder;
+3, no se pueden usar comas;
+4, las frases tienen que acabar con punto y coma;
 
 ******************************
 
