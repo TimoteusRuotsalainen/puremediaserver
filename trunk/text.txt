@@ -1,0 +1,12 @@
+1, Hello!;
+2, Next Generation;
+3, Pure Media Server;
+4, Edita esto con tus frases;
+5, manteniendo el número inicial la coma y el punto y coma final;
+6, otra frasecita;
+7, ya no se que poner;
+8, otra mais;
+9, así hasta 255;
+10, Hay que acabar las frases con punto y coma;
+11, si no da error;
+12, y no se pueden usar comas en las frases
