@@ -1,5 +1,5 @@
 ******************************
-Pure Media Server 0.0.3
+Pure Media Server 0.0.4
 Santiago Noreña
 puremediaserver@gmail.com
 ******************************
@@ -113,15 +113,31 @@ Los siguientes canales se usan para correción de keystone y videomapping. Hay c
 Los siguientes canales son usados para control de efectos
 
 40 Selección FX 1
-0-10 No FX
-11-20 FX 1
+   0 No effect
+   1 Bitmask
+   2 Halftone
 
 41 Param 1 FX 1
 42 Param 2 FX 1
 43 Param 3 FX 1
 44 Param 4 FX 1
-45 Selección FX 2
-46 Param 1 FX 2
-47 Param 2 FX 2
-48 Param 3 FX 2
-49 Param 4 FX 2
+45 Param 5 FX 1
+46 Param 6 FX 1
+47 Param 7 FX 1
+48 Param 8 FX 1
+
+******************************
+
+Efectos:
+
+0 - No effect
+1 - Bitmask 
+	Fx 1 All   (255)
+	Fx 2 Red   (255)
+	Fx 3 Green (255)
+	Fx 4 Blue  (255)
+2 - Halftone
+	FX 1 Size
+	FX 2 Angle
+	FX 3 Smooth
+	FX 4 Style 

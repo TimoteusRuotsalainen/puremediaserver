@@ -4,14 +4,18 @@ Santiago Noreña
 puremediaserver@gmail.com
 ********************************
 
-* 0.03 
 
-- Eliminados los subpatches media_x.pd. Quedan integrados en video_x y la entrada saneada por cambio.pd 
-- Añadido midi.pd para control de cuatro capas por midi. 
+* 0.0.4
+
+
+* 0.0.3 (2-7-2012) SVN Rev 114 
+
+- Posición en 16 bits
+- Control mediante Open Lighting Arquitecture y external ola2pd
+- 64 canales reservados por capa
 - Añadida carpeta resources para archivos de configuración de otros programas (QLC, MagicQ,...) que interactúan con PMS
-- Añadidos archivos de definición de fixture y entorno de trabajo de QLC para manejar PMS desde este programa, sustituyendo a manual.pd como método de trabajo desde el mismo PC
-- Modificados valores en cambio.pd
-- Pequeños ajustes en módulos corrigiendo fallos
+- Correción de keystone/videomapping por capar
+- Reproducción de audio
 - Actualización del método de instalación en instalación.txt (todavía falta más trabajo en él).
 - Cambiados valores de locate para hacerlos más sensibles
 - 4 capas

@@ -1,13 +1,12 @@
 **************************************************************
-Pure Media Server 0.03
+Pure Media Server 0.0.4
 Santiago Noreña 
 puremediaserver@gmail.com
 **************************************************************
 
-Artnetin is based on previous works by: 
+ola2pd is based on previous works by: 
  * 	Dirk Jagdmann (doj@cubic.org) dmxmonitor
  *	Simon Newton (nomis52@westnet.com.au) libartnet and modified to dmxmonitor to use ArtNet	
- * 	Patrick Sébastien http://www.workinprogress.ca/ pure data external pthread template
 
 ****************************************************************
 
