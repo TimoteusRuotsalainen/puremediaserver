@@ -1,6 +1,6 @@
-#N canvas 827 330 449 686 10;
+#N canvas 758 328 518 686 10;
 #X obj 338 -313 tgl 50 1 render_status_send render_status_receive Render
--20 -15 0 25 -260097 -1 -260097 0 1;
+-20 -15 0 25 -260097 -1 -260097 1 1;
 #X text 45 -393 A render ON;
 #X text 45 -374 S render OFF;
 #X text 45 -355 Esc Destroy Windows;
@@ -146,7 +146,7 @@ R resetea propiedades graficas;
 #X coords 0 -1 1 0 100 100 2 2400 -100;
 #X restore 208 -367 pd interface;
 #X obj 24 116 config;
-#N canvas 12 87 1016 599 dmx 0;
+#N canvas 4 479 1016 599 dmx 0;
 #X obj 395 -7 loadbang;
 #X obj -7 437 list split;
 #X obj 99 444 list split;
@@ -178,7 +178,7 @@ R resetea propiedades graficas;
 #X msg 524 290 open;
 #X text 461 149 Universo;
 #X text 495 117 OLA Control;
-#X obj 438 167 bng 10 100 10 0 empty empty DMX -5 -7 0 10 -262144 -1
+#X obj 430 167 bng 20 200 200 0 empty empty DMX 0 -7 0 10 -262144 -1
 -1;
 #X obj 21 479 list split 64;
 #X obj 127 482 list split 64;

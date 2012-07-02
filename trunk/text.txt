@@ -9,4 +9,4 @@
 9, así hasta 255;
 10, Hay que acabar las frases con punto y coma;
 11, si no da error;
-12, y no se pueden usar comas en las frases
+12, y no se pueden usar comas en las frases;
