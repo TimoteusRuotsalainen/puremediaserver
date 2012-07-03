@@ -1,4 +1,4 @@
-#N canvas 1684 286 517 575 10;
+#N canvas 503 165 517 575 10;
 #X obj 338 -313 tgl 50 1 render_status_send render_status_receive Render
 -20 -15 0 25 -260097 -1 -260097 1 1;
 #X text 45 -393 A render ON;
