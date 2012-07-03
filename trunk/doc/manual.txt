@@ -113,10 +113,6 @@ Los siguientes canales se usan para correción de keystone y videomapping. Hay c
 Los siguientes canales son usados para control de efectos
 
 40 Selección FX 1
-   0 No effect
-   1 Bitmask
-   2 Halftone
-
 41 Param 1 FX 1
 42 Param 2 FX 1
 43 Param 3 FX 1
@@ -141,3 +137,31 @@ Efectos:
 	FX 2 Angle
 	FX 3 Smooth
 	FX 4 Style 
+3 - Rds
+ 	FX 1 Method
+	FX 2 Stride
+4 - Roll
+	FX 1 Axis
+	FX 2 Roll
+5 - Invert
+	FX 1 On/Off
+6 - Scanline
+	FX 1 Mode
+	Fx 2 Interlace
+7 - Threshold
+	FX 1 All
+	FX 2 Red
+	Fx 3 Green
+	Fx 4 Blue
+8 - Metaimage
+	FX 1 Cheap
+	FX 2 Distance
+	FX 3 Size	
+9 - Refraction
+	FX 1 Width
+	FX 2 Height
+	FX 3 Mag
+	FX 4 Refract
+10 - Convolve
+	FX 1 Escala
+	FX 2 Modo (none, smooth, edge1, edge2)
