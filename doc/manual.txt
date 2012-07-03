@@ -165,3 +165,33 @@ Efectos:
 10 - Convolve
 	FX 1 Escala
 	FX 2 Modo (none, smooth, edge1, edge2)
+11 - Gain
+	FX 1 Common
+	FX 2 Red
+	FX 3 Green
+	FX 4 Blue
+12 - Lumaoffset
+	FX 1 Fill On/Off
+	FX 2 Smooth On/Off
+	FX 3 Gap
+	FX 4 Offset
+13 - tIIR
+	FX 1 Feedback 1
+	FX 2 Feedback 2
+	FX 3 Feedback 3
+	FX 4 Feedforward 1
+	FX 5 Feedforward 2
+14 - rtx
+	FX 1 Clamp discontinuity to the edge (On/Off)
+15 - Normalize
+	No Params
+16 - Kaleidoskope
+	FX 1 Segments
+	FX 2 Source Angle
+	FX 3 X
+	FX 4 Y
+	FX 5 cX
+	FX 6 CY
+	FX 7 RLP
+	FX 8 SAP
+	
