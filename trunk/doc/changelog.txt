@@ -4,9 +4,10 @@ Santiago Noreña
 puremediaserver@gmail.com
 ********************************
 
+* 0.0.4 SVN
 
-* 0.0.4
-
+- Añadidos efectos
+- 8 capas
 
 * 0.0.3 (2-7-2012) SVN Rev 114 
 
