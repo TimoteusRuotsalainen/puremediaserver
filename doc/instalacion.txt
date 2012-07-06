@@ -18,6 +18,27 @@ Son cerca de 30MB de descarga.
 
 Instálalo sudo dpkg -i  o gráficamente mediante gdebi.
 
+----
+
+Ubuntu 12.04 Precise:
+
+apt-get install pd-core gem pd-gui pd-zexy pd-cyclone pd-pan pd-ogg
+
+Añadir al path de pure data: 
+
+/usr/lib/pd/estra
+/usr/lib/pd/extra/Gem
+/usr/lib/pd/extra/cyclone
+/usr/lib/pd/extra/pdogg
+/usr/lib/pd/extra/pan
+
+Y al startup (o lanzarlo desde la línea de comandos con -lib):
+
+Gem
+zexy
+
+----
+
 2. Instala y OLA. 
 
 Instala las dependencias de OLA

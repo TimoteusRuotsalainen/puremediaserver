@@ -4,22 +4,12 @@ Santiago Noreña
 puremediaserver@gmail.com
 ********************************
 
-* 0.0.4 SVN
+* 0.01 (16-05-2011)
 
-- Añadidos efectos
-- 8 capas
-
-* 0.0.3 (2-7-2012) SVN Rev 114 
-
-- Posición en 16 bits
-- Control mediante Open Lighting Arquitecture y external ola2pd
-- 64 canales reservados por capa
-- Añadida carpeta resources para archivos de configuración de otros programas (QLC, MagicQ,...) que interactúan con PMS
-- Correción de keystone/videomapping por capar
-- Reproducción de audio
-- Actualización del método de instalación en instalación.txt (todavía falta más trabajo en él).
-- Cambiados valores de locate para hacerlos más sensibles
-- 4 capas
+- Primera versión liberada!
+- 2 capas de video con control de reproducción avanzado mediante pix_film_player.
+- Control de Alpha y Color RGB
+- Control por ArtNet mediante Artnetin, sólo en el universo 0, subnet 0.
 
 * 0.02 (9-6-2011) SVN Rev 58
 
@@ -31,10 +21,23 @@ puremediaserver@gmail.com
 - Añadidos canales DMX de tamaños por ejes (XYZ), rotacion y posicion (issue 9) 
 - Textos - Nuevo archivo Gem compilado con soporte de fuentes (issue 4)
 
-* 0.01 (16-05-2011)
+* 0.0.3 (2-7-2012) SVN Rev 114 
 
-- Primera versión liberada!
-- 2 capas de video con control de reproducción avanzado mediante pix_film_player.
-- Control de Alpha y Color RGB
-- Control por ArtNet mediante Artnetin, sólo en el universo 0, subnet 0.
- 
+- Posición en 16 bits
+- Control mediante Open Lighting Arquitecture y external ola2pd
+- 64 canales reservados por capa
+- Añadida carpeta resources para archivos de configuración de otros programas (QLC, MagicQ) que controlan PMS
+- Correción de keystone/videomapping por capar
+- Reproducción de audio
+- Actualización del método de instalación en instalación.txt (todavía falta más trabajo en él).
+- Cambiados valores de locate para hacerlos más sensibles
+- 4 capas
+
+ * 0.0.4 SVN
+
+- Añadidos efectos
+- 8 capas
+- Selección de encendido por capa
+- Añadido medidor de CPU
+- Cambio de pdp_qt por pix_film (se pierde la reproducción de sonido)
+
