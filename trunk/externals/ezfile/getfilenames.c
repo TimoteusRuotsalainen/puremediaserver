@@ -253,7 +253,7 @@ static void getfilenames_bang(t_getfilenames *x)
         getfilenames_position(x);
 		outlet_symbol(x->data_outlet, 
                        gensym(x->glob_buffer.gl_pathv[x->current_glob_position]));
-        x->current_glob_position++;
+//        x->current_glob_position++;
     }
     else
         outlet_bang(x->endoflist_outlet);

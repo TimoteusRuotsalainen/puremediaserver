@@ -22,13 +22,23 @@ Instálalo sudo dpkg -i  o gráficamente mediante gdebi.
 
 Ubuntu 12.04 Precise:
 
-apt-get install pd-core gem pd-gui pd-zexy pd-cyclone pd-pan pd-ogg pd-readanysf pd-purepd
+PMS_Video:
+
+apt-get install pd-core gem pd-gui pd-zexy pd-cyclone pd-hcs
+
+PMS_Audio:
+
+pd-pan pd-ogg pd-readanysf pd-purepd
 
 Añadir al path de pure data: 
 
+PMS_Video:
 /usr/lib/pd/estra
 /usr/lib/pd/extra/Gem
 /usr/lib/pd/extra/cyclone
+/usr/lib/pd/extra/hcs
+
+PMS_Audio:
 /usr/lib/pd/extra/pdogg
 /usr/lib/pd/extra/pan
 
