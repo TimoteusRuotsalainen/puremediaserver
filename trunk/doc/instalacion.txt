@@ -22,7 +22,7 @@ Instálalo sudo dpkg -i  o gráficamente mediante gdebi.
 
 Ubuntu 12.04 Precise:
 
-apt-get install pd-core gem pd-gui pd-zexy pd-cyclone pd-pan pd-ogg
+apt-get install pd-core gem pd-gui pd-zexy pd-cyclone pd-pan pd-ogg pd-readanysf pd-purepd
 
 Añadir al path de pure data: 
 
