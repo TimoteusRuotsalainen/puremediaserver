@@ -5,13 +5,14 @@ puremediaserver@gmail.com
 ******************************
 
 Lee instalacion.txt para el proceso de instalación.
-Arranca PMS abriendo main.pd con pure data extended. 
+
+Empezando con la versiópn 0.0.4 he dividido la aplicación en dos independientes, una para video (puremediaserver_video.pd) y otra para audio (puremediaserver_audio.pd). Arranca la que necesites, o las dos en dos instancias de Pure Data diferentes, si necesitas ambas.
 
 ******************************
 
 Uso:
 
-Antes de crear el nodo ArtNet y la ventana es necesario configurarlos. Para cambiar la configuración de ambos es necesario reiniciarlos. Puedes cambiar los valores en la ventana principal pinchando en la caja que quieras cambiar el valor, introduce el nuevo valor por el teclado y pulsa enter.
+Antes de conectar con el universo de OLA y crear la ventana es necesario configurarlos. Para cambiar la configuración de ambos es necesario reiniciarlos. Puedes cambiar los valores en la ventana principal pinchando en la caja que quieras cambiar el valor, introduce el nuevo valor por el teclado y pulsa enter.
 
 - Teclas pantalla principal
 
@@ -21,7 +22,7 @@ Antes de crear el nodo ArtNet y la ventana es necesario configurarlos. Para camb
 	Escape: Destruye la pantalla.
 	F: Fullscreen (antes de crear la pantalla).	
 
-Una vez creada la ventana y renderizando todo el control se realiza mediante ArtNet.
+Una vez creada la ventana y renderizando todo el control se realiza mediante los datos suministrados a través del demonio olad. 
 	
 ******************************
 
@@ -37,6 +38,8 @@ Puedes definir hasta 255 frases editando con un editor ASCII el fichero text.txt
 ******************************
 
 Listado de canales DMX:
+
+PureMediaServer Video:
 
 Entre paréntesis el valor normal de uso (locate).
 
@@ -82,8 +85,8 @@ En los modos auto el inicio y el fin del loop no son aplicables, se reproduce la
 21 X Fine
 22 Y Fine
 23 Z Fine
-24 Volumen (0)
-25 Pan (127)
+
+
 
 Los siguientes canales son usados para transparencias
 
@@ -124,7 +127,7 @@ Los siguientes canales son usados para control de efectos
 
 ******************************
 
-Efectos:
+Efectos Video:
 
 0 - No effect
 1 - Bitmask 
@@ -195,3 +198,17 @@ Efectos:
 	FX 7 RLP
 	FX 8 SAP
 	
+**************
+
+PureMediaServer Audio:
+
+1 - Volumen Coarse
+2 - Pan
+3 - Folder
+4 - File
+5 - Playback
+6 - Control
+7 - Volume Fine
+8 - Entry Point Coarse - El valor de estos dos canales en centésimas de segundo.
+9 - Entry Point Fine
+
