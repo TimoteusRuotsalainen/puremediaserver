@@ -10,41 +10,37 @@ PMS está probado en Debian Wheezy y Ubuntu Precise 12.04. Necesita una tarjeta 
 
 Para resolver dependencias es necesario tener conexión a internet en el ordenador durante el proceso de instalación.
 
-1. Descarga pd-extended para tu sistema de:
-
-http://puredata.info/downloads/pd-extended/releases/0.43.1
-
-Son cerca de 30MB de descarga.
-
-Instálalo sudo dpkg -i  o gráficamente mediante gdebi.
-
-----
+1. Instala pd y los externals necesarios:
 
 Ubuntu 12.04 Precise:
 
-PMS_Video:
+Para instalar pms_Video:
 
 apt-get install pd-core gem pd-gui pd-zexy pd-cyclone pd-hcs
 
-PMS_Audio:
+Añadir al path de pure data: 
+
+/usr/lib/pd/extra
+/usr/lib/pd/extra/Gem
+/usr/lib/pd/extra/cyclone
+/usr/lib/pd/extra/hcs
+
+Y al startup (o lanzarlo desde la línea de comandos con -lib):
+
+Gem
+zexy
+
+Para instalar pms_Audio:
 
 pd-pan pd-ogg pd-readanysf pd-purepd
 
 Añadir al path de pure data: 
 
-PMS_Video:
-/usr/lib/pd/estra
-/usr/lib/pd/extra/Gem
-/usr/lib/pd/extra/cyclone
-/usr/lib/pd/extra/hcs
-
-PMS_Audio:
 /usr/lib/pd/extra/pdogg
 /usr/lib/pd/extra/pan
 
 Y al startup (o lanzarlo desde la línea de comandos con -lib):
 
-Gem
 zexy
 
 ----
@@ -65,7 +61,15 @@ Arranca el demonio OLA olad -l 3
 
 Configura un universo como IN mediante el interfaz web localhost:9090
 
-3. Arrancando main.pd con pure data extended ya debería de estar funcionando. Dentro del programa puedes configurar más cosas como el universo de escucha de OLA, las dimensiones de la pantalla y los textos para mostrar. Ver manual.txt para más detalles.
+3. Puedes arrancar ejecutando en una terminal desde el directorio donde descomprimiste PMS:
+
+pd puremediaserver_video.pd 
+
+y/o 
+
+pd puremediaserver_audio.pd
+
+Dentro del programa puedes configurar más cosas como el universo de escucha de OLA, las dimensiones de la pantalla y los textos para mostrar. Ver manual.txt para más detalles.
 
 4. Si necesitas compilar ola2pd necesitas descargar e instalar
 
