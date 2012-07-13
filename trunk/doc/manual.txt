@@ -76,54 +76,50 @@ En los modos auto el inicio y el fin del loop no son aplicables, se reproduce la
 12 Rotate X (0)
 13 Rotate Y (0)
 14 Rotate Z (0)
-15 Size X Size Font (127)
-16 Size Y (127)
-17 Size Z (127)
+15 Size X  (127)
+16 Size Y  (127)
+17 Z Coarse (127)
 18 X Coarse (127)
 19 Y Coarse (127)
-20 Z Coarse (127)
-21 X Fine
-22 Y Fine
-23 Z Fine
-
-
+20 X Fine
+21 Y Fine
 
 Los siguientes canales son usados para transparencias
 
 Los High filtran los pixeles con ese y los convierte en transparente (croma)
 
-26 Alpha High Red   (255)
-27 Alpha High Green (255)
-28 Alpha High Blue  (255)
+22 Alpha High Red   (255)
+23 Alpha High Green (255)
+24 Alpha High Blue  (255)
 
 Los Low filtran todo menos los pixel con ese valor (máscara)
 
-29 Alpha Low Red    (0)
-30 Alpha Low Green  (0)
-31 Alpha Low Blue
+25 Alpha Low Red    (0)
+26 Alpha Low Green  (0)
+27 Alpha Low Blue   (0) 
 
 Los siguientes canales se usan para correción de keystone y videomapping. Hay configuración por capa, el resto de configuraciones de posición y tamaño se reajustarán dentro de la nueva capa
-
+28 Corner Bottom Left X  (0)
+29 Corner Bottom Left Y  (0)
+30 Corner Top Left X     (0)
+31 Corner Top Left Y     (255)
 32 Corner Bottom Right X (255)
 33 Corner Bottom Right Y (0)
 34 Corner Top Right X    (255) 
 35 Corner Top Right Y    (255)
-36 Corner Top Left X     (0)
-37 Corner Top Left Y     (255)
-38 Corner Bottom Left X  (0)
-39 Corner Bottom Left Y  (0)
 
 Los siguientes canales son usados para control de efectos
 
-40 Selección FX 1
-41 Param 1 FX 1
-42 Param 2 FX 1
-43 Param 3 FX 1
-44 Param 4 FX 1
-45 Param 5 FX 1
-46 Param 6 FX 1
-47 Param 7 FX 1
-48 Param 8 FX 1
+36 Selección FX 1
+37 Selección FX 2
+38 Param 1 FX 1
+39 Param 2 FX 1
+40 Param 3 FX 1
+41 Param 4 FX 1
+42 Param 5 FX 1
+43 Param 6 FX 1
+44 Param 7 FX 1
+45 Param 8 FX 1
 
 ******************************
 
