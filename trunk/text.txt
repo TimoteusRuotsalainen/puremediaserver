@@ -1,14 +1,14 @@
 1, En una galaxia muy lejana;
 2, tras una larga guerra;
 3, el Imperio se impuso;
-5, acabo con la Republica;
-6, y con la libertad;
-7, Un grupo de rebeldes;
-8, lucha contra el;
-9, emperador Marrano;
-10, el de los hilillos;
-11, de plastilina;
-12, con sus robocops;
+4, acabo con la Republica;
+5, y con la libertad;
+6, Un grupo de rebeldes;
+7, lucha contra el;
+8, emperador Marrano;
+9, el de los hilillos;
+10, de plastilina;
+11, con sus robocops;
 12, y Matrix;
 13, y el Gran Hermano;
 14, Pero un grupo de jipis;
@@ -17,4 +17,12 @@
 17, su lugarteniente en Sol;
 18, Darth Espe;
 19, Lo llaman Esperanza;
-20, y no lo es; 
+20, y no lo es;
+21, mastexto;
+22, mastexto1;
+23, mastexto2;
+24, mastexto3;
+25, mastexto4;
+26, mastexto5;
+27, mastexto6;
+
