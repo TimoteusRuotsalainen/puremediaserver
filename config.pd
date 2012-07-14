@@ -1,11 +1,11 @@
-#N canvas 127 75 889 617 10;
+#N canvas 125 78 889 617 10;
 #X obj -66 44 t b;
-#X obj 350 38 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 317 41 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 41 429 symbol;
-#X symbolatom 13 41 50 0 0 0 - - -;
+#X symbolatom 3 41 50 0 0 0 - - -;
 #X obj 512 182 loadbang;
-#X text 320 19 change path;
+#X text 332 40 change path;
 #X text 96 23 current path;
 #X obj 350 134 openpanel;
 #X obj 350 166 symbol2list /;
@@ -19,6 +19,8 @@
 #X msg 512 306 /home/santi/PMS/svn/media;
 #X obj -66 14 r config_r;
 #X obj 41 505 s config_s;
+#X obj 302 10 bng 15 250 50 0 empty empty Refresh_Path 17 7 0 10 -262144
+-1 -1;
 #X connect 0 0 2 0;
 #X connect 1 0 7 0;
 #X connect 2 0 3 0;
@@ -34,4 +36,5 @@
 #X connect 13 0 2 0;
 #X connect 16 0 2 0;
 #X connect 17 0 0 0;
+#X connect 19 0 16 0;
 #X coords 0 0 1 1 400 60 2 0 0;

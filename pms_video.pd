@@ -1,6 +1,6 @@
-#N canvas 1585 91 459 665 10;
+#N canvas 1583 94 459 665 10;
 #X obj 206 -134 tgl 50 1 render_status_send render_status_receive Render
--20 -15 0 25 -260097 -1 -260097 1 1;
+-20 -15 0 25 -260097 -1 -260097 0 1;
 #X text 330 177 A render ON;
 #X text 330 196 S render OFF;
 #X text 330 234 C create Window;
@@ -208,21 +208,21 @@ R resetea propiedades graficas;
 #X obj 800 445 list split;
 #X obj 857 366 - 1;
 #X obj 828 523 outlet;
-#X obj 212 248 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+#X obj 212 248 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 232 248 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+#X obj 232 248 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 252 248 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+#X obj 252 248 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 271 248 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+#X obj 271 248 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 290 248 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+#X obj 290 248 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 313 248 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+#X obj 313 248 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 334 248 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+#X obj 334 248 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 355 248 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+#X obj 355 248 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
 #X obj -7 379 spigot;
 #X obj 95 402 spigot;
@@ -321,7 +321,7 @@ R resetea propiedades graficas;
 #X connect 83 0 57 0;
 #X connect 84 0 60 0;
 #X coords 0 -1 1 1 400 200 2 200 100;
-#X restore 17 -249 pd dmx;
+#X restore 18 -268 pd dmx;
 #N canvas 70 103 240 272 fondo 0;
 #X obj -452 -118 color 0 0 0;
 #X obj -452 -150 alpha;
@@ -338,7 +338,7 @@ R resetea propiedades graficas;
 #X connect 5 0 7 0;
 #X connect 7 0 4 3;
 #X restore 325 -64 pd fondo;
-#X obj 21 -41 layer;
+#X obj 17 -66 layer;
 #X text 330 215 Esc Destroy Window;
 #N canvas 6 75 450 389 medidor 0;
 #X floatatom 107 133 0 0 0 0 - - -;
