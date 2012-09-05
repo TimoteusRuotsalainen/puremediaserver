@@ -1,4 +1,4 @@
-#N canvas 1583 94 459 665 10;
+#N canvas 305 92 900 665 10;
 #X obj 206 -134 tgl 50 1 render_status_send render_status_receive Render
 -20 -15 0 25 -260097 -1 -260097 0 1;
 #X text 330 177 A render ON;
@@ -371,6 +371,12 @@ R resetea propiedades graficas;
 #X obj 17 160 layer;
 #X obj 17 205 layer;
 #X obj 17 251 layer;
+#X obj 603 -253 netreceive 9191;
+#X floatatom 691 -206 5 0 0 0 - - -;
+#X obj 485 -216 print tcp;
+#X obj 605 -147 unpack f f;
+#X floatatom 571 -63 5 0 0 0 - - -;
+#X floatatom 702 -62 5 0 0 0 - - -;
 #X connect 8 0 10 0;
 #X connect 8 1 15 0;
 #X connect 8 2 13 0;
@@ -379,4 +385,9 @@ R resetea propiedades graficas;
 #X connect 8 5 17 0;
 #X connect 8 6 18 0;
 #X connect 8 7 19 0;
+#X connect 20 0 22 0;
+#X connect 20 0 23 0;
+#X connect 20 1 21 0;
+#X connect 23 0 24 0;
+#X connect 23 1 25 0;
 #X coords 0 0 1 1 85 60 0;
