@@ -6,32 +6,35 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>862</width>
-    <height>437</height>
+    <width>581</width>
+    <height>511</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Sample Media Server</string>
+   <string>Pure Media Server</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPlainTextEdit" name="textEdit">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>0</y>
+      <x>10</x>
+      <y>10</y>
       <width>561</width>
       <height>91</height>
      </rect>
     </property>
     <property name="plainText">
-     <string>Pure Media Server 0.0.5</string>
+     <string>Pure Media Server 0.0.5
+Copyright (C) 2012 Santiago Noreña  
+puremediaserver@gmail.com
+This program comes with ABSOLUTELY NO WARRANTY</string>
     </property>
    </widget>
    <widget class="QPushButton" name="updateButton">
     <property name="geometry">
      <rect>
-      <x>620</x>
-      <y>170</y>
+      <x>250</x>
+      <y>430</y>
       <width>113</width>
       <height>32</height>
      </rect>
@@ -43,8 +46,8 @@
    <widget class="QPushButton" name="connectPDButton">
     <property name="geometry">
      <rect>
-      <x>620</x>
-      <y>220</y>
+      <x>130</x>
+      <y>430</y>
       <width>113</width>
       <height>32</height>
      </rect>
@@ -56,8 +59,8 @@
    <widget class="QCheckBox" name="layer1Check">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>100</y>
+      <x>10</x>
+      <y>110</y>
       <width>87</width>
       <height>23</height>
      </rect>
@@ -69,8 +72,8 @@
    <widget class="QCheckBox" name="layer2Check">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>140</y>
+      <x>10</x>
+      <y>150</y>
       <width>87</width>
       <height>23</height>
      </rect>
@@ -82,8 +85,8 @@
    <widget class="QCheckBox" name="layer3Check">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>180</y>
+      <x>10</x>
+      <y>190</y>
       <width>87</width>
       <height>23</height>
      </rect>
@@ -95,8 +98,8 @@
    <widget class="QCheckBox" name="layer4Check">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>220</y>
+      <x>10</x>
+      <y>230</y>
       <width>87</width>
       <height>23</height>
      </rect>
@@ -108,8 +111,8 @@
    <widget class="QCheckBox" name="layer5Check">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>260</y>
+      <x>10</x>
+      <y>270</y>
       <width>87</width>
       <height>23</height>
      </rect>
@@ -121,8 +124,8 @@
    <widget class="QCheckBox" name="layer6Check">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>300</y>
+      <x>10</x>
+      <y>310</y>
       <width>87</width>
       <height>23</height>
      </rect>
@@ -134,8 +137,8 @@
    <widget class="QCheckBox" name="layer7Check">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>340</y>
+      <x>10</x>
+      <y>350</y>
       <width>87</width>
       <height>23</height>
      </rect>
@@ -147,8 +150,8 @@
    <widget class="QCheckBox" name="layer8Check">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>380</y>
+      <x>10</x>
+      <y>390</y>
       <width>87</width>
       <height>23</height>
      </rect>
@@ -161,7 +164,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>100</y>
+      <y>110</y>
       <width>55</width>
       <height>27</height>
      </rect>
@@ -174,7 +177,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>140</y>
+      <y>150</y>
       <width>55</width>
       <height>27</height>
      </rect>
@@ -187,7 +190,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>180</y>
+      <y>190</y>
       <width>55</width>
       <height>27</height>
      </rect>
@@ -200,7 +203,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>220</y>
+      <y>230</y>
       <width>55</width>
       <height>27</height>
      </rect>
@@ -213,7 +216,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>260</y>
+      <y>270</y>
       <width>55</width>
       <height>27</height>
      </rect>
@@ -226,7 +229,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>300</y>
+      <y>310</y>
       <width>55</width>
       <height>27</height>
      </rect>
@@ -239,7 +242,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>340</y>
+      <y>350</y>
       <width>55</width>
       <height>27</height>
      </rect>
@@ -252,7 +255,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>380</y>
+      <y>390</y>
       <width>55</width>
       <height>27</height>
      </rect>
@@ -264,8 +267,8 @@
    <widget class="QCheckBox" name="readDMX">
     <property name="geometry">
      <rect>
-      <x>620</x>
-      <y>0</y>
+      <x>450</x>
+      <y>290</y>
       <width>87</width>
       <height>23</height>
      </rect>
@@ -277,8 +280,8 @@
    <widget class="QSpinBox" name="universe">
     <property name="geometry">
      <rect>
-      <x>620</x>
-      <y>30</y>
+      <x>470</x>
+      <y>340</y>
       <width>55</width>
       <height>27</height>
      </rect>
@@ -287,8 +290,8 @@
    <widget class="QSpinBox" name="winpositionx">
     <property name="geometry">
      <rect>
-      <x>620</x>
-      <y>90</y>
+      <x>420</x>
+      <y>170</y>
       <width>55</width>
       <height>27</height>
      </rect>
@@ -300,8 +303,8 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>680</x>
-      <y>30</y>
+      <x>450</x>
+      <y>320</y>
       <width>91</width>
       <height>20</height>
      </rect>
@@ -313,8 +316,8 @@
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>750</x>
-      <y>100</y>
+      <x>430</x>
+      <y>150</y>
       <width>101</width>
       <height>17</height>
      </rect>
@@ -323,91 +326,11 @@
      <string>Window Position</string>
     </property>
    </widget>
-   <widget class="QTextBrowser" name="textBrowser">
-    <property name="geometry">
-     <rect>
-      <x>130</x>
-      <y>100</y>
-      <width>381</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="textBrowser_2">
-    <property name="geometry">
-     <rect>
-      <x>130</x>
-      <y>140</y>
-      <width>381</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="textBrowser_3">
-    <property name="geometry">
-     <rect>
-      <x>130</x>
-      <y>180</y>
-      <width>381</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="textBrowser_4">
-    <property name="geometry">
-     <rect>
-      <x>130</x>
-      <y>220</y>
-      <width>381</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="textBrowser_5">
-    <property name="geometry">
-     <rect>
-      <x>130</x>
-      <y>260</y>
-      <width>381</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="textBrowser_6">
-    <property name="geometry">
-     <rect>
-      <x>130</x>
-      <y>300</y>
-      <width>381</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="textBrowser_7">
-    <property name="geometry">
-     <rect>
-      <x>130</x>
-      <y>340</y>
-      <width>381</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="textBrowser_8">
-    <property name="geometry">
-     <rect>
-      <x>130</x>
-      <y>380</y>
-      <width>381</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QSpinBox" name="winpositiony">
     <property name="geometry">
      <rect>
-      <x>680</x>
-      <y>90</y>
+      <x>480</x>
+      <y>170</y>
       <width>55</width>
       <height>27</height>
      </rect>
@@ -419,8 +342,8 @@
    <widget class="QSpinBox" name="winsizey">
     <property name="geometry">
      <rect>
-      <x>680</x>
-      <y>130</y>
+      <x>480</x>
+      <y>220</y>
       <width>55</width>
       <height>27</height>
      </rect>
@@ -432,8 +355,8 @@
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>750</x>
-      <y>130</y>
+      <x>440</x>
+      <y>200</y>
       <width>101</width>
       <height>17</height>
      </rect>
@@ -445,21 +368,24 @@
    <widget class="QSpinBox" name="winsizex">
     <property name="geometry">
      <rect>
-      <x>620</x>
-      <y>130</y>
+      <x>420</x>
+      <y>220</y>
       <width>55</width>
       <height>27</height>
      </rect>
+    </property>
+    <property name="buttonSymbols">
+     <enum>QAbstractSpinBox::UpDownArrows</enum>
     </property>
     <property name="maximum">
      <number>5000</number>
     </property>
    </widget>
-   <widget class="QLabel" name="label_4">
+   <widget class="QLabel" name="layer1">
     <property name="geometry">
      <rect>
-      <x>530</x>
-      <y>100</y>
+      <x>100</x>
+      <y>120</y>
       <width>59</width>
       <height>17</height>
      </rect>
@@ -468,11 +394,11 @@
      <string>Layer 1</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_5">
+   <widget class="QLabel" name="layer2">
     <property name="geometry">
      <rect>
-      <x>530</x>
-      <y>140</y>
+      <x>100</x>
+      <y>160</y>
       <width>59</width>
       <height>17</height>
      </rect>
@@ -481,11 +407,11 @@
      <string>Layer 2</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_6">
+   <widget class="QLabel" name="layer3">
     <property name="geometry">
      <rect>
-      <x>530</x>
-      <y>180</y>
+      <x>100</x>
+      <y>190</y>
       <width>59</width>
       <height>17</height>
      </rect>
@@ -494,11 +420,11 @@
      <string>Layer 3</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_7">
+   <widget class="QLabel" name="layer4">
     <property name="geometry">
      <rect>
-      <x>530</x>
-      <y>220</y>
+      <x>100</x>
+      <y>230</y>
       <width>59</width>
       <height>17</height>
      </rect>
@@ -507,11 +433,11 @@
      <string>Layer 4</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_8">
+   <widget class="QLabel" name="layer5">
     <property name="geometry">
      <rect>
-      <x>530</x>
-      <y>260</y>
+      <x>100</x>
+      <y>270</y>
       <width>59</width>
       <height>17</height>
      </rect>
@@ -520,11 +446,11 @@
      <string>Layer 5</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_9">
+   <widget class="QLabel" name="layer6">
     <property name="geometry">
      <rect>
-      <x>530</x>
-      <y>300</y>
+      <x>100</x>
+      <y>310</y>
       <width>59</width>
       <height>17</height>
      </rect>
@@ -533,10 +459,10 @@
      <string>Layer 6</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_10">
+   <widget class="QLabel" name="layer7">
     <property name="geometry">
      <rect>
-      <x>530</x>
+      <x>100</x>
       <y>350</y>
       <width>59</width>
       <height>17</height>
@@ -546,10 +472,10 @@
      <string>Layer 7</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_11">
+   <widget class="QLabel" name="layer8">
     <property name="geometry">
      <rect>
-      <x>530</x>
+      <x>100</x>
       <y>390</y>
       <width>59</width>
       <height>17</height>
@@ -562,8 +488,8 @@
    <widget class="QCheckBox" name="window">
     <property name="geometry">
      <rect>
-      <x>620</x>
-      <y>60</y>
+      <x>440</x>
+      <y>120</y>
       <width>87</width>
       <height>23</height>
      </rect>
@@ -572,11 +498,107 @@
      <string>Window</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="ChangePath">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>430</y>
+      <width>111</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Change Path</string>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="ipAddress1">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>390</y>
+      <width>55</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="maximum">
+     <number>254</number>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="ipAddress2">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>390</y>
+      <width>55</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="maximum">
+     <number>254</number>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="ipAddress3">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>390</y>
+      <width>55</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="maximum">
+     <number>254</number>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="ipAddress4">
+    <property name="geometry">
+     <rect>
+      <x>520</x>
+      <y>390</y>
+      <width>55</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="maximum">
+     <number>254</number>
+    </property>
+   </widget>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>581</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionOpen_conf"/>
+    <addaction name="actionSave_conf"/>
+   </widget>
+   <addaction name="menuFile"/>
+  </widget>
   <action name="actionExit">
    <property name="text">
     <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionOpen_conf">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Open conf</string>
+   </property>
+  </action>
+  <action name="actionSave_conf">
+   <property name="text">
+    <string>Save conf</string>
    </property>
   </action>
  </widget>

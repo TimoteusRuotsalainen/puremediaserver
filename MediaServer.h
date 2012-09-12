@@ -27,8 +27,14 @@ public:
     bool updatemedia();
     QList<LayerStatus> m_layers;
     QList<MediaLibrary> m_media;
+    void setpath(QString path);
+    void setpathu(const char *buffer);
+    QString getpath();
+
 
 protected:
+
+    const char * m_pathmedia;
     QTimer *n_timer;
     unsigned char * m_buffer;
     int m_bufferLen;
@@ -38,6 +44,7 @@ protected:
     quint16 m_listeningPort;
     QTcpServer *m_tcpServer;
     QTcpSocket *m_tcpSocket;
+
 
     bool sendPacket(const unsigned char *buffer, int bufferLen);
 

@@ -1,3 +1,30 @@
+/*
+The MIT License
+
+Copyright (c) 2009 John Warwick
+
+Copyright (c) 2012 Santi Noreña
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+
+
 #include "PeerInformationSocket.h"
 
 #include <QTimer>
@@ -8,6 +35,8 @@
 #include "CITPDefines.h"
 #include "PacketCreator.h"
 #include "MediaServer.h"
+
+#include <QNetworkInterface>
 
 #ifdef Q_OS_WIN
   #include <winsock2.h>
@@ -28,12 +57,12 @@ PeerInformationSocket::PeerInformationSocket(QObject *parent)
     m_packetBuffer(NULL),
     m_packetBufferLen(0)
 {
-  
   m_timer = new QTimer(this);
   Q_CHECK_PTR(m_timer);
   connect(m_timer, SIGNAL(timeout()),
 	  this, SLOT(transmitPLoc()));
   m_timer->setInterval(TRANSMIT_INTERVAL_MS);
+  setSocketState(QUdpSocket::BoundState);
 }
 
 PeerInformationSocket::~PeerInformationSocket()
@@ -44,7 +73,7 @@ PeerInformationSocket::~PeerInformationSocket()
     }
 }
 
-bool PeerInformationSocket::init(const QString &name, const QString &state)
+bool PeerInformationSocket::init(const QString &name, const QString &state, quint32 ipadd)
 {
   if (m_timer)
     {
@@ -54,7 +83,6 @@ bool PeerInformationSocket::init(const QString &name, const QString &state)
   m_name = name;
   m_state = state;
 
-  // XXX - close socket if already opened?
 
   // create multicast socket, bind to port
   if (!bind(CITP_PINF_MULTICAST_PORT, ShareAddress | ReuseAddressHint))
@@ -62,10 +90,42 @@ bool PeerInformationSocket::init(const QString &name, const QString &state)
       qDebug() << "Multicast bind failed";
       return false;
     }
-  
+
+/////////////////////////
+/*
+
+  QList<QHostAddress> networklist = networkinterface.allAddresses();
+  int k = 0xFFFF;
+  int l;
+  QHostAddress address;
+  for (int i = 0; i < networklist.size(); i++)
+  {
+      address = networklist.at(i);
+      qDebug()<<"Network IP: "<<address.toString();
+
+      int j = address.toIPv4Address();
+      qDebug()<<j;
+      if (0 << j << 0x7f000002)
+      {
+          k=j;
+          l=i;
+          networkinterface =
+      }
+  }
+  address = networklist.at(l);
+
+  networkinterface =
+  if (!joinMulticastGroup(CITP_PINF_MULTICAST_IP, iface)
+  {
+          qDebug() << "Failed joining multicast";
+  }
+*/
+///////////////////////
+
+  qDebug()<<"I have choose " << ipadd;
   struct ip_mreq mreq;
   mreq.imr_multiaddr.s_addr = inet_addr(CITP_PINF_MULTICAST_IP);
-  mreq.imr_interface.s_addr = INADDR_ANY;
+  mreq.imr_interface.s_addr = ipadd;
   int r = ::setsockopt(socketDescriptor(), IPPROTO_IP, IP_ADD_MEMBERSHIP,
 		       (const char *)&mreq, sizeof(struct ip_mreq));
   if (0 != r)
@@ -83,9 +143,9 @@ bool PeerInformationSocket::init(const QString &name, const QString &state)
       return false;
     }
 
-  transmitPLoc();
+//  transmitPLoc();
 
-    // XXX - don't connect this more than once..
+  // XXX - don't connect this more than once..
   connect(this, SIGNAL(readyRead()),
   	  this, SLOT(handleReadReady()));
   
@@ -105,9 +165,9 @@ void PeerInformationSocket::transmitPLoc()
       qint64 ret = writeDatagram((const char*)m_packetBuffer, m_packetBufferLen, 
 				 addr, CITP_PINF_MULTICAST_PORT);
       if (-1 == ret)
-	{
-	  qDebug() << "Failed to send multicast packet:" << error();
-	}
+        {
+          qDebug() << "Failed to send multicast packet:" << error();
+        }
     }
 }
 
