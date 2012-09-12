@@ -10,13 +10,12 @@
 //
 ///////////////////////////////////////////
 
-#define LISTENTCPPORT 0x2332
+#define LISTENTCPPORT 3000
 #define LAYER_NUMBER 0x08
 #define TRANSMIT_INTERVAL_LSTA  1000
 #define NAME "PureMediaServer"
 #define STATE "testing..."
 #define UUID "aaaaaaaa-eeee-ffff-dddd-bbbbbbbbbbbb"
-#define PATHMEDIA "/home/santi/PMS/svn/media"
 
 //////////////////////////////////////////////
 //                                          //

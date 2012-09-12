@@ -1,3 +1,22 @@
+/*
+   Pure Media Server - A Media Server Sotfware for stage and performing
+   Copyright (C) 2012  Santiago Noreña
+   belfegor <AT> gmail <DOT> com
+
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #ifndef PUREMEDIASERVER_H
 #define PUREMEDIASERVER_H
 
@@ -7,6 +26,7 @@
 
 class CITPLib;
 class MediaServer;
+class QMenu;
 
 class PureMediaServer : public QMainWindow
 {
@@ -19,9 +39,12 @@ public:
 
 protected:
 
+    QString pathmedia;
     MediaServer *m_mediaserver;
     CITPLib *m_citp;    
     QTcpSocket *m_pd_socket;
+
+//    void contextMenuEvent(QContextMenuEvent *event);
 
 private:
 
@@ -29,6 +52,7 @@ private:
 
     bool sendPacket(const char *buffer, int bufferLen);
 
+    void sendconf();
 
 public slots:
 
@@ -37,8 +61,12 @@ public slots:
 private slots:
 
     void close();
+
     void on_updateButton_clicked();
+
     void on_connectPDButton_clicked();
+
+    void pdDisconnected();
 
     void handleReadyRead();
     void newconexion();
@@ -68,7 +96,10 @@ private slots:
     void on_layer7Check_stateChanged (int state);
     void on_layer8Add_valueChanged();
     void on_layer8Check_stateChanged (int state);
+    void on_ChangePath_clicked();
 
+    void open();
+    void save();
 };
 
 #endif // PUREMEDIASERVER_H

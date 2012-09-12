@@ -1,3 +1,22 @@
+/*
+   Pure Media Server - A Media Server Sotfware for stage and performing
+   Copyright (C) 2012  Santiago Noreña
+   belfegor <AT> gmail <DOT> com
+
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #include "MediaServer.h"
 
 #include "MSEXDefines.h"
@@ -33,7 +52,7 @@ MediaServer::MediaServer(QObject *parent)
     layermodel.MediaFPS = 25;
     m_layers.append(layermodel);
     }
-
+  m_pathmedia =  NULL;
   // Variables para el buffer de LSTA
   m_bufferLen = 0x00;
   m_buffer = NULL;
@@ -171,7 +190,7 @@ bool MediaServer::cinfprocess()
 {
    //Creamos un paquete SINf
     int bufferLen = sizeof(struct CITP_MSEX_10_SINF);
-    unsigned char * buffer = PacketCreator::createSINFPacket(LAYER_NUMBER, bufferLen);
+    unsigned char * buffer = PacketCreator::createSINFPacket(bufferLen);
     if (!buffer)
     {
       qDebug() << "parseCINFPacket:createSINFPacket() failed";
@@ -199,6 +218,7 @@ bool MediaServer::cinfprocess()
 //  n_timer->start();
 //    qDebug("Start sending LSta");
     transmitlsta();
+    return true;
 }
 
 bool MediaServer::transmitlsta()
@@ -211,6 +231,7 @@ bool MediaServer::transmitlsta()
         m_tcpSocket->close();
         return false;
         }
+    return true;
 }
 
 // Mandar paquetes
@@ -416,10 +437,10 @@ void MediaServer::parseGEINPacket(const QByteArray &byteArray)
 
 void MediaServer::parseGELTPacket(const QByteArray &byteArray)
 {
-  const char *data = byteArray.constData();
-  struct CITP_MSEX_12_GELT *geltPacket = (struct CITP_MSEX_12_GELT*)data;
+//  const char *data = byteArray.constData();
+//  struct CITP_MSEX_12_GELT *geltPacket = (struct CITP_MSEX_12_GELT*)data;
     qDebug() << "parseGELTPacket: GELT arrives...";
-    emit geltread();
+//    emit geltread();
 }
 
 void MediaServer::parseGETHPacket(const QByteArray &byteArray)
@@ -439,8 +460,8 @@ void MediaServer::parseGETHPacket(const QByteArray &byteArray)
       qDebug() <<  "Element Number is greater than the elements in library";
       return;
   }
-  unsigned char * buffer = PacketCreator::createETHNPacket(mediai, gethPacket->ElementNumber, bufferLen);
- if (!buffer)
+  unsigned char * buffer = PacketCreator::createETHNPacket(getpath(), mediai, gethPacket->ElementNumber, bufferLen);
+  if (!buffer)
   {
     qDebug() << "parseGETHPacket:createETHNPacket() failed";
     return;
@@ -464,10 +485,10 @@ void MediaServer::parseGVSRPacket(const QByteArray &byteArray)
 
 void MediaServer::parseRQSTPacket(const QByteArray &byteArray)
 {
-  const char *data = byteArray.constData();
-  struct CITP_MSEX_RqSt *gelnPacket = (struct CITP_MSEX_RqSt*)data;
+//  const char *data = byteArray.constData();
+//  struct CITP_MSEX_RqSt *gelnPacket = (struct CITP_MSEX_RqSt*)data;
     qDebug() << "parseRQSTPacket: RQST arrives...";
-    emit rqstread();
+//    emit rqstread();
 }
 
 bool MediaServer::sendNACK(quint32 header)
@@ -492,7 +513,7 @@ bool MediaServer::sendNACK(quint32 header)
 
 bool MediaServer::updatemedia()
 {
-    QDir dir(PATHMEDIA);
+    QDir dir(getpath());
     m_media.clear();
     // Miramos cuantas librerías tenenmos en /video
     if (!dir.cd("video"))
@@ -522,7 +543,7 @@ bool MediaServer::updatemedia()
 
 // Miramos las librerías en /imagenes
     i++;
-    dir = PATHMEDIA;
+    dir.cd(getpath());
     if (!dir.cd("image"))
        {
         qWarning("Can not find images dir");
@@ -578,4 +599,26 @@ QList<MediaInformation> MediaServer::getMediaInformation(QDir dir)
         mediaList.append(mediainf);
         }
     return mediaList;
+}
+
+void MediaServer::setpath(QString path)
+{
+    m_pathmedia = NULL;
+    m_pathmedia = path.toAscii().constData();
+}
+
+void MediaServer::setpathu(const char *buffer)
+{
+  if (!buffer)
+    {
+      qDebug() << "No buffer to set path";
+      return;
+    }
+    m_pathmedia = buffer;
+}
+
+QString MediaServer::getpath()
+{
+    QString path(m_pathmedia);
+    return path;
 }

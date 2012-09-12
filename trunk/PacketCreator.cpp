@@ -1,5 +1,25 @@
+/*
+   Pure Media Server - A Media Server Sotfware for stage and performing
+   Copyright (C) 2012  Santiago Noreña
+   belfegor <AT> gmail <DOT> com
+
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #include "PacketCreator.h"
 #include "PureMediaServer.h"
+#include "MediaServer.h"
 #include "CITPDefines.h"
 #include "MSEXDefines.h"
 
@@ -63,7 +83,7 @@ unsigned char * PacketCreator::createPLocPacket(
 
 // Paquetes MSEX
 
-unsigned char * PacketCreator::createSINFPacket(quint8 layers, int &bufferLen)
+unsigned char * PacketCreator::createSINFPacket(int &bufferLen)
 {
   // figure out the packet size
   QString name = NAME;
@@ -319,9 +339,9 @@ unsigned char * PacketCreator::createMEINPacket(MediaLibrary medialib, int &buff
    return buffer;
 }
 
-unsigned char * PacketCreator::createETHNPacket(MediaLibrary medialib, int elementnumber, int &bufferLen)
+unsigned char * PacketCreator::createETHNPacket(QString path,MediaLibrary medialib, int elementnumber, int &bufferLen)
 {
-    QDir dir(PATHMEDIA);
+    QDir dir(path);
     QFileInfo fileInfo;
     QFileInfoList filelist;
     if (medialib.m_Name == "image"){
