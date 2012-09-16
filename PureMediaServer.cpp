@@ -73,21 +73,6 @@ PureMediaServer::PureMediaServer(QWidget *parent)
   // Conectamos a Pure Data
   on_connectPDButton_clicked();
 
-  // Creamos el objeto CITP y el peer information socket
-  m_citp = new CITPLib(this);
-  Q_CHECK_PTR(m_citp);
-  quint32 ipadd = ui.ipAddress1->value();
-  ipadd << 8;
-  ipadd = ipadd + ui.ipAddress2->value();
-  ipadd << 8;
-  ipadd = ipadd + ui.ipAddress3->value();
-  ipadd << 8;
-  ipadd = ipadd + ui.ipAddress4->value();
-  if (!m_citp->createPeerInformationSocket(NAME, STATE, ipadd))
-      {
-      qDebug("CreatePeerInformationSocket failed");
-  }
-
   // Creamos el mediaserver
   m_mediaserver = new MediaServer(this);
   Q_CHECK_PTR(m_mediaserver);
@@ -111,18 +96,40 @@ qDebug() << "Close";
 void PureMediaServer::on_updateButton_clicked()
 {
     // Chequeamos si existe el path a los medias
-    QDir dir(m_mediaserver->getpath());
+    QDir dir(pathmedia);
      if (!dir.exists())
      {
          qWarning("Cannot find the media directory");
          return;
      }
-     ui.textEdit->appendPlainText("Actualizando biblioteca de medias. Esto puede llevar un rato");
+     m_mediaserver->setpath(pathmedia);
      if (!m_mediaserver->updatemedia())
      {
          qWarning("Cannot explore the media");
          return;
      }
+
+     // Creamos el objeto CITP y el peer information socket
+//     if (!m_citp)
+//     {
+         m_citp = new CITPLib(this);
+         Q_CHECK_PTR(m_citp);
+         quint32 ipadd = 0x00000000;
+         quint32 i;
+         i = ui.ipAddress1->value();
+         ipadd = ipadd + (i * 0x1000000);
+         i =ui.ipAddress2->value();
+         ipadd = ipadd + (i * 0x10000);
+         i = ui.ipAddress3->value();
+         ipadd = ipadd + (i * 0x100);
+         i = ui.ipAddress4->value();
+         ipadd = ipadd + i;
+         qDebug()<< "address " << ipadd;
+         if (!m_citp->createPeerInformationSocket(NAME, STATE, ipadd))
+           {
+           qDebug("CreatePeerInformationSocket failed");
+           }
+//    }
 }
 
 void PureMediaServer::on_connectPDButton_clicked(){
@@ -553,13 +560,13 @@ void PureMediaServer::on_ChangePath_clicked()
     if (dialog.exec())
         fileNames = dialog.selectedFiles();
     QString file = fileNames.at(0);
+    pathmedia = file;
     QString desc = tr("0000 0000 %1;").arg(file);
     if (!sendPacket(desc.toAscii().constData(),desc.size()))
                 {
                  ui.textEdit->appendPlainText("No puedo mandar mensaje a Pure Data");
-                return;
-                }
-    pathmedia = file;
+
+    }
     desc = tr("Media Path Changed to: %1").arg(pathmedia);
     ui.textEdit->appendPlainText(desc);
 }

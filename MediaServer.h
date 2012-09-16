@@ -27,14 +27,15 @@ public:
     bool updatemedia();
     QList<LayerStatus> m_layers;
     QList<MediaLibrary> m_media;
-    void setpath(QString path);
-    void setpathu(const char *buffer);
-    QString getpath();
 
+    /*void setpath(QString path);
+    void setpathu(const char *buffer);*/
+
+    virtual void setpath(QString path);
 
 protected:
 
-    const char * m_pathmedia;
+    QString m_pathmedia;
     QTimer *n_timer;
     unsigned char * m_buffer;
     int m_bufferLen;

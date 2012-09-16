@@ -52,7 +52,7 @@ public:
   CITPLib(QObject *parent = 0);
   virtual ~CITPLib();
 
-  bool createPeerInformationSocket(const QString &name, const QString &state, const quint32 ipadd);
+  bool createPeerInformationSocket(const QString &name, const QString &state, quint32 ipadd);
 
   PeerInformationSocket *m_peerSocket;
 

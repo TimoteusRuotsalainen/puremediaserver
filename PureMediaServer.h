@@ -37,6 +37,7 @@ public:
     PureMediaServer (QWidget *parent = 0);
     virtual ~PureMediaServer();
 
+
 protected:
 
     QString pathmedia;

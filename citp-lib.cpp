@@ -42,13 +42,11 @@ CITPLib::~CITPLib()
 {
 }
 
-bool CITPLib::createPeerInformationSocket(const QString &name, const QString &state, const quint32 ipadd)
+bool CITPLib::createPeerInformationSocket(const QString &name, const QString &state, quint32 ipadd)
 {
   if (!m_peerSocket)
     {
       return false;
     }
-//  m_peerSocket->setMulticastInterface(ipadd);
-  qDebug() << "about to call peer socket init";
   return m_peerSocket->init(name, state, ipadd);
 }

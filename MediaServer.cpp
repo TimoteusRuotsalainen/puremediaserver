@@ -18,7 +18,7 @@
 */
 
 #include "MediaServer.h"
-
+#include "PureMediaServer.h"
 #include "MSEXDefines.h"
 #include "PacketCreator.h"
 
@@ -52,10 +52,11 @@ MediaServer::MediaServer(QObject *parent)
     layermodel.MediaFPS = 25;
     m_layers.append(layermodel);
     }
-  m_pathmedia =  NULL;
+//  m_pathmedia =  NULL;
   // Variables para el buffer de LSTA
   m_bufferLen = 0x00;
   m_buffer = NULL;
+  m_pathmedia.clear();
   m_tcpServer = new QTcpServer(this);
   Q_CHECK_PTR(m_tcpServer);
 
@@ -403,7 +404,7 @@ void MediaServer::parseGEINPacket(const QByteArray &byteArray)
   int bufferLen = sizeof (struct CITP_MSEX_10_MEIn);
   if (!(geinPacket->LibraryId < m_media.size())) {
           qDebug() << "Library ID exceeds size list";
-          unsigned char * buffer = PacketCreator::createMEINPacket(m_media.last(),bufferLen);
+          /*unsigned char * buffer = PacketCreator::createMEINPacket(m_media.at(geinPacket->LibraryId),bufferLen);
           if (!buffer)
             {
             qDebug() << "parseGEINPacket:createMEINPacket() failed";
@@ -415,7 +416,7 @@ void MediaServer::parseGEINPacket(const QByteArray &byteArray)
               qDebug() << "parseGEINPacket: Send MEIn Message failed";
               return;
               }
-          qDebug() << "parseGEINPacket finish ok. MEIn Sent...";
+          qDebug() << "parseGEINPacket finish ok. MEIn Sent...";*/
   }
 
   else {
@@ -460,7 +461,7 @@ void MediaServer::parseGETHPacket(const QByteArray &byteArray)
       qDebug() <<  "Element Number is greater than the elements in library";
       return;
   }
-  unsigned char * buffer = PacketCreator::createETHNPacket(getpath(), mediai, gethPacket->ElementNumber, bufferLen);
+  unsigned char * buffer = PacketCreator::createETHNPacket(m_pathmedia, mediai, gethPacket->ElementNumber, bufferLen);
   if (!buffer)
   {
     qDebug() << "parseGETHPacket:createETHNPacket() failed";
@@ -513,9 +514,11 @@ bool MediaServer::sendNACK(quint32 header)
 
 bool MediaServer::updatemedia()
 {
-    QDir dir(getpath());
+    qDebug()<<"Actualizando biblioteca de medias en " << m_pathmedia;
+    QDir dir;
+    dir.cd(m_pathmedia);
     m_media.clear();
-    // Miramos cuantas librerías tenenmos en /video
+    // Miramos cuantas librerías tenemos en /video
     if (!dir.cd("video"))
     {   qWarning("Cannot cd to the video directory");
         return false;
@@ -543,7 +546,7 @@ bool MediaServer::updatemedia()
 
 // Miramos las librerías en /imagenes
     i++;
-    dir.cd(getpath());
+    dir.cd(m_pathmedia);
     if (!dir.cd("image"))
        {
         qWarning("Can not find images dir");
@@ -603,22 +606,8 @@ QList<MediaInformation> MediaServer::getMediaInformation(QDir dir)
 
 void MediaServer::setpath(QString path)
 {
-    m_pathmedia = NULL;
-    m_pathmedia = path.toAscii().constData();
+    //m_pathmedia = NULL;
+    m_pathmedia.clear();
+    m_pathmedia.append(path);
 }
 
-void MediaServer::setpathu(const char *buffer)
-{
-  if (!buffer)
-    {
-      qDebug() << "No buffer to set path";
-      return;
-    }
-    m_pathmedia = buffer;
-}
-
-QString MediaServer::getpath()
-{
-    QString path(m_pathmedia);
-    return path;
-}
