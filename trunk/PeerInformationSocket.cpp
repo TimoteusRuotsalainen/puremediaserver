@@ -79,59 +79,26 @@ bool PeerInformationSocket::init(const QString &name, const QString &state, quin
     {
       m_timer->stop();
     }
-  qDebug() << "PeerInformationSocket" << name << state;
   m_name = name;
   m_state = state;
 
-
-  // create multicast socket, bind to port
-  if (!bind(CITP_PINF_MULTICAST_PORT, ShareAddress | ReuseAddressHint))
+    // create multicast socket, bind to port
+  QHostAddress address;
+  address.setAddress(ipadd);
+  if (!bind(address, CITP_PINF_MULTICAST_PORT, ShareAddress | ReuseAddressHint))
     {
       qDebug() << "Multicast bind failed";
       return false;
     }
 
-/////////////////////////
-/*
-
-  QList<QHostAddress> networklist = networkinterface.allAddresses();
-  int k = 0xFFFF;
-  int l;
-  QHostAddress address;
-  for (int i = 0; i < networklist.size(); i++)
-  {
-      address = networklist.at(i);
-      qDebug()<<"Network IP: "<<address.toString();
-
-      int j = address.toIPv4Address();
-      qDebug()<<j;
-      if (0 << j << 0x7f000002)
-      {
-          k=j;
-          l=i;
-          networkinterface =
-      }
-  }
-  address = networklist.at(l);
-
-  networkinterface =
-  if (!joinMulticastGroup(CITP_PINF_MULTICAST_IP, iface)
-  {
-          qDebug() << "Failed joining multicast";
-  }
-*/
-///////////////////////
-
-  qDebug()<<"I have choose " << ipadd;
   struct ip_mreq mreq;
   mreq.imr_multiaddr.s_addr = inet_addr(CITP_PINF_MULTICAST_IP);
-  mreq.imr_interface.s_addr = ipadd;
+  mreq.imr_interface.s_addr =  ipadd;
   int r = ::setsockopt(socketDescriptor(), IPPROTO_IP, IP_ADD_MEMBERSHIP,
 		       (const char *)&mreq, sizeof(struct ip_mreq));
   if (0 != r)
     {
       qDebug() << "setsockopt failed, r:" << r;
-      qDebug("setsockopt failed");
       return false;
     }
 
@@ -159,15 +126,18 @@ bool PeerInformationSocket::init(const QString &name, const QString &state, quin
 
 void PeerInformationSocket::transmitPLoc()
 {
-  if (m_packetBuffer && m_packetBufferLen > 0)
+  quint64 ret = 0;
+    if (m_packetBuffer && m_packetBufferLen > 0)
     {
       QHostAddress addr(CITP_PINF_MULTICAST_IP);
-      qint64 ret = writeDatagram((const char*)m_packetBuffer, m_packetBufferLen, 
-				 addr, CITP_PINF_MULTICAST_PORT);
+      ret = writeDatagram((const char*)m_packetBuffer, m_packetBufferLen, addr, CITP_PINF_MULTICAST_PORT);
+/*      ret = write((const char *)m_packetBuffer, m_packetBufferLen);
       if (-1 == ret)
         {
           qDebug() << "Failed to send multicast packet:" << error();
+          qDebug () << errorString();
         }
+*/
     }
 }
 
