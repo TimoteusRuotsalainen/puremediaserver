@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>581</width>
-    <height>511</height>
+    <width>549</width>
+    <height>633</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,14 +19,13 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>561</width>
+      <width>531</width>
       <height>91</height>
      </rect>
     </property>
     <property name="plainText">
      <string>Pure Media Server 0.0.5
-Copyright (C) 2012 Santiago Noreña  
-puremediaserver@gmail.com
+Copyright (C) 2012 Santiago Noreña  puremediaserver@gmail.com
 This program comes with ABSOLUTELY NO WARRANTY</string>
     </property>
    </widget>
@@ -267,9 +266,9 @@ This program comes with ABSOLUTELY NO WARRANTY</string>
    <widget class="QCheckBox" name="readDMX">
     <property name="geometry">
      <rect>
-      <x>450</x>
-      <y>290</y>
-      <width>87</width>
+      <x>10</x>
+      <y>470</y>
+      <width>101</width>
       <height>23</height>
      </rect>
     </property>
@@ -280,8 +279,8 @@ This program comes with ABSOLUTELY NO WARRANTY</string>
    <widget class="QSpinBox" name="universe">
     <property name="geometry">
      <rect>
-      <x>470</x>
-      <y>340</y>
+      <x>160</x>
+      <y>470</y>
       <width>55</width>
       <height>27</height>
      </rect>
@@ -291,7 +290,7 @@ This program comes with ABSOLUTELY NO WARRANTY</string>
     <property name="geometry">
      <rect>
       <x>420</x>
-      <y>170</y>
+      <y>470</y>
       <width>55</width>
       <height>27</height>
      </rect>
@@ -303,8 +302,8 @@ This program comes with ABSOLUTELY NO WARRANTY</string>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>450</x>
-      <y>320</y>
+      <x>140</x>
+      <y>500</y>
       <width>91</width>
       <height>20</height>
      </rect>
@@ -316,10 +315,10 @@ This program comes with ABSOLUTELY NO WARRANTY</string>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>430</x>
-      <y>150</y>
-      <width>101</width>
-      <height>17</height>
+      <x>410</x>
+      <y>500</y>
+      <width>121</width>
+      <height>20</height>
      </rect>
     </property>
     <property name="text">
@@ -330,7 +329,7 @@ This program comes with ABSOLUTELY NO WARRANTY</string>
     <property name="geometry">
      <rect>
       <x>480</x>
-      <y>170</y>
+      <y>470</y>
       <width>55</width>
       <height>27</height>
      </rect>
@@ -342,8 +341,8 @@ This program comes with ABSOLUTELY NO WARRANTY</string>
    <widget class="QSpinBox" name="winsizey">
     <property name="geometry">
      <rect>
-      <x>480</x>
-      <y>220</y>
+      <x>330</x>
+      <y>470</y>
       <width>55</width>
       <height>27</height>
      </rect>
@@ -355,8 +354,8 @@ This program comes with ABSOLUTELY NO WARRANTY</string>
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>440</x>
-      <y>200</y>
+      <x>280</x>
+      <y>500</y>
       <width>101</width>
       <height>17</height>
      </rect>
@@ -368,8 +367,8 @@ This program comes with ABSOLUTELY NO WARRANTY</string>
    <widget class="QSpinBox" name="winsizex">
     <property name="geometry">
      <rect>
-      <x>420</x>
-      <y>220</y>
+      <x>270</x>
+      <y>470</y>
       <width>55</width>
       <height>27</height>
      </rect>
@@ -381,25 +380,12 @@ This program comes with ABSOLUTELY NO WARRANTY</string>
      <number>5000</number>
     </property>
    </widget>
-   <widget class="QLabel" name="layer1">
-    <property name="geometry">
-     <rect>
-      <x>100</x>
-      <y>120</y>
-      <width>59</width>
-      <height>17</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Layer 1</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="layer2">
     <property name="geometry">
      <rect>
       <x>100</x>
-      <y>160</y>
-      <width>59</width>
+      <y>150</y>
+      <width>441</width>
       <height>17</height>
      </rect>
     </property>
@@ -412,7 +398,7 @@ This program comes with ABSOLUTELY NO WARRANTY</string>
      <rect>
       <x>100</x>
       <y>190</y>
-      <width>59</width>
+      <width>441</width>
       <height>17</height>
      </rect>
     </property>
@@ -425,7 +411,7 @@ This program comes with ABSOLUTELY NO WARRANTY</string>
      <rect>
       <x>100</x>
       <y>230</y>
-      <width>59</width>
+      <width>441</width>
       <height>17</height>
      </rect>
     </property>
@@ -438,7 +424,7 @@ This program comes with ABSOLUTELY NO WARRANTY</string>
      <rect>
       <x>100</x>
       <y>270</y>
-      <width>59</width>
+      <width>441</width>
       <height>17</height>
      </rect>
     </property>
@@ -451,7 +437,7 @@ This program comes with ABSOLUTELY NO WARRANTY</string>
      <rect>
       <x>100</x>
       <y>310</y>
-      <width>59</width>
+      <width>451</width>
       <height>17</height>
      </rect>
     </property>
@@ -464,7 +450,7 @@ This program comes with ABSOLUTELY NO WARRANTY</string>
      <rect>
       <x>100</x>
       <y>350</y>
-      <width>59</width>
+      <width>451</width>
       <height>17</height>
      </rect>
     </property>
@@ -477,7 +463,7 @@ This program comes with ABSOLUTELY NO WARRANTY</string>
      <rect>
       <x>100</x>
       <y>390</y>
-      <width>59</width>
+      <width>441</width>
       <height>17</height>
      </rect>
     </property>
@@ -489,7 +475,7 @@ This program comes with ABSOLUTELY NO WARRANTY</string>
     <property name="geometry">
      <rect>
       <x>440</x>
-      <y>120</y>
+      <y>430</y>
       <width>87</width>
       <height>23</height>
      </rect>
@@ -514,8 +500,8 @@ This program comes with ABSOLUTELY NO WARRANTY</string>
    <widget class="QSpinBox" name="ipAddress1">
     <property name="geometry">
      <rect>
-      <x>340</x>
-      <y>390</y>
+      <x>10</x>
+      <y>540</y>
       <width>55</width>
       <height>27</height>
      </rect>
@@ -527,8 +513,8 @@ This program comes with ABSOLUTELY NO WARRANTY</string>
    <widget class="QSpinBox" name="ipAddress2">
     <property name="geometry">
      <rect>
-      <x>400</x>
-      <y>390</y>
+      <x>70</x>
+      <y>540</y>
       <width>55</width>
       <height>27</height>
      </rect>
@@ -540,8 +526,8 @@ This program comes with ABSOLUTELY NO WARRANTY</string>
    <widget class="QSpinBox" name="ipAddress3">
     <property name="geometry">
      <rect>
-      <x>460</x>
-      <y>390</y>
+      <x>130</x>
+      <y>540</y>
       <width>55</width>
       <height>27</height>
      </rect>
@@ -553,14 +539,27 @@ This program comes with ABSOLUTELY NO WARRANTY</string>
    <widget class="QSpinBox" name="ipAddress4">
     <property name="geometry">
      <rect>
-      <x>520</x>
-      <y>390</y>
+      <x>190</x>
+      <y>540</y>
       <width>55</width>
       <height>27</height>
      </rect>
     </property>
     <property name="maximum">
      <number>254</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="layer1">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>110</y>
+      <width>441</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Layer 1</string>
     </property>
    </widget>
   </widget>
@@ -570,8 +569,8 @@ This program comes with ABSOLUTELY NO WARRANTY</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>581</width>
-     <height>25</height>
+     <width>549</width>
+     <height>29</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -589,9 +588,6 @@ This program comes with ABSOLUTELY NO WARRANTY</string>
    </property>
   </action>
   <action name="actionOpen_conf">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
    <property name="text">
     <string>Open conf</string>
    </property>

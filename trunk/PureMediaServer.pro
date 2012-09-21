@@ -1,7 +1,7 @@
 TEMPLATE = app
 TARGET = PureMediaServer
 QT += network script
-CONFIG += debug
+CONFIG += debug qtestlib
 DESTDIR = ./debug
 
 #win32: LIBS += wsock32.lib
@@ -30,7 +30,7 @@ FORMS += PureMediaServer.ui \
 
 #INCLUDEPATH += ./
 
-LIBS += -L./debug -lcitp
+LIBS += -L./debug
 
 #win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../debug/release/ -lcitp
 #else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../debug/debug/ -lcitp

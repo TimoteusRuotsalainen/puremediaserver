@@ -126,18 +126,10 @@ bool PeerInformationSocket::init(const QString &name, const QString &state, quin
 
 void PeerInformationSocket::transmitPLoc()
 {
-  quint64 ret = 0;
-    if (m_packetBuffer && m_packetBufferLen > 0)
+      if (m_packetBuffer && m_packetBufferLen > 0)
     {
       QHostAddress addr(CITP_PINF_MULTICAST_IP);
-      ret = writeDatagram((const char*)m_packetBuffer, m_packetBufferLen, addr, CITP_PINF_MULTICAST_PORT);
-/*      ret = write((const char *)m_packetBuffer, m_packetBufferLen);
-      if (-1 == ret)
-        {
-          qDebug() << "Failed to send multicast packet:" << error();
-          qDebug () << errorString();
-        }
-*/
+      qint64 ret = writeDatagram((const char*)m_packetBuffer, m_packetBufferLen, addr, CITP_PINF_MULTICAST_PORT);
     }
 }
 

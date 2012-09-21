@@ -63,7 +63,7 @@ En los modos auto el inicio y el fin del loop no son aplicables, se reproduce la
     75-99:   Texto	
     100-125: Audio	
 9 Reproduccion: Valores en 100%
-    0-10 Normal loop 
+    00-10 Normal loop 
     11-20 Back loop 
     21-30 Ping-pong loop 
     31-40 Normal una vez
@@ -76,6 +76,26 @@ En los modos auto el inicio y el fin del loop no son aplicables, se reproduce la
 12 Rotate X (0)
 13 Rotate Y (0)
 14 Rotate Z (0)
+<<<<<<< .mine
+15 Size X Size Font (127)
+16 Size Y (127)
+17 Size Z (127)
+18 X (127)
+19 Y (127)
+20 Z (127)
+21 Volumen (0)
+22 Pan (127)
+23 X Fino (127)
+24 Y Fino (127)
+25 Abajo izquierda x (127)
+26 Abajo izquierda y (127)
+27 Abajo derecha x (127)
+28 Abajo derecha y (127)
+29 Arriba izquierda x (127)
+30 Arriba izquierda y (127)
+31 Arriba derecha x (127)
+32 Arriba derecha y (127)
+=======
 15 Size X  (127)
 16 Size Y  (127)
 17 Z Coarse (127)
@@ -208,3 +228,4 @@ PureMediaServer Audio:
 8 - Entry Point Coarse - El valor de estos dos canales en centésimas de segundo.
 9 - Entry Point Fine
 
+>>>>>>> .r132

@@ -60,7 +60,7 @@ MediaServer::MediaServer(QObject *parent)
   m_tcpServer = new QTcpServer(this);
   Q_CHECK_PTR(m_tcpServer);
 
- // Inicio del TCP Server; empieza a escuchar
+ // Inicio del TCP Server
   if (!m_tcpServer)
       qWarning("error TCP Server no creado");
   if (!m_tcpServer->listen(QHostAddress::Any, LISTENTCPPORT))
@@ -113,32 +113,7 @@ bool MediaServer::newPeer()
 {
     qDebug() << "newPeer init";
     m_tcpSocket = m_tcpServer->nextPendingConnection();
-
-    /*
-     QHostAddress ipadd;
-     quint32 buff2 = 0;
-     quint32 buff = 0;
-
-     if (!m_peerList.size())
-     {
-         ipadd = (m_tcpSocket->localAddress());
-         buff2 = ipadd.toIPv4Address();
-         m_peerList.append(buff2);
-      }
-     ipadd = m_tcpSocket->peerAddress();
-     buff2 = ipadd.toIPv4Address();
-     int i;
-     for(i = 0; i< m_peerList.size(); i++)
-     {
-         buff = m_peerList.at(i);
-         if (buff == buff2)
-         {
-             qDebug() << "TCP Socket ya creado para ese cliente";
-             return false;
-         }
-      }
-     m_peerList.append(buff2);*/
-     connect(m_tcpSocket, SIGNAL(readyRead()),
+    connect(m_tcpSocket, SIGNAL(readyRead()),
               this, SLOT(handleReadyRead()));
      return true;
 }
@@ -172,15 +147,12 @@ void MediaServer::handleReadyRead()
        messageSize |= peekArray[9];
        messageSize <<= 8;
        messageSize |= peekArray[8];
-//       qDebug() << "Found message size:" << messageSize;
        if (messageSize > m_tcpSocket->bytesAvailable())
              {
              qDebug() << "Not enough bytes available, only have:" << m_tcpSocket->bytesAvailable();
              return;
               }
        QByteArray byteArray = m_tcpSocket->read(messageSize);
-//       qDebug() << "Read Data:" << byteArray[0] << byteArray[1] << byteArray[2] << byteArray[3];
-//       qDebug() << "byteArray size:" << byteArray.size();
        parsePacket(byteArray);
                  }
 }
@@ -543,7 +515,7 @@ bool MediaServer::updatemedia()
         dir.cdUp();
         m_media.append(mediai);
     }
-
+/*
 // Miramos las librerías en /imagenes
     i++;
     dir.cd(m_pathmedia);
@@ -572,7 +544,7 @@ bool MediaServer::updatemedia()
     mediai.m_ElementCount = 0x00;
 //    mediai.m_MediaInformation = NULL;
     m_media.append(mediai);
-
+*/
 // Lanzar aquí la creación de thumbs?
 
 // Mandamos las señal ELup (Msex 1.2)
