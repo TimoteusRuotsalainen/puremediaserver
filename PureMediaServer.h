@@ -27,6 +27,7 @@
 class CITPLib;
 class MediaServer;
 class QMenu;
+class QProcess;
 
 class PureMediaServer : public QMainWindow
 {
@@ -37,23 +38,27 @@ public:
     PureMediaServer (QWidget *parent = 0);
     virtual ~PureMediaServer();
 
-
 protected:
 
     QString pathmedia;
     MediaServer *m_mediaserver;
     CITPLib *m_citp;    
-    QTcpSocket *m_pd_socket;
-
+    QTcpSocket *m_pd_write;
+    QTcpServer *m_pd_read;
+    QTcpSocket *tcpsocket;
 //    void contextMenuEvent(QContextMenuEvent *event);
-
+    QProcess *ola;
+    QProcess *pd;
 private:
 
     Ui::PureMediaServer ui;
 
     bool sendPacket(const char *buffer, int bufferLen);
 
-    void sendconf();
+    void pdstart();
+
+//    void sendconf();
+
 
 public slots:
 
@@ -65,11 +70,12 @@ private slots:
 
     void on_updateButton_clicked();
 
-    void on_connectPDButton_clicked();
+//    void on_connectPDButton_clicked();
 
-    void pdDisconnected();
+//    void pdDisconnected();
 
-    void handleReadyRead();
+    void newPeer();
+    void newmessage();
     void newconexion();
 
     void on_window_stateChanged(int state);
@@ -101,6 +107,10 @@ private slots:
 
     void open();
     void save();
+
+    void olastart();
+    void pdrestart();
+
 };
 
 #endif // PUREMEDIASERVER_H
