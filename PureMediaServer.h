@@ -70,7 +70,7 @@ private slots:
 
     void on_updateButton_clicked();
 
-//    void on_connectPDButton_clicked();
+    void on_restartPD_clicked();
 
 //    void pdDisconnected();
 

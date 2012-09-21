@@ -1,4 +1,4 @@
-#N canvas 144 163 1221 604 10;
+#N canvas 142 163 1221 604 10;
 #N canvas 1 85 1272 689 interface 0;
 #X msg 1114 -275 color 0 0 0;
 #X msg 238 -297 create;
@@ -382,7 +382,7 @@
 #X obj 9 122 layer;
 #X obj 8 246 layer;
 #X obj 1419 -201 select 20 21 19;
-#X obj 849 65 delay 2000;
+#X obj 849 65 delay 500;
 #X connect 1 0 57 0;
 #X connect 1 1 58 0;
 #X connect 1 2 62 0;

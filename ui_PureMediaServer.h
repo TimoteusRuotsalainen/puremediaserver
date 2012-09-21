@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'PureMediaServer.ui'
 **
-** Created: Thu Sep 20 21:15:31 2012
+** Created: Fri Sep 21 22:36:41 2012
 **      by: Qt User Interface Compiler version 4.8.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -37,7 +37,7 @@ public:
     QWidget *centralwidget;
     QPlainTextEdit *textEdit;
     QPushButton *updateButton;
-    QPushButton *connectPDButton;
+    QPushButton *restartPD;
     QCheckBox *layer1Check;
     QCheckBox *layer2Check;
     QCheckBox *layer3Check;
@@ -100,9 +100,9 @@ public:
         updateButton = new QPushButton(centralwidget);
         updateButton->setObjectName(QString::fromUtf8("updateButton"));
         updateButton->setGeometry(QRect(250, 430, 113, 32));
-        connectPDButton = new QPushButton(centralwidget);
-        connectPDButton->setObjectName(QString::fromUtf8("connectPDButton"));
-        connectPDButton->setGeometry(QRect(130, 430, 113, 32));
+        restartPD = new QPushButton(centralwidget);
+        restartPD->setObjectName(QString::fromUtf8("restartPD"));
+        restartPD->setGeometry(QRect(130, 430, 113, 32));
         layer1Check = new QCheckBox(centralwidget);
         layer1Check->setObjectName(QString::fromUtf8("layer1Check"));
         layer1Check->setGeometry(QRect(10, 110, 87, 23));
@@ -267,7 +267,7 @@ public:
 "Copyright (C) 2012 Santiago Nore\303\261a  puremediaserver@gmail.com\n"
 "This program comes with ABSOLUTELY NO WARRANTY", 0, QApplication::UnicodeUTF8));
         updateButton->setText(QApplication::translate("PureMediaServer", "Update Media", 0, QApplication::UnicodeUTF8));
-        connectPDButton->setText(QApplication::translate("PureMediaServer", "Connect To PD", 0, QApplication::UnicodeUTF8));
+        restartPD->setText(QApplication::translate("PureMediaServer", "Restart PD", 0, QApplication::UnicodeUTF8));
         layer1Check->setText(QString());
         layer2Check->setText(QString());
         layer3Check->setText(QString());

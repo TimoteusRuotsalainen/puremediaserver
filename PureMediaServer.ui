@@ -42,7 +42,7 @@ This program comes with ABSOLUTELY NO WARRANTY</string>
      <string>Update Media</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="connectPDButton">
+   <widget class="QPushButton" name="restartPD">
     <property name="geometry">
      <rect>
       <x>130</x>
@@ -52,7 +52,7 @@ This program comes with ABSOLUTELY NO WARRANTY</string>
      </rect>
     </property>
     <property name="text">
-     <string>Connect To PD</string>
+     <string>Restart PD</string>
     </property>
    </widget>
    <widget class="QCheckBox" name="layer1Check">

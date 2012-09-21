@@ -91,7 +91,7 @@ public:
 
 protected:
 
-	void m_open() {
+void m_open() {
         m_universe = i_universe;	    
         // set up ola connection 
         if (!m_client.Setup()) {
@@ -102,20 +102,23 @@ protected:
         client->RegisterUniverse(m_universe,ola::REGISTER,ola::NewSingleCallback(this, &ola2pd::RegisterComplete));
 //        m_client.GetSelectServer()->AddReadDescriptor(&m_stdin_descriptor);
 //        m_stdin_descriptor.SetOnData(ola::NewCallback(this, &ola2pd::StdinReady));
-        m_client.GetSelectServer()->RegisterRepeatingTimeout(500,ola::NewCallback(this, &ola2pd::CheckDataLoss));
-        m_buffer.Blackout();	
+        m_client.GetSelectServer()->RegisterRepeatingTimeout(5000,ola::NewCallback(this, &ola2pd::CheckDataLoss));
+//        m_buffer.Blackout();	
         post("ola2pd: Init complete");
 	m_client.GetSelectServer()->Run();
         post("ola2pd: Close complete");
         }    
-    
-	void m_close() {
-        OlaCallbackClient *client = m_client.GetClient();
-        client->RegisterUniverse(m_universe,ola::UNREGISTER,ola::NewSingleCallback(this, &ola2pd::RegisterComplete));        
-        m_client.GetSelectServer()->Terminate();
-        }
 
-	void m_bang()  // Utilidad del bang?
+void m_close() {
+        OlaCallbackClient *client = m_client.GetClient();
+        if (client != NULL)
+		{
+		client->RegisterUniverse(m_universe,ola::UNREGISTER,ola::NewSingleCallback(this, &ola2pd::RegisterComplete));        
+        	m_client.GetSelectServer()->Terminate();
+		}
+}
+
+void m_bang()  // Utilidad del bang?
 	{
 		post("%s: universe %d",thisName(),i_universe);
 	}
@@ -178,7 +181,7 @@ bool ola2pd::CheckDataLoss() {
   if (timerisset(&m_last_data)) {
     gettimeofday(&now, NULL);
     timersub(&now, &m_last_data, &diff);
-    if (diff.tv_sec > 2 || (diff.tv_sec == 2 && diff.tv_usec > 500000)) {
+    if (diff.tv_sec > 5 || (diff.tv_sec == 5 && diff.tv_usec > 5000000)) {
       // loss of data
       post("ola2pd:Data Loss!");
     }
