@@ -32,6 +32,7 @@
 
 #define PDPORTW 9195
 #define PDPORTR 9196
+
 struct conf
 {
 bool window;
@@ -79,31 +80,327 @@ PureMediaServer::PureMediaServer(QWidget *parent)
     m_pd_write = NULL;
     pd = new QProcess(this);
     pdstart();
-  // Creamos el mediaserver
-  m_mediaserver = new MediaServer(this);
-  Q_CHECK_PTR(m_mediaserver);
-  // Conectamos los menus
-  connect(ui.actionOpen_conf, SIGNAL(triggered()), this, SLOT(open()));
-  connect(ui.actionSave_conf, SIGNAL(triggered()), this, SLOT(save()));
+    // Creamos el mediaserver
+    m_mediaserver = new MediaServer(this);
+    Q_CHECK_PTR(m_mediaserver);
+    // Conectamos los menus
+    connect(ui.actionOpen_conf, SIGNAL(triggered()), this, SLOT(open()));
+    connect(ui.actionSave_conf, SIGNAL(triggered()), this, SLOT(save()));
 }
 
 PureMediaServer::~PureMediaServer()
 {
-    close();
-}
-
-void PureMediaServer::close()
-{
-    qDebug() << "Closing...";
-    disconnect(pd, SIGNAL(finished(int)), this, SLOT(pdrestart()));
-    m_pd_write->abort();
-    m_pd_read->close();
+   disconnect(pd, SIGNAL(finished(int)), this, SLOT(pdrestart()));
+    if (m_pd_write->isOpen()) {
+          m_pd_write->abort();
+        }
+    if (m_pd_read->isListening()) {
+        m_pd_read->close();
+    }
     if (tcpsocket->isOpen()){
         tcpsocket->close();
     }
     save();
-    pd->close();
-    ola->close();
+    if (pd->state() == 2)
+    {
+        pd->close();
+    }
+        ola->close();
+}
+
+/*
+ *
+ * File Configuration Stuff
+ *
+ */
+
+void PureMediaServer::open()
+{
+    QFile file("pms.conf");
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+     {
+        qDebug()<<("Can not find the conf file");
+        return;
+     }
+    unsigned char * fileconf = new unsigned char[file.size()];
+    memset(fileconf, 0, file.size());
+    fileconf = file.map(0x00, file.size());
+    if (fileconf == 0){
+        qDebug()<<("Cannot map the file");
+        return;
+    }
+    conf *packet = (conf *)fileconf;
+    ui.window->setChecked(packet->window);
+    ui.winpositionx->setValue(packet->winpositionx);
+    ui.winpositiony->setValue(packet->winpositiony);
+    ui.winsizex->setValue(packet->winsizex);
+    ui.winsizey->setValue(packet->winsizey);
+    ui.layer1Add->setValue(packet->layer1Add);
+    ui.layer1Check->setChecked(packet->layer1Check);
+    ui.layer2Add->setValue(packet->layer2Add);
+    ui.layer2Check->setChecked(packet->layer2Check);
+    ui.layer3Add->setValue(packet->layer3Add);
+    ui.layer3Check->setChecked(packet->layer3Check);
+    ui.layer4Add->setValue(packet->layer4Add);
+    ui.layer4Check->setChecked(packet->layer4Check);
+    ui.layer5Add->setValue(packet->layer5Add);
+    ui.layer5Check->setChecked(packet->layer5Check);
+    ui.layer6Add->setValue(packet->layer6Add);
+    ui.layer6Check->setChecked(packet->layer6Check);
+    ui.layer7Add->setValue(packet->layer7Add);
+    ui.layer7Check->setChecked(packet->layer7Check);
+    ui.layer8Add->setValue(packet->layer8Add);
+    ui.layer8Check->setChecked(packet->layer8Check);
+    ui.readDMX->setChecked(packet->dmx);
+    ui.universe->setValue(packet->universe);
+    ui.ipAddress1->setValue(packet->ipadd1);
+    ui.ipAddress2->setValue(packet->ipadd2);
+    ui.ipAddress3->setValue(packet->ipadd3);
+    ui.ipAddress4->setValue(packet->ipadd4);
+    int offset = sizeof(struct conf) - 4;
+    int size = file.size() - offset;
+    char * buffer = new char[size];
+    memset(buffer, 0, size);
+    memcpy(buffer, fileconf+offset, size);
+    pathmedia = buffer;
+    QString desc = tr("Media Path Changed to: %1").arg(pathmedia);
+    qDebug()<<(desc);
+    file.close();
+}
+
+void PureMediaServer::save()
+{
+    qDebug()<<("Saving conf file");
+    int bufferLen = sizeof(struct conf) + pathmedia.size();
+    unsigned char *buffer = new unsigned char[bufferLen];
+    memset(buffer, 0, bufferLen);
+    conf *packet = (conf *)buffer;
+    packet->window = ui.window->checkState();
+    packet->winpositionx = ui.winpositionx->value();
+    packet->winpositiony = ui.winpositiony->value();
+    packet->winsizex = ui.winsizex->value();
+    packet->winsizey = ui.winsizey->value();
+    packet->layer1Add = ui.layer1Add->value();
+    packet->layer1Check = ui.layer1Check->checkState();
+    packet->layer2Add = ui.layer2Add->value();
+    packet->layer2Check = ui.layer2Check->checkState();
+    packet->layer3Add = ui.layer3Add->value();
+    packet->layer3Check = ui.layer3Check->checkState();
+    packet->layer4Add = ui.layer4Add->value();
+    packet->layer4Check = ui.layer4Check->checkState();
+    packet->layer5Add = ui.layer5Add->value();
+    packet->layer5Check = ui.layer5Check->checkState();
+    packet->layer6Add = ui.layer6Add->value();
+    packet->layer6Check = ui.layer6Check->checkState();
+    packet->layer7Add = ui.layer7Add->value();
+    packet->layer7Check = ui.layer7Check->checkState();
+    packet->layer8Add = ui.layer8Add->value();
+    packet->layer8Check = ui.layer8Check->checkState();
+    packet->dmx = ui.readDMX->checkState();
+    packet->universe = ui.universe->value();
+    packet->ipadd1 = ui.ipAddress1->value();
+    packet->ipadd2 = ui.ipAddress2->value();
+    packet->ipadd3 = ui.ipAddress3->value();
+    packet->ipadd4 = ui.ipAddress4->value();
+    int offset = sizeof (struct conf) - 4;
+    memcpy(buffer+offset, pathmedia.toAscii().constData(), pathmedia.size());
+    QFile file("pms.conf");
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+        qDebug()<<("Can not open file pms.conf");
+        return;
+    }
+    int error =  file.write((const char *)buffer, bufferLen);
+    QString errorstring = tr("Bytes Write to file %1").arg(error);
+    qDebug()<<(errorstring);
+    file.close();
+}
+
+/*
+ *
+ * Pure Data Stuff
+ *
+ */
+
+void PureMediaServer::pdstart()
+{
+    int state = pd->state();
+    if (state != 0)
+    {
+        return;
+    }
+    // Creamos los sockets para la conexión a Pure Data
+    m_pd_write = new QTcpSocket(this);
+    Q_CHECK_PTR(m_pd_write);
+    connect(m_pd_write, SIGNAL(connected()),this, SLOT(newconexion()));
+    m_pd_read = new QTcpServer(this);
+    Q_CHECK_PTR(m_pd_read);
+    connect(m_pd_read, SIGNAL(newConnection()),this, SLOT(newPeer()));
+    if (!m_pd_read)
+     {
+         qDebug()<<("error TCP Server no creado");
+     }
+    if (!m_pd_read->listen(QHostAddress::LocalHost, PDPORTR))
+    {
+    qDebug()<<"error listening tcpServer";
+    }
+    // Arrancamos el proceso Pure Data
+    pd->start("pd", QStringList()<< "-stderr" << "pms-video.pd");
+    connect(pd, SIGNAL(readyReadStandardError()), this, SLOT(stdout()));
+}
+
+void PureMediaServer::pdrestart()
+{
+    qDebug()<<"Restarting PD";
+    int state = pd->state();
+    if (state != 0)
+    {
+        return;
+    }
+    if (m_pd_write != NULL)
+    {
+        m_pd_write->close();
+        disconnect(m_pd_write, SIGNAL(connected()),this, SLOT(newconexion()));
+        delete m_pd_write;
+    }
+    if (m_pd_read != NULL)
+    {
+        disconnect(m_pd_read, SIGNAL(newConnection()),this, SLOT(newPeer()));
+        m_pd_read->close();
+        delete m_pd_read;
+    }
+    disconnect(pd, SIGNAL(finished(int)), this, SLOT(pdrestart()));
+    pdstart();
+}
+
+void PureMediaServer::newPeer()
+{
+   tcpsocket = m_pd_read->nextPendingConnection();
+   connect(tcpsocket, SIGNAL(readyRead()),
+                this, SLOT(newmessage()));
+}
+
+void PureMediaServer::newmessage()
+{
+    if (tcpsocket == NULL)
+    {
+        qDebug()<<("tcpsocket not created");
+        newPeer();
+        return;
+    }
+    QByteArray byteArray = tcpsocket->readAll();
+    QString string(byteArray);
+    if (byteArray.at(0) == 0)
+    {
+        return;
+    }
+    QChar layer = string.at(0);
+    int i = 9 + pathmedia.size();
+    string.remove(0,i);
+    string.chop(2);
+    int val = layer.digitValue();
+    switch (val) {
+    case 0:
+        // Conectamos a Pure Data para escribir
+        m_pd_write->connectToHost(QHostAddress::LocalHost, PDPORTW);
+        // Conectamos para reiniciar si PD crash
+        connect(pd, SIGNAL(finished(int)), this, SLOT(pdrestart()));
+        // Mandamos Configuración
+        newconexion();
+    case 1:
+       ui.layer1->setText(string);
+       break;
+    case 2:
+        ui.layer2->setText(string);
+        break;
+    case 3:
+        ui.layer3->setText(string);
+        break;
+    case 4:
+        ui.layer4->setText(string);
+        break;
+    case 5:
+        ui.layer5->setText(string);
+        break;
+    case 6:
+        ui.layer6->setText(string);
+        break;
+    case 7:
+        ui.layer7->setText(string);
+        break;
+    case 8:
+        ui.layer8->setText(string);
+        break;
+    }
+}
+
+bool PureMediaServer::sendPacket(const char *buffer, int bufferLen)
+{
+ if (!m_pd_write) {
+    return false;
+ }
+ if (QAbstractSocket::ConnectedState != m_pd_write->state())
+ {
+    return false;
+ }
+ if (bufferLen != m_pd_write->write((const char*)buffer, bufferLen))
+ {
+    return false;
+ }
+ return true;
+}
+
+void PureMediaServer::newconexion()
+{
+//    qDebug()<<("Connected to Pure Data - Sending configuration");
+    if (!(m_pd_write->isOpen())){
+        qDebug()<<"Socket not open. Can not send conf to PD";
+        return;
+     }
+    QString desc = tr("0000 0000 %1;").arg(pathmedia);
+    if (!sendPacket(desc.toAscii().constData(),desc.size()))
+    {
+      qDebug()<<"No puedo mandar mensaje a Pure Data";
+      return;
+    }
+    on_layer1Check_stateChanged (ui.layer1Check->checkState());
+    on_layer2Check_stateChanged (ui.layer2Check->checkState());
+    on_layer3Check_stateChanged (ui.layer3Check->checkState());
+    on_layer4Check_stateChanged (ui.layer4Check->checkState());
+    on_layer5Check_stateChanged (ui.layer5Check->checkState());
+    on_layer6Check_stateChanged (ui.layer6Check->checkState());
+    on_layer7Check_stateChanged (ui.layer7Check->checkState());
+    on_layer8Check_stateChanged (ui.layer8Check->checkState());
+    on_readDMX_stateChanged(ui.readDMX->checkState());
+    on_winpositionx_valueChanged();
+    on_winpositiony_valueChanged();
+    on_winsizex_valueChanged();
+    on_winsizey_valueChanged();
+    on_window_stateChanged(ui.window->checkState());
+}
+
+// Sacamos la salida de Pure Data en la terminal
+
+void PureMediaServer::stdout() {
+    QString out = pd->readAllStandardError();
+    out.chop(1);
+    if (!out.isEmpty())
+    {
+        qDebug() << out;
+    }
+}
+
+/*
+ *
+ * OLA Stuff
+ *
+ */
+
+void PureMediaServer::olastart()
+{
+    qDebug()<<("Starting OLA");
+    ola->start("olad", QStringList()<< "-l 3");
+//    connect(ola, SIGNAL(finished(int)), this, SLOT(olastart()));
 }
 
 /*
@@ -111,6 +408,75 @@ void PureMediaServer::close()
  * User Interface Stuff
  *
  */
+
+// MSEX Stuff. Al hacir click empieza el protocolo MSEX
+
+void PureMediaServer::on_updateButton_clicked()
+{
+    // Chequeamos si existe el path a los medias
+    QDir dir(pathmedia);
+     if (!dir.exists())
+     {
+         qDebug()<<("Cannot find the media directory");
+         return;
+     }
+     m_mediaserver->setpath(pathmedia);
+     if (!m_mediaserver->updatemedia())
+     {
+         qDebug()<<("Cannot explore the media");
+         return;
+     }
+
+     // Creamos el objeto CITP y el peer information socket
+         m_citp = new CITPLib(this);
+         Q_CHECK_PTR(m_citp);
+         quint32 ipadd = 0x00000000;
+         quint32 i;
+         i = ui.ipAddress1->value();
+         ipadd = ipadd + (i * 0x1000000);
+         i =ui.ipAddress2->value();
+         ipadd = ipadd + (i * 0x10000);
+         i = ui.ipAddress3->value();
+         ipadd = ipadd + (i * 0x100);
+         i = ui.ipAddress4->value();
+         ipadd = ipadd + i;
+         if (!m_citp->createPeerInformationSocket(NAME, STATE, ipadd))
+           {
+           qDebug()<<("CreatePeerInformationSocket failed");
+           }
+}
+
+// Change Media path
+
+void PureMediaServer::on_ChangePath_clicked()
+{
+    QFileDialog dialog(this);
+    dialog.setFileMode(QFileDialog::Directory);
+    QStringList fileNames;
+    if (dialog.exec())
+        fileNames = dialog.selectedFiles();
+    QString file = fileNames.at(0);
+    pathmedia = file;
+    QString desc = tr("0000 0000 %1;").arg(file);
+    if (!sendPacket(desc.toAscii().constData(),desc.size()))
+                {
+                 qDebug()<<("No puedo mandar mensaje a Pure Data");
+
+    }
+    on_updateButton_clicked();
+    desc = tr("Media Path Changed to: %1").arg(pathmedia);
+    qDebug()<<(desc);
+}
+
+// Reinicio de PD; por si se queda pillado
+
+void PureMediaServer::on_restartPD_clicked()
+{
+    pd->close();
+    pdrestart();
+}
+
+// Cambios del usuario en la GUI
 
 void PureMediaServer::on_window_stateChanged(int state)
 {
@@ -429,376 +795,3 @@ void PureMediaServer::on_readDMX_stateChanged(int state)
                 }
         }
  }
-
-/*
- *
- * MSEX Stuff
- *
- */
-
-void PureMediaServer::on_updateButton_clicked()
-{
-    // Chequeamos si existe el path a los medias
-    QDir dir(pathmedia);
-     if (!dir.exists())
-     {
-         qDebug()<<("Cannot find the media directory");
-         return;
-     }
-     m_mediaserver->setpath(pathmedia);
-     if (!m_mediaserver->updatemedia())
-     {
-         qDebug()<<("Cannot explore the media");
-         return;
-     }
-
-     // Creamos el objeto CITP y el peer information socket
-         m_citp = new CITPLib(this);
-         Q_CHECK_PTR(m_citp);
-         quint32 ipadd = 0x00000000;
-         quint32 i;
-         i = ui.ipAddress1->value();
-         ipadd = ipadd + (i * 0x1000000);
-         i =ui.ipAddress2->value();
-         ipadd = ipadd + (i * 0x10000);
-         i = ui.ipAddress3->value();
-         ipadd = ipadd + (i * 0x100);
-         i = ui.ipAddress4->value();
-         ipadd = ipadd + i;
-         if (!m_citp->createPeerInformationSocket(NAME, STATE, ipadd))
-           {
-           qDebug()<<("CreatePeerInformationSocket failed");
-           }
-}
-
-/*
- *
- * Change Media path
- *
- */
-
-void PureMediaServer::on_ChangePath_clicked()
-{
-    QFileDialog dialog(this);
-    dialog.setFileMode(QFileDialog::Directory);
-    QStringList fileNames;
-    if (dialog.exec())
-        fileNames = dialog.selectedFiles();
-    QString file = fileNames.at(0);
-    pathmedia = file;
-    QString desc = tr("0000 0000 %1;").arg(file);
-    if (!sendPacket(desc.toAscii().constData(),desc.size()))
-                {
-                 qDebug()<<("No puedo mandar mensaje a Pure Data");
-
-    }
-    on_updateButton_clicked();
-    desc = tr("Media Path Changed to: %1").arg(pathmedia);
-    qDebug()<<(desc);
-}
-/*
- *
- * File Configuration Stuff
- *
- */
-
-void PureMediaServer::open()
-{
-    qDebug()<<("Opening conf file");
-    QFile file("pms.conf");
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-     {
-        qDebug()<<("Can not find the conf file");
-        return;
-     }
-    unsigned char * fileconf = new unsigned char[file.size()];
-    memset(fileconf, 0, file.size());
-    fileconf = file.map(0x00, file.size());
-    if (fileconf == 0){
-        qDebug()<<("Cannot map the file");
-        return;
-    }
-    conf *packet = (conf *)fileconf;
-    ui.window->setChecked(packet->window);
-    ui.winpositionx->setValue(packet->winpositionx);
-    ui.winpositiony->setValue(packet->winpositiony);
-    ui.winsizex->setValue(packet->winsizex);
-    ui.winsizey->setValue(packet->winsizey);
-    ui.layer1Add->setValue(packet->layer1Add);
-    ui.layer1Check->setChecked(packet->layer1Check);
-    ui.layer2Add->setValue(packet->layer2Add);
-    ui.layer2Check->setChecked(packet->layer2Check);
-    ui.layer3Add->setValue(packet->layer3Add);
-    ui.layer3Check->setChecked(packet->layer3Check);
-    ui.layer4Add->setValue(packet->layer4Add);
-    ui.layer4Check->setChecked(packet->layer4Check);
-    ui.layer5Add->setValue(packet->layer5Add);
-    ui.layer5Check->setChecked(packet->layer5Check);
-    ui.layer6Add->setValue(packet->layer6Add);
-    ui.layer6Check->setChecked(packet->layer6Check);
-    ui.layer7Add->setValue(packet->layer7Add);
-    ui.layer7Check->setChecked(packet->layer7Check);
-    ui.layer8Add->setValue(packet->layer8Add);
-    ui.layer8Check->setChecked(packet->layer8Check);
-    ui.readDMX->setChecked(packet->dmx);
-    ui.universe->setValue(packet->universe);
-    ui.ipAddress1->setValue(packet->ipadd1);
-    ui.ipAddress2->setValue(packet->ipadd2);
-    ui.ipAddress3->setValue(packet->ipadd3);
-    ui.ipAddress4->setValue(packet->ipadd4);
-    int offset = sizeof(struct conf) - 4;
-    int size = file.size() - offset;
-    char * buffer = new char[size];
-    memset(buffer, 0, size);
-    memcpy(buffer, fileconf+offset, size);
-    pathmedia = buffer;
-    QString desc = tr("Media Path Changed to: %1").arg(pathmedia);
-    qDebug()<<(desc);
-    file.close();
-}
-
-void PureMediaServer::save()
-{
-    qDebug()<<("Saving conf file");
-    int bufferLen = sizeof(struct conf) + pathmedia.size();
-    unsigned char *buffer = new unsigned char[bufferLen];
-    memset(buffer, 0, bufferLen);
-    conf *packet = (conf *)buffer;
-    packet->window = ui.window->checkState();
-    packet->winpositionx = ui.winpositionx->value();
-    packet->winpositiony = ui.winpositiony->value();
-    packet->winsizex = ui.winsizex->value();
-    packet->winsizey = ui.winsizey->value();
-    packet->layer1Add = ui.layer1Add->value();
-    packet->layer1Check = ui.layer1Check->checkState();
-    packet->layer2Add = ui.layer2Add->value();
-    packet->layer2Check = ui.layer2Check->checkState();
-    packet->layer3Add = ui.layer3Add->value();
-    packet->layer3Check = ui.layer3Check->checkState();
-    packet->layer4Add = ui.layer4Add->value();
-    packet->layer4Check = ui.layer4Check->checkState();
-    packet->layer5Add = ui.layer5Add->value();
-    packet->layer5Check = ui.layer5Check->checkState();
-    packet->layer6Add = ui.layer6Add->value();
-    packet->layer6Check = ui.layer6Check->checkState();
-    packet->layer7Add = ui.layer7Add->value();
-    packet->layer7Check = ui.layer7Check->checkState();
-    packet->layer8Add = ui.layer8Add->value();
-    packet->layer8Check = ui.layer8Check->checkState();
-    packet->dmx = ui.readDMX->checkState();
-    packet->universe = ui.universe->value();
-    packet->ipadd1 = ui.ipAddress1->value();
-    packet->ipadd2 = ui.ipAddress2->value();
-    packet->ipadd3 = ui.ipAddress3->value();
-    packet->ipadd4 = ui.ipAddress4->value();
-    int offset = sizeof (struct conf) - 4;
-    memcpy(buffer+offset, pathmedia.toAscii().constData(), pathmedia.size());
-    QFile file("pms.conf");
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
-    {
-        qDebug()<<("Can not open file pms.conf");
-        return;
-    }
-    int error =  file.write((const char *)buffer, bufferLen);
-    QString errorstring = tr("Bytes Write to file %1").arg(error);
-    qDebug()<<(errorstring);
-    file.close();
-}
-
-/*
- *
- * Pure Data Stuff
- *
- */
-
-void PureMediaServer::pdstart()
-{
-    int state = pd->state();
-    if (state != 0)
-    {
-        return;
-    }
-    // Creamos los sockets para la conexión a Pure Data
-    m_pd_write = new QTcpSocket(this);
-    Q_CHECK_PTR(m_pd_write);
-    connect(m_pd_write, SIGNAL(connected()),this, SLOT(newconexion()));
-    m_pd_read = new QTcpServer(this);
-    Q_CHECK_PTR(m_pd_read);
-    connect(m_pd_read, SIGNAL(newConnection()),this, SLOT(newPeer()));
-    if (!m_pd_read)
-     {
-         qDebug()<<("error TCP Server no creado");
-     }
-    if (!m_pd_read->listen(QHostAddress::LocalHost, PDPORTR))
-    {
-    qDebug()<<"error listening tcpServer";
-    }
-    pd->start("pd", QStringList()<<"-nogui" << "pms-video.pd");
-//    pd->waitForStarted();
-    QTest::qWait(100);
-    m_pd_write->connectToHost(QHostAddress::LocalHost, PDPORTW);
-    connect(pd, SIGNAL(finished(int)), this, SLOT(pdrestart()));
-    newconexion();
-}
-
-void PureMediaServer::pdrestart()
-{
-    qDebug()<<"Restarting PD";
-    int state = pd->state();
-    if (state != 0)
-    {
-        return;
-    }
-    if (m_pd_write != NULL)
-    {
-        m_pd_write->close();
-        disconnect(m_pd_write, SIGNAL(connected()),this, SLOT(newconexion()));
-        delete m_pd_write;
-    }
-    if (m_pd_read != NULL)
-    {
-        disconnect(m_pd_read, SIGNAL(newConnection()),this, SLOT(newPeer()));
-        m_pd_read->close();
-        delete m_pd_read;
-    }
-    disconnect(pd, SIGNAL(finished(int)), this, SLOT(pdrestart()));
-    pdstart();
-}
-
-void PureMediaServer::newPeer()
-{
-   tcpsocket = m_pd_read->nextPendingConnection();
-   connect(tcpsocket, SIGNAL(readyRead()),
-                this, SLOT(newmessage()));
-}
-
-void PureMediaServer::newmessage()
-{
-    if (tcpsocket == NULL)
-    {
-        qDebug()<<("tcpsocket not created");
-        newPeer();
-        return;
-    }
-    QByteArray byteArray = tcpsocket->readAll();
-    QString string(byteArray);
-    if (byteArray.at(0) == NULL)
-    {
-        return;
-    }
-    QChar layer = string.at(0);
-    int i = 9 + pathmedia.size();
-    string.remove(0,i);
-    string.chop(2);
-    int val = layer.digitValue();
-    switch (val) {
-    case 1:
-       ui.layer1->setText(string);
-       break;
-    case 2:
-        ui.layer2->setText(string);
-        break;
-    case 3:
-        ui.layer3->setText(string);
-        break;
-    case 4:
-        ui.layer4->setText(string);
-        break;
-    case 5:
-        ui.layer5->setText(string);
-        break;
-    case 6:
-        ui.layer6->setText(string);
-        break;
-    case 7:
-        ui.layer7->setText(string);
-        break;
-    case 8:
-        ui.layer8->setText(string);
-        break;
-    }
-}
-
-bool PureMediaServer::sendPacket(const char *buffer, int bufferLen)
-{
- if (!m_pd_write) {
-    return false;
- }
- if (QAbstractSocket::ConnectedState != m_pd_write->state())
- {
-    qDebug()<<("sendPacket() - PD Socket not connected");
-    return false;
- }
- if (bufferLen != m_pd_write->write((const char*)buffer, bufferLen))
- {
-    qDebug()<<("sendPacket() - write to PD failed");
-    return false;
- }
-//  m_pd_write->waitForBytesWritten(50);
- return true;
-}
-
-void PureMediaServer::newconexion()
-{
-//    qDebug()<<("Connected to Pure Data - Sending configuration");
-    if (!(m_pd_write->isOpen())){
-        qDebug()<<"Socket not open. Can not send conf to PD";
-        return;
-     }
-    QString desc = tr("0000 0000 %1;").arg(pathmedia);
-    if (!sendPacket(desc.toAscii().constData(),desc.size()))
-    {
-      qDebug()<<"No puedo mandar mensaje a Pure Data";
-      return;
-    }
-    on_layer1Check_stateChanged (ui.layer1Check->checkState());
-    on_layer2Check_stateChanged (ui.layer2Check->checkState());
-    on_layer3Check_stateChanged (ui.layer3Check->checkState());
-    on_layer4Check_stateChanged (ui.layer4Check->checkState());
-    on_layer5Check_stateChanged (ui.layer5Check->checkState());
-    on_layer6Check_stateChanged (ui.layer6Check->checkState());
-    on_layer7Check_stateChanged (ui.layer7Check->checkState());
-    on_layer8Check_stateChanged (ui.layer8Check->checkState());
-    on_readDMX_stateChanged(ui.readDMX->checkState());
-    desc = "19;";
-    if (!sendPacket(desc.toAscii().constData(),desc.size()))
-    {
-      qDebug()<<"No puedo mandar mensaje a Pure Data";
-      return;
-    }
-    on_winpositionx_valueChanged();
-    on_winpositiony_valueChanged();
-    on_winsizex_valueChanged();
-    on_winsizey_valueChanged();
-    on_window_stateChanged(ui.window->checkState());
-}
-
-/*
- *
- * OLA Stuff
- *
- */
-
-void PureMediaServer::olastart()
-{
-    qDebug()<<("Starting OLA");
-    ola->start("olad", QStringList()<< "-l 3");
-//    connect(ola, SIGNAL(finished(int)), this, SLOT(olastart()));
-}
-
-
-
-void PureMediaServer::on_restartPD_clicked()
-{
-    pd->close();
-    pdrestart();
-}
-
-/*
-void PureMediaServer::pdDisconnected()
-{
-    qDebug()<<("Pure Data Disconnected");
-    m_pd_write->close();
-    m_pd_read->close();
-}
-*/
