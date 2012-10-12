@@ -49,6 +49,7 @@ protected:
 //    void contextMenuEvent(QContextMenuEvent *event);
     QProcess *ola;
     QProcess *pd;
+
 private:
 
     Ui::PureMediaServer ui;
@@ -57,22 +58,13 @@ private:
 
     void pdstart();
 
-//    void sendconf();
-
-
 public slots:
 
-
-
 private slots:
-
-    void close();
 
     void on_updateButton_clicked();
 
     void on_restartPD_clicked();
-
-//    void pdDisconnected();
 
     void newPeer();
     void newmessage();
@@ -110,6 +102,8 @@ private slots:
 
     void olastart();
     void pdrestart();
+
+    void stdout();
 
 };
 
