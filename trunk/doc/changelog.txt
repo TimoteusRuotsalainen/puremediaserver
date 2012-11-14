@@ -3,6 +3,10 @@ Pure Media Server
 Santiago Noreña
 puremediaserver@gmail.com
 ********************************
+* 0.05 (20-11-2012)
+- Interface en Qt y C++. PD y OLA se ejecutan desde ella.
+- Descontinuado el audio.
+- Mapeo por capa.
 
 * 0.01 (16-05-2011)
 

@@ -4,7 +4,7 @@ Los archivos de medios que utiliza PMS deben de estar ordenados según el siguie
 	+ video
 		+ 001-descripcion.vid
  			+ 001.miloop.mov
-			+ 002.miporno.avi
+			+ 002.milooocool.avi
 			+ 003.mipelo.mpg
 		+ 002-otrodir.vid
 			+ 001.otrapeli.mov
@@ -14,7 +14,7 @@ Los archivos de medios que utiliza PMS deben de estar ordenados según el siguie
 		
 		+ 255-ultimodir.vid
 			+255.ultimapeli.mov
-	+ ogg
+	+ audio
 		+ 001-mifichero.ogg
 		
 		...

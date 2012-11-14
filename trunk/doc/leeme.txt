@@ -1,14 +1,8 @@
 **************************************************************
-Pure Media Server 0.0.4
-Santiago Noreña 
+Pure Media Server 0.0.5
+(c) Santiago Noreña 2012
 puremediaserver@gmail.com
 **************************************************************
-
-ola2pd is based on previous works by: 
- * 	Dirk Jagdmann (doj@cubic.org) dmxmonitor
- *	Simon Newton (nomis52@westnet.com.au) libartnet and modified to dmxmonitor to use ArtNet	
-
-****************************************************************
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -26,9 +20,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 ****************************************************************
 
-Pure Media Server es un proyecto experimental que intenta crear un media server utilizando herramientas y códigos libres.
+Pure Media Server is a project to manage visuals and audio in stage, perfoms, installations, events,... 
+We are using Free Software and all the project is GPL licensed.
+We are developing and testing in Debian Wheezy. All the binaries are compiled for Wheezy. It should compile and work in anothers Linux distros and MacOs X too. Open Lighting Arquitecture not compiles in Windows, so it's not posible use PMS in that platform.
 
-Pure Media Server ha sido probado en Debian Squeeze y Wheezy y Ubuntu Lucid.
+Pure Media Server es un proyecto experimental que intenta crear un media server utilizando herramientas y códigos libres.
+Pure Media Server ha sido desarrollado y probado en Debian Wheezy.
 
 ****************************************************************
 
@@ -39,7 +36,15 @@ Para usar PMS vea manual.txt
 ****************************************************************
 
 Desarrollo y soporte:
+Support: 
 
 puremediaserver@googlecode.com
 
 ****************************************************************
+
+ola2pd is based on previous works by: 
+ * 	Dirk Jagdmann (doj@cubic.org) dmxmonitor
+ *	Simon Newton (nomis52@westnet.com.au)	
+
+****************************************************************
+

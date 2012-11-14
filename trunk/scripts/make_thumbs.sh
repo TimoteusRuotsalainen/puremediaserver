@@ -5,17 +5,19 @@
 # puremediaserver at gmail dot com
 # GPL License
 
+# Edit next line to path to your media
 export MEDIA_DIR=/home/santi/PMS/svn/media/video
 export E_XCD=86
 
 cd $MEDIA_DIR ||{
-   echo "Cannot change to necessary directory." $MEDIA_DIR
+   echo "Can not change to directory." $MEDIA_DIR
    exit $E_XCD;
 }
 
 
 for folder in $(find -maxdepth 1 -type d); do
 		rm $folder/thumbs/*
+		mkdir $folder/thumbs	
 	done
 
 for file in $(find . -maxdepth 2 -mindepth 2 -type f ); do 
