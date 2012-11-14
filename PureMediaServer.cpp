@@ -70,8 +70,6 @@ PureMediaServer::PureMediaServer(QWidget *parent)
 {
     // Iniciamos el User Interface
      ui.setupUi(this);
-    // Cargamos la configuración del fichero
-   open();
     // Iniciamos olad
     ola = new QProcess(this);
     olastart();
@@ -86,6 +84,8 @@ PureMediaServer::PureMediaServer(QWidget *parent)
     // Conectamos los menus
     connect(ui.actionOpen_conf, SIGNAL(triggered()), this, SLOT(open()));
     connect(ui.actionSave_conf, SIGNAL(triggered()), this, SLOT(save()));
+    // Cargamos la configuración del fichero
+   open();
 }
 
 PureMediaServer::~PureMediaServer()
@@ -245,13 +245,16 @@ void PureMediaServer::pdstart()
     qDebug()<<"error listening tcpServer";
     }
     // Arrancamos el proceso Pure Data
-    pd->start("pd", QStringList()<< "-stderr" << "pms-video.pd");
+    pd->start("pd-gem", QStringList()<< "-nogui" << "-stderr" << "pms-video.pd");
     connect(pd, SIGNAL(readyReadStandardError()), this, SLOT(stdout()));
+    open();
 }
 
 void PureMediaServer::pdrestart()
 {
+    save();
     qDebug()<<"Restarting PD";
+    ui.textEdit->appendPlainText("oops. PD Restarting...");
     int state = pd->state();
     if (state != 0)
     {
@@ -336,7 +339,7 @@ void PureMediaServer::newmessage()
 
 bool PureMediaServer::sendPacket(const char *buffer, int bufferLen)
 {
- if (!m_pd_write) {
+ if (m_pd_write == NULL) {
     return false;
  }
  if (QAbstractSocket::ConnectedState != m_pd_write->state())
@@ -387,6 +390,7 @@ void PureMediaServer::stdout() {
     if (!out.isEmpty())
     {
         qDebug() << out;
+        ui.textEdit->appendPlainText(out);
     }
 }
 
@@ -418,12 +422,14 @@ void PureMediaServer::on_updateButton_clicked()
      if (!dir.exists())
      {
          qDebug()<<("Cannot find the media directory");
+         ui.textEdit->appendPlainText("Can not find the media directory in the path given");
          return;
      }
      m_mediaserver->setpath(pathmedia);
      if (!m_mediaserver->updatemedia())
      {
          qDebug()<<("Cannot explore the media");
+         ui.textEdit->appendPlainText("Can not explore the media in the path given");
          return;
      }
 
@@ -443,7 +449,8 @@ void PureMediaServer::on_updateButton_clicked()
          if (!m_citp->createPeerInformationSocket(NAME, STATE, ipadd))
            {
            qDebug()<<("CreatePeerInformationSocket failed");
-           }
+           ui.textEdit->appendPlainText("CITP/MSEx error. No interface up?");
+            }
 }
 
 // Change Media path

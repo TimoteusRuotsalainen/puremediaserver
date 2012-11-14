@@ -1,88 +1,78 @@
 *************************************
-Pure Media Server 0.0.4
-Santiago Noreña 
-puremediaserver@gmail.com
+Pure Media Server 0.0.5
+(C) Santiago Noreña 2012
+puremediaserver at gmail dot com
+GPL License
 *************************************
 
-0. Requeriminetos
+0. Requerimientos
 
-PMS está probado en Debian Wheezy y Ubuntu Precise 12.04. Necesita una tarjeta gráfica OpenGL y que los drivers para Xorg con aceleración por hardware estén correctamente instalados. Ejecutando "glxgears" en una terminal debería de abrir una ventana con tres engranajes girando. Si no es así, revisa la documentación de tu distribución.
+PMS está probado en Debian Wheezy, los binarios proporcionados están compilados para esta distribución. Para otras distribuciones Linux hay que compilar desde el código.
+ 
+Necesitas una tarjeta gráfica OpenGL y que los drivers para Xorg con aceleración por hardware estén correctamente instalados. Ejecutando "glxgears" en una terminal debería de abrir una ventana con tres engranajes girando. Si no es así, revisa la documentación de tu distribución.
 
 Para resolver dependencias es necesario tener conexión a internet en el ordenador durante el proceso de instalación.
 
-1. Instala pd y los externals necesarios:
+1. Instala todas las dependencias.
 
-Ubuntu 12.04 Precise:
+Abre una terminal, ve al directorio donde descomprimiste este paquete y al directorio scripts. Ejecuta como root
 
-Para instalar pms_Video:
+./install_wheezy.sh
 
-apt-get install pd-core gem pd-gui pd-zexy pd-cyclone pd-hcs
+2. Configuración 
 
-Añadir al path de pure data: 
+Este proceso sólo es necesario la primera vez que se ejecuta PMS.
 
-/usr/lib/pd/extra
-/usr/lib/pd/extra/Gem
-/usr/lib/pd/extra/cyclone
-/usr/lib/pd/extra/hcs
+Ejecuta el archivo PureMediaServer
 
-Y al startup (o lanzarlo desde la línea de comandos con -lib):
+Abre un navegador web y dirígete a localhost:9090
 
-Gem
-zexy
+Pincha en el botón "add universe"
 
-Para instalar pms_Audio:
+Marca en la casilla del protocolo de red o dispositivo por el que quieras introducir datos. Asegúrate de que en "Direction" sea "input".
 
-pd-pan pd-ogg pd-readanysf pd-purepd
+Si el protocolo elegido es ArtNet en "Universe Id" introduce el número del universo ArtNet por el que quieres recibir. La Net y la Subnet de Artnet se pueden cambiar en el archivo ~/.ola/ola-artnet.com. Este número lo tienes que introducir luego en PMS en el campo "OLA universe". En Universe Name puedes introducir un nombre familiar, por ejemplo "video".
 
-Añadir al path de pure data: 
+Puedes confirmar que está llegando información pinchando en el universo en el menú de la izquierda y luego en la pestaña "DMX Monitor". Puedes cerrar el navegador.
 
-/usr/lib/pd/extra/pdogg
-/usr/lib/pd/extra/pan
+Edita con un editor de textos el archivo "make_thumbs.sh" en el directorio scripts y cámbia en la primera línea el path a tu directorio de medias. Guarda y cierra.
+Ejecuta el archivo make_thumbs.sh desde una terminal.
 
-Y al startup (o lanzarlo desde la línea de comandos con -lib):
+Pincha en "Change Media Path" y elige el directorio donde estén tus medias. 
 
-zexy
+4. Compiling. 
 
-----
+If you have troubles, or you are in another distro, you can try compiling. It's not the easiest way...
 
-2. Instala y OLA. 
+# Compile and install flext
 
-Instala las dependencias de OLA
-
-sudo apt-get install libcppunit-dev libcppunit-1.12-1 uuid-dev pkg-config libncurses5-dev libtool autoconf automake  g++ libmicrohttpd-dev libmicrohttpd5 protobuf-c-compiler libprotobuf-lite7 python-protobuf libprotobuf-dev zlib1g-dev bison flex make
-
-Descarga de http://code.google.com/p/linux-lighting/
-
-./configure
-make
-sudo make install
-
-Arranca el demonio OLA olad -l 3
-
-Configura un universo como IN mediante el interfaz web localhost:9090
-
-3. Puedes arrancar ejecutando en una terminal desde el directorio donde descomprimiste PMS:
-
-pd puremediaserver_video.pd 
-
-y/o 
-
-pd puremediaserver_audio.pd
-
-Dentro del programa puedes configurar más cosas como el universo de escucha de OLA, las dimensiones de la pantalla y los textos para mostrar. Ver manual.txt para más detalles.
-
-4. Si necesitas compilar ola2pd necesitas descargar e instalar
-
-- fuentes de pure data http://puredata.info/downloads/pure-data
-- flext svn co https://svn.grrrr.org/ext/trunk/flext flext
-
-./buid.sh pd gcc
-retocar los paths en el archivo ./buildsys/cnfg-lnx-gcc.txt 
+wget http://crca.ucsd.edu/~msp/Software/pd-0.43-2.src.tar.gz
+tar -xf pd-0.43-2.src.tar.gz
+sudo apt-get install subversion
+svn co https://svn.grrrr.org/ext/trunk/flext flext
+cd flext
+./build.sh pd gcc
+Edit the paths in file ./buildsys/cnfg-lnx-gcc.txt 
 ./build sh pd gcc
 sudo ./build.sh pd gcc install
+cd ..
 
-Ver documentación de ola2pd para más detalles
+# Add enviroment path variables to .bashrc
+echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib" >> ~/.bashrc
+echo "export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:/usr/local/include" >> ~/.bashrc 
+echo "export C_INCLUDE_PATH=$C_INCLUDE_PATH:/usr/local/include" >> ~/.bashrc
 
-*************************************
+# Build and install ola2pd 
+
+ cd externals/ola2pd/
+/path/to/flext/build.sh pd gcc
+/path/to/flext/build.sh pd gcc install
+
+# Build and install Pure Media Server
+
+Open the file PureMediaServer.pro qith QtCreator and compiles. 
+
+
+
 
 
