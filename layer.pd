@@ -1,4 +1,4 @@
-#N canvas 331 195 1024 572 10;
+#N canvas 297 195 1024 572 10;
 #X obj 539 55 unpack f f f f f f f f f f f f f f f f f f f f f f f
 f f f f f f f f f;
 #X obj 156 320 change;
@@ -242,7 +242,7 @@ f f f f f f f f f;
 #X connect 10 0 9 0;
 #X connect 11 0 0 0;
 #X restore 276 38 pd imagen;
-#N canvas 347 102 1016 665 video 0;
+#N canvas 345 102 1016 665 video 0;
 #X msg 22 982 open \$1;
 #X obj 147 982 gemhead;
 #X obj 22 913 spigot;
@@ -570,7 +570,7 @@ una vez 41-50 Back una vez 51-60 Ping-Pong una vez 61-70 Stop/pause
 #X connect 132 0 67 1;
 #X connect 136 0 25 0;
 #X restore 384 38 pd video;
-#N canvas 60 328 1211 615 video_render 0;
+#N canvas 103 237 1211 615 video_render 1;
 #X obj 232 95 inlet;
 #X text 336 459 Green;
 #X text 255 457 Red;
@@ -603,7 +603,7 @@ una vez 41-50 Back una vez 51-60 Ping-Pong una vez 61-70 Stop/pause
 #X obj 869 940 pack f f 5;
 #X obj 1074 986 pack f f 5;
 #X obj 438 985 pack f f 5;
-#N canvas 267 85 528 689 fx 0;
+#N canvas 265 88 528 679 fx 0;
 #X obj 284 -71 inlet;
 #X obj 228 614 outlet;
 #X msg 23 -19 BackDropKeyVFX;
@@ -645,7 +645,7 @@ una vez 41-50 Back una vez 51-60 Ping-Pong una vez 61-70 Stop/pause
 #X msg 24 1053 TVPixelVFX;
 #X msg 20 1080 VectorizeVFX;
 #X msg 23 1109 WaveVFX;
-#N canvas 1524 395 479 405 ef_halftone 0;
+#N canvas 156 362 479 405 ef_halftone 0;
 #X obj 122 269 pix_halftone;
 #X msg 380 225 style \$1;
 #X obj 380 169 / 64;
@@ -1557,7 +1557,7 @@ una vez 41-50 Back una vez 51-60 Ping-Pong una vez 61-70 Stop/pause
 #X obj 215 -23 select 0;
 #X obj 251 36 gate 2;
 #X msg 256 5 2;
-#N canvas 1043 330 349 592 ef_bitmask 0;
+#N canvas 836 175 433 592 ef_bitmask 0;
 #X obj 120 202 pix_bitmask;
 #X msg 242 163 \$1 \$2 \$3;
 #X obj 93 -5 inlet;
@@ -1728,6 +1728,7 @@ una vez 41-50 Back una vez 51-60 Ping-Pong una vez 61-70 Stop/pause
 #X obj 239 999 delay 50;
 #X obj 756 656 delay 50;
 #X floatatom 608 528 5 0 0 0 - - -;
+#X msg 323 123 0;
 #X connect 0 0 9 0;
 #X connect 4 0 10 0;
 #X connect 5 0 90 1;
@@ -1841,6 +1842,7 @@ una vez 41-50 Back una vez 51-60 Ping-Pong una vez 61-70 Stop/pause
 #X connect 90 0 32 0;
 #X connect 92 0 72 0;
 #X connect 93 0 9 0;
+#X connect 93 0 9 1;
 #X connect 94 0 93 0;
 #X connect 107 0 89 0;
 #X connect 108 0 63 0;
@@ -1880,6 +1882,7 @@ una vez 41-50 Back una vez 51-60 Ping-Pong una vez 61-70 Stop/pause
 #X connect 129 0 123 1;
 #X connect 130 0 129 0;
 #X connect 131 0 117 0;
+#X connect 133 0 9 1;
 #X restore 334 77 pd video_render;
 #N canvas 363 88 951 665 texto 0;
 #X obj 421 -381 gemhead;

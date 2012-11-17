@@ -1,7 +1,7 @@
 **************************************************************
 Pure Media Server 0.0.5
 (c) Santiago Noreña 2012
-puremediaserver@gmail.com
+puremediaserver at gmail dot com
 **************************************************************
 
 This program is free software; you can redistribute it and/or
@@ -20,13 +20,25 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 ****************************************************************
 
-Pure Media Server is a project to manage visuals and audio in stage, perfoms, installations, events,... 
-We are using Free Software and all the project is GPL licensed.
-We are developing and testing in Debian Wheezy. All the binaries are compiled for Wheezy. It should compile and work in anothers Linux distros and MacOs X too. Open Lighting Arquitecture not compiles in Windows, so it's not posible use PMS in that platform.
+Pure Media Server es un programa para manejar visuales y audio en actuaciones escénicas, instalaciones, eventos, performances,..., pero Software Libre. 
 
-Pure Media Server es un proyecto experimental que intenta crear un media server utilizando herramientas y códigos libres.
-Pure Media Server ha sido desarrollado y probado en Debian Wheezy.
+El control se realiza mediante el Open Lighting Arquitecture, por lo que podemos usar cualquier protocolo de iluminación abierto (ArtNet, PathPort, ShowNet, ACN,...) o dispositivo DMX-USB (Enttec Pro, Velleman, Anyuma,...)
 
+El motor gráfico es Pure Data con Gem corriendo en segundo plano.
+
+Estoy desarrollando y testeando en Debian Wheezy. Todos los binarios han sido compilados para Wheezy. El código debería de compilar y funcionar en otras distribuciones Linux, incluso en MacOs X, pero no lo he testeado. Open Lighting Arquitecture not compiles in Windows, so it's not posible use Pure media Server es esa plataforma.
+
+Características:
+
+- 8 capas de video, imágenes o texto.
+- Playback avanzado (normal, back, ping.pong, entry point, exit point, speed, loop)
+- Cada capa puede ser mapeada mediante 4 puntos de Bèzier. 
+- Un montón de formatos: avi, mov, mpg, HD, jpeg, tiff, ....
+- Algunos efectos .
+- Posición, rotación, tamaño, y color por capa.
+- Máscaras Croma/Luma, pasa-altos y/o pasabajos en RGB.
+- Textos a través de un fichero de texto, hasta 255 frases. Renderiza cualquier fuente TrueType.
+ 
 ****************************************************************
 
 Para instalar PMS vea instalacion.txt
@@ -36,15 +48,8 @@ Para usar PMS vea manual.txt
 ****************************************************************
 
 Desarrollo y soporte:
-Support: 
 
 puremediaserver@googlecode.com
-
-****************************************************************
-
-ola2pd is based on previous works by: 
- * 	Dirk Jagdmann (doj@cubic.org) dmxmonitor
- *	Simon Newton (nomis52@westnet.com.au)	
 
 ****************************************************************
 
