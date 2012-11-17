@@ -245,7 +245,7 @@ void PureMediaServer::pdstart()
     qDebug()<<"error listening tcpServer";
     }
     // Arrancamos el proceso Pure Data
-    pd->start("pd-gem", QStringList()<< "-stderr" << "pms-video.pd");
+    pd->start("pd-gem", QStringList()<< "-nogui" << "-stderr" << "pms-video.pd");
     connect(pd, SIGNAL(readyReadStandardError()), this, SLOT(stdout()));
     open();
 }
@@ -390,7 +390,7 @@ void PureMediaServer::stdout() {
     if (!out.isEmpty())
     {
         qDebug() << out;
-        ui.textEdit->appendPlainText(out);
+//        ui.textEdit->appendPlainText(out);
     }
 }
 

@@ -21,7 +21,7 @@ Abre una terminal, cd al directorio scripts. Ejecuta como root
 
 ./install_wheezy.sh
 
-Cuando te pregunte por la opción de iniciar el demonio ola en el arranque pon No.
+Confirma Sí cuando te pregunte y asegúrate de estar conectado a internet. 10.3 Mb de descarga. 
 
 2. Configuración 
 
