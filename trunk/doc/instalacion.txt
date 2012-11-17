@@ -13,11 +13,15 @@ Necesitas una tarjeta gráfica OpenGL y que los drivers para Xorg con aceleraci�
 
 Para resolver dependencias es necesario tener conexión a internet en el ordenador durante el proceso de instalación.
 
+PMS se comunicaa con pure Data mediante dos puertos TCP, el 9195 y el 9196.  Open Lighting Arqitecure utiliza el puerto 9090 para su servidor web. Es necesario que estos puertos no estén siendo utilizados por otras aplicaciones.
+
 1. Instala todas las dependencias.
 
-Abre una terminal, ve al directorio donde descomprimiste este paquete y al directorio scripts. Ejecuta como root
+Abre una terminal, cd al directorio scripts. Ejecuta como root
 
 ./install_wheezy.sh
+
+Cuando te pregunte por la opción de iniciar el demonio ola en el arranque pon No.
 
 2. Configuración 
 
