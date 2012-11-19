@@ -58,6 +58,8 @@ private:
 
     void pdstart();
 
+    void errorsending();
+
 public slots:
 
 private slots:
