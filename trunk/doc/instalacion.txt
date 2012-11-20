@@ -21,7 +21,7 @@ Abre una terminal, cd al directorio scripts. Ejecuta como root
 
 ./install_wheezy.sh
 
-Confirma Sí cuando te pregunte y asegúrate de estar conectado a internet. 10.3 Mb de descarga. 
+Confirma Sí cuando te pregunte confirmación para descargas archivos y asegúrate de estar conectado a internet. Luego pincha en No cuando te pregunte si quieres arrancar el demonio OLA en el inicio.
 
 2. Configuración 
 
@@ -42,7 +42,9 @@ Puedes confirmar que está llegando información pinchando en el universo en el 
 Edita con un editor de textos el archivo "make_thumbs.sh" en el directorio scripts y cámbia en la primera línea el path a tu directorio de medias. Guarda y cierra.
 Ejecuta el archivo make_thumbs.sh desde una terminal.
 
-Pincha en "Change Media Path" y elige el directorio donde estén tus medias. 
+En PureMediaServer, pincha en "Change Media Path" y elige el directorio donde estén tus medias.
+
+Puedes grabar la configuración ahora o esperar a que termine el programa. El programa al salir siempre guarda la configuración, y la abre automáticamente cuando se inicia. 
 
 4. Compiling. 
 

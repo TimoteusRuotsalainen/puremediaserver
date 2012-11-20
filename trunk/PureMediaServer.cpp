@@ -224,8 +224,7 @@ void PureMediaServer::save()
 
 void PureMediaServer::pdstart()
 {
-    int state = pd->state();
-    if (state != 0)
+    if (pd->state() != 0)
     {
         return;
     }
@@ -245,8 +244,19 @@ void PureMediaServer::pdstart()
     qDebug()<<"error listening tcpServer";
     }
     // Arrancamos el proceso Pure Data
-    pd->start("pd-gem", QStringList()<< "-nogui" << "-stderr" << "-d 3"<< "-path /usr/lib/pd/extra/cyclone" << "pms-video.pd");
+    pd->start("pd -path /usr/lib/pd/extra/cyclone pms-video.pd");
     connect(pd, SIGNAL(readyReadStandardError()), this, SLOT(stdout()));
+    switch (pd->state())
+    {
+         case 0:
+        ui.textEdit->appendPlainText("Can not init pd! Try restarting and check PD instalaltion.");
+        break;
+        case 1:
+        ui.textEdit->appendPlainText("Pd is starting now");
+        QTest::qSleep(100);
+    case 2:
+        ui.textEdit->appendPlainText("Pd is runnig.");
+    }
     open();
 }
 
@@ -356,6 +366,8 @@ bool PureMediaServer::sendPacket(const char *buffer, int bufferLen)
 
 void PureMediaServer::newconexion()
 {
+
+
     if (!(m_pd_write->isOpen())){
         ui.textEdit->appendPlainText("Socket not open. Can not send conf to PD");
         return;
@@ -485,7 +497,7 @@ void PureMediaServer::on_restartPD_clicked()
     pdrestart();
 }
 
-// Cambios del usuario en la GUI
+// Cambios en la GUI de video
 
 void PureMediaServer::on_window_stateChanged(int state)
 {
@@ -493,14 +505,14 @@ void PureMediaServer::on_window_stateChanged(int state)
        QString desc("0001 0001;");
        if (!sendPacket(desc.toAscii().constData(),desc.size()))
        {
-        qDebug()<<"No puedo mandar mensaje a Pure Data";
+        errorsending();
        }
     }
     if ((state == 0)) {
           QString desc("0001 0000;");
           if (!sendPacket(desc.toAscii().constData(),desc.size()))
           {
-           qDebug()<<"No puedo mandar mensaje a Pure Data";
+           errorsending();
           }
    }
 }
@@ -522,7 +534,7 @@ void PureMediaServer::on_winpositiony_valueChanged()
     QString desc = tr("3 %1;").arg(x);
     if (!sendPacket(desc.toAscii().constData(),desc.size()))
             {
-             qDebug()<<"No puedo mandar mensaje a Pure Data";
+             errorsending();
             }
 
 }
@@ -533,7 +545,7 @@ void PureMediaServer::on_winsizex_valueChanged()
     QString desc = tr("4 %1;").arg(x);
     if (!sendPacket(desc.toAscii().constData(),desc.size()))
             {
-             qDebug()<<"No puedo mandar mensaje a Pure Data";
+             errorsending();
             }
 
 }
@@ -544,7 +556,7 @@ void PureMediaServer::on_winsizey_valueChanged()
     QString desc = tr("5 %1;").arg(x);
     if (!sendPacket(desc.toAscii().constData(),desc.size()))
             {
-             qDebug()<<"No puedo mandar mensaje a Pure Data";
+             errorsending();
             }
 }
 
@@ -555,7 +567,7 @@ void PureMediaServer::on_layer1Check_stateChanged (int state)
         QString desc("0011 0000;");
         if (!sendPacket(desc.toAscii().constData(),desc.size()))
                 {
-                 qDebug()<<"No puedo mandar mensaje a Pure Data";
+                 errorsending();
                 }
         return;
     }
@@ -584,7 +596,7 @@ void PureMediaServer::on_layer2Check_stateChanged (int state)
         QString desc("0012 0000;");
         if (!sendPacket(desc.toAscii().constData(),desc.size()))
                 {
-                 qDebug()<<"No puedo mandar mensaje a Pure Data";
+                 errorsending();
                 }
         return;
     }
@@ -601,7 +613,7 @@ void PureMediaServer::on_layer2Add_valueChanged()
    QString desc = tr("0012 %1;").arg(x);
    if (!sendPacket(desc.toAscii().constData(),desc.size()))
            {
-            qDebug()<<"No puedo mandar mensaje a Pure Data";
+            errorsending();
            }
    }
 }
@@ -613,7 +625,7 @@ void PureMediaServer::on_layer3Check_stateChanged (int state)
         QString desc("0013 0000;");
         if (!sendPacket(desc.toAscii().constData(),desc.size()))
                 {
-                 qDebug()<<"No puedo mandar mensaje a Pure Data";
+                 errorsending();
                 }
         return;
     }
@@ -630,7 +642,7 @@ void PureMediaServer::on_layer3Add_valueChanged()
    QString desc = tr("0013 %1;").arg(x);
    if (!sendPacket(desc.toAscii().constData(),desc.size()))
            {
-            qDebug()<<"No puedo mandar mensaje a Pure Data";
+            errorsending();
            }
   }
 }
@@ -642,7 +654,7 @@ void PureMediaServer::on_layer4Check_stateChanged (int state)
         QString desc("0014 0000;");
         if (!sendPacket(desc.toAscii().constData(),desc.size()))
                 {
-                 qDebug()<<"No puedo mandar mensaje a Pure Data";
+                 errorsending();
                 }
         return;
     }
