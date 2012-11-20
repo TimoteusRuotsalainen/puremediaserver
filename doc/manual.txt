@@ -194,6 +194,32 @@ Los siguientes canales son usados para control de efectos
 44 Param 7 FX 1
 45 Param 8 FX 1
 
+46 - Blending Mode.  Este canal elige el tipo de mezcla entre capas. Se corresponde a los modos de mezcla OpenGL:
+	
+	0:  GL_ONE_MINUS_SRC_ALPHA;
+	1:  GL_ONE;
+	2:  GL_ZERO;
+	3:  GL_SRC_COLOR;
+	4:  GL_ONE_MINUS_SRC_COLOR; (Locate, mezcla normal)
+	5:  GL_DST_COLOR;
+	6:  GL_ONE_MINUS_DST_COLOR;
+	7:  GL_SRC_ALPHA;
+	8:  GL_ONE_MINUS_SRC_ALPHA;
+	9:  GL_DST_ALPHA;
+	10: GL_ONE_MINUS_DST_ALPHA;
+	11: GL_CONSTANT_COLOR;
+	12: GL_ONE_MINUS_CONSTANT_COLOR;
+	13: GL_CONSTANT_ALPHA;
+	14: GL_ONE_MINUS_CONSTANT_ALPHA;
+	15: GL_SRC_ALPHA_SATURATE;
+	16: GL_SRC1_COLOR;
+	17: GL_ONE_MINUS_SRC1_COLOR;
+	18: GL_SRC1_ALPHA;
+	19: GL_ONE_MINUS_SRC1_ALPHA;
+	20: GL_ONE_MINUS_SRC_ALPHA;
+
+Más información sobre los distintos tipos de blending en http://www.opengl.org/wiki/GLAPI/glBlendFunc.
+
 ******************************
 
 Efectos Video:

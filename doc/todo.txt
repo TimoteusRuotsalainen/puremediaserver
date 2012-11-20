@@ -1,0 +1,15 @@
++ Mejorar método alpha de blending.
++ Cambiar el mensaje de error de Nop puedo mandar mensaje a función y salir por terminal
++ Cambios en la GUI para adaptarse a las tres personalidades.
+- Audio. sincronismo con videos.
+- Separar textos en otra personalidad
+- Investigar la Posibilidad de modularidad, sumar capas por instancias de PMS. Darle una vuelta a ola2pd y ver cuántas conexiones aguanta.
+- Necesidad de 16 bits en size, rotation, entry-end points?
+- CTIP/MSEx 1.1. Thumbs de imágenes?
+- Streaming por MSEx
+- Watchdog reinicia
+- Previews en el GUI
+- Muchos más mensajes de error y de estado
+- Documentar el código
+- Documentación en inglés
+
