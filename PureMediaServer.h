@@ -66,7 +66,7 @@ private slots:
 
     void on_updateButton_clicked();
 
-    void on_restartPD_clicked();
+//    void on_restartPD_clicked();
 
     void newPeer();
     void newmessage();
@@ -107,6 +107,7 @@ private slots:
 
     void stdout();
 
+    void on_video_stateChanged(int state);
 };
 
 #endif // PUREMEDIASERVER_H

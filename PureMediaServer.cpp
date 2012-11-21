@@ -33,8 +33,15 @@
 #define PDPORTW 9195
 #define PDPORTR 9196
 
+#define PDPORTW_AUDIO 9197
+#define PDPORTR_AUDIO 9198
+
+#define PDPORTW_TEXT 9199
+#define PDPORTR_TEXT 9200
+
 struct conf
 {
+// Video configuration
 bool window;
 quint16 winpositionx;
 quint16 winpositiony;
@@ -63,6 +70,7 @@ quint8 ipadd2;
 quint8 ipadd3;
 quint8 ipadd4;
 QString path;
+//bool videoCheck;
 };
 
 PureMediaServer::PureMediaServer(QWidget *parent)
@@ -70,39 +78,37 @@ PureMediaServer::PureMediaServer(QWidget *parent)
 {
     // Iniciamos el User Interface
      ui.setupUi(this);
-    // Iniciamos olad
+     m_pd_read = NULL;
+     m_pd_write = NULL;
+     pd = NULL;
+     // Load the configuration
+     open();
+     // Iniciamos olad
     ola = new QProcess(this);
     olastart();
-    // Iniciamos Pure Data
-    m_pd_read = NULL;
-    m_pd_write = NULL;
-    pd = new QProcess(this);
-    pdstart();
     // Creamos el mediaserver
     m_mediaserver = new MediaServer(this);
     Q_CHECK_PTR(m_mediaserver);
     // Conectamos los menus
     connect(ui.actionOpen_conf, SIGNAL(triggered()), this, SLOT(open()));
     connect(ui.actionSave_conf, SIGNAL(triggered()), this, SLOT(save()));
-    // Cargamos la configuración del fichero
-    open();
 }
 
 PureMediaServer::~PureMediaServer()
 {
     save();
-    disconnect(pd, SIGNAL(finished(int)), this, SLOT(pdrestart()));
-    if (m_pd_write->isOpen()) {
+    if (m_pd_write != NULL) {
           m_pd_write->abort();
         }
-    if (m_pd_read->isListening()) {
+    if (m_pd_read != NULL) {
         m_pd_read->close();
     }
-    if (tcpsocket->isOpen()){
-        tcpsocket->close();
-    }
-    if (pd->state() == 2)
+//    if (tcpsocket->isOpen()){
+//        tcpsocket->close();
+//    }
+    if (pd != NULL)
     {
+        disconnect(pd, SIGNAL(finished(int)), this, SLOT(pdrestart()));
         pd->close();
     }
         ola->close();
@@ -222,6 +228,8 @@ void PureMediaServer::save()
  *
  */
 
+// Video
+
 void PureMediaServer::pdstart()
 {
     if (pd->state() != 0)
@@ -244,27 +252,23 @@ void PureMediaServer::pdstart()
     qDebug()<<"error listening tcpServer";
     }
     // Arrancamos el proceso Pure Data
-    pd->start("pd -path /usr/lib/pd/extra/cyclone pms-video.pd");
-    connect(pd, SIGNAL(readyReadStandardError()), this, SLOT(stdout()));
-    switch (pd->state())
-    {
-         case 0:
-        ui.textEdit->appendPlainText("Can not init pd! Try restarting and check PD instalaltion.");
-        break;
-        case 1:
-        ui.textEdit->appendPlainText("Pd is starting now");
-        QTest::qSleep(100);
-    case 2:
-        ui.textEdit->appendPlainText("Pd is runnig.");
+    pd->start("pd -path /usr/lib/pd/extra/cyclone -lib Gem pms-video.pd");
+    if (pd->waitForStarted(3000)){
+        ui.textEdit->appendPlainText("PD-Video started.");
     }
-    open();
+    else
+    {
+        ui.textEdit->appendPlainText("PD_Video not started!");
+        return;
+    }
+    connect(pd, SIGNAL(readyReadStandardError()), this, SLOT(stdout()));
 }
 
 void PureMediaServer::pdrestart()
 {
     save();
     qDebug()<<"Restarting PD";
-    ui.textEdit->appendPlainText("oops. PD Restarting...");
+    ui.textEdit->appendPlainText("PD Restarting...");
     int state = pd->state();
     if (state != 0)
     {
@@ -366,10 +370,8 @@ bool PureMediaServer::sendPacket(const char *buffer, int bufferLen)
 
 void PureMediaServer::newconexion()
 {
-
-
     if (!(m_pd_write->isOpen())){
-        ui.textEdit->appendPlainText("Socket not open. Can not send conf to PD");
+        errorsending();
         return;
      }
     QString desc = tr("0000 0000 %1;").arg(pathmedia);
@@ -395,7 +397,7 @@ void PureMediaServer::newconexion()
 }
 
 void PureMediaServer::errorsending() {
-     ui.textEdit->appendPlainText("Can not talk to Pure Data!");
+    qDebug() << "Can not talk to Pure Data Video!";
 }
 
 // Sacamos la salida de Pure Data en la terminal
@@ -409,6 +411,11 @@ void PureMediaServer::stdout() {
 //        ui.textEdit->appendPlainText(out);
     }
 }
+
+// Audio
+
+
+// Text
 
 /*
  *
@@ -429,7 +436,32 @@ void PureMediaServer::olastart()
  *
  */
 
-// MSEX Stuff. Al hacir click empieza el protocolo MSEX
+// Global Controls
+// Change Media path
+
+void PureMediaServer::on_ChangePath_clicked()
+{
+    QFileDialog dialog(this);
+    dialog.setFileMode(QFileDialog::Directory);
+    QStringList fileNames;
+    if (dialog.exec())
+        fileNames = dialog.selectedFiles();
+    QString file = fileNames.at(0);
+    pathmedia = file;
+    QString desc = tr("0000 0000 %1;").arg(file);
+    if (!sendPacket(desc.toAscii().constData(),desc.size()))
+                {
+            errorsending();
+    }
+    desc = tr("Media Path Changed to: %1").arg(pathmedia);
+    ui.textEdit->appendPlainText(desc.toAscii());
+}
+
+// Video Controls
+
+// MSEX Stuff.
+// Begins the CITP/MSEx protocol
+// ToDo: Include the thums generation here
 
 void PureMediaServer::on_updateButton_clicked()
 {
@@ -469,36 +501,15 @@ void PureMediaServer::on_updateButton_clicked()
             }
 }
 
-// Change Media path
+// Restart PD.
 
-void PureMediaServer::on_ChangePath_clicked()
-{
-    QFileDialog dialog(this);
-    dialog.setFileMode(QFileDialog::Directory);
-    QStringList fileNames;
-    if (dialog.exec())
-        fileNames = dialog.selectedFiles();
-    QString file = fileNames.at(0);
-    pathmedia = file;
-    QString desc = tr("0000 0000 %1;").arg(file);
-    if (!sendPacket(desc.toAscii().constData(),desc.size()))
-                {
-            errorsending();
-    }
-    desc = tr("Media Path Changed to: %1").arg(pathmedia);
-    ui.textEdit->appendPlainText(desc.toAscii());
-}
-
-// Reinicio de PD; por si se queda pillado
-
-void PureMediaServer::on_restartPD_clicked()
+/*void PureMediaServer::on_restartPD_clicked()
 {
     pd->close();
     pdrestart();
-}
+}*/
 
-// Cambios en la GUI de video
-
+// Window Configuration
 void PureMediaServer::on_window_stateChanged(int state)
 {
     if ((state == 2)) {
@@ -559,7 +570,7 @@ void PureMediaServer::on_winsizey_valueChanged()
              errorsending();
             }
 }
-
+// DMX address configuration
 void PureMediaServer::on_layer1Check_stateChanged (int state)
 {
     if ((state == 0))
@@ -791,7 +802,7 @@ void PureMediaServer::on_layer8Add_valueChanged()
            }
   }
 }
-
+// Open the connection with OLA and start reading DMX
 void PureMediaServer::on_readDMX_stateChanged(int state)
 {
     if ((state == 0)) {
@@ -816,3 +827,34 @@ void PureMediaServer::on_readDMX_stateChanged(int state)
                 }
         }
  }
+// Open the video process
+void PureMediaServer::on_video_stateChanged(int state)
+{
+    if ((state == 0))
+         {
+        if (m_pd_write != NULL)
+        {
+            m_pd_write->close();
+            disconnect(m_pd_write, SIGNAL(connected()),this, SLOT(newconexion()));
+            delete m_pd_write;
+        }
+        if (m_pd_read != NULL)
+        {
+            disconnect(m_pd_read, SIGNAL(newConnection()),this, SLOT(newPeer()));
+            m_pd_read->close();
+            delete m_pd_read;
+        }
+        disconnect(pd, SIGNAL(finished(int)), this, SLOT(pdrestart()));
+        pd->terminate();
+        pd = NULL;
+    }
+    if ((state == 2))
+    {
+   // Iniciamos Pure Data
+   m_pd_read = NULL;
+   m_pd_write = NULL;
+   pd = new QProcess(this);
+   pdstart();
+   }
+
+}
