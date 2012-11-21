@@ -40,12 +40,12 @@ public:
 
 protected:
 
-    QString pathmedia;
+    QString m_pathmedia;
     MediaServer *m_mediaserver;
     CITPLib *m_citp;    
     QTcpSocket *m_pd_write;
     QTcpServer *m_pd_read;
-    QTcpSocket *tcpsocket;
+    QTcpSocket *m_tcpsocket;
 //    void contextMenuEvent(QContextMenuEvent *event);
     QProcess *ola;
     QProcess *pd;

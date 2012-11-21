@@ -30,6 +30,7 @@
 #include <QFileDialog>
 #include <QtTest/QTest>
 
+// Esto habrá que cambiarlo para poder utilizar varias instancias
 #define PDPORTW 9195
 #define PDPORTR 9196
 
@@ -78,6 +79,7 @@ PureMediaServer::PureMediaServer(QWidget *parent)
 {
     // Iniciamos el User Interface
      ui.setupUi(this);
+     m_tcpsocket = NULL;
      m_pd_read = NULL;
      m_pd_write = NULL;
      pd = NULL;
@@ -103,9 +105,9 @@ PureMediaServer::~PureMediaServer()
     if (m_pd_read != NULL) {
         m_pd_read->close();
     }
-//    if (tcpsocket->isOpen()){
-//        tcpsocket->close();
-//    }
+    if (m_tcpsocket != NULL) {
+        m_tcpsocket->close();
+    }
     if (pd != NULL)
     {
         disconnect(pd, SIGNAL(finished(int)), this, SLOT(pdrestart()));
@@ -168,8 +170,8 @@ void PureMediaServer::open()
     char * buffer = new char[size];
     memset(buffer, 0, size);
     memcpy(buffer, fileconf+offset, size);
-    pathmedia = buffer;
-    QString desc = tr("Media Path Changed to: %1").arg(pathmedia);
+    m_pathmedia = buffer;
+    QString desc = tr("Media Path Changed to: %1").arg(m_pathmedia);
     qDebug()<<(desc);
     file.close();
 }
@@ -177,7 +179,7 @@ void PureMediaServer::open()
 void PureMediaServer::save()
 {
     qDebug()<<("Saving conf file");
-    int bufferLen = sizeof(struct conf) + pathmedia.size();
+    int bufferLen = sizeof(struct conf) + m_pathmedia.size();
     unsigned char *buffer = new unsigned char[bufferLen];
     memset(buffer, 0, bufferLen);
     conf *packet = (conf *)buffer;
@@ -209,7 +211,7 @@ void PureMediaServer::save()
     packet->ipadd3 = ui.ipAddress3->value();
     packet->ipadd4 = ui.ipAddress4->value();
     int offset = sizeof (struct conf) - 4;
-    memcpy(buffer+offset, pathmedia.toAscii().constData(), pathmedia.size());
+    memcpy(buffer+offset, m_pathmedia.toAscii().constData(), m_pathmedia.size());
     QFile file("pms.conf");
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
     {
@@ -292,27 +294,27 @@ void PureMediaServer::pdrestart()
 
 void PureMediaServer::newPeer()
 {
-   tcpsocket = m_pd_read->nextPendingConnection();
-   connect(tcpsocket, SIGNAL(readyRead()),
+   m_tcpsocket = m_pd_read->nextPendingConnection();
+   connect(m_tcpsocket, SIGNAL(readyRead()),
                 this, SLOT(newmessage()));
 }
 
 void PureMediaServer::newmessage()
 {
-    if (tcpsocket == NULL)
+    if (m_tcpsocket == NULL)
     {
         qDebug()<<("tcpsocket not created");
         newPeer();
         return;
     }
-    QByteArray byteArray = tcpsocket->readAll();
+    QByteArray byteArray = m_tcpsocket->readAll();
     QString string(byteArray);
     if (byteArray.at(0) == 0)
     {
         return;
     }
     QChar layer = string.at(0);
-    int i = 9 + pathmedia.size();
+    int i = 9 + m_pathmedia.size();
     string.remove(0,i);
     string.chop(2);
     int val = layer.digitValue();
@@ -324,6 +326,7 @@ void PureMediaServer::newmessage()
         // Conectamos para reiniciar si PD crash
         connect(pd, SIGNAL(finished(int)), this, SLOT(pdrestart()));
         // Mandamos Configuración
+        m_pd_write->waitForConnected(30000);
         newconexion();
     case 1:
        ui.layer1->setText(string);
@@ -367,14 +370,15 @@ bool PureMediaServer::sendPacket(const char *buffer, int bufferLen)
  }
  return true;
 }
-
+// Send the configuration to PD
 void PureMediaServer::newconexion()
 {
     if (!(m_pd_write->isOpen())){
         errorsending();
         return;
      }
-    QString desc = tr("0000 0000 %1;").arg(pathmedia);
+    qDebug() << "Sending conf tu PD";
+    QString desc = tr("0000 0000 %1;").arg(m_pathmedia);
     if (!sendPacket(desc.toAscii().constData(),desc.size()))
     {
       errorsending();
@@ -447,13 +451,13 @@ void PureMediaServer::on_ChangePath_clicked()
     if (dialog.exec())
         fileNames = dialog.selectedFiles();
     QString file = fileNames.at(0);
-    pathmedia = file;
+    m_pathmedia = file;
     QString desc = tr("0000 0000 %1;").arg(file);
     if (!sendPacket(desc.toAscii().constData(),desc.size()))
                 {
             errorsending();
     }
-    desc = tr("Media Path Changed to: %1").arg(pathmedia);
+    desc = tr("Media Path Changed to: %1").arg(m_pathmedia);
     ui.textEdit->appendPlainText(desc.toAscii());
 }
 
@@ -466,14 +470,14 @@ void PureMediaServer::on_ChangePath_clicked()
 void PureMediaServer::on_updateButton_clicked()
 {
     // Chequeamos si existe el path a los medias
-    QDir dir(pathmedia);
+    QDir dir(m_pathmedia);
      if (!dir.exists())
      {
          qDebug()<<("Cannot find the media directory");
          ui.textEdit->appendPlainText("Can not find the media directory in the path given");
          return;
      }
-     m_mediaserver->setpath(pathmedia);
+     m_mediaserver->setpath(m_pathmedia);
      if (!m_mediaserver->updatemedia())
      {
          qDebug()<<("Cannot explore the media");
@@ -836,14 +840,19 @@ void PureMediaServer::on_video_stateChanged(int state)
         {
             m_pd_write->close();
             disconnect(m_pd_write, SIGNAL(connected()),this, SLOT(newconexion()));
-            delete m_pd_write;
+            m_pd_write == NULL;
         }
         if (m_pd_read != NULL)
         {
             disconnect(m_pd_read, SIGNAL(newConnection()),this, SLOT(newPeer()));
             m_pd_read->close();
-            delete m_pd_read;
+            m_pd_read == NULL;
         }
+        if (m_tcpsocket != NULL){
+            m_tcpsocket->close();
+            m_tcpsocket == NULL;
+        }
+
         disconnect(pd, SIGNAL(finished(int)), this, SLOT(pdrestart()));
         pd->terminate();
         pd = NULL;
