@@ -40,15 +40,33 @@ public:
 
 protected:
 
-    QString m_pathmedia;
-    MediaServer *m_mediaserver;
-    CITPLib *m_citp;    
+    QString m_pathmedia; // Path to Medias
+    MediaServer *m_mediaserver; // MSEx
+    CITPLib *m_citp;    // CITP Peer. PLOc
+    QProcess *ola; // OLA daemon process
+
+    // Video TCP Sockets
+
     QTcpSocket *m_pd_write;
     QTcpServer *m_pd_read;
     QTcpSocket *m_tcpsocket;
+    QProcess *pd; // Pure Data process for video
+
+    // Audio TCP Sockets
+
+    QTcpSocket *m_pd_write_audio;
+    QTcpServer *m_pd_read_audio;
+    QTcpSocket *m_tcpsocket_audio;
+    QProcess *pd_audio; // Pure Data process for audio
+
+    // Text TCP Sockets
+
+    QTcpSocket *m_pd_write_text;
+    QTcpServer *m_pd_read_text;
+    QTcpSocket *m_tcpsocket_text;
+    QProcess *pd_text; // Pure Data process for text
+
 //    void contextMenuEvent(QContextMenuEvent *event);
-    QProcess *ola;
-    QProcess *pd;
 
 private:
 
@@ -60,27 +78,33 @@ private:
 
     void errorsending();
 
+    bool sendPacket_audio(const char *buffer, int bufferLen);
+
+    void pdstart_audio();
+
+    void errorsending_audio();
+
+
 public slots:
 
 private slots:
 
-    void on_updateButton_clicked();
+    void olastart(); // Init the OLA daemon
 
-//    void on_restartPD_clicked();
+    void on_ChangePath_clicked();// Change the path to medias
 
+// Video
+
+    void on_updateButton_clicked();  // Init the CITP/MSEx protocol
     void newPeer();
     void newmessage();
     void newconexion();
-
     void on_window_stateChanged(int state);
-
     void on_winpositionx_valueChanged();
     void on_winpositiony_valueChanged();
     void on_winsizex_valueChanged();
     void on_winsizey_valueChanged();
-
     void on_readDMX_stateChanged(int state);
-
     void on_layer1Add_valueChanged();
     void on_layer1Check_stateChanged (int state);
     void on_layer2Add_valueChanged();
@@ -97,17 +121,41 @@ private slots:
     void on_layer7Check_stateChanged (int state);
     void on_layer8Add_valueChanged();
     void on_layer8Check_stateChanged (int state);
-    void on_ChangePath_clicked();
+    void pdrestart();
+    void stdout();
+    void on_video_stateChanged(int state);
+
+    //Audio
+
+    void newPeer_audio();
+    void newmessage_audio();
+    void newconexion_audio();
+    void on_readDMX_audio_stateChanged(int state);
+    void on_layer1Add_audio_valueChanged();
+    void on_layer1Check_audio_stateChanged (int state);
+    void on_layer2Add_audio_valueChanged();
+    void on_layer2Check_audio_stateChanged (int state);
+    void on_layer3Add_audio_valueChanged();
+    void on_layer3Check_audio_stateChanged (int state);
+    void on_layer4Add_audio_valueChanged();
+    void on_layer4Check_audio_stateChanged (int state);
+    void on_layer5Add_audio_valueChanged();
+    void on_layer5Check_audio_stateChanged (int state);
+    void on_layer6Add_audio_valueChanged();
+    void on_layer6Check_audio_stateChanged (int state);
+    void on_layer7Add_audio_valueChanged();
+    void on_layer7Check_audio_stateChanged (int state);
+    void on_layer8Add_audio_valueChanged();
+    void on_layer8Check_audio_stateChanged (int state);
+    void pdrestart_audio();
+    void stdout_audio();
+    void on_audio_stateChanged(int state);
+
+    // File configuration
 
     void open();
     void save();
 
-    void olastart();
-    void pdrestart();
-
-    void stdout();
-
-    void on_video_stateChanged(int state);
 };
 
 #endif // PUREMEDIASERVER_H
