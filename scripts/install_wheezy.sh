@@ -16,6 +16,6 @@ dpkg -i ola_0.8.26-1_i386.deb
 # Install Pure Data y OLA
 # libav para generar thumbs
 
-apt-get install puredata gem tcl tk pd-zexy pd-cyclone pd-hcs libav-tools 
+apt-get install puredata gem tcl tk pd-zexy pd-cyclone pd-hcs libav-tools pd-pdogg pd-pan
 
 apt-get -f install
