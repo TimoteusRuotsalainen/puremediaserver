@@ -1,5 +1,5 @@
 ******************************
-Pure Media Server 0.0.5
+Pure Media Server 0.0.6
 (c) Santiago Noreña 2012
 puremediaserver at gmail dot com
 ******************************
@@ -14,34 +14,48 @@ Se controla mediante el Open Lighting Arquitecture que soporta una gran variedad
 
 Puedes controlarlo gratis con el MagicQ de ChamSys si no dispones de ninguna mesa o programa de iluminación. No es software libre, pero al menos es gratis. En la carpeta "MagicQ" hay un archivo de show y el archivo de personalidad.
 
-El motor gráfico es Pure Data, que se ejecuta en background invisible al usuario. Ahora mismo podemos reproducir 255 carpetas con 255 videos cada una en cualquier formato en que esté el codec instalado en el sistema. Si lo puede leer en el reproductor de medios de gnome podrá reproducirlo PMS. También podemos reproducir fotos y textos. El reproductor de medios podemos variar la velocidad, ejecutarlo en distintas direcciones (hacia delante, hacia atrás, ping-pong), y en bucle o en un sólo disparo. 
+El motor gráfico y de audio es Pure Data, que se ejecuta en background invisible al usuario. Ahora mismo podemos reproducir 255 carpetas con 255 videos cada una en cualquier formato en que esté el codec instalado en el sistema. Si lo puede leer en el reproductor de medios de gnome podrá reproducirlo PMS. También podemos reproducir fotos y textos. El reproductor de medios podemos variar la velocidad, ejecutarlo en distintas direcciones (hacia delante, hacia atrás, ping-pong), y en bucle o en un sólo disparo. 
 
 PMS tiene 8 capas de video o texto, cada dispone de una correción Bezier de 4 puntos, por lo que podemos mapear diferentes superficies, o lados de objetos. También podemos corregir el keystone mediante estos ajustes. Por supuesto, hay ajustes de color, posición, tamaño y rotación por cada capa.
 
-En esta versión no hay soporte para audio, en siguientes versiones se volverá a retomar.
-
 Las mezclas entre capas se realizan mediante 6 canales: 3 canales son pasa altos RGB y otros 3 Pasabajos RGB, con lo que se puden hacer lumas y cromas. El orden de las capas se controla mediante el canal de posición Z: cuanto más grande sea más al fondo se encuentra. El dimmer también controla la opacidad, por lo que una capa al 100% bloqueará a las inferiores.  
 
-El interface gráfico es muy simple, empezando de arriba a abajo:
+También podemos manejar 8 capas de audio, cada una reproduciendo un archivo .ogg. El control de volumen es en 16 bits de precisión y logarítmico, en equipos pequeños o auriculares no se oirá nada hasta el 50 0 60%.
 
-A. Caja de textos. Se muestran mensajes de estado. También se muestra la salida de Pure Data
+El interface gráfico es muy simple, sólo sirve para manejar la configuración de Pure Data y sirve para ver el archivo que cada capa está reproduciendo. Tenemos dos pestañas: Una para la configuración de Video y otra para la de Audio, que se dberá patchear en la mesa independientemente. Como los controles son parecidos para las dos ventanas, las explicamos juntas. Empezando de arriba hacia abajo:
+
+A. Caja de textos. Se muestran mensajes de estado y de error.
+
 B. 8 Capas. Representan las 8 capas de video.
 	B.1 Botón de activado de la capa. Si no está en on la capa no está activada y no renderiza, se quedará en la pantalla el último frame renderizado; desactivando no va a negro.
 	B.2 Dirección DMX. Hay que introducir el primer canal DMX de la capa, la misma a la que se patcheó en la mesa.
 	B.3 Etiqueta de media. Se muestra el archivo que está siendo reproducido en la capa.
-C. Change Media Path. Cambia el path al árbol de directorios de los media.
-D. Restart PD. Reinicia el motor gráfico. Pincha si el motor gráfico ha dejado de responder. 
-E. Init CITP/MSEx. Inicia el peer CITP y manda los thumbs si alguna mesa lo solicita.
+
+C. Change Media Path. Cambia el path al árbol de directorios de los media. Este control es común para el video y el audio, sólo hace falta introducirlo una vez, aunque se muestr en las dos pestañas.
+
+D. Video/Audio. Inicia o detiene los procesos de video y de audio. Abre o cierra la conexión con OLA.
+
 F. ReadDMX. Empieza o termina la lectura de datos DMX
+
+H. OLA Universe. El universo de Open Lighting Arquitecture que hemos configurado como entrada y al que el proceso escuchará. Ver instalacion.txt
+
 G. Window. Crea y destruye la ventana de reproducción.
-H. OLA Universe. El universo de Open Lighting Arquitecture que hemos configurado como entrada. Ver instalacion.txt
-I. Window Position. Posición de la ventana de renderizado en pixeles x,y
-J. Window Size. Tamaño de la ventana de renderizado en pixeles, xy
+
+I. Window Position. Posición de la ventana de renderizado en pixeles x,y.
+
+J. Window Size. Tamaño de la ventana de renderizado en pixeles x, y.
+
 K. IP Adress. Dirección IP de la inerface que queremos usar. Dejar en 0.0.0.0 para todas las interfaces.
+
+E. Init CITP/MSEx. Inicia el peer CITP y manda los thumbs si alguna mesa lo solicita.
 
 El CITP/MSEx no funciona en el interface localhost. Sin embargo la recepción de datos ArtNet sí. Necesita tener un interface de red activo en el momento de lanzar el programa, pero después se puede desconectar. Se puede usar en el mismo ordenador PMS y MagicQLinux para controlarlo.
 
-La ventana de renderizado se muestra sobre todas las demás ventanas y sin que aparezca el cursor en ella. Si tenemos problemas siempre podemos llevar el cursor a la ventana de renderizado y presionar Escape para cerrarla. Se configura con los controles "Window Position" y "Window Size". Para hacer algo útil deberemos tener el escritorio extendido a un segundo monitor y configurar en estos controles los valores de ese monitor. Antes de que se aplique ningún cambio hay que cerrar la ventana y volverla a abrir.  	
+Generación de thumbs:
+
+Es necesario generar lo thumbnails de tus medias para poder transmitirlos por CITP/MSEx. Lo puedes hacer mediante el fichero make_thumbs.sh en la carpeta scripts. Primero ábrelo con un editor de texto y edita el path a tus medias. Guarda, cierra, y ejecuta el archivo. Debería de crear una subcarpeta llamada thumbs por cada carpeta de medias, y en ella el thumbnail con el primer fotograma de cada archivo, con el mismo nombre, pero acabado en jpeg. En siguientes versiones intentaré integrar esto cuando se pulse el botón "Init CITP/MSEx"
+
+La ventana de renderizado se muestra sobre todas las demás ventanas y sin que aparezca el cursor en ella. Si tenemos problemas en la configuración, por ejemplo nos quedamos sin ver el escritorio,  siempre podemos llevar el cursor a la ventana de renderizado y presionar Escape para cerrarla. La posición de la ventana se configura con los controles "Window Position" y el tamaño de la ventana con "Window Size", los dos primero la x y después la y. Para hacer algo útil deberemos tener el escritorio extendido a un segundo monitor y configurar en estos controles los valores de ese monitor. Para aplicar cambios hay que cerrar la ventana y reabrirla.  	
 
 ******************************
 
@@ -90,12 +104,6 @@ El árbol de ficheros tiene el siguiente esquema:
 		- 255-miultimafoto.jpg
 
 Los números al principio de ficheros y directorios no son obligatorios, pero ayudan mucho a organizar el material. PMS busca por orden alfabético en los directorios/ficheros, y ese orden es el que hay que los valores de los canales Folder y File para reproducirlos.
-	
-Generación de thumbs:
-
-Es necesario generar lo thumbnails de tus medias para poder transmitirlos por CITP/MSEx. Lo puedes hacer mediante el fichero make_thumbs.sh en la carpeta scripts. Primero ábrelo con un editor de texto y edita el path a tus medias. Guarda, cierra, y ejecuta el archivo. Debería de crear una subcarpeta llamada thumbs por cada carpeta de medias, y en ella el thumbnail con el primer fotograma de cada archivo, con el mismo nombre, pero acabado en jpeg.
-
-En siguientes versiones intentaré integrar esto cuando se pulse el botón "Init CITP/MSEx"
 
 ******************************
 

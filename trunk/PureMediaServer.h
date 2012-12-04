@@ -59,13 +59,6 @@ protected:
     QTcpSocket *m_tcpsocket_audio;
     QProcess *pd_audio; // Pure Data process for audio
 
-    // Text TCP Sockets
-
-    QTcpSocket *m_pd_write_text;
-    QTcpServer *m_pd_read_text;
-    QTcpSocket *m_tcpsocket_text;
-    QProcess *pd_text; // Pure Data process for text
-
 //    void contextMenuEvent(QContextMenuEvent *event);
 
 private:

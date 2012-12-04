@@ -3,11 +3,6 @@ Pure Media Server
 Santiago Noreña
 puremediaserver@gmail.com
 ********************************
-* 0.05 (20-11-2012)
-- Interface en Qt y C++. PD y OLA se ejecutan desde ella.
-- Descontinuado el audio.
-- Mapeo por capa.
-
 * 0.01 (16-05-2011)
 
 - Primera versión liberada!
@@ -37,7 +32,7 @@ puremediaserver@gmail.com
 - Cambiados valores de locate para hacerlos más sensibles
 - 4 capas
 
- * 0.0.4 SVN
+ * 0.0.4
 
 - Añadidos efectos
 - 8 capas
@@ -45,4 +40,14 @@ puremediaserver@gmail.com
 - Añadido medidor de CPU
 - Cambio de pdp_qt por pix_filmQT (se pierde la reproducción de sonido)
 - Se separan los parches de audio y de video
+
+* 0.0.5 (20-11-2012)
+- Interface en Qt y C++. PD y OLA se ejecutan desde ella.
+- Descontinuado el audio.
+- Mapeo por capa.
+
+* 0.0.6
+- Audio en un proceso independiente. Reproducción de .oggs
+- Nuevos tipos de Alpha Blending. Gem compilado para ello hasta que la nueva versión de Gem incorpore las modificaciones. Nuevo canal DMX en la personalidad de video para el tipo de Alpha.
+
 

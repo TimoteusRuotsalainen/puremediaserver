@@ -37,8 +37,6 @@
 #define PDPORTW_AUDIO 9197
 #define PDPORTR_AUDIO 9198
 
-#define PDPORTW_TEXT 9199
-#define PDPORTR_TEXT 9200
 
 ///////////////////////////////////////////////////////////////////
 // Struct for the configuration files
@@ -97,36 +95,11 @@ bool dmx_audio;
 quint8 universe_audio;
 bool audioCheck;
 
-// Text Configuration
-bool window_text;
-quint16 winpositionx_text;
-quint16 winpositiony_text;
-quint16 winsizex_text;
-quint16 winsizey_text;
-quint16 layer1Add_text;
-bool layer1Check_text;
-quint16 layer2Add_text;
-bool layer2Check_text;
-quint16 layer3Add_text;
-bool layer3Check_text;
-quint16 layer4Add_text;
-bool layer4Check_text;
-quint16 layer5Add_text;
-bool layer5Check_text;
-quint16 layer6Add_text;
-bool layer6Check_text;
-quint16 layer7Add_text;
-bool layer7Check_text;
-quint16 layer8Add_text;
-bool layer8Check_text;
-bool dmx_text;
-quint8 universe_text;
-bool textCheck;
-
 // Path to Media Files
 QString path;
 };
 
+// Constructor
 ///////////////////////////////////////////////////////////////////
 
 PureMediaServer::PureMediaServer(QWidget *parent)
@@ -159,6 +132,7 @@ PureMediaServer::PureMediaServer(QWidget *parent)
     connect(ui.actionSave_conf, SIGNAL(triggered()), this, SLOT(save()));
 }
 
+// Destructor
 ///////////////////////////////////////////////////////////////////
 
 PureMediaServer::~PureMediaServer()
@@ -257,34 +231,7 @@ void PureMediaServer::open()
     ui.universe_audio->setValue(packet->universe_audio);
     ui.audio->setChecked(packet->audioCheck);
 
-    // Text Configuration
-
-    ui.window_text->setChecked(packet->window_text);
-    ui.winpositionx_text->setValue(packet->winpositionx_text);
-    ui.winpositiony_text->setValue(packet->winpositiony_text);
-    ui.winsizex_text->setValue(packet->winsizex_text);
-    ui.winsizey_text->setValue(packet->winsizey_text);
-    ui.layer1Add_text->setValue(packet->layer1Add_text);
-    ui.layer1Check_text->setChecked(packet->layer1Check_text);
-    ui.layer2Add_text->setValue(packet->layer2Add_text);
-    ui.layer2Check_text->setChecked(packet->layer2Check_text);
-    ui.layer3Add_text->setValue(packet->layer3Add_text);
-    ui.layer3Check_text->setChecked(packet->layer3Check_text);
-    ui.layer4Add_text->setValue(packet->layer4Add_text);
-    ui.layer4Check_text->setChecked(packet->layer4Check_text);
-    ui.layer5Add_text->setValue(packet->layer5Add_text);
-    ui.layer5Check_text->setChecked(packet->layer5Check_text);
-    ui.layer6Add_text->setValue(packet->layer6Add_text);
-    ui.layer6Check_text->setChecked(packet->layer6Check_text);
-    ui.layer7Add_text->setValue(packet->layer7Add_text);
-    ui.layer7Check_text->setChecked(packet->layer7Check_text);
-    ui.layer8Add_text->setValue(packet->layer8Add_text);
-    ui.layer8Check_text->setChecked(packet->layer8Check_text);
-    ui.readDMX_text->setChecked(packet->dmx_text);
-    ui.universe_text->setValue(packet->universe_text);
-    ui.text->setChecked(packet->textCheck);
-
-    // Path to media
+      // Path to media
 
     int offset = sizeof(struct conf) - 4;
     int size = file.size() - offset;
@@ -361,33 +308,6 @@ void PureMediaServer::save()
     packet->dmx_audio = ui.readDMX_audio->checkState();
     packet->universe_audio = ui.universe_audio->value();
     packet->audioCheck = ui.audio->checkState();
-
-    // Text Configuration
-
-    packet->window_text = ui.window_text->checkState();
-    packet->winpositionx_text = ui.winpositionx_text->value();
-    packet->winpositiony_text = ui.winpositiony_text->value();
-    packet->winsizex_text = ui.winsizex_text->value();
-    packet->winsizey_text = ui.winsizey_text->value();
-    packet->layer1Add_text = ui.layer1Add_text->value();
-    packet->layer1Check_text = ui.layer1Check_text->checkState();
-    packet->layer2Add_text = ui.layer2Add_text->value();
-    packet->layer2Check_text = ui.layer2Check_text->checkState();
-    packet->layer3Add_text = ui.layer3Add_text->value();
-    packet->layer3Check_text = ui.layer3Check_text->checkState();
-    packet->layer4Add_text = ui.layer4Add_text->value();
-    packet->layer4Check_text = ui.layer4Check_text->checkState();
-    packet->layer5Add_text = ui.layer5Add_text->value();
-    packet->layer5Check_text = ui.layer5Check_text->checkState();
-    packet->layer6Add_text = ui.layer6Add_text->value();
-    packet->layer6Check_text = ui.layer6Check_text->checkState();
-    packet->layer7Add_text = ui.layer7Add_text->value();
-    packet->layer7Check_text = ui.layer7Check_text->checkState();
-    packet->layer8Add_text = ui.layer8Add_text->value();
-    packet->layer8Check_text = ui.layer8Check_text->checkState();
-    packet->dmx_text = ui.readDMX_text->checkState();
-    packet->universe_text = ui.universe_text->value();
-    packet->textCheck = ui.text->checkState();
 
     // Path to media
 
@@ -1472,7 +1392,7 @@ void PureMediaServer::newmessage_audio()
 {
     if (m_tcpsocket_audio == NULL)
     {
-        qDebug()<<("tcpsocket not created");
+        qDebug()<<("tcpsocket audio not created");
         newPeer_audio();
         return;
     }
