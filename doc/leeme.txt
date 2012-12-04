@@ -1,5 +1,5 @@
 **************************************************************
-Pure Media Server 0.0.5
+Pure Media Server 0.0.6
 (c) Santiago Noreña 2012
 puremediaserver at gmail dot com
 **************************************************************
@@ -20,13 +20,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 ****************************************************************
 
-Pure Media Server es un programa para manejar visuales y audio en actuaciones escénicas, instalaciones, eventos, performances,..., pero Software Libre. 
+Pure Media Server es un programa para manejar visuales y audio en actuaciones escénicas, instalaciones, eventos, performances,..., pero en Software Libre. 
 
 El control se realiza mediante el Open Lighting Arquitecture, por lo que podemos usar cualquier protocolo de iluminación abierto (ArtNet, PathPort, ShowNet, ACN,...) o dispositivo DMX-USB (Enttec Pro, Velleman, Anyuma,...)
 
-El motor gráfico es Pure Data con Gem corriendo en segundo plano.
+El motor gráfico y de audio es Pure Data con Gem corriendo en segundo plano. Se comunica con la aplicación principal mediante TCP.
 
-Estoy desarrollando y testeando en Debian Wheezy. Todos los binarios han sido compilados para Wheezy. El código debería de compilar y funcionar en otras distribuciones Linux, incluso en MacOs X, pero no lo he testeado. Open Lighting Arquitecture not compiles in Windows, so it's not posible use Pure media Server es esa plataforma.
+Estoy desarrollando y testeando en Debian Wheezy. Todos los binarios han sido compilados para Wheezy. El código debería de compilar y funcionar en otras distribuciones Linux, incluso en MacOs X, pero no lo he testeado. Open Lighting Arquitecture no compila en Windows, por lo que en este moemnto no es posible usar Pure media Server es esa plataforma.
 
 Características:
 
@@ -51,5 +51,6 @@ Desarrollo y soporte:
 
 puremediaserver@googlecode.com
 
+http://code.google.com/p/puremediaserver
 ****************************************************************
 
