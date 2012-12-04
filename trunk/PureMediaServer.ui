@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>458</width>
-    <height>636</height>
+    <height>687</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,14 +20,14 @@
       <x>0</x>
       <y>90</y>
       <width>451</width>
-      <height>501</height>
+      <height>491</height>
      </rect>
     </property>
     <property name="tabShape">
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="Video">
      <attribute name="title">
@@ -1461,6 +1461,41 @@
        <string>Window Size</string>
       </property>
      </widget>
+     <zorder>layer8Check_text</zorder>
+     <zorder>layer7Check_text</zorder>
+     <zorder>layer5_text</zorder>
+     <zorder>layer1_text</zorder>
+     <zorder>layer5Check_text</zorder>
+     <zorder>layer5Add_text</zorder>
+     <zorder>layer2Check_text</zorder>
+     <zorder>winpositiony_text</zorder>
+     <zorder>layer2_text</zorder>
+     <zorder>label_9</zorder>
+     <zorder>winsizex_text</zorder>
+     <zorder>layer2Add_text</zorder>
+     <zorder>layer7_text</zorder>
+     <zorder>layer1Check_text</zorder>
+     <zorder>text</zorder>
+     <zorder>layer4Check_text</zorder>
+     <zorder>layer6Check_text</zorder>
+     <zorder>layer4_text</zorder>
+     <zorder>layer4Add_text</zorder>
+     <zorder>winpositionx_text</zorder>
+     <zorder>layer6_text</zorder>
+     <zorder>layer3Check_text</zorder>
+     <zorder>layer7Add_text</zorder>
+     <zorder>universe_text</zorder>
+     <zorder>layer8Add_text</zorder>
+     <zorder>label_11</zorder>
+     <zorder>layer6Add_text</zorder>
+     <zorder>winsizey_text</zorder>
+     <zorder>layer3Add_text</zorder>
+     <zorder>window_text</zorder>
+     <zorder>layer3_text</zorder>
+     <zorder>layer8_text</zorder>
+     <zorder>layer1Add_text</zorder>
+     <zorder>readDMX_text</zorder>
+     <zorder>label_12</zorder>
     </widget>
    </widget>
    <widget class="QPlainTextEdit" name="textEdit">
@@ -1481,8 +1516,8 @@ This program comes with ABSOLUTELY NO WARRANTY</string>
    <widget class="QPushButton" name="ChangePath">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>530</y>
+      <x>10</x>
+      <y>590</y>
       <width>150</width>
       <height>28</height>
      </rect>

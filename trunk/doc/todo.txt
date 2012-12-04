@@ -1,7 +1,7 @@
 + Mejorar método alpha de blending.
 + Cambiar el mensaje de error de Nop puedo mandar mensaje a función y salir por terminal
 + Cambios en la GUI para adaptarse a las tres personalidades.
-- Audio. sincronismo con videos.
++ Audio. 
 - Separar textos en otra personalidad
 - Investigar la Posibilidad de modularidad, sumar capas por instancias de PMS. Darle una vuelta a ola2pd y ver cuántas conexiones aguanta. NO SE PUEDE POR USAR LOS MISMOS PUERTOS. Opción de arranque?
 - Necesidad de 16 bits en size, rotation, entry-end points?
@@ -9,7 +9,8 @@
 - Watchdog reinicia
 - Previews en el GUI
 - Muchos más mensajes de error y de estado
-- Intentar reconectar con PureData en errorsending(). Añadir comprobación de inicio para no repetir mensajes de error en el arranque.
+- Intentar reconectar con PureData en errorsending().
++ Añadir comprobación de inicio para no repetir mensajes de error en el arranque.
 - Documentar el código
 - Documentación en inglés
-
++ sincronismo de videos con audios.

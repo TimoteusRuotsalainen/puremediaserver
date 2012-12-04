@@ -142,7 +142,10 @@ PureMediaServer::PureMediaServer(QWidget *parent)
      m_pd_read_audio = NULL;
      m_pd_write_audio = NULL;
      pd_audio = NULL;
-
+     m_tcpsocket_text = NULL;
+     m_pd_read_text = NULL;
+     m_pd_write_text = NULL;
+     pd_text = NULL;
      // Load the configuration
      open();
      // Iniciamos olad
@@ -445,6 +448,13 @@ void PureMediaServer::on_ChangePath_clicked()
         if (!sendPacket_audio(desc.toAscii().constData(),desc.size()))
         {
             errorsending_audio();
+        }
+    }
+    if (ui.text->checkState())
+    {
+        if (!sendPacket_text(desc.toAscii().constData(),desc.size()))
+        {
+            errorsending_text();
         }
     }
     desc = tr("Media Path Changed to: %1").arg(m_pathmedia);
@@ -1568,4 +1578,572 @@ void PureMediaServer::errorsending_audio() {
     }
 }
 
+///////////////////////////////////////////////////////////////////
+// Text Controls
+///////////////////////////////////////////////////////////////////
+
+// Window Configuration
+
+void PureMediaServer::on_window_text_stateChanged(int state)
+{
+    if ((state == 2)) {
+       QString desc("0001 0001;");
+       if (!sendPacket_text(desc.toAscii().constData(),desc.size()))
+       {
+        errorsending_text();
+       }
+    }
+    if ((state == 0)) {
+          QString desc("0001 0000;");
+          if (!sendPacket_text(desc.toAscii().constData(),desc.size()))
+          {
+           errorsending_text();
+          }
+   }
+}
+
+void PureMediaServer::on_winpositionx_text_valueChanged()
+{
+    int x = ui.winpositionx_text->value();
+    QString desc = tr("0002 %1;").arg(x);
+    if (!sendPacket_text(desc.toAscii().constData(),desc.size()))
+            {
+             errorsending_text();
+            }
+}
+
+void PureMediaServer::on_winpositiony_text_valueChanged()
+{
+    int x = ui.winpositiony_text->value();
+    QString desc = tr("3 %1;").arg(x);
+    if (!sendPacket_text(desc.toAscii().constData(),desc.size()))
+            {
+             errorsending_text();
+            }
+}
+
+void PureMediaServer::on_winsizex_text_valueChanged()
+{
+    int x = ui.winsizex_text->value();
+    QString desc = tr("4 %1;").arg(x);
+    if (!sendPacket_text(desc.toAscii().constData(),desc.size()))
+            {
+             errorsending_text();
+            }
+}
+
+void PureMediaServer::on_winsizey_text_valueChanged()
+{
+    int x = ui.winsizey_text->value();
+    QString desc = tr("5 %1;").arg(x);
+    if (!sendPacket_text(desc.toAscii().constData(),desc.size()))
+            {
+             errorsending_text();
+            }
+}
+
+// DMX address configuration
+
+void PureMediaServer::on_layer1Check_text_stateChanged (int state)
+{
+    if ((state == 0))
+    {
+        QString desc("0011 0000;");
+        if (!sendPacket_text(desc.toAscii().constData(),desc.size()))
+                {
+                 errorsending_text();
+                }
+        return;
+    }
+    if ((state == 2))
+    {
+        on_layer1Add_text_valueChanged();
+    }
+}
+
+void PureMediaServer::on_layer1Add_text_valueChanged()
+{
+   if (ui.layer1Check_text->isChecked()){
+        int x = ui.layer1Add_text->value();
+        QString desc = tr("0011 %1;").arg(x);
+        if (!sendPacket_text(desc.toAscii().constData(),desc.size()))
+           {
+            errorsending_text();
+           }
+    }
+}
+
+void PureMediaServer::on_layer2Check_text_stateChanged (int state)
+{
+    if ((state == 0))
+    {
+        QString desc("0012 0000;");
+        if (!sendPacket_text(desc.toAscii().constData(),desc.size()))
+                {
+                 errorsending_text();
+                }
+        return;
+    }
+    if ((state == 2))
+    {
+        on_layer2Add_text_valueChanged();
+    }
+}
+
+void PureMediaServer::on_layer2Add_text_valueChanged()
+{
+   if (ui.layer2Check_text->isChecked()){
+   int x = ui.layer2Add_text->value();
+   QString desc = tr("0012 %1;").arg(x);
+   if (!sendPacket_text(desc.toAscii().constData(),desc.size()))
+           {
+            errorsending_text();
+           }
+   }
+}
+
+void PureMediaServer::on_layer3Check_text_stateChanged (int state)
+{
+    if ((state == 0))
+    {
+        QString desc("0013 0000;");
+        if (!sendPacket_text(desc.toAscii().constData(),desc.size()))
+                {
+                 errorsending_text();
+                }
+        return;
+    }
+    if ((state == 2))
+    {
+        on_layer3Add_text_valueChanged();
+    }
+}
+
+void PureMediaServer::on_layer3Add_text_valueChanged()
+{
+   if (ui.layer3Check_text->isChecked()){
+   int x = ui.layer3Add_text->value();
+   QString desc = tr("0013 %1;").arg(x);
+   if (!sendPacket_text(desc.toAscii().constData(),desc.size()))
+           {
+            errorsending_text();
+           }
+  }
+}
+
+void PureMediaServer::on_layer4Check_text_stateChanged (int state)
+{
+    if ((state == 0))
+    {
+        QString desc("0014 0000;");
+        if (!sendPacket_text(desc.toAscii().constData(),desc.size()))
+                {
+                 errorsending_text();
+                }
+        return;
+    }
+    if ((state == 2))
+    {
+        on_layer4Add_text_valueChanged();
+    }
+}
+
+void PureMediaServer::on_layer4Add_text_valueChanged()
+{
+   if (ui.layer4Check_text->isChecked()){
+   int x = ui.layer4Add_text->value();
+   QString desc = tr("0014 %1;").arg(x);
+   if (!sendPacket_text(desc.toAscii().constData(),desc.size()))
+           {
+            errorsending_text();
+           }
+   }
+}
+
+void PureMediaServer::on_layer5Check_text_stateChanged (int state)
+{
+    if ((state == 0))
+    {
+        QString desc("0015 0000;");
+        if (!sendPacket_text(desc.toAscii().constData(),desc.size()))
+                {
+                 errorsending_text();
+                }
+        return;
+    }
+    if ((state == 2))
+    {
+        on_layer5Add_text_valueChanged();
+    }
+}
+
+void PureMediaServer::on_layer5Add_text_valueChanged()
+{
+   if (ui.layer5Check_text->isChecked()){
+   int x = ui.layer5Add_text->value();
+   QString desc = tr("0015 %1;").arg(x);
+   if (!sendPacket_text(desc.toAscii().constData(),desc.size()))
+           {
+            errorsending_text();
+           }
+    }
+}
+
+void PureMediaServer::on_layer6Check_text_stateChanged (int state)
+{
+    if ((state == 0))
+    {
+        QString desc("0016 0000;");
+        if (!sendPacket_text(desc.toAscii().constData(),desc.size()))
+                {
+                 errorsending_text();
+                }
+        return;
+    }
+    if ((state == 2))
+    {
+        on_layer6Add_text_valueChanged();
+    }
+}
+
+void PureMediaServer::on_layer6Add_text_valueChanged()
+{
+   if (ui.layer6Check_text->isChecked()){
+   int x = ui.layer6Add_text->value();
+   QString desc = tr("0016 %1;").arg(x);
+   if (!sendPacket_text(desc.toAscii().constData(),desc.size()))
+           {
+            errorsending_text();
+           }
+   }
+}
+
+void PureMediaServer::on_layer7Check_text_stateChanged (int state)
+{
+    if ((state == 0))
+    {
+        QString desc("0017 0000;");
+        if (!sendPacket_text(desc.toAscii().constData(),desc.size()))
+                {
+                 errorsending_text();
+                }
+        return;
+    }
+    if ((state == 2))
+    {
+        on_layer7Add_text_valueChanged();
+    }
+}
+
+void PureMediaServer::on_layer7Add_text_valueChanged()
+{
+   if (ui.layer7Check_text->isChecked()){
+   int x = ui.layer7Add_text->value();
+   QString desc = tr("0017 %1;").arg(x);
+   if (!sendPacket_text(desc.toAscii().constData(),desc.size()))
+           {
+            errorsending_text();
+           }
+   }
+}
+
+void PureMediaServer::on_layer8Check_text_stateChanged (int state)
+{
+    if ((state == 0))
+    {
+        QString desc("0018 0000;");
+        if (!sendPacket_text(desc.toAscii().constData(),desc.size()))
+                {
+                 errorsending_text();
+                }
+        return;
+    }
+    if ((state == 2))
+    {
+        on_layer8Add_text_valueChanged();
+    }
+}
+
+void PureMediaServer::on_layer8Add_text_valueChanged()
+{
+   if (ui.layer8Check_text->isChecked()){
+   int x = ui.layer8Add_text->value();
+   QString desc = tr("0018 %1;").arg(x);
+   if (!sendPacket_text(desc.toAscii().constData(),desc.size()))
+           {
+            errorsending_text();
+           }
+  }
+}
+
+// Open the connection with OLA and start reading DMX
+
+void PureMediaServer::on_readDMX_text_stateChanged(int state)
+{
+    if ((state == 0)) {
+        QString desc("0020 0000;");
+        if (!sendPacket_text(desc.toAscii().constData(),desc.size()))
+                {
+                 errorsending_text();
+                }
+        }
+    if ((state == 2))
+    {
+        int x = ui.universe_text->value();
+        QString desc = tr("0021 %1;").arg(x);
+        if (!sendPacket_text(desc.toAscii().constData(),desc.size()))
+                {
+                 errorsending_text();
+                }
+        desc = tr("0020 0001;");
+        if (!sendPacket_text(desc.toAscii().constData(),desc.size()))
+                {
+                 errorsending_text();
+                }
+        }
+ }
+
+// Open the text process
+
+void PureMediaServer::on_text_stateChanged(int state)
+{
+    if ((state == 0))
+         {
+        if (m_pd_write_text != NULL)
+        {
+            m_pd_write_text->close();
+            disconnect(m_pd_write_text, SIGNAL(connected()),this, SLOT(newconexion_text()));
+            m_pd_write_text == NULL;
+        }
+        if (m_pd_read_text != NULL)
+        {
+            disconnect(m_pd_read_text, SIGNAL(newConnection()),this, SLOT(newPeer_text()));
+            m_pd_read_text->close();
+            m_pd_read_text == NULL;
+        }
+        if (m_tcpsocket_text != NULL){
+            m_tcpsocket_text->close();
+            m_tcpsocket_text == NULL;
+        }
+
+        disconnect(pd_text, SIGNAL(finished(int)), this, SLOT(pdrestart_text()));
+        pd_text->terminate();
+        pd_text = NULL;
+    }
+    if ((state == 2))
+    {
+   // Iniciamos Pure Data
+   m_pd_read_text = NULL;
+   m_pd_write_text = NULL;
+   pd_text = new QProcess(this);
+   pdstart_text();
+   }
+}
+
+///////////////////////////////////////////////////////////////////
+/*
+ * Pure Data Text
+ */
+///////////////////////////////////////////////////////////////////
+
+// Start the PD Process, open the ports and connects stdout de Pure Data.
+
+void PureMediaServer::pdstart_text()
+{
+    if (pd_text->state() != 0)
+    {
+        return;
+    }
+    // Creamos los sockets para la conexión a Pure Data
+    m_pd_write_text = new QTcpSocket(this);
+    Q_CHECK_PTR(m_pd_write_text);
+    connect(m_pd_write_text, SIGNAL(connected()),this, SLOT(newconexion_text()));
+    m_pd_read_text = new QTcpServer(this);
+    Q_CHECK_PTR(m_pd_read_text);
+    connect(m_pd_read_text, SIGNAL(newConnection()),this, SLOT(newPeer_text()));
+    if (!m_pd_read_text)
+     {
+         qDebug()<<("error TCP Server no creado");
+     }
+    if (!m_pd_read_text->listen(QHostAddress::LocalHost, PDPORTR_TEXT))
+    {
+    qDebug()<<"error listening tcpServer";
+    }
+    // Arrancamos el proceso Pure Data
+    pd_text->start("pd -path /usr/lib/pd/extra/cyclone -lib Gem pms-text.pd");
+    if (pd_text->waitForStarted(3000)){
+        ui.textEdit->appendPlainText("PD Text started.");
+    }
+    else
+    {
+        ui.textEdit->appendPlainText("PD Text not started!");
+        return;
+    }
+    connect(pd_text, SIGNAL(readyReadStandardError()), this, SLOT(stdout_text()));
+}
+
+// Sacamos la salida de Pure Data en la terminal
+
+void PureMediaServer::stdout_text() {
+    QString out = pd_text->readAllStandardError();
+    out.chop(1);
+    if (!out.isEmpty())
+    {
+        qDebug() << out;
+//        ui.textEdit->appendPlainText(out);
+    }
+}
+
+// Restart the Pure Data process if crash. Connected wit signal finished of QProcess
+
+void PureMediaServer::pdrestart_text()
+{
+    save();
+    qDebug()<<"Restarting PD Text";
+    ui.textEdit->appendPlainText("PD Text Restarting...");
+    int state = pd_text->state();
+    if (state != 0)
+    {
+        return;
+    }
+    if (m_pd_write_text != NULL)
+    {
+        m_pd_write_text->close();
+        disconnect(m_pd_write_text, SIGNAL(connected()),this, SLOT(newconexion_text()));
+        delete m_pd_write_text;
+    }
+    if (m_pd_read_text != NULL)
+    {
+        disconnect(m_pd_read_text, SIGNAL(newConnection()),this, SLOT(newPeer_text()));
+        m_pd_read_text->close();
+        delete m_pd_read_text;
+    }
+    disconnect(pd_text, SIGNAL(finished(int)), this, SLOT(pdrestart_text()));
+    pdstart_text();
+}
+
+// New conexion on TCP Server
+
+void PureMediaServer::newPeer_text()
+{
+   m_tcpsocket_text = m_pd_read_text->nextPendingConnection();
+   connect(m_tcpsocket_text, SIGNAL(readyRead()),
+                this, SLOT(newmessage_text()));
+}
+
+// New message in a TCP socket stablished connection
+
+void PureMediaServer::newmessage_text()
+{
+    if (m_tcpsocket_text == NULL)
+    {
+        qDebug()<<("tcpsocket not created");
+        newPeer_text();
+        return;
+    }
+    QByteArray byteArray = m_tcpsocket_text->readAll();
+    QString string(byteArray);
+    if (byteArray.at(0) == 0)
+    {
+        return;
+    }
+    QChar layer = string.at(0);
+    int i = 9 + m_pathmedia.size();
+    string.remove(0,i);
+    string.chop(2);
+    int val = layer.digitValue();
+    switch (val) {
+    case 0:
+        ui.textEdit->appendPlainText("Loadbang from PD Text received...");
+        // Conectamos a Pure Data para escribir
+        m_pd_write_text->connectToHost(QHostAddress::LocalHost, PDPORTW_TEXT);
+        // Conectamos para reiniciar si PD crash
+        connect(pd_text, SIGNAL(finished(int)), this, SLOT(pdrestart_text()));
+        // Mandamos Configuración
+        m_pd_write_text->waitForConnected(30000);
+        newconexion_text();
+    case 1:
+       ui.layer1_text->setText(string);
+       break;
+    case 2:
+        ui.layer2_text->setText(string);
+        break;
+    case 3:
+        ui.layer3_text->setText(string);
+        break;
+    case 4:
+        ui.layer4_text->setText(string);
+        break;
+    case 5:
+        ui.layer5_text->setText(string);
+        break;
+    case 6:
+        ui.layer6_text->setText(string);
+        break;
+    case 7:
+        ui.layer7_text->setText(string);
+        break;
+    case 8:
+        ui.layer8_text->setText(string);
+        break;
+    }
+}
+
+// Send the configuration to PD
+void PureMediaServer::newconexion_text()
+{
+    if (!(m_pd_write_text->isOpen())){
+        errorsending_text();
+        return;
+     }
+    qDebug() << "Sending conf to PD";
+    QString desc = tr("0000 0000 %1;").arg(m_pathmedia);
+    if (!sendPacket_text(desc.toAscii().constData(),desc.size()))
+    {
+      errorsending_text();
+      return;
+    }
+    on_layer1Check_text_stateChanged (ui.layer1Check_text->checkState());
+    on_layer2Check_text_stateChanged (ui.layer2Check_text->checkState());
+    on_layer3Check_text_stateChanged (ui.layer3Check_text->checkState());
+    on_layer4Check_text_stateChanged (ui.layer4Check_text->checkState());
+    on_layer5Check_text_stateChanged (ui.layer5Check_text->checkState());
+    on_layer6Check_text_stateChanged (ui.layer6Check_text->checkState());
+    on_layer7Check_text_stateChanged (ui.layer7Check_text->checkState());
+    on_layer8Check_text_stateChanged (ui.layer8Check_text->checkState());
+    on_readDMX_text_stateChanged(ui.readDMX_text->checkState());
+    on_winpositionx_text_valueChanged();
+    on_winpositiony_text_valueChanged();
+    on_winsizex_text_valueChanged();
+    on_winsizey_text_valueChanged();
+    on_window_text_stateChanged(ui.window_text->checkState());
+}
+
+// Sends packets to Pure Data video
+
+bool PureMediaServer::sendPacket_text(const char *buffer, int bufferLen)
+{
+ if (m_pd_write_text == NULL) {
+    return false;
+ }
+ if (QAbstractSocket::ConnectedState != m_pd_write_text->state())
+ {
+    return false;
+ }
+ if (bufferLen != m_pd_write_text->write((const char*)buffer, bufferLen))
+ {
+    return false;
+ }
+ return true;
+}
+
+// Function error sending packets to PD video
+
+void PureMediaServer::errorsending_text() {
+    if (ui.text->checkState())
+    {
+    qDebug() << "Can not talk to Pure Data Text!";
+    ui.textEdit->appendPlainText("Can not send packets to PD Text");
+    }
+}
 
