@@ -24,7 +24,7 @@ Pure Media Server is a project to manage visuals and audio in stage, perfoms, in
 
 The control input is through Open Lighting Arquitecture, so we can use any lighting protocolo or DMX-USB device. 
 
-The graphic motor is Pure Data with Gem running in the background. 
+The graphic and audio engine are two Pure Data process running in the background. You will need a graphics card OpenGL capable and the driver for it correctly installed.
 
 I'm developing and testing in Debian Wheezy. All the binaries are compiled for Wheezy. It should compile and work in anothers Linux distros and MacOs X too. Open Lighting Arquitecture not compiles in Windows, so it's not posible use PMS in that platform.
 
@@ -39,19 +39,19 @@ Features:
 - Croma/Luma mask.
 - Text through a text file, with 255 phrases. 
 
-I'm working in the translation to english, but i prefer coding!
+At the moment, the doc is only in spanish:
 
-At the moment only in spanish:
-
-Para instalar PMS vea instalacion.txt
+Install guide : instalacion.txt
  
-Para usar PMS vea manual.txt
+Use guide : manual.txt
 
 ****************************************************************
 
 Developing and support: 
 
 puremediaserver@googlecode.com
+
+http://code.google.com/p/puremediaserver
 
 ****************************************************************
 

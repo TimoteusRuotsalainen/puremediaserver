@@ -26,7 +26,8 @@ SOURCES += main.cpp \
            PeerInformationSocket.cpp \
            MediaServer.cpp
 
-FORMS += PureMediaServer.ui \
+FORMS += \
+    PureMediaServer.ui
 
 #INCLUDEPATH += ./
 

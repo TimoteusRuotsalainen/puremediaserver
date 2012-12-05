@@ -1,46 +1,32 @@
+0.0.6:
+
 + Mejorar método alpha de blending.
 + Cambiar el mensaje de error de Nop puedo mandar mensaje a función y salir por terminal
 + Cambios en la GUI para adaptarse a las tres personalidades.
-<<<<<<< .mine
 + Audio.
 + Muchos más mensajes de error y de estado
 + Añadir comprobación de inicio para no repetir mensajes de error en el arranque.
++ Previews en el GUI. Mediante fichero, grabando en Pure Data y leyendo en pms --> Puede ser muy lento
+    -Investigar el mandar la imagen mediante TCP Socket en vez de por fichero, mandando una GemList y convirtiéndola a jpg en 		pms. ¿Cómo convertir de gemlist a QPixMap, 		QImage, Qpicture?
 
 - CTIP/MSEx 1.1. Thumbs de imágenes, video preview. 
-- Previews en el GUI.
 - Carpetas para imágenes y sonidos.
-
-- sincronismo de audio con videos --> Parece que hay que hacer un script para separar el audio del video, y luego ejecutarlos juntos. Un poco chapu, la verdad. La aternativa es volver a pdp mediante pdp2gem (qué horror!).
-
-=======
-+ Audio. 
-- Separar textos en otra personalidad
-- Investigar la Posibilidad de modularidad, sumar capas por instancias de PMS. Darle una vuelta a ola2pd y ver cuántas conexiones aguanta. NO SE PUEDE POR USAR LOS MISMOS PUERTOS. Opción de arranque?
-- Necesidad de 16 bits en size, rotation, entry-end points?
-- CTIP/MSEx 1.1. Thumbs de imágenes, video preview.
->>>>>>> .r153
+- sincronismo de audio con videos --> Parece que hay que hacer un script para separar el audio del video, y luego ejecutarlos juntos. Un poco chapu, la verdad. La aternativa es volver a pdp mediante pdp2gem (qué horror!) --> De momento separando el .ogg del video, ejecutando en auto, y mandando play a la vez debería de estaar sincronizados. Ahora mismo se podría separando el audio en un fichero .ogg y presionando el play a la vez en modo auto. Investigarlo.
 - Watchdog reinicia
-<<<<<<< .mine
-
-=======
-- Previews en el GUI
-- Muchos más mensajes de error y de estado
-- Intentar reconectar con PureData en errorsending().
-+ Añadir comprobación de inicio para no repetir mensajes de error en el arranque.
->>>>>>> .r153
 - Documentar el código
 - Documentación en inglés
-<<<<<<< .mine
+
+-----------------
+Próximas versiones:
+
+- Modularidad, sumar ventanas por instancias de PMS-video. NO SE PUEDE POR USAR LOS MISMOS PUERTOS. Opción de arranque?. Blending entre proyectores.Mirar ejemplo Gem multiprojection. Añdir shaders a la capa?
+- Cambiar alpha por glgs. Mirar ejemplos en doc de Gem. Mirar requerimientos de tarjetas gráficas.
+-----------------
+Para considerar:
 
 - Necesidad de 16 bits en size, rotation, entry-end points, puntos de bezier?
 - Más puntos de Bezier?
-
 -----------------
+Descartados:
 
-- Separar textos en otra personalidad --> No posible, al iniciar un nuevo proceso inicia una nueva ventana- Malo para texto, bueno para varios proyectores y blending!.
-
-- Investigar la Posibilidad de modularidad, sumar capas por instancias de PMS. NO SE PUEDE POR USAR LOS MISMOS PUERTOS. Opción de arranque?
-
-=======
-+ sincronismo de videos con audios.
->>>>>>> .r153
+- Separar textos en otra personalidad --> No posible, al iniciar un nuevo proceso inicia una nueva ventana- Malo para textos, bueno para varios proyectores y blending!.

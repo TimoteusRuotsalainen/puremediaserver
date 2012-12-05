@@ -59,6 +59,7 @@ protected:
     QTcpSocket *m_tcpsocket_audio;
     QProcess *pd_audio; // Pure Data process for audio
 
+    QTimer *m_preview;
 //    void contextMenuEvent(QContextMenuEvent *event);
 
 private:
@@ -76,12 +77,6 @@ private:
     void pdstart_audio();
 
     void errorsending_audio();
-
-    bool sendPacket_text(const char *buffer, int bufferLen);
-
-    void pdstart_text();
-
-    void errorsending_text();
 
 public slots:
 
@@ -149,42 +144,21 @@ private slots:
     void stdout_audio();
     void on_audio_stateChanged(int state);
 
-    // Text
-
-    void newPeer_text();
-    void newmessage_text();
-    void newconexion_text();
-    void on_window_text_stateChanged(int state);
-    void on_winpositionx_text_valueChanged();
-    void on_winpositiony_text_valueChanged();
-    void on_winsizex_text_valueChanged();
-    void on_winsizey_text_valueChanged();
-    void on_readDMX_text_stateChanged(int state);
-    void on_layer1Add_text_valueChanged();
-    void on_layer1Check_text_stateChanged (int state);
-    void on_layer2Add_text_valueChanged();
-    void on_layer2Check_text_stateChanged (int state);
-    void on_layer3Add_text_valueChanged();
-    void on_layer3Check_text_stateChanged (int state);
-    void on_layer4Add_text_valueChanged();
-    void on_layer4Check_text_stateChanged (int state);
-    void on_layer5Add_text_valueChanged();
-    void on_layer5Check_text_stateChanged (int state);
-    void on_layer6Add_text_valueChanged();
-    void on_layer6Check_text_stateChanged (int state);
-    void on_layer7Add_text_valueChanged();
-    void on_layer7Check_text_stateChanged (int state);
-    void on_layer8Add_text_valueChanged();
-    void on_layer8Check_text_stateChanged (int state);
-    void pdrestart_text();
-    void stdout_text();
-    void on_text_stateChanged(int state);
-
     // File configuration
 
     void open();
     void save();
 
+    // Previews
+
+    void previewLayer1();
+    void previewLayer2();
+    void previewLayer3();
+    void previewLayer4();
+    void previewLayer5();
+    void previewLayer6();
+    void previewLayer7();
+    void previewLayer8();
 };
 
 #endif // PUREMEDIASERVER_H
