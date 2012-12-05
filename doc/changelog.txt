@@ -49,5 +49,5 @@ puremediaserver@gmail.com
 * 0.0.6
 - Audio en un proceso independiente. Reproducción de .oggs
 - Nuevos tipos de Alpha Blending. Gem compilado para ello hasta que la nueva versión de Gem incorpore las modificaciones. Nuevo canal DMX en la personalidad de video para el tipo de Alpha.
-
+- Previews en el GUI.
 
