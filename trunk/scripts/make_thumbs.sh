@@ -28,4 +28,10 @@ for folder in $(find -maxdepth 1 -type d); do
 		mv $folder/*.jpg $folder/thumbs
 	done
 
+# Crear una galería de mini imágenes
+#for i in `ls *.jpg`;
+#do
+#	convert -geometry 320x240 $i galleria-$i
+#done
+
 exit 0
