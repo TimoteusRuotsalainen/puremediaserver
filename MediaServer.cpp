@@ -566,7 +566,7 @@ QList<MediaInformation> MediaServer::getMediaInformation(QDir dir)
         mediainf.DMXRangeMin = i;
         mediainf.DMXRangeMax = i;
         mediainf.MediaName = fileInfo.baseName();
-        mediainf.MediaVersionTimestamp = date.toMSecsSinceEpoch();
+//        mediainf.MediaVersionTimestamp = date.toMSecsSinceEpoch();
         mediainf.MediaWidth = 320;
         mediainf.MediaHeight = 200;
         mediainf.MediaLength = 1000;

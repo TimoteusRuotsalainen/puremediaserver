@@ -351,8 +351,9 @@ void PureMediaServer::on_ChangePath_clicked()
     QFileDialog dialog(this);
     dialog.setFileMode(QFileDialog::Directory);
     QStringList fileNames;
-    if (dialog.exec())
-        fileNames = dialog.selectedFiles();
+    if (!dialog.exec())
+        return;
+    fileNames = dialog.selectedFiles();
     QString file = fileNames.at(0);
     m_pathmedia = file;
     QString desc = tr("0000 0000 %1;").arg(file);
@@ -766,6 +767,7 @@ void PureMediaServer::on_video_stateChanged(int state)
 {
     if ((state == 0))
          {
+        disconnect(pd, SIGNAL(readyReadStandardError()), this, SLOT(stdout()));
         if (m_pd_write != NULL)
         {
             m_pd_write->close();
@@ -953,7 +955,7 @@ void PureMediaServer::newconexion()
         errorsending();
         return;
      }
-    qDebug() << "Sending conf tu PD";
+    qDebug() << "Sending configuration to PD-Video ";
     QString desc = tr("0000 0000 %1;").arg(m_pathmedia);
     if (!sendPacket(desc.toAscii().constData(),desc.size()))
     {
