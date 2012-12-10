@@ -1,4 +1,11 @@
 #!/bin/bash
+##############################################################################
+# Script de instalación de las dependencias de Pure Media Server 
+# en Debian Squeeze. 
+# Necesita root para ejecutar
+# (c) 2012 Santi Noreña
+# GPL License 
+###############################################################################
 # Comprobamos root
 (( EUID )) && echo ‘You need to be root.’ && exit 1
 #Instalamos el paquete suministrado con el release

@@ -7,7 +7,7 @@ GPL License
 
 0. Requerimientos
 
-PMS está probado en Debian Wheezy, los binarios proporcionados están compilados para esta distribución. Para otras distribuciones Linux hay que compilar desde el código.
+PMS está probado en Debian Wheezy, los binarios proporcionados están compilados para esta distribución. Para otras distribuciones Linux hay que compilar el código.
  
 Necesitas una tarjeta gráfica OpenGL y que los drivers para Xorg con aceleración por hardware estén correctamente instalados. Ejecutando "glxgears" en una terminal debería de abrir una ventana con tres engranajes girando. Si no es así, revisa la documentación de tu distribución.
 
@@ -46,7 +46,7 @@ En PureMediaServer, pincha en "Change Media Path" y elige el directorio donde es
 
 Puedes grabar la configuración ahora o esperar a que termine el programa. El programa al salir siempre guarda la configuración, y la abre automáticamente cuando se inicia. 
 
-4. Compiling. 
+4. Compiling in Wheezy. 
 
 If you have troubles, or you are in another distro, you can try compiling. It's not the easiest way...
 
@@ -78,7 +78,15 @@ echo "export C_INCLUDE_PATH=$C_INCLUDE_PATH:/usr/local/include" >> ~/.bashrc
 
 Open the file PureMediaServer.pro qith QtCreator and compiles. 
 
+5. Compilando en Squeeze:
 
+Instalamos las heramientas de compilación:
+
+apt-get install qtcreator qt4-dev-tools binutils g++
+Abrimos qtcreator y cargamos el archivo del proyecto puremediaserver.pro
+Compilamos 
+
+Compilando ola2pd: Funciona el binario para wheezy.
 
 
 
