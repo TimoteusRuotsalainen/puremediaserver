@@ -1,8 +1,14 @@
 *************************************
+<<<<<<< .mine
+Pure Media Server 0.0.5
+Santiago Noreña 
+puremediaserver@gmail.com
+=======
 Pure Media Server 0.0.6
 (C) Santiago Noreña 2012
 puremediaserver at gmail dot com
 GPL License
+>>>>>>> .r155
 *************************************
 
 0. Requerimientos

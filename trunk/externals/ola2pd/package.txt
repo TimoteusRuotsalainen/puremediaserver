@@ -14,8 +14,6 @@ LDFLAGS += -lola
 BUILDTYPE=multi
 
 # Type mode of the release
-# KNOWN ISSUE: Changing this to release will crash Pure Data in Debian at library load
-# debug is safe
 
 BUILDMODE=release
 

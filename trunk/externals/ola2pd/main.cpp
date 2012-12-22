@@ -1,10 +1,13 @@
 /* 
  * ola2pd - interface from Open Lighting Arquitecture to Pure Data
+ * v 0.02
+ * This is an external for Pure Data and Max that reads one DMX512 
+ * universe from the Open Lighting Arquitecture and output it like a list
+ * of 512 channels.  
  *
- * Based on dmxmonitor
- * Copyright (C) 2001 Dirk Jagdmann <doj@cubic.org>
- * Modified by Simon Newton (nomis52<AT>gmail.com) to use ola
- * Modified by Santiago Noreña (puremediaserver@gmail.com) to use flext for PD/MaX 
+ * Based on dmxmonitor Copyright (C) 2001 Dirk Jagdmann <doj@cubic.org> 
+ * and ola_dmxmonitor by Simon Newton (nomis52<AT>gmail.com) to use ola
+ * Copyright (c) 2012 Santiago Noreña (puremediaserver@gmail.com) 
  * 
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,15 +26,16 @@
  */
 
 // Define flext
-
+#define FLEXT_USE_CMEM 1
+//#define FLEXT_SHARED 1
 #define FLEXT_ATTRIBUTES 1
 #include <flext.h>
 #if !defined(FLEXT_VERSION) || (FLEXT_VERSION < 500)
 #error You need at least flext version 0.5.0
 #endif
 
-//#define FLEXT_SHARED 1
-//#define FLEXT_USE_CMEM 1
+
+
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -44,12 +48,13 @@
 
 // Define ola
 
-#include <BaseTypes.h>
-#include <Callback.h>
-#include <OlaCallbackClient.h>
-#include <OlaClientWrapper.h>
-#include <DmxBuffer.h>
-#include <io/SelectServer.h>
+#include <ola/BaseTypes.h>
+#include <ola/Callback.h>
+#include <ola/OlaCallbackClient.h>
+#include <ola/OlaClientWrapper.h>
+#include <ola/DmxBuffer.h>
+#include <ola/io/SelectServer.h>
+#include <ola/network/TCPSocket.h>
 
 
 using ola::DmxBuffer;
@@ -72,16 +77,17 @@ public:
 	ola2pd():
 	// initialize data members
 	  i_universe(0),
-          m_universe(0),
-          m_counter(0)
+    m_universe(0),
+    m_counter(0)
 //          m_stdin_descriptor(STDIN_FILENO)
     	{
 		// --- define inlets and outlets ---
 		AddInAnything(); // default inlet
 		AddOutList();	// outlet for DMX list
-        	post("ola2pd v0.0.2-SVN - an interface to Open Lighting Arquitecture");
-		post("Santi Noreña puremediaserver@gmail.com");
-	}
+   	post("ola2pd v0.02 - an interface to Open Lighting Arquitecture");
+		post("(C) 2012 Santi Noreña puremediaserver@gmail.com");
+		post("GPL License");	
+}
 	void NewDmx(unsigned int universe,
                 const DmxBuffer &buffer,
                 const string &error);
@@ -100,27 +106,27 @@ void m_open() {
         OlaCallbackClient *client = m_client.GetClient();
         client->SetDmxCallback(ola::NewCallback(this, &ola2pd::NewDmx));
         client->RegisterUniverse(m_universe,ola::REGISTER,ola::NewSingleCallback(this, &ola2pd::RegisterComplete));
-//        m_client.GetSelectServer()->AddReadDescriptor(&m_stdin_descriptor);
-//        m_stdin_descriptor.SetOnData(ola::NewCallback(this, &ola2pd::StdinReady));
+//      m_client.GetSelectServer()->AddReadDescriptor(&m_stdin_descriptor);
+//      m_stdin_descriptor.SetOnData(ola::NewCallback(this, &ola2pd::StdinReady));
         m_client.GetSelectServer()->RegisterRepeatingTimeout(5000,ola::NewCallback(this, &ola2pd::CheckDataLoss));
-//        m_buffer.Blackout();	
+//      m_buffer.Blackout();	
         post("ola2pd: Init complete");
-	m_client.GetSelectServer()->Run();
-        post("ola2pd: Close complete");
+			  m_client.GetSelectServer()->Run();
         }    
 
 void m_close() {
-        OlaCallbackClient *client = m_client.GetClient();
-        if (client != NULL)
+    OlaCallbackClient *client = m_client.GetClient();
+    if (client != NULL)
 		{
-		client->RegisterUniverse(m_universe,ola::UNREGISTER,ola::NewSingleCallback(this, &ola2pd::RegisterComplete));        
-        	m_client.GetSelectServer()->Terminate();
-		}
+			client->RegisterUniverse(m_universe,ola::UNREGISTER,ola::NewSingleCallback(this, &ola2pd::RegisterComplete));        
+    	m_client.GetSelectServer()->Terminate();
+			post("ola2pd: Close complete");		
+	  }
 }
 
 void m_bang()  // Utilidad del bang?
 	{
-		post("%s: universe %d",thisName(),i_universe);
+		post("%s listening on universe %d",thisName(),i_universe);
 	}
 
 private:
@@ -131,8 +137,8 @@ private:
     struct timeval m_last_data;
     OlaCallbackClientWrapper m_client;
     DmxBuffer m_buffer;
-//    void Clean(); //o alternativa a free en flext
-    static void setup(t_classid c)
+
+  static void setup(t_classid c)
 	{
 	// --- set up methods (class scope) ---
 	// register a bang method to the default inlet (0)
@@ -147,10 +153,7 @@ private:
 	FLEXT_THREAD(m_open)
 	FLEXT_CALLBACK(m_close) 
 	FLEXT_ATTRVAR_I(i_universe) // wrapper functions (get and set) for integer variable universe
-
-
 };
-
 // instantiate the class (constructor takes no arguments)
 FLEXT_NEW("ola2pd",ola2pd)
 
@@ -161,13 +164,13 @@ FLEXT_NEW("ola2pd",ola2pd)
 void ola2pd::NewDmx(unsigned int universe,
                         const DmxBuffer &buffer,
                         const string &error) {
-  m_buffer.Set(buffer);
+  m_buffer.Set(buffer); // Necesario?
   m_counter++;
   gettimeofday(&m_last_data, NULL);   
   int z = 0;
   AtomList dmxlist;
   dmxlist(512);  
-  for(z=0; z < 512; z++){SetFloat(dmxlist[z],(m_buffer.Get(z)));}
+  for(z=0; z < 512; z++){SetFloat(dmxlist[z],(m_buffer.Get(z)));} // No podemos leer del buffer original y ahorramos una copia?
   ToOutList(0, dmxlist);
 }
 
@@ -177,7 +180,6 @@ void ola2pd::NewDmx(unsigned int universe,
 
 bool ola2pd::CheckDataLoss() {
   struct timeval now, diff;
-
   if (timerisset(&m_last_data)) {
     gettimeofday(&now, NULL);
     timersub(&now, &m_last_data, &diff);
@@ -192,29 +194,9 @@ bool ola2pd::CheckDataLoss() {
 /*
  * Control de errores en el registro de Universos en OLA
  */ 
-
 void ola2pd::RegisterComplete(const string &error) {
   if (!error.empty()) {
     post("ola2pd:Register command failed");
     m_client.GetSelectServer()->Terminate();
   }
 }
-
-/*
- * Called when there is input from the keyboard. Necesarios??
- *
-
-void ola2pd::StdinReady() {
-    post("ola2pd:Stdinready");
- }
-
-/*
- * Método free, ¿cómo hay que declaralos en flext?
- *
-
-
-void ola2pd::Clean() {
-  m_close();
-}
-*/
-
