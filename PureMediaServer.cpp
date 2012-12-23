@@ -29,6 +29,8 @@
 #include <QFileInfo>
 #include <QFileDialog>
 #include <QtTest/QTest>
+#include <QApplication>
+#include <QDesktopWidget>
 
 // Esto habrá que cambiarlo para poder utilizar varias instancias
 #define PDPORTW 9195
@@ -130,6 +132,7 @@ PureMediaServer::PureMediaServer(QWidget *parent)
     // Conectamos los menus
     connect(ui.actionOpen_conf, SIGNAL(triggered()), this, SLOT(open()));
     connect(ui.actionSave_conf, SIGNAL(triggered()), this, SLOT(save()));
+    connect(m_preview, SIGNAL(timeout()) ,this, SLOT(previewMaster()));
 }
 
 // Destructor
@@ -381,7 +384,7 @@ void PureMediaServer::on_ChangePath_clicked()
 
 // Init the CITP/MSEx protocol.
 // Begins the CITP/MSEx protocol
-// ToDo: Include the thums generation here
+// ToDo: Include thumbs generation here
 
 void PureMediaServer::on_updateButton_clicked()
 {
@@ -1561,4 +1564,11 @@ void PureMediaServer::previewLayer8()
 {
     QPixmap preview("layer800000.jpg");
     ui.layer8Preview->setPixmap(preview);
+}
+
+void PureMediaServer::previewMaster()
+{
+    QPixmap preview = QPixmap::grabWindow(QApplication::desktop()->winId(), ui.winpositionx->value() , ui.winpositiony->value(),ui.winsizex->value(),ui.winsizey->value());
+    ui.masterPreview->setPixmap(preview);
+
 }
