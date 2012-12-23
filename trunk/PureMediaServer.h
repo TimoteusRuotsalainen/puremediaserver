@@ -159,6 +159,7 @@ private slots:
     void previewLayer6();
     void previewLayer7();
     void previewLayer8();
+    void previewMaster();
 };
 
 #endif // PUREMEDIASERVER_H

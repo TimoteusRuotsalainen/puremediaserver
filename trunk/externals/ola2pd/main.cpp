@@ -76,9 +76,10 @@ public:
 	// constructor with no arguments
 	ola2pd():
 	// initialize data members
-	  i_universe(0),
+//	  i_universe(0),
     m_universe(0),
-    m_counter(0)
+		m_clientpointer(NULL),    
+		m_counter(0)
 //          m_stdin_descriptor(STDIN_FILENO)
     	{
 		// --- define inlets and outlets ---
@@ -98,14 +99,15 @@ public:
 protected:
 
 void m_open() {
-        m_universe = i_universe;	    
+ 	if (m_clientpointer == NULL) 
+	{     
         // set up ola connection 
         if (!m_client.Setup()) {
             post("%s: %s",thisName(), strerror(errno));
         }
-        OlaCallbackClient *client = m_client.GetClient();
-        client->SetDmxCallback(ola::NewCallback(this, &ola2pd::NewDmx));
-        client->RegisterUniverse(m_universe,ola::REGISTER,ola::NewSingleCallback(this, &ola2pd::RegisterComplete));
+        m_clientpointer = m_client.GetClient();
+        m_clientpointer->SetDmxCallback(ola::NewCallback(this, &ola2pd::NewDmx));
+        m_clientpointer->RegisterUniverse(m_universe,ola::REGISTER,ola::NewSingleCallback(this, &ola2pd::RegisterComplete));
 //      m_client.GetSelectServer()->AddReadDescriptor(&m_stdin_descriptor);
 //      m_stdin_descriptor.SetOnData(ola::NewCallback(this, &ola2pd::StdinReady));
         m_client.GetSelectServer()->RegisterRepeatingTimeout(5000,ola::NewCallback(this, &ola2pd::CheckDataLoss));
@@ -113,30 +115,33 @@ void m_open() {
         post("ola2pd: Init complete");
 			  m_client.GetSelectServer()->Run();
         }    
+	}
 
 void m_close() {
-    OlaCallbackClient *client = m_client.GetClient();
-    if (client != NULL)
+//    OlaCallbackClient *client = m_client.GetClient();
+    if (m_clientpointer != NULL)
 		{
-			client->RegisterUniverse(m_universe,ola::UNREGISTER,ola::NewSingleCallback(this, &ola2pd::RegisterComplete));        
+   		m_clientpointer->RegisterUniverse(m_universe,ola::UNREGISTER,ola::NewSingleCallback(this, &ola2pd::RegisterComplete));        
     	m_client.GetSelectServer()->Terminate();
 			post("ola2pd: Close complete");		
-	  }
+		  m_clientpointer = NULL;	
+	}
 }
 
 void m_bang()  // Utilidad del bang?
 	{
-		post("%s listening on universe %d",thisName(),i_universe);
+		post("%s listening on universe %d",thisName(),m_universe);
 	}
 
 private:
-    int i_universe;
+//    int i_universe;
     unsigned int m_universe;
     unsigned int m_counter;
 //    ola::io::UnmanagedFileDescriptor m_stdin_descriptor;
     struct timeval m_last_data;
     OlaCallbackClientWrapper m_client;
-    DmxBuffer m_buffer;
+		OlaCallbackClient *m_clientpointer;
+//    DmxBuffer m_buffer;
 
   static void setup(t_classid c)
 	{
@@ -147,12 +152,12 @@ private:
 	FLEXT_CADDMETHOD_(c,0,"open",m_open);
 	FLEXT_CADDMETHOD_(c,0,"close",m_close);
 	// --- set up attributes (class scope) ---
-	FLEXT_CADDATTR_VAR1(c,"universe",i_universe);  
+	FLEXT_CADDATTR_VAR1(c,"universe",m_universe);  
 	}
 	FLEXT_CALLBACK(m_bang)
 	FLEXT_THREAD(m_open)
 	FLEXT_CALLBACK(m_close) 
-	FLEXT_ATTRVAR_I(i_universe) // wrapper functions (get and set) for integer variable universe
+	FLEXT_ATTRVAR_I(m_universe) // wrapper functions (get and set) for integer variable universe
 };
 // instantiate the class (constructor takes no arguments)
 FLEXT_NEW("ola2pd",ola2pd)
@@ -164,13 +169,13 @@ FLEXT_NEW("ola2pd",ola2pd)
 void ola2pd::NewDmx(unsigned int universe,
                         const DmxBuffer &buffer,
                         const string &error) {
-  m_buffer.Set(buffer); // Necesario?
+//  m_buffer.Set(buffer); // Necesario?
   m_counter++;
   gettimeofday(&m_last_data, NULL);   
-  int z = 0;
+  int z;
   AtomList dmxlist;
   dmxlist(512);  
-  for(z=0; z < 512; z++){SetFloat(dmxlist[z],(m_buffer.Get(z)));} // No podemos leer del buffer original y ahorramos una copia?
+  for(z=0; z < 512; z++){SetFloat(dmxlist[z],(buffer.Get(z)));}
   ToOutList(0, dmxlist);
 }
 
