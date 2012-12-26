@@ -31,6 +31,11 @@
 #include <QtTest/QTest>
 #include <QApplication>
 #include <QDesktopWidget>
+#include <QLocalServer>
+#include <QObject>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <sys/un.h>
 
 // Esto habrá que cambiarlo para poder utilizar varias instancias
 #define PDPORTW 9195
@@ -39,6 +44,7 @@
 #define PDPORTW_AUDIO 9197
 #define PDPORTR_AUDIO 9198
 
+#define SOCKET "/tmp/pmspipe"
 
 ///////////////////////////////////////////////////////////////////
 // Struct for the configuration files
@@ -107,32 +113,65 @@ QString path;
 PureMediaServer::PureMediaServer(QWidget *parent)
   : QMainWindow(parent)
 {
-    // Iniciamos el User Interface
+     // Iniciamos el User Interface
      ui.setupUi(this);
-     m_tcpsocket = NULL;
-     m_pd_read = NULL;
-     m_pd_write = NULL;
+     // Iniciamos los punteros NULL
+     m_pd_write_video = NULL;
      pd = NULL;
      m_tcpsocket_audio = NULL;
      m_pd_read_audio = NULL;
      m_pd_write_audio = NULL;
      pd_audio = NULL;
-     // Iniciamos el timer del preview
+    // Unix Local Sockets
+     QFile socket(SOCKET);
+     socket.remove();
+     m_server_vid = new QLocalServer(this);
+     Q_CHECK_PTR(m_server_vid);
+     if (!m_server_vid->listen(SOCKET))
+     {
+         qErrnoWarning("Can not listen on unix local server");
+     }
+     connect(m_server_vid, SIGNAL(newConnection()),this, SLOT(newPeer()));
+//     m_read_vid = new QLocalSocket(this);
+//     Q_CHECK_PTR(m_read_vid);
+/*
+     int fd,len;
+     if ((fd = socket(AF_UNIX, SOCK_STREAM, 0)) == -1) {
+         perror("socket");
+         exit(1);
+     }
+     struct sockaddr_un addr;
+     memset(&addr, 0, sizeof(addr));
+     addr.sun_family = AF_UNIX;
+     strncpy(addr.sun_path, SOCKET, sizeof(addr.sun_path)-1);
+     unlink(addr.sun_path);
+     len = srtlen(addr.sun_path) + sizeof(addr.sun_family);
+     if (bind(fd, (struct sockaddr*)&addr, sizeof(addr))) {
+         perror("bind");
+         exit(1);
+     }
+     if (listen(s,10) == -1) {
+         perror("listen");
+         exit(1);
+     }
+*/
+
+     // Start preview Timer
      m_preview = new QTimer(this);
      Q_CHECK_PTR(m_preview);
-     m_preview->start(1000);
+     m_preview->start(100);
+     connect(m_preview, SIGNAL(timeout()) ,this, SLOT(previewMaster()));
      // Load the configuration
      open();
      // Iniciamos olad
     ola = new QProcess(this);
     olastart();
-    // Creamos el mediaserver
+    // The mediaserver object: CITP/MSEx
     m_mediaserver = new MediaServer(this);
     Q_CHECK_PTR(m_mediaserver);
     // Conectamos los menus
     connect(ui.actionOpen_conf, SIGNAL(triggered()), this, SLOT(open()));
     connect(ui.actionSave_conf, SIGNAL(triggered()), this, SLOT(save()));
-    connect(m_preview, SIGNAL(timeout()) ,this, SLOT(previewMaster()));
 }
 
 // Destructor
@@ -141,21 +180,28 @@ PureMediaServer::PureMediaServer(QWidget *parent)
 PureMediaServer::~PureMediaServer()
 {
     save();
-    if (m_pd_write != NULL) {
-          m_pd_write->abort();
+    QFile socket(SOCKET);
+    socket.remove();
+    if (m_pd_write_video != NULL) {
+          m_pd_write_video->abort();
+          delete m_pd_write_video;
         }
-    if (m_pd_read != NULL) {
-        m_pd_read->close();
-    }
-    if (m_tcpsocket != NULL) {
-        m_tcpsocket->close();
+ //   if (m_read_vid->isOpen()) {
+ //       m_read_vid->close();;
+ //       delete m_read_vid;
+ //   }
+    if (m_server_vid->isListening()) {
+        m_server_vid->close();
+        delete m_server_vid;
     }
     if (pd != NULL)
     {
         disconnect(pd, SIGNAL(finished(int)), this, SLOT(pdrestart()));
         pd->close();
+        delete pd;
     }
         ola->close();
+        delete ola;
 }
 
 /*
@@ -362,6 +408,9 @@ void PureMediaServer::on_ChangePath_clicked()
     QString desc = tr("0000 0000 %1;").arg(file);
     if (ui.video->checkState())
     {
+        m_pd_write_video->connectToHost(QHostAddress::LocalHost, PDPORTW);
+        if (m_pd_write_video->waitForConnected(10000)) {newconexion();}
+            else {qErrnoWarning("Socket not connected:");}
         if (!sendPacket(desc.toAscii().constData(),desc.size()))
         {
             errorsending();
@@ -376,6 +425,7 @@ void PureMediaServer::on_ChangePath_clicked()
     }
     desc = tr("Media Path Changed to: %1").arg(m_pathmedia);
     ui.textEdit->appendPlainText(desc.toAscii());
+
 }
 
 ///////////////////////////////////////////////////////////////////
@@ -498,13 +548,13 @@ void PureMediaServer::on_layer1Check_stateChanged (int state)
                 {
                  errorsending();
                 }
-        disconnect(m_preview, SIGNAL(timeout()) ,this, SLOT(previewLayer1()));
+ //       disconnect(m_preview, SIGNAL(timeout()) ,this, SLOT(previewLayer1()));
         return;
     }
     if ((state == 2))
     {
         on_layer1Add_valueChanged();
-        connect(m_preview, SIGNAL(timeout()) ,this, SLOT(previewLayer1()));
+//        connect(m_preview, SIGNAL(timeout()) ,this, SLOT(previewLayer1()));
     }
 }
 
@@ -771,32 +821,14 @@ void PureMediaServer::on_video_stateChanged(int state)
     if ((state == 0))
          {
         disconnect(pd, SIGNAL(readyReadStandardError()), this, SLOT(stdout()));
-        if (m_pd_write != NULL)
-        {
-            m_pd_write->close();
-            disconnect(m_pd_write, SIGNAL(connected()),this, SLOT(newconexion()));
-            m_pd_write == NULL;
-        }
-        if (m_pd_read != NULL)
-        {
-            disconnect(m_pd_read, SIGNAL(newConnection()),this, SLOT(newPeer()));
-            m_pd_read->close();
-            m_pd_read == NULL;
-        }
-        if (m_tcpsocket != NULL){
-            m_tcpsocket->close();
-            m_tcpsocket == NULL;
-        }
-
         disconnect(pd, SIGNAL(finished(int)), this, SLOT(pdrestart()));
         pd->terminate();
         pd = NULL;
+        delete pd;
     }
     if ((state == 2))
     {
    // Iniciamos Pure Data
-   m_pd_read = NULL;
-   m_pd_write = NULL;
    pd = new QProcess(this);
    pdstart();
    }
@@ -817,31 +849,24 @@ void PureMediaServer::pdstart()
         return;
     }
     // Creamos los sockets para la conexión a Pure Data
-    m_pd_write = new QTcpSocket(this);
-    Q_CHECK_PTR(m_pd_write);
-    connect(m_pd_write, SIGNAL(connected()),this, SLOT(newconexion()));
-    m_pd_read = new QTcpServer(this);
-    Q_CHECK_PTR(m_pd_read);
-    connect(m_pd_read, SIGNAL(newConnection()),this, SLOT(newPeer()));
-    if (!m_pd_read)
-     {
-         qDebug()<<("error TCP Server no creado");
-     }
-    if (!m_pd_read->listen(QHostAddress::LocalHost, PDPORTR))
-    {
-    qDebug()<<"error listening tcpServer";
-    }
+    m_pd_write_video = new QTcpSocket(this);
+    Q_CHECK_PTR(m_pd_write_video);
+    connect(m_pd_write_video, SIGNAL(connected()),this, SLOT(newconexion()));
     // Arrancamos el proceso Pure Data
-    pd->start("pd -path /usr/lib/pd/extra/cyclone -lib Gem pms-video.pd");
+    pd->start("pd -lib Gem pms-video.pd");
     if (pd->waitForStarted(3000)){
-        ui.textEdit->appendPlainText("PD-Video started.");
+        ui.textEdit->appendPlainText("Video Engine started.");
     }
     else
     {
-        ui.textEdit->appendPlainText("PD_Video not started!");
+        ui.textEdit->appendPlainText("Video Engine can not start!");
         return;
     }
     connect(pd, SIGNAL(readyReadStandardError()), this, SLOT(stdout()));
+    // Conectamos a Pure Data y mandamos la configuración
+    m_pd_write_video->connectToHost(QHostAddress::LocalHost, PDPORTW);
+    if (m_pd_write_video->waitForConnected(10000)) {newconexion();}
+        else {qErrnoWarning("Socket not connected:");}
 }
 
 // Sacamos la salida de Pure Data en la terminal
@@ -860,26 +885,13 @@ void PureMediaServer::stdout() {
 
 void PureMediaServer::pdrestart()
 {
-    save();
-    qDebug()<<"Restarting PD";
-    ui.textEdit->appendPlainText("PD Restarting...");
-    int state = pd->state();
-    if (state != 0)
+    if (pd->state())
     {
         return;
     }
-    if (m_pd_write != NULL)
-    {
-        m_pd_write->close();
-        disconnect(m_pd_write, SIGNAL(connected()),this, SLOT(newconexion()));
-        delete m_pd_write;
-    }
-    if (m_pd_read != NULL)
-    {
-        disconnect(m_pd_read, SIGNAL(newConnection()),this, SLOT(newPeer()));
-        m_pd_read->close();
-        delete m_pd_read;
-    }
+    save();
+    qDebug()<<"Restarting PD";
+    ui.textEdit->appendPlainText("PD Restarting...");
     disconnect(pd, SIGNAL(finished(int)), this, SLOT(pdrestart()));
     pdstart();
 }
@@ -888,77 +900,108 @@ void PureMediaServer::pdrestart()
 
 void PureMediaServer::newPeer()
 {
-   m_tcpsocket = m_pd_read->nextPendingConnection();
-   connect(m_tcpsocket, SIGNAL(readyRead()),
-                this, SLOT(newmessage()));
+   m_read_vid = m_server_vid->nextPendingConnection();
+   connect(m_read_vid, SIGNAL(readyRead()),
+           this, SLOT(newmessage()));
 }
 
 // New message in a TCP socket stablished connection
 
 void PureMediaServer::newmessage()
 {
-    if (m_tcpsocket == NULL)
+    if (m_read_vid == NULL)
     {
-        qDebug()<<("tcpsocket not created");
+        qDebug()<<("Local Socket not created");
         newPeer();
         return;
     }
-    QByteArray byteArray = m_tcpsocket->readAll();
-    QString string(byteArray);
+    qDebug() <<"New Mesassage received";
+    quint64 available = m_read_vid->bytesAvailable();
+    qDebug()<<"Bytes avalaible:"<<available;
+    QByteArray byteArray;
+    qDebug()<<  byteArray.capacity();
+    byteArray.resize(available);
+    qDebug()<<  byteArray.capacity();
+    byteArray = m_read_vid->readAll();
     if (byteArray.at(0) == 0)
     {
         return;
     }
-    QChar layer = string.at(0);
     int i = 9 + m_pathmedia.size();
-    string.remove(0,i);
-    string.chop(2);
-    int val = layer.digitValue();
-    switch (val) {
+    switch (byteArray.at(0)) {
     case 0:
         ui.textEdit->appendPlainText("Loadbang received...");
         // Conectamos a Pure Data para escribir
-        m_pd_write->connectToHost(QHostAddress::LocalHost, PDPORTW);
+        m_pd_write_video->connectToHost(QHostAddress::LocalHost, PDPORTW);
         // Conectamos para reiniciar si PD crash
         connect(pd, SIGNAL(finished(int)), this, SLOT(pdrestart()));
         // Mandamos Configuración
-        m_pd_write->waitForConnected(30000);
-        newconexion();
+        if (m_pd_write_video->waitForConnected(3000)) {newconexion();}
     case 1:
-       ui.layer1->setText(string);
+//       string.remove(0,i);
+//       string.chop(2);
+//       ui.layer1->setText(string);
        break;
     case 2:
-        ui.layer2->setText(string);
+//        string.remove(0,i);
+//        string.chop(2);
+//        ui.layer2->setText(string);
         break;
     case 3:
-        ui.layer3->setText(string);
+//        string.remove(0,i);
+//        string.chop(2);
+//        ui.layer3->setText(string);
         break;
     case 4:
-        ui.layer4->setText(string);
+//        string.remove(0,i);
+//        string.chop(2);
+//        ui.layer4->setText(string);
         break;
     case 5:
-        ui.layer5->setText(string);
+//        string.remove(0,i);
+//        string.chop(2);
+//        ui.layer5->setText(string);
         break;
     case 6:
-        ui.layer6->setText(string);
+//        string.remove(0,i);
+//        string.chop(2);
+//        ui.layer6->setText(string);
         break;
     case 7:
-        ui.layer7->setText(string);
+//        string.remove(0,i);
+//        string.chop(2);
+//        ui.layer7->setText(string);
         break;
     case 8:
-        ui.layer8->setText(string);
+//        string.remove(0,i);
+//        string.chop(2);
+//        ui.layer8->setText(string);
         break;
+
+    case 11:
+        byteArray.remove(0,2);
+        QPixmap frame;
+        if (!frame.loadFromData((byteArray+2))) {
+            qDebug()<<"Layer 1 Convert byte Array to frame failed ";
+        }
+        ui.layer1Preview->setPixmap(frame);
+        break;
+
+//    case 12:
+//        break;
+
+ //   default:
+ //       qDebug()<<"Message received but can not identify the cooki";
     }
 }
 
 // Send the configuration to PD
 void PureMediaServer::newconexion()
 {
-    if (!(m_pd_write->isOpen())){
-        errorsending();
+    if (!(m_pd_write_video->isOpen())){
+        qErrnoWarning("Can not send configuration to pd-video!:");
         return;
      }
-    qDebug() << "Sending configuration to PD-Video ";
     QString desc = tr("0000 0000 %1;").arg(m_pathmedia);
     if (!sendPacket(desc.toAscii().constData(),desc.size()))
     {
@@ -985,16 +1028,19 @@ void PureMediaServer::newconexion()
 
 bool PureMediaServer::sendPacket(const char *buffer, int bufferLen)
 {
- if (m_pd_write == NULL) {
-    return false;
+ if (m_pd_write_video == NULL) {
+     qErrnoWarning("Socket not initialized:");
+     return false;
  }
- if (QAbstractSocket::ConnectedState != m_pd_write->state())
+ if (QAbstractSocket::ConnectedState != m_pd_write_video->state())
  {
-    return false;
+     qErrnoWarning("Socket not conected:");
+     return false;
  }
- if (bufferLen != m_pd_write->write((const char*)buffer, bufferLen))
+ if (bufferLen != m_pd_write_video->write((const char*)buffer, bufferLen))
  {
-    return false;
+     qErrnoWarning("Can not write to socket::");
+     return false;
  }
  return true;
 }
@@ -1004,6 +1050,7 @@ bool PureMediaServer::sendPacket(const char *buffer, int bufferLen)
 void PureMediaServer::errorsending() {
     if (ui.video->checkState())
     {
+    qErrnoWarning("Can not talk to Pure Data Video!");
     qDebug() << "Can not talk to Pure Data Video!";
     ui.textEdit->appendPlainText("Can not send packets to PD Video");
     }
@@ -1507,7 +1554,6 @@ bool PureMediaServer::sendPacket_audio(const char *buffer, int bufferLen)
 void PureMediaServer::errorsending_audio() {
     if (ui.audio->checkState())
     {
-    qDebug() << "Can not talk to Pure Data Video!";
     ui.textEdit->appendPlainText("Can not send packets to PD Video");
     }
 }
@@ -1520,8 +1566,8 @@ void PureMediaServer::errorsending_audio() {
 
 void PureMediaServer::previewLayer1()
 {
-    QPixmap preview("layer100000.jpg");
-    ui.layer1Preview->setPixmap(preview);
+//    QPixmap preview("layer100000.jpg");
+//    ui.layer1Preview->setPixmap(preview);
 }
 
 void PureMediaServer::previewLayer2()
@@ -1570,5 +1616,4 @@ void PureMediaServer::previewMaster()
 {
     QPixmap preview = QPixmap::grabWindow(QApplication::desktop()->winId(), ui.winpositionx->value() , ui.winpositiony->value(),ui.winsizex->value(),ui.winsizey->value());
     ui.masterPreview->setPixmap(preview);
-
 }

@@ -23,6 +23,8 @@
 #include <QMainWindow>
 #include "MediaServer.h"
 #include "ui_PureMediaServer.h"
+#include <QLocalServer>
+#include <QLocalSocket>
 
 class CITPLib;
 class MediaServer;
@@ -47,9 +49,7 @@ protected:
 
     // Video TCP Sockets
 
-    QTcpSocket *m_pd_write;
-    QTcpServer *m_pd_read;
-    QTcpSocket *m_tcpsocket;
+    QTcpSocket *m_pd_write_video;
     QProcess *pd; // Pure Data process for video
 
     // Audio TCP Sockets
@@ -60,7 +60,12 @@ protected:
     QProcess *pd_audio; // Pure Data process for audio
 
     QTimer *m_preview;
-//    void contextMenuEvent(QContextMenuEvent *event);
+//  void contextMenuEvent(QContextMenuEvent *event);
+
+    // Unix Local Sockets
+    QLocalSocket *m_write_vid;
+    QLocalServer *m_server_vid;
+    QLocalSocket *m_read_vid;
 
 private:
 
