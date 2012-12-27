@@ -299,7 +299,6 @@ void PureMediaServer::open()
 
 void PureMediaServer::save()
 {
-    qDebug()<<("Saving conf file");
     int bufferLen = sizeof(struct conf) + m_pathmedia.size();
     unsigned char *buffer = new unsigned char[bufferLen];
     memset(buffer, 0, bufferLen);
@@ -370,7 +369,7 @@ void PureMediaServer::save()
     }
     int error =  file.write((const char *)buffer, bufferLen);
     QString errorstring = tr("Bytes Write to file %1").arg(error);
-    qDebug()<<(errorstring);
+    qDebug()<<"Saved file complete:"<<(errorstring);
     file.close();
 }
 
@@ -915,21 +914,20 @@ void PureMediaServer::newmessage()
         newPeer();
         return;
     }
-    qDebug() <<"New Mesassage received";
     quint64 available = m_read_vid->bytesAvailable();
     qDebug()<<"Bytes avalaible:"<<available;
     QByteArray byteArray;
-    qDebug()<<  byteArray.capacity();
     byteArray.resize(available);
-    qDebug()<<  byteArray.capacity();
+    qDebug()<< "Byte capacity resize:"<< byteArray.capacity();
     byteArray = m_read_vid->readAll();
-    if (byteArray.at(0) == 0)
+    if (byteArray == NULL)
     {
         return;
     }
-    int i = 9 + m_pathmedia.size();
+    int i = 2 + 9 + m_pathmedia.size();
+    QPixmap frame;
     switch (byteArray.at(0)) {
-    case 0:
+    case 30:
         ui.textEdit->appendPlainText("Loadbang received...");
         // Conectamos a Pure Data para escribir
         m_pd_write_video->connectToHost(QHostAddress::LocalHost, PDPORTW);
@@ -937,61 +935,109 @@ void PureMediaServer::newmessage()
         connect(pd, SIGNAL(finished(int)), this, SLOT(pdrestart()));
         // Mandamos Configuración
         if (m_pd_write_video->waitForConnected(3000)) {newconexion();}
-    case 1:
-//       string.remove(0,i);
-//       string.chop(2);
-//       ui.layer1->setText(string);
+    case 31:
+       byteArray.remove(0,i);
+       ui.layer1->setText(byteArray);
        break;
-    case 2:
-//        string.remove(0,i);
-//        string.chop(2);
-//        ui.layer2->setText(string);
+    case 32:
+ //       string.remove(0,i);
+ //       string.chop(2);
+ //       ui.layer2->setText(string);
         break;
-    case 3:
+    case 33:
 //        string.remove(0,i);
 //        string.chop(2);
 //        ui.layer3->setText(string);
         break;
-    case 4:
+    case 34:
 //        string.remove(0,i);
 //        string.chop(2);
 //        ui.layer4->setText(string);
         break;
-    case 5:
+    case 35:
 //        string.remove(0,i);
 //        string.chop(2);
 //        ui.layer5->setText(string);
         break;
-    case 6:
+    case 36:
 //        string.remove(0,i);
 //        string.chop(2);
 //        ui.layer6->setText(string);
         break;
-    case 7:
+    case 37:
 //        string.remove(0,i);
 //        string.chop(2);
 //        ui.layer7->setText(string);
         break;
-    case 8:
+    case 38:
 //        string.remove(0,i);
 //        string.chop(2);
 //        ui.layer8->setText(string);
         break;
 
     case 11:
+        qDebug()<<"Layer 1 image received";
         byteArray.remove(0,2);
-        QPixmap frame;
         if (!frame.loadFromData((byteArray+2))) {
             qDebug()<<"Layer 1 Convert byte Array to frame failed ";
         }
         ui.layer1Preview->setPixmap(frame);
         break;
 
-//    case 12:
-//        break;
+    case 12:
+        qDebug()<<"Layer 2 image received";
+        byteArray.remove(0,2);
+        if (!frame.loadFromData((byteArray+2))) {
+            qDebug()<<"Layer 2 Convert byte Array to frame failed ";
+        }
+        ui.layer2Preview->setPixmap(frame);
+        break;
+    case 13:
+        byteArray.remove(0,2);
+        if (!frame.loadFromData((byteArray+2))) {
+            qDebug()<<"Layer 3 Convert byte Array to frame failed ";
+        }
+        ui.layer3Preview->setPixmap(frame);
+        break;
+    case 14:
+        byteArray.remove(0,2);
+        if (!frame.loadFromData((byteArray+2))) {
+            qDebug()<<"Layer 4 Convert byte Array to frame failed ";
+        }
+        ui.layer4Preview->setPixmap(frame);
+        break;
+    case 15:
+        byteArray.remove(0,2);
+        if (!frame.loadFromData((byteArray+2))) {
+            qDebug()<<"Layer 5 Convert byte Array to frame failed ";
+        }
+        ui.layer5Preview->setPixmap(frame);
+        break;
+    case 16:
+        byteArray.remove(0,2);
+        if (!frame.loadFromData((byteArray+2))) {
+            qDebug()<<"Layer 6 Convert byte Array to frame failed ";
+        }
+        ui.layer6Preview->setPixmap(frame);
+        break;
+    case 17:
+        byteArray.remove(0,2);
+        if (!frame.loadFromData((byteArray+2))) {
+            qDebug()<<"Layer 7 Convert byte Array to frame failed ";
+        }
+        ui.layer7Preview->setPixmap(frame);
+        break;
+    case 18:
+        byteArray.remove(0,2);
+        if (!frame.loadFromData((byteArray+2))) {
+            qDebug()<<"Layer 8 Convert byte Array to frame failed ";
+        }
+        ui.layer8Preview->setPixmap(frame);
+        break;
 
- //   default:
- //       qDebug()<<"Message received but can not identify the cooki";
+    default:
+        qDebug()<<"Message received but can not identify the cooki";
+        break;
     }
 }
 
