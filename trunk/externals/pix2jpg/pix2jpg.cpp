@@ -23,6 +23,8 @@
 #include "pix2jpg.h"
 #include <sys/socket.h>
 #include <sys/un.h>
+#include "m_pd.h"
+//#include "s_stuff.h"
 #define SOCK_PATH "/tmp/pmspipe"
 
 CPPEXTERN_NEW_WITH_ONE_ARG(pix2jpg,  t_symbol *, A_DEFSYM);
@@ -40,7 +42,7 @@ pix2jpg :: pix2jpg(t_symbol *s)
     m_automatic(false),
 		m_layer(0)
 {
-	post("pix2jpg v0.01 - Convert pix to jpeg and send it via Unix Local Socket");
+	post("pix2jpg v0.01 Convert pix to jpeg and send to Unix Local Socket");
   post("(c) 2012 Santi Noreña puremediaserver@gmail.com");
 	post("GPL License");
 	outlet1 = outlet_new(this->x_obj, 0); 		// Saca todos los canales  mediante una lista
@@ -48,7 +50,7 @@ pix2jpg :: pix2jpg(t_symbol *s)
 	socket_fd = socket(PF_UNIX, SOCK_STREAM, 0);
 	 if(socket_fd < 0)
  	 {
-  	 post("pix2jpg:socket() failed\n");
+  	 post("pix2jpg:create socket() failed\n");
   	 return;
  	 }
    /* start with a clean address structure */
@@ -61,7 +63,6 @@ pix2jpg :: pix2jpg(t_symbol *s)
   		return;
  		}
 }
-
 /////////////////////////////////////////////////////////
 // Destructor
 //
@@ -82,19 +83,17 @@ void pix2jpg :: processImage(imageStruct &image)
 		m_banged =false;
 		int counter = 0;  
 		Image imagem(image.xsize, image.ysize, "RGBA", CharPixel, image.data);
-		imagem.resize("80x80");
+		imagem.resize("64x46");
 	  // Write to BLOB in png format 
   	Blob blob; 
   	imagem.magick( "jpg" ); // Set JPEG output format 
   	imagem.write( &blob );
-		imagem.write("testing.jpg");	
 	// Enviamos al GUI x Unix Domain Sockets	
    int size = blob.length() +2;
 	 char buffer[size];
 	 memcpy(buffer+2, blob.data(), blob.length());
 	 memcpy(buffer,&m_layer, 2);		
-   printf("buffer %s", buffer); 
-		write(socket_fd, buffer, size);
+   write(socket_fd, buffer, size);
 	}
 }
 
@@ -107,7 +106,8 @@ void pix2jpg :: obj_setupCallback(t_class *classPtr)
   class_addbang(classPtr, reinterpret_cast<t_method>(&pix2jpg::bangMessCallback));
   class_addmethod(classPtr, reinterpret_cast<t_method>(&pix2jpg::startMessCallback),gensym("start"), A_NULL);
   class_addmethod(classPtr, reinterpret_cast<t_method>(&pix2jpg::stopMessCallback),gensym("stop"),  A_NULL);
-	class_addmethod(classPtr, reinterpret_cast<t_method>(&pix2jpg::layerMessCallback),gensym("layer"), A_FLOAT,A_NULL);
+	class_addmethod(classPtr, reinterpret_cast<t_method>(&pix2jpg::layerimageMessCallback),gensym("layerimage"), A_FLOAT,A_NULL);
+	class_addmethod(classPtr, reinterpret_cast<t_method>(&pix2jpg::layernameMessCallback),gensym("layername"), A_GIMME,A_NULL);
 }
 void pix2jpg :: startMessCallback(void *data)
 {
@@ -121,8 +121,32 @@ void pix2jpg :: bangMessCallback(void *data)
 {
   GetMyClass(data)->m_banged=true;
 }
-void pix2jpg :: layerMessCallback (void *data, t_float f)
+void pix2jpg :: layerimageMessCallback (void *data, t_float f)
 {
 	GetMyClass(data)->m_layer=f;
 	printf("layer: %d", GetMyClass(data)->m_layer); 
 }
+void pix2jpg :: layernameMessCallback(void *data,  t_symbol *s, int argc, t_atom *argv)
+{
+ /*	 int n, length;
+	 t_symbol *c;  
+// check for correct number of arguments
+	n = atom_getint(argv++);
+  c = atom_getsymbol(argv++);
+  
+	length = 2 + sizeof(c);  
+ 	char *buffer;
+	post
+	memcpy(buffer+2, c, sizeof(c));
+	memcpy(buffer,&n, 2);		*/
+   t_binbuf *b = binbuf_new();
+   char *buf;
+   int length;
+ //  t_atom at;
+   binbuf_add(b, argc, argv);
+ //  SETSEMI(&at);
+ //  binbuf_add(b, 1, &at);
+   binbuf_gettext(b, &buf, &length);
+	write(socket_fd, buf, length);	
+}
+

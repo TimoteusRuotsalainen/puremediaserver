@@ -100,6 +100,7 @@ class GEM_EXPORT pix2jpg : public GemPixObj
       static void 	startMessCallback(void *data);
 		 	static void 	stopMessCallback(void *data);    
 			static void 	bangMessCallback(void *data);
-			static void layerMessCallback(void *data, t_float f); 
+			static void layerimageMessCallback(void *data, t_float f); 
+			void layernameMessCallback(void *data, t_symbol *s,int argc, t_atom *argv);
 };
 #endif	// for header file

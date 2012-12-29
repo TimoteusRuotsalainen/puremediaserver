@@ -57,10 +57,9 @@ MediaServer::MediaServer(QObject *parent)
   m_bufferLen = 0x00;
   m_buffer = NULL;
   m_pathmedia.clear();
+ // Inicio del TCP Server
   m_tcpServer = new QTcpServer(this);
   Q_CHECK_PTR(m_tcpServer);
-
- // Inicio del TCP Server
   if (!m_tcpServer)
       qWarning("error TCP Server no creado");
   if (!m_tcpServer->listen(QHostAddress::Any, LISTENTCPPORT))
@@ -71,13 +70,13 @@ MediaServer::MediaServer(QObject *parent)
          this, SLOT(newPeer()));
 
   // Iniciamos el timer de LSTA
-  n_timer = new QTimer(this);
-  Q_CHECK_PTR(n_timer);
-  n_timer->setInterval(TRANSMIT_INTERVAL_LSTA);
+//  n_timer = new QTimer(this);
+//  Q_CHECK_PTR(n_timer);
+//  n_timer->setInterval(TRANSMIT_INTERVAL_LSTA);
 
   // Iniciamos las conexiones
-  connect(n_timer, SIGNAL(timeout()),this, SLOT(transmitlsta()));
-  connect(this, SIGNAL(cinfread()), this, SLOT(cinfprocess()));
+//  connect(n_timer, SIGNAL(timeout()),this, SLOT(transmitlsta()));
+//  connect(this, SIGNAL(cinfread()), this, SLOT(cinfprocess()));
 }
 
 // Propiedades de clase

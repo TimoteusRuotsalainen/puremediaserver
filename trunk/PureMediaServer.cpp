@@ -159,7 +159,7 @@ PureMediaServer::PureMediaServer(QWidget *parent)
      // Start preview Timer
      m_preview = new QTimer(this);
      Q_CHECK_PTR(m_preview);
-     m_preview->start(100);
+     m_preview->start(250);
      connect(m_preview, SIGNAL(timeout()) ,this, SLOT(previewMaster()));
      // Load the configuration
      open();
@@ -863,9 +863,11 @@ void PureMediaServer::pdstart()
     }
     connect(pd, SIGNAL(readyReadStandardError()), this, SLOT(stdout()));
     // Conectamos a Pure Data y mandamos la configuración
-    m_pd_write_video->connectToHost(QHostAddress::LocalHost, PDPORTW);
-    if (m_pd_write_video->waitForConnected(10000)) {newconexion();}
-        else {qErrnoWarning("Socket not connected:");}
+//    m_pd_write_video->connectToHost(QHostAddress::LocalHost, PDPORTW);
+//    if (m_pd_write_video->waitForConnected(10000)) {newconexion();}
+//        else {qErrnoWarning("Socket not connected:");}
+    // Restart PD Video if crash
+    connect(pd, SIGNAL(finished(int)), this, SLOT(pdrestart()));
 }
 
 // Sacamos la salida de Pure Data en la terminal
@@ -914,25 +916,21 @@ void PureMediaServer::newmessage()
         newPeer();
         return;
     }
-    quint64 available = m_read_vid->bytesAvailable();
-    qDebug()<<"Bytes avalaible:"<<available;
     QByteArray byteArray;
-    byteArray.resize(available);
-    qDebug()<< "Byte capacity resize:"<< byteArray.capacity();
+    byteArray.resize(m_read_vid->bytesAvailable());
     byteArray = m_read_vid->readAll();
     if (byteArray == NULL)
     {
         return;
     }
-    int i = 2 + 9 + m_pathmedia.size();
-    QPixmap frame;
+    int i = 11 + m_pathmedia.size();
+    QPixmap frame1 , frame2, frame3;
+    qDebug() <<"Cooki received:"<<byteArray.at(0);
     switch (byteArray.at(0)) {
     case 30:
         ui.textEdit->appendPlainText("Loadbang received...");
         // Conectamos a Pure Data para escribir
         m_pd_write_video->connectToHost(QHostAddress::LocalHost, PDPORTW);
-        // Conectamos para reiniciar si PD crash
-        connect(pd, SIGNAL(finished(int)), this, SLOT(pdrestart()));
         // Mandamos Configuración
         if (m_pd_write_video->waitForConnected(3000)) {newconexion();}
     case 31:
@@ -940,68 +938,60 @@ void PureMediaServer::newmessage()
        ui.layer1->setText(byteArray);
        break;
     case 32:
- //       string.remove(0,i);
- //       string.chop(2);
- //       ui.layer2->setText(string);
+        byteArray.remove(0,i);
+        ui.layer2->setText(byteArray);
         break;
     case 33:
-//        string.remove(0,i);
-//        string.chop(2);
-//        ui.layer3->setText(string);
+      byteArray.remove(0,i);
+       ui.layer3->setText(byteArray);
         break;
     case 34:
-//        string.remove(0,i);
-//        string.chop(2);
-//        ui.layer4->setText(string);
+       byteArray.remove(0,i);
+        ui.layer4->setText(byteArray);
         break;
     case 35:
-//        string.remove(0,i);
-//        string.chop(2);
-//        ui.layer5->setText(string);
+        byteArray.remove(0,i);
+        ui.layer5->setText(byteArray);
         break;
     case 36:
-//        string.remove(0,i);
-//        string.chop(2);
-//        ui.layer6->setText(string);
+        byteArray.remove(0,i);
+        ui.layer6->setText(byteArray);
         break;
     case 37:
-//        string.remove(0,i);
-//        string.chop(2);
-//        ui.layer7->setText(string);
+        byteArray.remove(0,i);
+        ui.layer7->setText(byteArray);
         break;
     case 38:
-//        string.remove(0,i);
-//        string.chop(2);
-//        ui.layer8->setText(string);
+        byteArray.remove(0,i);
+        ui.layer8->setText(byteArray);
         break;
 
     case 11:
-        qDebug()<<"Layer 1 image received";
         byteArray.remove(0,2);
-        if (!frame.loadFromData((byteArray+2))) {
+        if (!frame1.loadFromData((byteArray))) {
             qDebug()<<"Layer 1 Convert byte Array to frame failed ";
         }
-        ui.layer1Preview->setPixmap(frame);
+        ui.layer1Preview->setPixmap(frame1);
         break;
 
     case 12:
-        qDebug()<<"Layer 2 image received";
         byteArray.remove(0,2);
-        if (!frame.loadFromData((byteArray+2))) {
+        if (!frame2.loadFromData((byteArray))) {
             qDebug()<<"Layer 2 Convert byte Array to frame failed ";
         }
-        ui.layer2Preview->setPixmap(frame);
+        ui.layer2Preview->setPixmap(frame2);
         break;
     case 13:
         byteArray.remove(0,2);
-        if (!frame.loadFromData((byteArray+2))) {
+        if (!frame3.loadFromData((byteArray))) {
             qDebug()<<"Layer 3 Convert byte Array to frame failed ";
         }
-        ui.layer3Preview->setPixmap(frame);
+        ui.layer3Preview->setPixmap(frame3);
         break;
-    case 14:
+  /*  case 14:
         byteArray.remove(0,2);
-        if (!frame.loadFromData((byteArray+2))) {
+        QPixmap frame4;
+        if (!frame4.loadFromData((byteArray+2))) {
             qDebug()<<"Layer 4 Convert byte Array to frame failed ";
         }
         ui.layer4Preview->setPixmap(frame);
@@ -1034,7 +1024,7 @@ void PureMediaServer::newmessage()
         }
         ui.layer8Preview->setPixmap(frame);
         break;
-
+*/
     default:
         qDebug()<<"Message received but can not identify the cooki";
         break;
@@ -1618,44 +1608,44 @@ void PureMediaServer::previewLayer1()
 
 void PureMediaServer::previewLayer2()
 {
-    QPixmap preview("layer200000.jpg");
-    ui.layer2Preview->setPixmap(preview);
+//    QPixmap preview("layer200000.jpg");
+//    ui.layer2Preview->setPixmap(preview);
 }
 
 void PureMediaServer::previewLayer3()
 {
-    QPixmap preview("layer300000.jpg");
-    ui.layer3Preview->setPixmap(preview);
+//    QPixmap preview("layer300000.jpg");
+//    ui.layer3Preview->setPixmap(preview);
 }
 
 void PureMediaServer::previewLayer4()
 {
-    QPixmap preview("layer400000.jpg");
-    ui.layer4Preview->setPixmap(preview);
+//    QPixmap preview("layer400000.jpg");
+//    ui.layer4Preview->setPixmap(preview);
 }
 
 void PureMediaServer::previewLayer5()
 {
-    QPixmap preview("layer500000.jpg");
-    ui.layer5Preview->setPixmap(preview);
+//    QPixmap preview("layer500000.jpg");
+//    ui.layer5Preview->setPixmap(preview);
 }
 
 void PureMediaServer::previewLayer6()
 {
-    QPixmap preview("layer600000.jpg");
-    ui.layer6Preview->setPixmap(preview);
+//    QPixmap preview("layer600000.jpg");
+//    ui.layer6Preview->setPixmap(preview);
 }
 
 void PureMediaServer::previewLayer7()
 {
-    QPixmap preview("layer700000.jpg");
-    ui.layer7Preview->setPixmap(preview);
+//    QPixmap preview("layer700000.jpg");
+//    ui.layer7Preview->setPixmap(preview);
 }
 
 void PureMediaServer::previewLayer8()
 {
-    QPixmap preview("layer800000.jpg");
-    ui.layer8Preview->setPixmap(preview);
+//    QPixmap preview("layer800000.jpg");
+//    ui.layer8Preview->setPixmap(preview);
 }
 
 void PureMediaServer::previewMaster()
