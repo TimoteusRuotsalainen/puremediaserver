@@ -33,11 +33,11 @@ puremediaserver@gmail.com
 - 4 capas
 
  * 0.0.4
-
+0
 - Añadidos efectos
 - 8 capas
 - Selección de encendido por capa
-- Añadido medidor de CPU
+- Añadido medidor de CPU0
 - Cambio de pdp_qt por pix_filmQT (se pierde la reproducción de sonido)
 - Se separan los parches de audio y de video
 
@@ -48,6 +48,6 @@ puremediaserver@gmail.com
 
 * 0.0.6
 - Audio en un proceso independiente. Reproducción de .oggs
-- Nuevos tipos de Alpha Blending. Gem compilado para ello hasta que la nueva versión de Gem incorpore las modificaciones. Nuevo canal DMX en la personalidad de video para el tipo de Alpha.
+- Nuevos tipos de Alpha Blending. Nuevo canal DMX en la personalidad de video para el tipo de Alpha.
 - Previews en el GUI.
 

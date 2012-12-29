@@ -10,7 +10,7 @@
 //
 ///////////////////////////////////////////
 
-#define LISTENTCPPORT 3000
+#define LISTENTCPPORT 4811
 #define LAYER_NUMBER 0x08
 #define TRANSMIT_INTERVAL_LSTA  1000
 #define NAME "PureMediaServer"
