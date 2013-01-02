@@ -407,9 +407,6 @@ void PureMediaServer::on_ChangePath_clicked()
     QString desc = tr("0000 0000 %1;").arg(file);
     if (ui.video->checkState())
     {
-        m_pd_write_video->connectToHost(QHostAddress::LocalHost, PDPORTW);
-        if (m_pd_write_video->waitForConnected(10000)) {newconexion();}
-            else {qErrnoWarning("Socket not connected:");}
         if (!sendPacket(desc.toAscii().constData(),desc.size()))
         {
             errorsending();
@@ -852,7 +849,7 @@ void PureMediaServer::pdstart()
     Q_CHECK_PTR(m_pd_write_video);
     connect(m_pd_write_video, SIGNAL(connected()),this, SLOT(newconexion()));
     // Arrancamos el proceso Pure Data
-    pd->start("pd -lib Gem pms-video.pd");
+    pd->start("pd -lib Gem -d 4 -stderr pms-video.pd");
     if (pd->waitForStarted(3000)){
         ui.textEdit->appendPlainText("Video Engine started.");
     }
@@ -861,11 +858,8 @@ void PureMediaServer::pdstart()
         ui.textEdit->appendPlainText("Video Engine can not start!");
         return;
     }
+    // Connect the output fropm PD Video to stdout slot to process it
     connect(pd, SIGNAL(readyReadStandardError()), this, SLOT(stdout()));
-    // Conectamos a Pure Data y mandamos la configuración
-//    m_pd_write_video->connectToHost(QHostAddress::LocalHost, PDPORTW);
-//    if (m_pd_write_video->waitForConnected(10000)) {newconexion();}
-//        else {qErrnoWarning("Socket not connected:");}
     // Restart PD Video if crash
     connect(pd, SIGNAL(finished(int)), this, SLOT(pdrestart()));
 }
@@ -873,12 +867,78 @@ void PureMediaServer::pdstart()
 // Sacamos la salida de Pure Data en la terminal
 
 void PureMediaServer::stdout() {
-    QString out = pd->readAllStandardError();
-    out.chop(1);
+    QByteArray out = pd->readAllStandardError();
     if (!out.isEmpty())
     {
         qDebug() << out;
-//        ui.textEdit->appendPlainText(out);
+    }
+    if ((out.indexOf("togui",0) != -1)&& (out.size()>6))
+    {
+        switch (out.at(7)) {
+        case '0':
+            qDebug()<<"Loadbang Video";
+            newconexion();
+            break;
+        case '1':
+            qDebug()<<"layer 1 arrives";
+            out.remove(1,0);
+            qDebug() << out;
+            ui.layer1->setText(out);
+            break;
+        case '2':
+            qDebug()<<"layer 2 arrives";
+            out.remove(1,0);
+            qDebug() << out;
+            ui.layer2->setText(out);
+            break;
+        case '3':
+            qDebug()<<"layer 3 arrives";
+            out.remove(1,0);
+            qDebug() << out;
+            ui.layer3->setText(out);
+            break;
+        case '4':
+            qDebug()<<"layer 4 arrives";
+            out.remove(1,0);
+            qDebug() << out;
+            ui.layer4->setText(out);
+            break;
+        case '5':
+            qDebug()<<"layer 5 arrives";
+            out.remove(1,0);
+            qDebug() << out;
+            ui.layer5->setText(out);
+            break;
+        case '6':
+            qDebug()<<"layer 6 arrives";
+            out.remove(1,0);
+            qDebug() << out;
+            ui.layer6->setText(out);
+            break;
+        case '7':
+            qDebug()<<"layer 7 arrives";
+            out.remove(1,0);
+            qDebug() << out;
+            ui.layer7->setText(out);
+            break;
+        case '8':
+            qDebug()<<"layer 8 arrives";
+            out.remove(1,0);
+            qDebug() << out;
+            ui.layer8->setText(out);
+            break;
+        default:
+            qDebug()<<"Invalid cooki received";
+            break;
+        }
+    }
+    if (out.indexOf("ola2pd:Data Loss",0) != -1)
+    {
+        ui.textEdit->appendPlainText("Can not read DMX data. Check DMX is arriving at the machine in localhost:9090");
+    }
+    if (out.indexOf("pd watchdog",0) != -1)
+    {
+        ui.textEdit->appendPlainText("PD watchdog detected. Try restaring it");
     }
 }
 
@@ -924,107 +984,72 @@ void PureMediaServer::newmessage()
         return;
     }
     int i = 11 + m_pathmedia.size();
-    QPixmap frame1 , frame2, frame3;
-    qDebug() <<"Cooki received:"<<byteArray.at(0);
+    QPixmap frame[8];
     switch (byteArray.at(0)) {
-    case 30:
-        ui.textEdit->appendPlainText("Loadbang received...");
-        // Conectamos a Pure Data para escribir
-        m_pd_write_video->connectToHost(QHostAddress::LocalHost, PDPORTW);
-        // Mandamos Configuración
-        if (m_pd_write_video->waitForConnected(3000)) {newconexion();}
-    case 31:
-       byteArray.remove(0,i);
-       ui.layer1->setText(byteArray);
-       break;
-    case 32:
-        byteArray.remove(0,i);
-        ui.layer2->setText(byteArray);
-        break;
-    case 33:
-      byteArray.remove(0,i);
-       ui.layer3->setText(byteArray);
-        break;
-    case 34:
-       byteArray.remove(0,i);
-        ui.layer4->setText(byteArray);
-        break;
-    case 35:
-        byteArray.remove(0,i);
-        ui.layer5->setText(byteArray);
-        break;
-    case 36:
-        byteArray.remove(0,i);
-        ui.layer6->setText(byteArray);
-        break;
-    case 37:
-        byteArray.remove(0,i);
-        ui.layer7->setText(byteArray);
-        break;
-    case 38:
-        byteArray.remove(0,i);
-        ui.layer8->setText(byteArray);
-        break;
-
     case 11:
         byteArray.remove(0,2);
-        if (!frame1.loadFromData((byteArray))) {
+        if (!frame[1].loadFromData((byteArray))) {
             qDebug()<<"Layer 1 Convert byte Array to frame failed ";
         }
-        ui.layer1Preview->setPixmap(frame1);
+        ui.layer1Preview->setPixmap(frame[1]);
         break;
 
     case 12:
         byteArray.remove(0,2);
-        if (!frame2.loadFromData((byteArray))) {
+        if (!frame[2].loadFromData((byteArray))) {
             qDebug()<<"Layer 2 Convert byte Array to frame failed ";
         }
-        ui.layer2Preview->setPixmap(frame2);
+        ui.layer2Preview->setPixmap(frame[2]);
         break;
     case 13:
         byteArray.remove(0,2);
-        if (!frame3.loadFromData((byteArray))) {
+        if (!frame[3].loadFromData((byteArray))) {
             qDebug()<<"Layer 3 Convert byte Array to frame failed ";
+            break;
         }
-        ui.layer3Preview->setPixmap(frame3);
+        ui.layer3Preview->setPixmap(frame[3]);
         break;
-  /*  case 14:
+    case 14:
         byteArray.remove(0,2);
-        QPixmap frame4;
-        if (!frame4.loadFromData((byteArray+2))) {
+        if (!frame[4].loadFromData(byteArray)) {
             qDebug()<<"Layer 4 Convert byte Array to frame failed ";
+            break;
         }
-        ui.layer4Preview->setPixmap(frame);
+        ui.layer4Preview->setPixmap(frame[4]);
         break;
     case 15:
         byteArray.remove(0,2);
-        if (!frame.loadFromData((byteArray+2))) {
-            qDebug()<<"Layer 5 Convert byte Array to frame failed ";
+        if (!frame[5].loadFromData(byteArray)) {
+                qDebug()<<"Layer 5 Convert byte Array to frame failed ";
+                break;
         }
-        ui.layer5Preview->setPixmap(frame);
+                ui.layer5Preview->setPixmap(frame[5]);
         break;
     case 16:
         byteArray.remove(0,2);
-        if (!frame.loadFromData((byteArray+2))) {
-            qDebug()<<"Layer 6 Convert byte Array to frame failed ";
+        if (!frame[6].loadFromData(byteArray)) {
+                qDebug()<<"Layer 5 Convert byte Array to frame failed ";
+                break;
         }
-        ui.layer6Preview->setPixmap(frame);
+                ui.layer6Preview->setPixmap(frame[6]);
         break;
     case 17:
         byteArray.remove(0,2);
-        if (!frame.loadFromData((byteArray+2))) {
-            qDebug()<<"Layer 7 Convert byte Array to frame failed ";
+        if (!frame[7].loadFromData(byteArray)) {
+                qDebug()<<"Layer 5 Convert byte Array to frame failed ";
+                break;
         }
-        ui.layer7Preview->setPixmap(frame);
+                ui.layer7Preview->setPixmap(frame[7]);
         break;
     case 18:
         byteArray.remove(0,2);
-        if (!frame.loadFromData((byteArray+2))) {
-            qDebug()<<"Layer 8 Convert byte Array to frame failed ";
+        if (!frame[8].loadFromData(byteArray)) {
+                qDebug()<<"Layer 5 Convert byte Array to frame failed ";
+                break;
         }
-        ui.layer8Preview->setPixmap(frame);
+                ui.layer8Preview->setPixmap(frame[8]);
         break;
-*/
+
     default:
         qDebug()<<"Message received but can not identify the cooki";
         break;
@@ -1034,6 +1059,9 @@ void PureMediaServer::newmessage()
 // Send the configuration to PD
 void PureMediaServer::newconexion()
 {
+    qDebug() <<"Sending conf to pd video";
+    // Iniciamos el socket
+    m_pd_write_video->connectToHost(QHostAddress::LocalHost, PDPORTW);
     if (!(m_pd_write_video->isOpen())){
         qErrnoWarning("Can not send configuration to pd-video!:");
         return;
