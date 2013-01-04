@@ -1,7 +1,7 @@
 /*
    Pure Media Server - A Media Server Sotfware for stage and performing
-   Copyright (C) 2012  Santiago Noreña
-   belfegor <AT> gmail <DOT> com
+
+   Copyright (C) 2012-2013  Santiago Noreña puremediaserver@gmail.com
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -21,7 +21,6 @@
 #include "PureMediaServer.h"
 #include "CITPDefines.h"
 #include "MSEXDefines.h"
-#include "citp-lib.h"
 #include "MediaServer.h"
 
 #include <QtDebug>
@@ -132,46 +131,23 @@ PureMediaServer::PureMediaServer(QWidget *parent)
          qErrnoWarning("Can not listen on unix local server");
      }
      connect(m_server_vid, SIGNAL(newConnection()),this, SLOT(newPeer()));
-//     m_read_vid = new QLocalSocket(this);
-//     Q_CHECK_PTR(m_read_vid);
-/*
-     int fd,len;
-     if ((fd = socket(AF_UNIX, SOCK_STREAM, 0)) == -1) {
-         perror("socket");
-         exit(1);
-     }
-     struct sockaddr_un addr;
-     memset(&addr, 0, sizeof(addr));
-     addr.sun_family = AF_UNIX;
-     strncpy(addr.sun_path, SOCKET, sizeof(addr.sun_path)-1);
-     unlink(addr.sun_path);
-     len = srtlen(addr.sun_path) + sizeof(addr.sun_family);
-     if (bind(fd, (struct sockaddr*)&addr, sizeof(addr))) {
-         perror("bind");
-         exit(1);
-     }
-     if (listen(s,10) == -1) {
-         perror("listen");
-         exit(1);
-     }
-*/
-
      // Start preview Timer
      m_preview = new QTimer(this);
      Q_CHECK_PTR(m_preview);
-     m_preview->start(250);
+     m_preview->start(500);
      connect(m_preview, SIGNAL(timeout()) ,this, SLOT(previewMaster()));
-     // Load the configuration
-     open();
+     // The mediaserver object: CITP/MSEx
+     m_mediaserver = new MediaServer(this);
+     Q_CHECK_PTR(m_mediaserver);
      // Iniciamos olad
-    ola = new QProcess(this);
-    olastart();
-    // The mediaserver object: CITP/MSEx
-    m_mediaserver = new MediaServer(this);
-    Q_CHECK_PTR(m_mediaserver);
-    // Conectamos los menus
+     ola = new QProcess(this);
+     olastart();
+     // Conectamos los menus
     connect(ui.actionOpen_conf, SIGNAL(triggered()), this, SLOT(open()));
     connect(ui.actionSave_conf, SIGNAL(triggered()), this, SLOT(save()));
+    // Load the configuration
+    open();
+    connect(m_mediaserver,SIGNAL(frameRequest()), this, SLOT(sendFrame()));
 }
 
 // Destructor
@@ -450,9 +426,9 @@ void PureMediaServer::on_updateButton_clicked()
          return;
      }
 
+
      // Creamos el objeto CITP y el peer information socket
-         m_citp = new CITPLib(this);
-         Q_CHECK_PTR(m_citp);
+
          quint32 ipadd = 0x00000000;
          quint32 i;
          i = ui.ipAddress1->value();
@@ -463,11 +439,8 @@ void PureMediaServer::on_updateButton_clicked()
          ipadd = ipadd + (i * 0x100);
          i = ui.ipAddress4->value();
          ipadd = ipadd + i;
-         if (!m_citp->createPeerInformationSocket(NAME, STATE, ipadd))
-           {
-           qDebug()<<("CreatePeerInformationSocket failed");
-           ui.textEdit->appendPlainText("CITP/MSEx error. No interface up?");
-            }
+     m_mediaserver->startCitp(ipadd);
+
 }
 
 // Window Configuration
@@ -498,7 +471,6 @@ void PureMediaServer::on_winpositionx_valueChanged()
             {
              errorsending();
             }
-
 }
 
 void PureMediaServer::on_winpositiony_valueChanged()
@@ -509,7 +481,6 @@ void PureMediaServer::on_winpositiony_valueChanged()
             {
              errorsending();
             }
-
 }
 
 void PureMediaServer::on_winsizex_valueChanged()
@@ -520,7 +491,6 @@ void PureMediaServer::on_winsizex_valueChanged()
             {
              errorsending();
             }
-
 }
 
 void PureMediaServer::on_winsizey_valueChanged()
@@ -544,13 +514,11 @@ void PureMediaServer::on_layer1Check_stateChanged (int state)
                 {
                  errorsending();
                 }
- //       disconnect(m_preview, SIGNAL(timeout()) ,this, SLOT(previewLayer1()));
-        return;
+         return;
     }
     if ((state == 2))
     {
         on_layer1Add_valueChanged();
-//        connect(m_preview, SIGNAL(timeout()) ,this, SLOT(previewLayer1()));
     }
 }
 
@@ -575,13 +543,11 @@ void PureMediaServer::on_layer2Check_stateChanged (int state)
                 {
                  errorsending();
                 }
-        disconnect(m_preview, SIGNAL(timeout()) ,this, SLOT(previewLayer2()));
         return;
     }
     if ((state == 2))
     {
         on_layer2Add_valueChanged();
-        connect(m_preview, SIGNAL(timeout()) ,this, SLOT(previewLayer2()));
     }
 }
 
@@ -606,12 +572,10 @@ void PureMediaServer::on_layer3Check_stateChanged (int state)
                 {
                  errorsending();
                 }
-        disconnect(m_preview, SIGNAL(timeout()) ,this, SLOT(previewLayer3()));
         return;
     }
     if ((state == 2))
     {
-        connect(m_preview, SIGNAL(timeout()) ,this, SLOT(previewLayer3()));
         on_layer3Add_valueChanged();
     }
 }
@@ -637,12 +601,10 @@ void PureMediaServer::on_layer4Check_stateChanged (int state)
                 {
                  errorsending();
                 }
-        disconnect(m_preview, SIGNAL(timeout()) ,this, SLOT(previewLayer4()));
         return;
     }
     if ((state == 2))
     {
-        connect(m_preview, SIGNAL(timeout()) ,this, SLOT(previewLayer4()));
         on_layer4Add_valueChanged();
     }
 }
@@ -668,12 +630,10 @@ void PureMediaServer::on_layer5Check_stateChanged (int state)
                 {
                  errorsending();
                 }
-        disconnect(m_preview, SIGNAL(timeout()) ,this, SLOT(previewLayer5()));
         return;
     }
     if ((state == 2))
     {
-        connect(m_preview, SIGNAL(timeout()) ,this, SLOT(previewLayer5()));
         on_layer5Add_valueChanged();
     }
 }
@@ -699,12 +659,10 @@ void PureMediaServer::on_layer6Check_stateChanged (int state)
                 {
                  errorsending();
                 }
-        disconnect(m_preview, SIGNAL(timeout()) ,this, SLOT(previewLayer6()));
         return;
     }
     if ((state == 2))
     {
-        connect(m_preview, SIGNAL(timeout()) ,this, SLOT(previewLayer6()));
         on_layer6Add_valueChanged();
     }
 }
@@ -730,12 +688,10 @@ void PureMediaServer::on_layer7Check_stateChanged (int state)
                 {
                  errorsending();
                 }
-        disconnect(m_preview, SIGNAL(timeout()) ,this, SLOT(previewLayer7()));
         return;
     }
     if ((state == 2))
     {
-        connect(m_preview, SIGNAL(timeout()) ,this, SLOT(previewLayer7()));
         on_layer7Add_valueChanged();
     }
 }
@@ -761,12 +717,10 @@ void PureMediaServer::on_layer8Check_stateChanged (int state)
                 {
                  errorsending();
                 }
-        disconnect(m_preview, SIGNAL(timeout()) ,this, SLOT(previewLayer8()));
         return;
     }
     if ((state == 2))
     {
-        connect(m_preview, SIGNAL(timeout()) ,this, SLOT(previewLayer8()));
         on_layer8Add_valueChanged();
     }
 }
@@ -868,79 +822,85 @@ void PureMediaServer::pdstart()
 
 void PureMediaServer::stdout() {
     QByteArray out = pd->readAllStandardError();
-    if (!out.isEmpty())
-    {
-        qDebug() << out;
-    }
-    if ((out.indexOf("togui",0) != -1)&& (out.size()>6))
-    {
-        switch (out.at(7)) {
-        case '0':
-            qDebug()<<"Loadbang Video";
-            newconexion();
-            break;
-        case '1':
-            qDebug()<<"layer 1 arrives";
-            out.remove(1,0);
-            qDebug() << out;
-            ui.layer1->setText(out);
-            break;
-        case '2':
-            qDebug()<<"layer 2 arrives";
-            out.remove(1,0);
-            qDebug() << out;
-            ui.layer2->setText(out);
-            break;
-        case '3':
-            qDebug()<<"layer 3 arrives";
-            out.remove(1,0);
-            qDebug() << out;
-            ui.layer3->setText(out);
-            break;
-        case '4':
-            qDebug()<<"layer 4 arrives";
-            out.remove(1,0);
-            qDebug() << out;
-            ui.layer4->setText(out);
-            break;
-        case '5':
-            qDebug()<<"layer 5 arrives";
-            out.remove(1,0);
-            qDebug() << out;
-            ui.layer5->setText(out);
-            break;
-        case '6':
-            qDebug()<<"layer 6 arrives";
-            out.remove(1,0);
-            qDebug() << out;
-            ui.layer6->setText(out);
-            break;
-        case '7':
-            qDebug()<<"layer 7 arrives";
-            out.remove(1,0);
-            qDebug() << out;
-            ui.layer7->setText(out);
-            break;
-        case '8':
-            qDebug()<<"layer 8 arrives";
-            out.remove(1,0);
-            qDebug() << out;
-            ui.layer8->setText(out);
-            break;
-        default:
-            qDebug()<<"Invalid cooki received";
-            break;
-        }
-    }
+    if (out.isEmpty()) {return;}
     if (out.indexOf("ola2pd:Data Loss",0) != -1)
     {
-        ui.textEdit->appendPlainText("Can not read DMX data. Check DMX is arriving at the machine in localhost:9090");
+        ui.textEdit->appendPlainText("Can not read DMX data.");
     }
     if (out.indexOf("pd watchdog",0) != -1)
     {
-        ui.textEdit->appendPlainText("PD watchdog detected. Try restaring it");
+        ui.textEdit->appendPlainText("PD video watchdog detected.");
+    }
+    if ((out.indexOf("togui",0) != -1) && (out.size() > 7))
+    {
+        int i = m_pathmedia.size() + 16;
+        switch (out.at(7)) {
+        case '0':
+            qDebug()<<"Loadbang Video";
+            ui.textEdit->appendPlainText("LoadBang Video received.");
+            newconexion();
+            break;
+        case '1':
+            out.chop(1);
+            out.remove(0, i);
+            out.prepend("Layer 1 playing:");
+            ui.textEdit->appendPlainText(out);
+            break;
+        case '2':
+            out.chop(1);
+            out.remove(0, i);
+            out.prepend("Layer 2 playing:");
+            ui.textEdit->appendPlainText(out);
+            break;
+        case '3':
+            out.chop(1);
+            out.remove(0,i);
+            out.prepend("Layer 3 playing:");
+            ui.textEdit->appendPlainText(out);
+            break;
+        case '4':
+            out.chop(1);
+            out.remove(0,i);
+            out.prepend("Layer 4 playing:");
+            ui.textEdit->appendPlainText(out);
+            break;
+        case '5':
+            out.chop(1);
+            out.remove(0,i);
+            out.prepend("Layer 5 playing:");
+            ui.textEdit->appendPlainText(out);
+            break;
+        case '6':
+            out.chop(1);
+            out.remove(0,i);
+            out.prepend("Layer 6 playing:");
+            ui.textEdit->appendPlainText(out);
+            break;
+        case '7':
+            out.chop(1);
+            out.remove(0,i);
+            out.prepend("Layer 7 playing:");
+            ui.textEdit->appendPlainText(out);
+            break;
+        case '8':
+            out.chop(1);
+            out.remove(0,i);
+            out.prepend("Layer 8 playing:");
+            ui.textEdit->appendPlainText(out);
+            break;
+        default:
+            qDebug()<<"stdout:Invalid cooki received"<<out;
+            break;
+        }
+    return;
+    }
+    if (!out.isEmpty())
+    {
+        out.chop(2); // quitamos varios retornos que se cuelan
+        qDebug() << out;
     }
 }
+
 
 // Restart the Pure Data process if crash. Connected wit signal finished of QProcess
 
@@ -983,75 +943,73 @@ void PureMediaServer::newmessage()
     {
         return;
     }
-    int i = 11 + m_pathmedia.size();
-    QPixmap frame[8];
+    QPixmap frame;
     switch (byteArray.at(0)) {
     case 11:
         byteArray.remove(0,2);
-        if (!frame[1].loadFromData((byteArray))) {
+        if (!frame.loadFromData((byteArray))) {
             qDebug()<<"Layer 1 Convert byte Array to frame failed ";
         }
-        ui.layer1Preview->setPixmap(frame[1]);
+        ui.layer1Preview->setPixmap(frame);
         break;
 
     case 12:
         byteArray.remove(0,2);
-        if (!frame[2].loadFromData((byteArray))) {
+        if (!frame.loadFromData((byteArray))) {
             qDebug()<<"Layer 2 Convert byte Array to frame failed ";
         }
-        ui.layer2Preview->setPixmap(frame[2]);
+        ui.layer2Preview->setPixmap(frame);
         break;
     case 13:
         byteArray.remove(0,2);
-        if (!frame[3].loadFromData((byteArray))) {
+        if (!frame.loadFromData((byteArray))) {
             qDebug()<<"Layer 3 Convert byte Array to frame failed ";
             break;
         }
-        ui.layer3Preview->setPixmap(frame[3]);
+        ui.layer3Preview->setPixmap(frame);
         break;
     case 14:
         byteArray.remove(0,2);
-        if (!frame[4].loadFromData(byteArray)) {
+        if (!frame.loadFromData(byteArray)) {
             qDebug()<<"Layer 4 Convert byte Array to frame failed ";
             break;
         }
-        ui.layer4Preview->setPixmap(frame[4]);
+        ui.layer4Preview->setPixmap(frame);
         break;
     case 15:
         byteArray.remove(0,2);
-        if (!frame[5].loadFromData(byteArray)) {
+        if (!frame.loadFromData(byteArray)) {
                 qDebug()<<"Layer 5 Convert byte Array to frame failed ";
                 break;
         }
-                ui.layer5Preview->setPixmap(frame[5]);
+        ui.layer5Preview->setPixmap(frame);
         break;
     case 16:
         byteArray.remove(0,2);
-        if (!frame[6].loadFromData(byteArray)) {
-                qDebug()<<"Layer 5 Convert byte Array to frame failed ";
+        if (!frame.loadFromData(byteArray)) {
+                qDebug()<<"Layer 6 Convert byte Array to frame failed ";
                 break;
         }
-                ui.layer6Preview->setPixmap(frame[6]);
+                ui.layer6Preview->setPixmap(frame);
         break;
     case 17:
         byteArray.remove(0,2);
-        if (!frame[7].loadFromData(byteArray)) {
-                qDebug()<<"Layer 5 Convert byte Array to frame failed ";
+        if (!frame.loadFromData(byteArray)) {
+                qDebug()<<"Layer 7 Convert byte Array to frame failed ";
                 break;
         }
-                ui.layer7Preview->setPixmap(frame[7]);
+        ui.layer7Preview->setPixmap(frame);
         break;
     case 18:
         byteArray.remove(0,2);
-        if (!frame[8].loadFromData(byteArray)) {
-                qDebug()<<"Layer 5 Convert byte Array to frame failed ";
+        if (!frame.loadFromData(byteArray)) {
+                qDebug()<<"Layer 8 Convert byte Array to frame failed ";
                 break;
         }
-                ui.layer8Preview->setPixmap(frame[8]);
+        ui.layer8Preview->setPixmap(frame);
         break;
-
     default:
-        qDebug()<<"Message received but can not identify the cooki";
+        qDebug()<<"newmessage: Message received but can not identify the cooki";
         break;
     }
 }
@@ -1059,19 +1017,21 @@ void PureMediaServer::newmessage()
 // Send the configuration to PD
 void PureMediaServer::newconexion()
 {
-    qDebug() <<"Sending conf to pd video";
     // Iniciamos el socket
     m_pd_write_video->connectToHost(QHostAddress::LocalHost, PDPORTW);
+    m_pd_write_video->waitForConnected(300000);
     if (!(m_pd_write_video->isOpen())){
-        qErrnoWarning("Can not send configuration to pd-video!:");
+        qErrnoWarning("newconexion:pd write socket not open!:");
         return;
      }
+    //Mandamos el path
     QString desc = tr("0000 0000 %1;").arg(m_pathmedia);
     if (!sendPacket(desc.toAscii().constData(),desc.size()))
     {
-      errorsending();
+      ui.textEdit->appendPlainText("newconexion: Can not send the path to PD Video");
       return;
     }
+    // send the layer adress
     on_layer1Check_stateChanged (ui.layer1Check->checkState());
     on_layer2Check_stateChanged (ui.layer2Check->checkState());
     on_layer3Check_stateChanged (ui.layer3Check->checkState());
@@ -1080,7 +1040,9 @@ void PureMediaServer::newconexion()
     on_layer6Check_stateChanged (ui.layer6Check->checkState());
     on_layer7Check_stateChanged (ui.layer7Check->checkState());
     on_layer8Check_stateChanged (ui.layer8Check->checkState());
+    // send the dmx on/off
     on_readDMX_stateChanged(ui.readDMX->checkState());
+    // send the windows info
     on_winpositionx_valueChanged();
     on_winpositiony_valueChanged();
     on_winsizex_valueChanged();
@@ -1093,17 +1055,17 @@ void PureMediaServer::newconexion()
 bool PureMediaServer::sendPacket(const char *buffer, int bufferLen)
 {
  if (m_pd_write_video == NULL) {
-     qErrnoWarning("Socket not initialized:");
+     qErrnoWarning("sendPacket:Socket not initialized:");
      return false;
  }
  if (QAbstractSocket::ConnectedState != m_pd_write_video->state())
  {
-     qErrnoWarning("Socket not conected:");
+     qErrnoWarning("sendPacket:Socket not conected:");
      return false;
  }
  if (bufferLen != m_pd_write_video->write((const char*)buffer, bufferLen))
  {
-     qErrnoWarning("Can not write to socket::");
+     qErrnoWarning("sendPacket:Can not write to socket::");
      return false;
  }
  return true;
@@ -1114,9 +1076,8 @@ bool PureMediaServer::sendPacket(const char *buffer, int bufferLen)
 void PureMediaServer::errorsending() {
     if (ui.video->checkState())
     {
-    qErrnoWarning("Can not talk to Pure Data Video!");
-    qDebug() << "Can not talk to Pure Data Video!";
-    ui.textEdit->appendPlainText("Can not send packets to PD Video");
+    qErrnoWarning("errorsending: Can not talk to Pure Data Video!");
+    ui.textEdit->appendPlainText("errorsending: Can not send packets to PD Video");
     }
 }
 
@@ -1628,56 +1589,67 @@ void PureMediaServer::errorsending_audio() {
 //
 ///////////////////////////////////////////////////////////////////
 
-void PureMediaServer::previewLayer1()
-{
-//    QPixmap preview("layer100000.jpg");
-//    ui.layer1Preview->setPixmap(preview);
-}
-
-void PureMediaServer::previewLayer2()
-{
-//    QPixmap preview("layer200000.jpg");
-//    ui.layer2Preview->setPixmap(preview);
-}
-
-void PureMediaServer::previewLayer3()
-{
-//    QPixmap preview("layer300000.jpg");
-//    ui.layer3Preview->setPixmap(preview);
-}
-
-void PureMediaServer::previewLayer4()
-{
-//    QPixmap preview("layer400000.jpg");
-//    ui.layer4Preview->setPixmap(preview);
-}
-
-void PureMediaServer::previewLayer5()
-{
-//    QPixmap preview("layer500000.jpg");
-//    ui.layer5Preview->setPixmap(preview);
-}
-
-void PureMediaServer::previewLayer6()
-{
-//    QPixmap preview("layer600000.jpg");
-//    ui.layer6Preview->setPixmap(preview);
-}
-
-void PureMediaServer::previewLayer7()
-{
-//    QPixmap preview("layer700000.jpg");
-//    ui.layer7Preview->setPixmap(preview);
-}
-
-void PureMediaServer::previewLayer8()
-{
-//    QPixmap preview("layer800000.jpg");
-//    ui.layer8Preview->setPixmap(preview);
-}
-
 void PureMediaServer::previewMaster()
 {
     QPixmap preview = QPixmap::grabWindow(QApplication::desktop()->winId(), ui.winpositionx->value() , ui.winpositiony->value(),ui.winsizex->value(),ui.winsizey->value());
     ui.masterPreview->setPixmap(preview);
+}
+
+void PureMediaServer::sendFrame()
+{
+    m_mediaserver->n_timer->stop();
+    QPixmap frame = QPixmap::grabWindow(QApplication::desktop()->winId(), ui.winpositionx->value() , ui.winpositiony->value(),ui.winsizex->value(),ui.winsizey->value());
+    if (!frame) {
+        qDebug()<<"sendFrame: Can not take frame";
+        return;
+    }
+    QImage image = QImage(frame.toImage());
+    if (!image.byteCount()) {
+        qDebug()<<"sendFrame: Can not convert screen capture to image";
+        return;
+    }
+    image = image.scaledToWidth(88);
+    image = image.convertToFormat(QImage::Format_RGB888);
+    int bufferLen = image.byteCount();
+//    const char * buffer = PacketCreator::createFrame(image3.bits(), bufferLen);
+    int bufferLenTot = sizeof(struct CITP_MSEX_10_StFr ) + bufferLen;
+    uchar * buffer = new uchar[bufferLenTot];
+    memset(buffer, 0, bufferLenTot);
+    CITP_MSEX_10_StFr *packet = (CITP_MSEX_10_StFr *)buffer;
+    // CITP header
+    packet->CITPMSEXHeader.CITPHeader.Cookie = COOKIE_CITP;
+    packet->CITPMSEXHeader.CITPHeader.VersionMajor = 0x01;
+    packet->CITPMSEXHeader.CITPHeader.VersionMinor = 0x00;
+    packet->CITPMSEXHeader.CITPHeader.Reserved[0] = 0x00;
+    packet->CITPMSEXHeader.CITPHeader.Reserved[1] = 0x00;
+    packet->CITPMSEXHeader.CITPHeader.MessageSize = bufferLenTot;
+    packet->CITPMSEXHeader.CITPHeader.MessagePartCount = 0x01;
+    packet->CITPMSEXHeader.CITPHeader.MessagePart = 0x00; // XXX - doc says 0-based?
+    packet->CITPMSEXHeader.CITPHeader.ContentType = COOKIE_MSEX;
+    // MSEX header
+    packet->CITPMSEXHeader.ContentType = COOKIE_MSEX_STFR;
+    packet->CITPMSEXHeader.VersionMajor = 0x01;
+    packet->CITPMSEXHeader.VersionMinor = 0x00;
+    //STFR Content
+    packet->FrameBufferSize = bufferLen;
+    packet->FrameFormat = 943867730;
+    packet->FrameHeight = 64;
+    packet->FrameWidth = 88;
+    packet->SourceIdentifier = 0x0001;
+    // Copiamos los datos del thumbnail
+    int offset = sizeof(struct CITP_MSEX_10_StFr);
+    memcpy((buffer+offset), image.bits(), bufferLen);
+    if (!buffer)
+    {
+      qDebug() << "sendFrame:create Frame failed";
+      return;
+    }
+    // Mandamos el paquete
+    if (!m_mediaserver->sendPacket(buffer, bufferLenTot))
+        {
+        qDebug() << "sendFrame: transmitFrame failed";
+        return;
+        }
+    delete buffer;
+    m_mediaserver->n_timer->start();
 }

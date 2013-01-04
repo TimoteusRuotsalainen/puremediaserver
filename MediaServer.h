@@ -1,3 +1,24 @@
+/*
+   Pure Media Server - A Media Server Sotfware for stage and performing
+   Copyright (C) 2012-2013  Santiago Noreña
+   belfegor <AT> gmail <DOT> com
+
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+/* This class do all the MSEX work */
+
 #ifndef MEDIASERVER_H
 #define MEDIASERVER_H
 
@@ -10,7 +31,7 @@ class QTimer;
 class QTcpSocket;
 class QTcpServer;
 class QDir;
-class pdInterface;
+class CITPLib;
 
 class MediaServer : public QObject
 {
@@ -22,21 +43,22 @@ public:
     virtual QString peerName() const;
     virtual QString peerState() const;
     virtual QString peerHost() const;
-    virtual quint16 peerListeningPort() const;
+    virtual quint16 peerListeningPort() const;   void previewLayer1();
     bool CreateMediaServerSocket();
     bool updatemedia();
     QList<LayerStatus> m_layers;
     QList<MediaLibrary> m_media;
+    virtual void setpath(QString path); // path to media dir
+    void startCitp(quint32 ipadd); // Start the Peer Informatio Socket
 
-    /*void setpath(QString path);
-    void setpathu(const char *buffer);*/
-
-    virtual void setpath(QString path);
+    QTimer *n_timer;
+    bool sendPacket(const unsigned char *buffer, int bufferLen);
 
 protected:
 
+    CITPLib *m_citp;    // CITP Peer. PLOc and frame transmit
     QString m_pathmedia;
-    QTimer *n_timer;
+
     unsigned char * m_buffer;
     int m_bufferLen;
     QString m_peerState;
@@ -46,12 +68,10 @@ protected:
     QTcpServer *m_tcpServer;
     QTcpSocket *m_tcpSocket;
 
-
-    bool sendPacket(const unsigned char *buffer, int bufferLen);
-
+    bool sendPacket(const char *buffer, int bufferLen);
     bool sendNACK(quint32 header);
 
-    // Parseo de paquetes MSEX
+    // Procesado de paquetes MSEX
     void parsePacket(const QByteArray &byteArray);
     void parsePINFPacket(const QByteArray &byteArray);
     void parseMSEXPacket(const QByteArray &bytearray);
@@ -60,9 +80,9 @@ protected:
     void parseGELIPacket(const QByteArray &byteArray);
     void parseGEINPacket(const QByteArray &byteArray);
     void parseGLEIPacket(const QByteArray &byteArray);
-    void parseGELTPacket(const QByteArray &byteArray);
+    void parseGELTPacket();
     void parseGETHPacket(const QByteArray &byteArray);
-    void parseGVSRPacket(const QByteArray &byteArray);
+    void parseGVSRPacket();
     void parseGELNPacket(const QByteArray &byteArray);
     void parseRQSTPacket(const QByteArray &byteArray);
 
@@ -74,27 +94,15 @@ public slots:
 
 protected slots:
 
-    bool cinfprocess();
     void handleReadyRead();
 
 private slots:
 
-    bool transmitlsta();
     bool newPeer();
+    void sendFrame(); // Slot temporizado para mandar una señal a PureMediaServer para que mande un frame
 
 signals:
-
-//  void newConnection();
-
-  //MSEX Signals
- void cinfread();
- void geliread();
- void geltread();
- void gethread();
- void gvsrread();
- void rqstread();
- void gelnread();
- void geinread();
+    void frameRequest();
 };
 
 #endif // MEDIASERVER_H

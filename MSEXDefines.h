@@ -36,7 +36,6 @@ struct LayerStatus {
     quint32 LayerStatusFlags;
 };
 
-
 // Estructura Media Library ID. MSex 1.1
 struct MSEXLibraryId {
     quint8 Level;  // 0 - 3
@@ -48,7 +47,7 @@ struct MSEXLibraryId {
 // Media Information for MELIn packages. v1.0
 struct MediaInformation {
     uint8 Number; // 0-based contiguous index of the media.
-//    uint32 SerialNumber; MSEX 1.2
+//    uint32 SerialNumber; //MSEX 1.2
     uint8 DMXRangeMin;// DMX range start value.
     uint8 DMXRangeMax;// DMX range end value.
     QString MediaName;// Media name.
@@ -100,11 +99,11 @@ struct CITP_MSEX_CInf
     uint FutureMessageData[]; // A hint that future versions of this message may contain trailing data.
 };
 
-// Answer to CInf Versiones 1.0 y 1.1
+// SInf Versiones 1.0 y 1.1. Send after connection established
 struct CITP_MSEX_10_SINF
 {
     CITP_MSEX_Header CITPMSEXHeader; // CITP MSEX header. MSEX ContentType is "SInf". Version is set to 1.0.
-    ucs2 ProductName;// Display name of the product.
+//    ucs2 ProductName;// Display name of the product.
     uint8 ProductVersionMajor;// Major version number of the product.
     uint8 ProductVersionMinor;// Minor version number of the product.
     uint8 LayerCount;// Number of following layer information blocks.
@@ -114,7 +113,7 @@ struct CITP_MSEX_10_SINF
     };*/
 };
 
-// Answer to CINf  V1.2
+// SInf V1.2 Send after CINf received
 struct CITP_MSEX_12_SINF
 {
     CITP_MSEX_Header CITPMSEXHeader;// CITP MSEX header. MSEX ContentType is "SInf". Version is at least 1.2
@@ -396,21 +395,21 @@ struct CITP_MSEX_GVSr
 };
 
 // Video Sources
-struct CITP_MSEX_VSrc
+struct CITP_MSEX_VSRC
 {
     CITP_MSEX_Header CITPMSEXHeader;// CITP MSEX header. MSEX ContentType is "VSrc".
     uint16 SourceCount;// Number of following source information blocks.
-    struct SourceInformation
-    {
-        uint16 SourceIdentifier; // Source identifier.
-        signed char SourceName[];// Display name of the source (ie "Output 1", "Layer 2", "Camera 1" etc).
-        uint8 PhysicalOutput;// If applicable, 0-based index designating the physical video output index. Otherwise 0xFF.
-        uint8 LayerNumber;// If applicable, 0-based layer number, corresponding to the layers reported in the SInf message. Otherwise 0xFF.
-        uint16 Flags;// Information flags.
-                                 // 0x0001 Without effects
-        uint16 Width;// Full width.
-        uint16 Height;// Full height.
-    };
+    uint16 SourceIdentifier; // Source identifier.
+};
+struct SourceInformation
+{
+    signed char SourceName[];// Display name of the source (ie "Output 1", "Layer 2", "Camera 1" etc).
+    uint8 PhysicalOutput;// If applicable, 0-based index designating the physical video output index. Otherwise 0xFF.
+    uint8 LayerNumber;// If applicable, 0-based layer number, corresponding to the layers reported in the SInf message. Otherwise 0xFF.
+    uint16 Flags;// Information flags.
+                             // 0x0001 Without effects
+    uint16 Width;// Full width.
+    uint16 Height;// Full height.
 };
 
 // Request Stream
@@ -425,7 +424,18 @@ struct CITP_MSEX_RqSt
     uint8 Timeout;// Timeout in seconds (for instance 5 seconds, 0 to ask for only one frame).
 };
 
-// Stream Frame
+// Stream Frame 1.0
+struct CITP_MSEX_10_StFr
+{
+    CITP_MSEX_Header CITPMSEXHeader;// The CITP MSEX header. MSEX ContentType is "StFr".
+    uint16 SourceIdentifier;// Identifier of the frame's source.
+    uint32 FrameFormat;// Requested frame format. Can be "RGB8" or "JPEG" (or "PNG " for MSEX 1.2 and up).
+    uint16 FrameWidth;// Preferred minimum frame width.
+    uint16 FrameHeight;// Preferred minimum frame height.
+    uint16 FrameBufferSize;// Size of the frame image buffer.
+//    uint8 FrameBuffer[];// Frame image buffer.
+};
+// Stream Frame 1.2
 struct CITP_MSEX_12_StFr
 {
     CITP_MSEX_Header CITPMSEXHeader;// The CITP MSEX header. MSEX ContentType is "StFr".

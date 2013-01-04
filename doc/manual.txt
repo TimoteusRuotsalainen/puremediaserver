@@ -1,6 +1,6 @@
 ******************************
 Pure Media Server 0.0.6
-(c) Santiago Noreña 2012
+(c) Santiago Noreña 2012-2013
 puremediaserver at gmail dot com
 ******************************
 

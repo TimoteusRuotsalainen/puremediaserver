@@ -1,7 +1,6 @@
 /*
    Pure Media Server - A Media Server Sotfware for stage and performing
-   Copyright (C) 2012  Santiago Noreña
-   belfegor <AT> gmail <DOT> com
+   Copyright (C) 2012-2013  Santiago Noreña puremediaserver@gmail.com
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -21,6 +20,7 @@
 #include "PureMediaServer.h"
 #include "MSEXDefines.h"
 #include "PacketCreator.h"
+#include "citp-lib.h"
 
 #include <QtDebug>
 #include <QTimer>
@@ -33,8 +33,8 @@ MediaServer::MediaServer(QObject *parent)
    : QObject(parent),
     m_peerState(STATE),
     m_peerName(NAME),
-//  m_host(host),
     m_listeningPort(LISTENTCPPORT)
+
 {
    // Iniciamos la lista de estatus de layer
    LayerStatus layermodel;
@@ -52,7 +52,6 @@ MediaServer::MediaServer(QObject *parent)
     layermodel.MediaFPS = 25;
     m_layers.append(layermodel);
     }
-//  m_pathmedia =  NULL;
   // Variables para el buffer de LSTA
   m_bufferLen = 0x00;
   m_buffer = NULL;
@@ -68,15 +67,9 @@ MediaServer::MediaServer(QObject *parent)
       }
   connect(m_tcpServer, SIGNAL(newConnection()),
          this, SLOT(newPeer()));
-
-  // Iniciamos el timer de LSTA
-//  n_timer = new QTimer(this);
-//  Q_CHECK_PTR(n_timer);
-//  n_timer->setInterval(TRANSMIT_INTERVAL_LSTA);
-
-  // Iniciamos las conexiones
-//  connect(n_timer, SIGNAL(timeout()),this, SLOT(transmitlsta()));
-//  connect(this, SIGNAL(cinfread()), this, SLOT(cinfprocess()));
+  // Timer for frame preview
+  n_timer = new QTimer(this);
+  Q_CHECK_PTR(n_timer);
 }
 
 // Propiedades de clase
@@ -110,12 +103,55 @@ quint16 MediaServer::peerListeningPort() const
 
 bool MediaServer::newPeer()
 {
-    qDebug() << "newPeer init";
     m_tcpSocket = m_tcpServer->nextPendingConnection();
     connect(m_tcpSocket, SIGNAL(readyRead()),
               this, SLOT(handleReadyRead()));
+    // Ahora tenemos que mandar un Sinf para MSEX 1.1 y 1.0
+    //Creamos un paquete SINf
+     int bufferLen = sizeof(struct CITP_MSEX_10_SINF);
+     unsigned char * buffer = PacketCreator::createSINFPacket(bufferLen);
+     if (!buffer)
+     {
+       qDebug() << "mediaserver::new peer:createSINFPacket() failed";
+       return false;
+     }
+     // Mandamos el paquete
+     if (!MediaServer::sendPacket(buffer, bufferLen))
+         {
+         qDebug() << "mediaserver::new peer: Send SInf Message failed";
+         return false;
+         }
+     qDebug() << "mediaserver::new peer: SInf Sent...";
      return true;
+    /* Iniciamos el layer Status
+     // Creamos un  paquete LSTA
+      m_bufferLen = sizeof(struct CITP_MSEX_12_LSta);
+      unsigned char *buffer2 = PacketCreator::createLSTAPacket(m_layers, m_bufferLen);
+      if (!buffer2)
+      {
+        qDebug() << "createLSTAPacket() failed";
+        return false;
+      }
+      m_buffer = buffer2;
+      // Iniciamos el temporizador para mandar LSTA
+    //  n_timer->start();
+    //    qDebug("Start sending LSta");
+       transmitlsta();
+   return true;*/
 }
+/*
+bool MediaServer::transmitlsta()
+{
+   if (!MediaServer::sendPacket(m_buffer, m_bufferLen))
+        {
+        qDebug() << "MediaServer::LSta Message failed";
+        qDebug() << "Peer disconnected?";
+        n_timer->stop();
+        m_tcpSocket->close();
+        return false;
+        }
+    return true;
+}*/
 
 // Lectura de paquetes
 
@@ -156,55 +192,6 @@ void MediaServer::handleReadyRead()
                  }
 }
 
-// Gestión LSta y SInf
-
-bool MediaServer::cinfprocess()
-{
-   //Creamos un paquete SINf
-    int bufferLen = sizeof(struct CITP_MSEX_10_SINF);
-    unsigned char * buffer = PacketCreator::createSINFPacket(bufferLen);
-    if (!buffer)
-    {
-      qDebug() << "parseCINFPacket:createSINFPacket() failed";
-      return false;
-    }
-    // Mandamos el paquete
-    if (!MediaServer::sendPacket(buffer, bufferLen))
-        {
-        qDebug() << "parseCINFPacket: Send SInf Message failed";
-        return false;
-        }
-    qDebug() << "parseCINFPacket finish ok. SInf Sent...";
-
- // Creamos un  paquete LSTA
-  m_bufferLen = sizeof(struct CITP_MSEX_12_LSta);
-  unsigned char *buffer2 = PacketCreator::createLSTAPacket(m_layers, m_bufferLen);
-  if (!buffer2)
-  {
-    qDebug() << "createLSTAPacket() failed";
-    return false;
-  }
-  m_buffer = buffer2;
-
-  // Iniciamos el temporizador para mandar LSTA
-//  n_timer->start();
-//    qDebug("Start sending LSta");
-    transmitlsta();
-    return true;
-}
-
-bool MediaServer::transmitlsta()
-{
-   if (!MediaServer::sendPacket(m_buffer, m_bufferLen))
-        {
-        qDebug() << "MediaServer::LSta Message failed";
-        qDebug() << "Peer disconnected?";
-        n_timer->stop();
-        m_tcpSocket->close();
-        return false;
-        }
-    return true;
-}
 
 // Mandar paquetes
 
@@ -220,6 +207,27 @@ bool MediaServer::sendPacket(const unsigned char *buffer, int bufferLen)
       return false;
     }
   if (bufferLen != m_tcpSocket->write((const char*)buffer, bufferLen))
+    {
+      qDebug() << "MediaServer::sendPacket() write failed:" << m_tcpSocket->error();
+      return false;
+    }
+  return true;
+}
+
+// Overload Send Packet
+
+bool MediaServer::sendPacket(const char *buffer, int bufferLen)
+{
+  if (!m_tcpSocket)
+    {
+      return false;
+    }
+  if (QAbstractSocket::ConnectedState != m_tcpSocket->state())
+    {
+      qDebug() << "MediaServer::sendPacket() - Socket not connected";
+      return false;
+    }
+  if (bufferLen != m_tcpSocket->write(buffer, bufferLen))
     {
       qDebug() << "MediaServer::sendPacket() write failed:" << m_tcpSocket->error();
       return false;
@@ -246,9 +254,7 @@ void MediaServer::parsePacket(const QByteArray &byteArray)
       return;
     }
 
-  // XXX - this coming back as 0x01 during patch operations?
-
-  if (citpHeader->VersionMinor != 0x00)
+   if (citpHeader->VersionMinor != 0x00)
     {
       qDebug() << "parsePacket: invalid VersionMinor:" << citpHeader->VersionMinor;
       return;
@@ -293,7 +299,6 @@ void MediaServer::parseMSEXPacket(const QByteArray &byteArray)
 {
   const char *data = byteArray.constData();
   struct CITP_MSEX_Header *msexHeader = (struct CITP_MSEX_Header*)data;
-  qDebug() << "MSEX Version mayor:"<<msexHeader->VersionMajor<<"."<<msexHeader->VersionMinor<<"Content type:"<<msexHeader->ContentType;
   switch (msexHeader->ContentType)
   {
   case COOKIE_MSEX_CINF:
@@ -309,13 +314,13 @@ void MediaServer::parseMSEXPacket(const QByteArray &byteArray)
       parseGEINPacket(byteArray);
       break;
   case COOKIE_MSEX_GELT:
-      parseGELTPacket(byteArray);
+      parseGELTPacket();
       break;
   case COOKIE_MSEX_GETH:
       parseGETHPacket(byteArray);
       break;
   case COOKIE_MSEX_GVSR:
-      parseGVSRPacket(byteArray);
+      parseGVSRPacket();
       break;
   case COOKIE_MSEX_RQST:
       parseRQSTPacket(byteArray);
@@ -336,7 +341,6 @@ void MediaServer::parseCINFPacket(const QByteArray &byteArray)
     for (int i=0; i < cinf->SupportedMSEXVersionsCount;i++){
     qDebug() << "CInf arrives. Suported Versions: " <<versions[i];
     }
-//    emit cinfread();
 }
 
 void MediaServer::parseGELIPacket(const QByteArray &byteArray)
@@ -407,7 +411,7 @@ void MediaServer::parseGEINPacket(const QByteArray &byteArray)
  qDebug() << "parseGEINPacket finish ok. MEIn Sent...";
 }
 
-void MediaServer::parseGELTPacket(const QByteArray &byteArray)
+void MediaServer::parseGELTPacket()
 {
 //  const char *data = byteArray.constData();
 //  struct CITP_MSEX_12_GELT *geltPacket = (struct CITP_MSEX_12_GELT*)data;
@@ -447,20 +451,35 @@ void MediaServer::parseGETHPacket(const QByteArray &byteArray)
   qDebug() << "parseGETHPacket finish ok. ETHN Sent...";
 }
 
-void MediaServer::parseGVSRPacket(const QByteArray &byteArray)
+void MediaServer::parseGVSRPacket()
 {
-//  const char *data = byteArray.constData();
-//  struct CITP_MSEX_GVSr *gvsrPacket = (struct CITP_MSEX_GVSr*)data;
-  qDebug() << "parseGVSRPacket: GVSR arrives...";
-//  emit gvsrread();
+  int bufferLen;
+  // Create a VSrc message
+  const char * buffer = PacketCreator::createVSRCPacket(bufferLen);
+  if (!buffer)
+  {
+    qDebug() << "parseGVSRacket:createVSRCPacket() failed";
+    return;
+  }
+  // Mandamos el paquete
+  if (!MediaServer::sendPacket(buffer, bufferLen))
+      {
+      qDebug() << "parseGVSRPacket: Send VRSC Message failed";
+      return;
+      }
 }
 
 void MediaServer::parseRQSTPacket(const QByteArray &byteArray)
 {
-//  const char *data = byteArray.constData();
-//  struct CITP_MSEX_RqSt *gelnPacket = (struct CITP_MSEX_RqSt*)data;
-    qDebug() << "parseRQSTPacket: RQST arrives...";
-//    emit rqstread();
+    const char *data = byteArray.constData();
+    struct CITP_MSEX_RqSt *Packet = (struct CITP_MSEX_RqSt*)data;
+    // Here we need start the streaming MagicQ 88x64 RGB8 1 FPS
+    // Iniciamos el timer
+    if (!n_timer->isActive()) {
+            n_timer->setInterval(1000 * Packet->fps);
+            n_timer->start();
+            connect(n_timer, SIGNAL(timeout()), this, SLOT(sendFrame()));
+    }
 }
 
 bool MediaServer::sendNACK(quint32 header)
@@ -582,3 +601,17 @@ void MediaServer::setpath(QString path)
     m_pathmedia.append(path);
 }
 
+void MediaServer::startCitp(quint32 ipadd)
+{
+    m_citp = new CITPLib(this);
+    Q_CHECK_PTR(m_citp);
+    if (!m_citp->createPeerInformationSocket(NAME, STATE, ipadd))
+    {
+        qDebug()<<("CreatePeerInformationSocket failed");
+    }
+}
+
+void MediaServer::sendFrame()
+{
+    emit frameRequest();
+}

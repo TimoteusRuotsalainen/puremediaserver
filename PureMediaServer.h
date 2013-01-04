@@ -1,7 +1,6 @@
 /*
    Pure Media Server - A Media Server Sotfware for stage and performing
-   Copyright (C) 2012  Santiago Noreña
-   belfegor <AT> gmail <DOT> com
+   Copyright (C) 2012-2013  Santiago Noreña puremediaserver@gmail.com
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -26,7 +25,6 @@
 #include <QLocalServer>
 #include <QLocalSocket>
 
-class CITPLib;
 class MediaServer;
 class QMenu;
 class QProcess;
@@ -40,11 +38,12 @@ public:
     PureMediaServer (QWidget *parent = 0);
     virtual ~PureMediaServer();
 
+    Ui::PureMediaServer ui;
+
 protected:
 
     QString m_pathmedia; // Path to Medias
     MediaServer *m_mediaserver; // MSEx
-    CITPLib *m_citp;    // CITP Peer. PLOc
     QProcess *ola; // OLA daemon process
 
     // Video TCP Sockets
@@ -69,8 +68,6 @@ protected:
 
 private:
 
-    Ui::PureMediaServer ui;
-
     bool sendPacket(const char *buffer, int bufferLen);
 
     void pdstart();
@@ -85,6 +82,7 @@ private:
 
 public slots:
 
+    void sendFrame();
 private slots:
 
     void olastart(); // Init the OLA daemon
@@ -156,15 +154,8 @@ private slots:
 
     // Previews
 
-    void previewLayer1();
-    void previewLayer2();
-    void previewLayer3();
-    void previewLayer4();
-    void previewLayer5();
-    void previewLayer6();
-    void previewLayer7();
-    void previewLayer8();
-    void previewMaster();
+     void previewMaster();
+
 };
 
 #endif // PUREMEDIASERVER_H
