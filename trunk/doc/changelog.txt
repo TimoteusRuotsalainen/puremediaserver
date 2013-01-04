@@ -1,7 +1,7 @@
 *******************************
-Pure Media Server
-Santiago Noreña
-puremediaserver@gmail.com
+
+Pure Media Server ChangeLog
+
 ********************************
 * 0.01 (16-05-2011)
 
@@ -49,5 +49,6 @@ puremediaserver@gmail.com
 * 0.0.6
 - Audio en un proceso independiente. Reproducción de .oggs
 - Nuevos tipos de Alpha Blending. Nuevo canal DMX en la personalidad de video para el tipo de Alpha.
-- Previews en el GUI.
+- Preview de capas y mezcla final en el GUI.
+- Preview de mezcla final por CITP/MSEx
 

@@ -1,7 +1,7 @@
 // -*- mode: C++ -*-
 /*
    Pure Media Server - A Media Server Sotfware for stage and performing
-   Copyright (C) 2012  Santiago Noreña
+   Copyright (C) 2012 -2013 Santiago Noreña
    belfegor <AT> gmail <DOT> com
 
    This program is free software: you can redistribute it and/or modify
@@ -18,11 +18,14 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+/* Makes all MSEx packets */
 #ifndef _PACKETCREATOR_H_
 #define _PACKETCREATOR_H_
 
 #include "MSEXDefines.h"
 #include <QObject>
+#include <QPixmap>
+#include <QImage>
 
 typedef QList<LayerStatus> layerList;
 class PacketCreator : public QObject
@@ -50,6 +53,9 @@ public:
   static unsigned char * createELINPacket(QList<MediaLibrary> medialib, int &bufferLen);
   static unsigned char * createMEINPacket(MediaLibrary medialib, int &bufferLen);
   static unsigned char * createETHNPacket(QString path, MediaLibrary medialib, int elementnumber, int &bufferLen);
+  static const char * createVSRCPacket(int &bufferLen);
+  static const char * createFrame(uchar *frame, int &bufferLen);
+
 private:
 
 };

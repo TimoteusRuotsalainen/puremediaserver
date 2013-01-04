@@ -1,9 +1,9 @@
 /*
 The MIT License
 
-Copyright (c) 2009 John Warwick
+Copyright (c) 2012-2013 Santi Noreña
 
-Copyright (c) 2012 Santi Noreña
+Copyright (c) 2009 John Warwick
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -81,8 +81,7 @@ bool PeerInformationSocket::init(const QString &name, const QString &state, quin
     }
   m_name = name;
   m_state = state;
-
-    // create multicast socket, bind to port
+   // create multicast socket, bind to port
   QHostAddress address;
   address.setAddress(ipadd);
   if (!bind(address, CITP_PINF_MULTICAST_PORT, ShareAddress | ReuseAddressHint))
@@ -101,7 +100,6 @@ bool PeerInformationSocket::init(const QString &name, const QString &state, quin
       qDebug() << "setsockopt failed, r:" << r;
       return false;
     }
-
   delete m_packetBuffer;
   m_packetBuffer = PacketCreator::createPLocPacket(name, state, m_packetBufferLen);
   if (!m_packetBuffer)
@@ -129,7 +127,7 @@ void PeerInformationSocket::transmitPLoc()
       if (m_packetBuffer && m_packetBufferLen > 0)
     {
       QHostAddress addr(CITP_PINF_MULTICAST_IP);
-      qint64 ret = writeDatagram((const char*)m_packetBuffer, m_packetBufferLen, addr, CITP_PINF_MULTICAST_PORT);
+      writeDatagram((const char*)m_packetBuffer, m_packetBufferLen, addr, CITP_PINF_MULTICAST_PORT);
     }
 }
 
@@ -141,7 +139,6 @@ void PeerInformationSocket::handleReadReady()
       datagram.resize(pendingDatagramSize());
       QHostAddress sender;
       quint16 senderPort;
-
       if (-1 != readDatagram(datagram.data(), datagram.size(),
 			     &sender, &senderPort))
         {
@@ -188,6 +185,4 @@ void PeerInformationSocket::processPacket(const QHostAddress &address, const QBy
 
   // PLoc data
 // quint16 listeningPort = packet->ListeningTCPPort;
-
 }
-

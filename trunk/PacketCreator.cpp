@@ -1,7 +1,7 @@
 /*
    Pure Media Server - A Media Server Sotfware for stage and performing
-   Copyright (C) 2012  Santiago Noreña
-   belfegor <AT> gmail <DOT> com
+
+   Copyright (C) 2012-2013  Santiago Noreña puremediaserver@gmail.com
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -22,6 +22,7 @@
 #include "MediaServer.h"
 #include "CITPDefines.h"
 #include "MSEXDefines.h"
+#include "ui_PureMediaServer.h"
 
 #include <QtDebug>
 #include <QFileInfo>
@@ -87,7 +88,8 @@ unsigned char * PacketCreator::createSINFPacket(int &bufferLen)
 {
   // figure out the packet size
   QString name = NAME;
-  bufferLen = 2*name.size() -1 + sizeof(struct CITP_MSEX_10_SINF);
+  bufferLen = 2*name.size() + 3 + sizeof(struct CITP_MSEX_10_SINF);
+  // create the buffer
   unsigned char *buffer = new unsigned char[bufferLen];
   memset(buffer, 0, bufferLen);
   CITP_MSEX_10_SINF *packet = (CITP_MSEX_10_SINF *)buffer;
@@ -116,25 +118,7 @@ unsigned char * PacketCreator::createSINFPacket(int &bufferLen)
   memset ((buffer+offset), 0x01,1);
   offset++;
   memset((buffer+offset), 0x00, 3);
-  offset = offset+3;
-  /*
-  packet->ProductVersionMajor = 0x10;
-  packet->ProductVersionMinor = 0x00;
-  packet->LayerCount = 0x00;
-*/
-// MSEX 1.2
-//  packet->uuid = UUID;
-//packet->ProductVersionBugfix = 0x00;
- //packet->SupportedMSEXVersionsCount = 0x01;
-//  packet->SupportedMSEXVersions = 0x0101;
-//  packet->SupportedLibraryTypes = 0x0002;
-//  packet->ThumbnailFormatsCount = 0x0001;
-//  packet->ThumbnailFormats = "JPEG";
-//  packet->StreamFormatsCount = 0x01;
-//  packet->StreamFormats = "JPEG";
-//  packet->LayerInf = "ArtNet/0/0/0";
-
-return buffer;
+  return buffer;
 }
 
 unsigned char * PacketCreator::createLSTAPacket(layerList layerp,int &bufferLen)
@@ -389,6 +373,7 @@ unsigned char * PacketCreator::createETHNPacket(QString path,MediaLibrary medial
     packet->CITPMSEXHeader.CITPHeader.MessagePartCount = 0x01;
     packet->CITPMSEXHeader.CITPHeader.MessagePart = 0x00; // XXX - doc says 0-based?
     packet->CITPMSEXHeader.CITPHeader.ContentType = COOKIE_MSEX;
+    // Mandamos el paquete
 
     // MSEX header
     packet->CITPMSEXHeader.ContentType = COOKIE_MSEX_ETHN;
@@ -422,3 +407,80 @@ unsigned char * PacketCreator::createNACKPacket(quint32 cookie, int &bufferLen)
     return buffer;
 }
 
+// Video Stream
+
+const char * PacketCreator::createVSRCPacket(int &bufferLen)
+{
+    QString name("Output 1");
+    bufferLen = sizeof(struct CITP_MSEX_VSRC) + 2*name.size() + 10;
+    // create the buffer
+    char *buffer = new char[bufferLen];
+    memset(buffer, 0, bufferLen);
+    CITP_MSEX_VSRC *packet = (CITP_MSEX_VSRC *)buffer;
+
+    // CITP header
+    packet->CITPMSEXHeader.CITPHeader.Cookie = COOKIE_CITP;
+    packet->CITPMSEXHeader.CITPHeader.VersionMajor = 0x01;
+    packet->CITPMSEXHeader.CITPHeader.VersionMinor = 0x00;
+    packet->CITPMSEXHeader.CITPHeader.Reserved[0] = 0x00;
+    packet->CITPMSEXHeader.CITPHeader.Reserved[1] = 0x00;
+    packet->CITPMSEXHeader.CITPHeader.MessageSize = bufferLen;
+    packet->CITPMSEXHeader.CITPHeader.MessagePartCount = 0x01;
+    packet->CITPMSEXHeader.CITPHeader.MessagePart = 0x00; // XXX - doc says 0-based?
+    packet->CITPMSEXHeader.CITPHeader.ContentType = COOKIE_MSEX;
+    // MSEX header
+    packet->CITPMSEXHeader.ContentType = COOKIE_MSEX_VSRC;
+    packet->CITPMSEXHeader.VersionMajor = 0x01;
+    packet->CITPMSEXHeader.VersionMinor = 0x00;
+    packet->SourceCount = 0x01;
+    // VSRC Information
+    packet->SourceIdentifier = 0x01;
+    int offset = sizeof(struct CITP_MSEX_VSRC);
+    const ushort * namei = name.utf16();
+    memcpy((buffer+offset), namei, 2*(name.size()));
+    offset =  offset + 2*name.size() +2;
+    QByteArray post;
+    post[0] = 0xFF;          // Physical Ouput uint8
+    post[1] = 0xFF;          // Layer Number uint8
+    post[2] = 0x00;          // Flags uint16
+    post[3] = 0x00;
+    post[4] = 0x00;          // Width uint16
+    post[5] = 0x40;
+    post[6] = 0x00;          // Height uint16
+    post[7] = 0x2E;
+    memcpy((buffer+offset), post, post.size());
+    return buffer;
+}
+
+const char * PacketCreator::createFrame(uchar *frame, int &bufferLen)
+{
+    int bufferLenTot = sizeof(struct CITP_MSEX_10_StFr ) + bufferLen;
+    char * buffer = new char[bufferLen];
+    memset(buffer, 0, bufferLen);
+    CITP_MSEX_10_StFr *packet = (CITP_MSEX_10_StFr *)buffer;
+    // CITP header
+    packet->CITPMSEXHeader.CITPHeader.Cookie = COOKIE_CITP;
+    packet->CITPMSEXHeader.CITPHeader.VersionMajor = 0x01;
+    packet->CITPMSEXHeader.CITPHeader.VersionMinor = 0x00;
+    packet->CITPMSEXHeader.CITPHeader.Reserved[0] = 0x00;
+    packet->CITPMSEXHeader.CITPHeader.Reserved[1] = 0x00;
+    packet->CITPMSEXHeader.CITPHeader.MessageSize = bufferLenTot;
+    packet->CITPMSEXHeader.CITPHeader.MessagePartCount = 0x01;
+    packet->CITPMSEXHeader.CITPHeader.MessagePart = 0x00; // XXX - doc says 0-based?
+    packet->CITPMSEXHeader.CITPHeader.ContentType = COOKIE_MSEX;
+    // MSEX header
+    packet->CITPMSEXHeader.ContentType = COOKIE_MSEX_STFR;
+    packet->CITPMSEXHeader.VersionMajor = 0x01;
+    packet->CITPMSEXHeader.VersionMinor = 0x00;
+    //STFR Content
+    packet->FrameBufferSize = bufferLen;
+    packet->FrameFormat = 943867730;
+    packet->FrameHeight = 64;
+    packet->FrameWidth = 88;
+    packet->SourceIdentifier = 0x0001;
+    // Copiamos los datos del thumbnail
+    int offset = sizeof(struct CITP_MSEX_10_StFr);
+    memcpy((buffer+offset), frame, bufferLen);
+    bufferLen = bufferLenTot;
+    return buffer;
+}
