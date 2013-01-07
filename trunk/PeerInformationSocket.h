@@ -2,7 +2,7 @@
 /*
 The MIT License
 
-Copyright (c) 2012-2013 Santi Noreña puremediaserver@gmail.com
+Copyright (c) 2012-2013 Santi Noreña libremediaserver@gmail.com
 
 Copyright (c) 2009 John Warwick
 
@@ -24,13 +24,16 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
+
+/* This class makes the socket for the PLoc packets and process answers on that socket */
+
 #ifndef _PEERINFORMATIONSOCKET_H_
 #define _PEERINFORMATIONSOCKET_H_
 
 #include <QUdpSocket>
 
 class QTimer;
-class MediaServer;
+//class MediaServer;
 
 struct PeerDescripton;
 
@@ -59,7 +62,7 @@ private:
 
 signals:
 
-  void peersUpdated();
+//  void peersUpdated();
 };
 
 #endif // _PEERINFORMATIONSOCKET_H_

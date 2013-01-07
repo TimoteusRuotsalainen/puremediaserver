@@ -1,6 +1,6 @@
 /*
-   Pure Media Server - A Media Server Sotfware for stage and performing
-   Copyright (C) 2012-2013  Santiago Noreña puremediaserver@gmail.com
+   Libre Media Server - A Media Server Sotfware for stage and performing
+   Copyright (C) 2012-2013  Santiago Noreña libremediaserver@gmail.com
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -17,13 +17,12 @@
 */
 
 #include <QApplication>
-#include <QtGui>
-#include "PureMediaServer.h"
+#include "libremediaserver.h"
 
 int main(int argc, char *argv[])
 {
   QApplication app(argc, argv);
-  PureMediaServer PureMediaServer;
-  PureMediaServer.show();
+  libreMediaServer libreMediaServer;
+  libreMediaServer.show();
   return app.exec();
 }

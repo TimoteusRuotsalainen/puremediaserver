@@ -1,5 +1,5 @@
 /*
-   Pure Media Server - A Media Server Sotfware for stage and performing
+   Libre Media Server - A Media Server Sotfware for stage and performing
    Copyright (C) 2012-2013  Santiago Noreña
    belfegor <AT> gmail <DOT> com
 
@@ -19,8 +19,8 @@
 
 /* This class do all the MSEX work */
 
-#ifndef MEDIASERVER_H
-#define MEDIASERVER_H
+#ifndef MSEX_H
+#define MSEX_H
 
 #include <QObject>
 #include <QHostAddress>
@@ -33,32 +33,33 @@ class QTcpServer;
 class QDir;
 class CITPLib;
 
-class MediaServer : public QObject
+class msex : public QObject
 {
     Q_OBJECT
 
 public:
-    MediaServer(QObject *parent);
-    virtual ~MediaServer();
-    virtual QString peerName() const;
-    virtual QString peerState() const;
-    virtual QString peerHost() const;
-    virtual quint16 peerListeningPort() const;   void previewLayer1();
-    bool CreateMediaServerSocket();
+    msex(QObject *parent);
+    virtual ~msex();
+//    virtual QString peerName() const;
+//    virtual QString peerState() const;
+//    virtual QString peerHost() const;
+//    virtual quint16 peerListeningPort() const;
+//    void previewLayer1();
+
+    bool CreateMSEXSocket();
     bool updatemedia();
-    QList<LayerStatus> m_layers;
-    QList<MediaLibrary> m_media;
     virtual void setpath(QString path); // path to media dir
     void startCitp(quint32 ipadd); // Start the Peer Informatio Socket
-
-    QTimer *n_timer;
     bool sendPacket(const unsigned char *buffer, int bufferLen);
+
+    QTimer *n_timer; // Frame Request
+    QList<LayerStatus> m_layers;
+    QList<MediaLibrary> m_media;
 
 protected:
 
     CITPLib *m_citp;    // CITP Peer. PLOc and frame transmit
     QString m_pathmedia;
-
     unsigned char * m_buffer;
     int m_bufferLen;
     QString m_peerState;
@@ -99,7 +100,7 @@ protected slots:
 private slots:
 
     bool newPeer();
-    void sendFrame(); // Slot temporizado para mandar una señal a PureMediaServer para que mande un frame
+    void sendFrame(); // Slot temporizado para mandar una señal a libremediaserver::sendframe() para mandar un frame
 
 signals:
     void frameRequest();

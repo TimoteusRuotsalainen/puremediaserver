@@ -1,104 +1,71 @@
-******************************
-ola2pd 0.02 
+*******************************************************************************
+ola2pd 0.02 6/1/2013
 
-Based on dmxmonitor
+(C) 2012-2013 Santi Noreña belfegor<AT>gmail.com
 
- * Copyright (C) 2001 Dirk Jagdmann <doj@cubic.org>
- * Modified by Simon Newton (nomis52<AT>gmail.com) to use ola
- * Modified by Santiago Noreña (puremediaserver@gmail.com) to use flext for PD/MaX
-
+Based on dmxmonitor by Dirk Jagdmann doj<AT>cubic.org
+and dmxmonitor_ola by Simon Newton nomis52<AT>gmail.com
+ 
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
 
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
-******************************
+*******************************************************************************
 
-ola2pd es un objeto de Pure Data que permite leer un universo de Open Lighting Arquitecture, que proporciona soporte para muchos protocoles de iluminación basados en red (Pathport, ArtNet, ACN, ShowNet, SandNet) e interfaces USB (Enttec Open DMX Pro, Velleman, Robe,...). 
+ola2pd is an external for Pure Data that reads one DMX512 universe from the Open Lighting Arquitecture daemon. OLA supports a lot of of lighting protocols (ArtNet, Pathport, ACN, ShowNet, SandNet) and USB-DMX devices (Enttec Open DMX Pro, Velleman, Robe,...) 
 
-El objeto está desarrollado con las cabeceras Flext de Thomas Grill, por lo que debería de compilar en Windows, Mac y Linux para Max/MSP y Pure Data. Se proporciona el binario para Pure Data en Linux (Debian Wheezy), que es la única plataforma en que está probado. También compila y funciona en Ubuntu 12.04
+Ola2pd has been developed with the flext headers from Thoma Grill. The binary file included has been tested in Ubuntu Precise 12.04 and Debian Wheezy.
 
-ola2pd reads one universe from Open Lighting Arquitecture and outputs them in Pure Data/MaX like a list of 512 values. The universe can be configured before opennig the connection sending one message <universe n> where n is the number of the universe in OLA. After, you can send one message <open> to stablish the connection. You can send one message <close> to exit, and reconfigure the universe if you need it. The bang method shows the number of the universe it's currently selected.
+*******************************************************************************
 
-It's based on flext headers from Thomas Grill, so it should compile in Windows, Linux and Mac, and for Pure Data and Max/MSP. You must have the flext and the Open Lighting Arquitecture installed in order to compile it. I've tested in Debian Wheezy and Ubuntu 12.04 with Pure Data. The binary is the Debian build.
+Install:
 
-*****************************
+- Install and set up OLA following the project instructions from http://code.google.com/p/linux-lighting
 
-Instalación:
+- Copy the file ola2pd.pd_linux in a folder in the Pure Data paths. ~/pd-extenals is a good place, or in the folder of the patch you are using.  
 
-- Instala y configura OLA siguiendo las instrucciones 
+- If the binary doesn't work in you distribution, you can try compiling it yourself. You need having compiled and installed the flext headers http://grrrr.org/research/software/flext/, the Pure Data sources, and the OLA headers. See build.txt in the flext package for details. Basically you must run the flext build tool (build.sh) in the ola2pd folder.
 
-	http://code.google.com/p/linux-lighting/
+- For Ubuntu there is an aditional compilation step. Ubuntu's gcc has a option making buils.sh doesn't link correctly the OLA library. You can copy the last command of the build.sh terminal output and change the option -lola to the end of the command. For me, i copy:
 
-- Copia el archivo artnetin.pd_linux en una carpeta que esté dentro de las rutas de Pure Data (la carpeta pd-externals en la carpeta de usuario es el sitio indicado) o en la carpeta del patch que uses. Está compilado en Debian Wheezy.
+g++ -L/usr/include/ola -lola  -pthread -shared  -Wl,-S -L/home/santi/PMS/pd-0.43-2/bin -L/usr/lib -o pd-linux/release-multi/ola2pd.pd_linux pd-linux/release-multi/main.opp -lflext-pd_t
 
-- Si el binario no te funciona puedes probar a compilarlo tú mismo. Necesitas tener instalado flext y las fuentes de Pure Data/Max. Después se puede compilar con el build.sh de flext (bash /home/user/flext/build.sh <system> <compiler>, por ejemplo, mi línea de comandos es bash /home/santi/PMS/flext/build.sh pd gcc ).
+and i change to: 
 
-- En Ubuntu hay que hacer un paso más. El gcc de Ubuntu tiene una opción habilitada que hace que build.sh no linke bien la biblioteca ola. Como workaround copia la salida de la terminal entre el último g+++ y -lflext-pd_t en un archivo de texto y mueve -lola al final de la línea. Copia todo de nuevo y pégalo en terminal.  
+g++ -L/usr/include/ola -pthread -shared  -Wl,-S -L/home/santi/PMS/pd-0.43-2/bin -L/usr/lib -o pd-linux/release-multi/ola2pd.pd_linux pd-linux/release-multi/main.opp -lflext-pd_t -lola
 
-En mi caso copio
+After you can run
 
-g++ -L/usr/include/ola -lola  -pthread -shared  -Wl,-S -L/home/santi/PMS/pd-0.43-2/bin -L/usr/lib -o pd-linux/release-multi/ola2pd.pd_linux   pd-linux/release-multi/main.opp  -lflext-pd_t
+strip --strip-unneeded pd-linux/release-multi/ola2pd.pd_linux
 
-y lo cambio a
+to make the binary smaller. After, the binary is ready to work
 
-g++ -L/usr/include/ola -pthread -shared  -Wl,-S -L/home/santi/PMS/pd-0.43-2/bin -L/usr/lib -o pd-linux/release-multi/ola2pd.pd_linux   pd-linux/release-multi/main.opp  -lflext-pd_t -lola
+*******************************************************************************
 
-Después ya se tiene el binario listo para usar.
+Usage:
 
-*****************************
+- The ola daemon must be running in the system and set up with at least one input universe.
+- olad listens on the network interface with lower IP address, tipically 2.x.x.x. You can see if valid data is arriving pointing one web browser to localhost:9090. Click in the universe you want and click in the "DMX Monitor" tab. You should see the arriving data. 
+- Before ola2pd begins output values, we can configure the listening universe with the message [universe x), where x is the number of the OLA universe we want to listen. The object begins listening with [open) message. We can change the listening universe closing the connection with a [close) message, sending the new universe and reopening the node.  
+- ola2pd outputs a list with the 512 channel of the universe. We can manipulate with [list split] and [unpack].
+- See ola2pd-help.pd 
 
-Uso:
-
-- El objeto escucha en el interface activo con la IP más baja, típicamente 2.x.x.x.
-- Están disponibles los 512 canales; El objeto saca una lista de 512 enteros con el universo entero.
-- Antes de que el objeto empiece a sacar valores hay que crear el nodo. Para ello hay que mandar un mensaje [open]. Antes de ello podemos configurar el universo de OLA al que escuchará con el mensaje <universe x>. donde x es el número de universo OLA. Por defecto escucha en el universo 0. Si queremos cambiar el universo de escucha hay que mandar un mensaje [close], mandar el mensaje <universe x> y reabrirlo. 
-
-Por supuesto el demonio olad debe de estar corriendo en el sistema y con un universo al menos configurado como salida para que podamos tomar datos de él.
-
-*****************************
-
-Requerimientos/Requirements:
-
-Los siguientes paquetes de software son requeridos para compilar y ejecutar ola2pd
-
-	- Flext http://grrrr.org/research/software/flext/
-	- Open Lighting Arquitecture http://code.google.com/p/linux-lighting/ version => 0.8.19
-	- Fuentes de Pure Data o Max/MSP (para compilar flext) http://puredata.info/downloads/pure-data
-	- Pure Data 0.43.2 (apt-get install puredata-core)
-	- Herramientas de compilación (gcc, make, ...)
-
-*****************************
-
-Errores conocidos:
-
-- El binario compilado en modo release hace que Pure Data casque en Debian en el momento de cargar la librería. Compilando el binario en debug mode, carga y funciona normalmente. Esta opción puede ser cambiada en el archivo package.txt en la opción
-BUILDMODE=debug (or release)
-
-Know issues:
-
-The Release mode of the binary crash Pure Data at object creation. If the binary is compiled in debug mode works fine. This option can be changed in the file package.txt with the option 
-BUILDMODE=debug (or release)
-
-*****************************
+*******************************************************************************
 
 Credits:
 
-- All the credit to Simon Newton for OLA and ola_dmxmonitor, this is a simple modification of that code.
+- Simon Newton for OLA and ola_dmxmonitor, this is a modification of that code.
 
 *****************************
 
-Página del proyecto:
+SVN:
 
 http://code.google.com/p/puremediaserver/externals/ola2pd
 
-Lista de correo:
+Contact:
 
-puremediaserver@googlegroups.com
-
-Contacto:
-
-puremediaserver@gmail.com
+belfegor@gmail.com
 
 *****************************

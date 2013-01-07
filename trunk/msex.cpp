@@ -16,8 +16,8 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "MediaServer.h"
-#include "PureMediaServer.h"
+#include "msex.h"
+//#include "libremediaserver.h"
 #include "MSEXDefines.h"
 #include "PacketCreator.h"
 #include "citp-lib.h"
@@ -29,7 +29,7 @@
 #include <QDir>
 #include <QDateTime>
 
-MediaServer::MediaServer(QObject *parent)
+msex::msex(QObject *parent)
    : QObject(parent),
     m_peerState(STATE),
     m_peerName(NAME),
@@ -74,34 +74,34 @@ MediaServer::MediaServer(QObject *parent)
 
 // Propiedades de clase
 
-MediaServer::~MediaServer()
+msex::~msex()
 {
    if (m_tcpServer)
      m_tcpServer->close();
 
 }
-
-QString MediaServer::peerName() const
+/*
+QString msex::peerName() const
 {
   return m_peerName;
 }
 
-QString MediaServer::peerState() const
+QString msex::peerState() const
 {
   return m_peerState;
 }
 
-QString MediaServer::peerHost() const
+QString msex::peerHost() const
 {
   return m_host.toString();
 }
 
-quint16 MediaServer::peerListeningPort() const
+quint16 msex::peerListeningPort() const
 {
   return m_listeningPort;
 }
-
-bool MediaServer::newPeer()
+*/
+bool msex::newPeer()
 {
     m_tcpSocket = m_tcpServer->nextPendingConnection();
     connect(m_tcpSocket, SIGNAL(readyRead()),
@@ -112,16 +112,16 @@ bool MediaServer::newPeer()
      unsigned char * buffer = PacketCreator::createSINFPacket(bufferLen);
      if (!buffer)
      {
-       qDebug() << "mediaserver::new peer:createSINFPacket() failed";
+       qDebug() << "msex::new peer:createSINFPacket() failed";
        return false;
      }
      // Mandamos el paquete
-     if (!MediaServer::sendPacket(buffer, bufferLen))
+     if (!msex::sendPacket(buffer, bufferLen))
          {
-         qDebug() << "mediaserver::new peer: Send SInf Message failed";
+         qDebug() << "msex::new peer: Send SInf Message failed";
          return false;
          }
-     qDebug() << "mediaserver::new peer: SInf Sent...";
+     qDebug() << "msex::new peer: SInf Sent...";
      return true;
     /* Iniciamos el layer Status
      // Creamos un  paquete LSTA
@@ -140,11 +140,11 @@ bool MediaServer::newPeer()
    return true;*/
 }
 /*
-bool MediaServer::transmitlsta()
+bool msex::transmitlsta()
 {
-   if (!MediaServer::sendPacket(m_buffer, m_bufferLen))
+   if (!msex::sendPacket(m_buffer, m_bufferLen))
         {
-        qDebug() << "MediaServer::LSta Message failed";
+        qDebug() << "msex::LSta Message failed";
         qDebug() << "Peer disconnected?";
         n_timer->stop();
         m_tcpSocket->close();
@@ -155,7 +155,7 @@ bool MediaServer::transmitlsta()
 
 // Lectura de paquetes
 
-void MediaServer::handleReadyRead()
+void msex::handleReadyRead()
 {
  while(m_tcpSocket->bytesAvailable())
        {
@@ -195,7 +195,7 @@ void MediaServer::handleReadyRead()
 
 // Mandar paquetes
 
-bool MediaServer::sendPacket(const unsigned char *buffer, int bufferLen)
+bool msex::sendPacket(const unsigned char *buffer, int bufferLen)
 {
   if (!m_tcpSocket)
     {
@@ -203,20 +203,21 @@ bool MediaServer::sendPacket(const unsigned char *buffer, int bufferLen)
     }
   if (QAbstractSocket::ConnectedState != m_tcpSocket->state())
     {
-      qDebug() << "MediaServer::sendPacket() - Socket not connected";
+      qDebug() << "msex::sendPacket() - Socket not connected";
       return false;
     }
   if (bufferLen != m_tcpSocket->write((const char*)buffer, bufferLen))
     {
-      qDebug() << "MediaServer::sendPacket() write failed:" << m_tcpSocket->error();
+      qDebug() << "msex::sendPacket() write failed:" << m_tcpSocket->error();
       return false;
     }
+  delete buffer;
   return true;
 }
 
 // Overload Send Packet
 
-bool MediaServer::sendPacket(const char *buffer, int bufferLen)
+bool msex::sendPacket(const char *buffer, int bufferLen)
 {
   if (!m_tcpSocket)
     {
@@ -224,19 +225,19 @@ bool MediaServer::sendPacket(const char *buffer, int bufferLen)
     }
   if (QAbstractSocket::ConnectedState != m_tcpSocket->state())
     {
-      qDebug() << "MediaServer::sendPacket() - Socket not connected";
+      qDebug() << "msex::sendPacket() - Socket not connected";
       return false;
     }
   if (bufferLen != m_tcpSocket->write(buffer, bufferLen))
     {
-      qDebug() << "MediaServer::sendPacket() write failed:" << m_tcpSocket->error();
+      qDebug() << "msex::sendPacket() write failed:" << m_tcpSocket->error();
       return false;
     }
   return true;
 }
 
 // Determina qué tipo de paquete es
-void MediaServer::parsePacket(const QByteArray &byteArray)
+void msex::parsePacket(const QByteArray &byteArray)
 {
   const char *data = byteArray.constData();
   struct CITP_Header *citpHeader = (struct CITP_Header*)data;
@@ -276,7 +277,7 @@ void MediaServer::parsePacket(const QByteArray &byteArray)
 }
 
 //Process PINF Packets
-void MediaServer::parsePINFPacket(const QByteArray &byteArray)
+void msex::parsePINFPacket(const QByteArray &byteArray)
 {
     const char *data = byteArray.constData();
     struct CITP_PINF_Header *pinfHeader = (struct CITP_PINF_Header*)data;
@@ -295,7 +296,7 @@ void MediaServer::parsePINFPacket(const QByteArray &byteArray)
 }
 
 // Procesa paquete MSEX
-void MediaServer::parseMSEXPacket(const QByteArray &byteArray)
+void msex::parseMSEXPacket(const QByteArray &byteArray)
 {
   const char *data = byteArray.constData();
   struct CITP_MSEX_Header *msexHeader = (struct CITP_MSEX_Header*)data;
@@ -327,11 +328,11 @@ void MediaServer::parseMSEXPacket(const QByteArray &byteArray)
       break;
   default:
       qDebug() << "parseMSEXPacket: unknown ContentType:" << msexHeader->ContentType ;
-      MediaServer::sendNACK(msexHeader->ContentType);
+      msex::sendNACK(msexHeader->ContentType);
   }
 }
 
-void MediaServer::parseCINFPacket(const QByteArray &byteArray)
+void msex::parseCINFPacket(const QByteArray &byteArray)
 {
     const char *data = byteArray.constData();
     struct CITP_MSEX_CInf *cinf = (struct CITP_MSEX_CInf*)data;
@@ -343,13 +344,13 @@ void MediaServer::parseCINFPacket(const QByteArray &byteArray)
     }
 }
 
-void MediaServer::parseGELIPacket(const QByteArray &byteArray)
+void msex::parseGELIPacket(const QByteArray &byteArray)
 {
   const char *data = byteArray.constData();
   struct CITP_MSEX_11_GELI *geliPacket = (struct CITP_MSEX_11_GELI*)data;
   if (geliPacket->LibraryType != 0x01)
     {
-      qDebug() << "Not library type supported, only MEDIA now 0x01";
+      qDebug() << "parseGELIPacket:Not library type supported, only MEDIA now 0x01";
       return;
   }
   // Creamos un paquete ELin
@@ -362,7 +363,7 @@ void MediaServer::parseGELIPacket(const QByteArray &byteArray)
   }
 
   // Mandamos el paquete
-  if (!MediaServer::sendPacket(buffer, bufferLen))
+  if (!msex::sendPacket(buffer, bufferLen))
       {
       qDebug() << "parseGELIPacket: Send ELin Message failed";
       return;
@@ -370,12 +371,11 @@ void MediaServer::parseGELIPacket(const QByteArray &byteArray)
   qDebug() << "parseGELIPacket finish ok. ELin Sent...";
 }
 
-void MediaServer::parseGEINPacket(const QByteArray &byteArray)
+void msex::parseGEINPacket(const QByteArray &byteArray)
 {
   const char *data = byteArray.constData();
   struct CITP_MSEX_10_GEIn *geinPacket = (struct CITP_MSEX_10_GEIn*)data;
-  qDebug() << "parseGEINPacket: GEIn arrives...";
-  qDebug() << "eLEMENT coUNT:" << geinPacket->ElementCount << "Libray Id:" << geinPacket->LibraryId << "Library Type:" << geinPacket->LibraryType;
+  qDebug() << "GEIn arrives: Elemet count:" << geinPacket->ElementCount << "Libray Id:" << geinPacket->LibraryId << "Library Type:" << geinPacket->LibraryType;
   int bufferLen = sizeof (struct CITP_MSEX_10_MEIn);
   if (!(geinPacket->LibraryId < m_media.size())) {
           qDebug() << "Library ID exceeds size list";
@@ -386,7 +386,7 @@ void MediaServer::parseGEINPacket(const QByteArray &byteArray)
             return;
           }
           // Mandamos el paquete
-          if (!MediaServer::sendPacket(buffer, bufferLen))
+          if (!msex::sendPacket(buffer, bufferLen))
               {
               qDebug() << "parseGEINPacket: Send MEIn Message failed";
               return;
@@ -402,29 +402,26 @@ void MediaServer::parseGEINPacket(const QByteArray &byteArray)
             return;
           }
       // Mandamos el paquete
-        if (!MediaServer::sendPacket(buffer, bufferLen))
+        if (!msex::sendPacket(buffer, bufferLen))
         {
             qDebug() << "parseGEINPacket: Send MEIn Message failed";
             return;
         }
  }
- qDebug() << "parseGEINPacket finish ok. MEIn Sent...";
 }
 
-void MediaServer::parseGELTPacket()
+void msex::parseGELTPacket()
 {
 //  const char *data = byteArray.constData();
 //  struct CITP_MSEX_12_GELT *geltPacket = (struct CITP_MSEX_12_GELT*)data;
     qDebug() << "parseGELTPacket: GELT arrives...";
-//    emit geltread();
 }
 
-void MediaServer::parseGETHPacket(const QByteArray &byteArray)
+void msex::parseGETHPacket(const QByteArray &byteArray)
 {
   const char *data = byteArray.constData();
   struct CITP_MSEX_10_GETh *gethPacket = (struct CITP_MSEX_10_GETh*)data;
-  qDebug() << "parseGEThPacket: GETh arrives...";
-  qDebug() << "format:"<< gethPacket->ThumbnailFormat<<"Width:"<<gethPacket->ThumbnailWidth<<"Height:"<<gethPacket->ThumbnailHeight;
+  qDebug() << "GETh arrives. Format:"<< gethPacket->ThumbnailFormat<<"Width:"<<gethPacket->ThumbnailWidth<<"Height:"<<gethPacket->ThumbnailHeight;
   qDebug() << "Library Number:"<<gethPacket->LibraryNumber<<"Element COunt:"<<gethPacket->ElementCount<<"ElementNumber:"<<gethPacket->ElementNumber;
   int bufferLen = sizeof (struct CITP_MSEX_10_ETHN);
   if (!(gethPacket->LibraryNumber < m_media.size())) {
@@ -443,15 +440,14 @@ void MediaServer::parseGETHPacket(const QByteArray &byteArray)
     return;
   }
   // Mandamos el paquete
-  if (!MediaServer::sendPacket(buffer, bufferLen))
+  if (!msex::sendPacket(buffer, bufferLen))
       {
       qDebug() << "parseGETHPacket: Send ETHN Message failed";
       return;
-      }
-  qDebug() << "parseGETHPacket finish ok. ETHN Sent...";
+      }  
 }
 
-void MediaServer::parseGVSRPacket()
+void msex::parseGVSRPacket()
 {
   int bufferLen;
   // Create a VSrc message
@@ -462,14 +458,15 @@ void MediaServer::parseGVSRPacket()
     return;
   }
   // Mandamos el paquete
-  if (!MediaServer::sendPacket(buffer, bufferLen))
+  if (!msex::sendPacket(buffer, bufferLen))
       {
       qDebug() << "parseGVSRPacket: Send VRSC Message failed";
       return;
       }
+    delete buffer;
 }
 
-void MediaServer::parseRQSTPacket(const QByteArray &byteArray)
+void msex::parseRQSTPacket(const QByteArray &byteArray)
 {
     const char *data = byteArray.constData();
     struct CITP_MSEX_RqSt *Packet = (struct CITP_MSEX_RqSt*)data;
@@ -482,7 +479,7 @@ void MediaServer::parseRQSTPacket(const QByteArray &byteArray)
     }
 }
 
-bool MediaServer::sendNACK(quint32 header)
+bool msex::sendNACK(quint32 header)
 {
     int bufferLen;
     unsigned char *buffer = PacketCreator::createNACKPacket(header, bufferLen);
@@ -494,7 +491,7 @@ bool MediaServer::sendNACK(quint32 header)
 
     if (!sendPacket(buffer, bufferLen))
       {
-        qDebug() << "Visualizer::sendNACK failed";
+        qDebug() << "sendNACK failed";
         return false;
       }
   return true;
@@ -502,7 +499,7 @@ bool MediaServer::sendNACK(quint32 header)
 
 // Fin de mensajes MSEX
 
-bool MediaServer::updatemedia()
+bool msex::updatemedia()
 {
     qDebug()<<"Actualizando biblioteca de medias en " << m_pathmedia;
     QDir dir;
@@ -570,7 +567,7 @@ bool MediaServer::updatemedia()
 return true;
 }
 
-QList<MediaInformation> MediaServer::getMediaInformation(QDir dir)
+QList<MediaInformation> msex::getMediaInformation(QDir dir)
 {
     QList<MediaInformation> mediaList;
     MediaInformation mediainf;
@@ -594,14 +591,14 @@ QList<MediaInformation> MediaServer::getMediaInformation(QDir dir)
     return mediaList;
 }
 
-void MediaServer::setpath(QString path)
+void msex::setpath(QString path)
 {
     //m_pathmedia = NULL;
     m_pathmedia.clear();
     m_pathmedia.append(path);
 }
 
-void MediaServer::startCitp(quint32 ipadd)
+void msex::startCitp(quint32 ipadd)
 {
     m_citp = new CITPLib(this);
     Q_CHECK_PTR(m_citp);
@@ -611,7 +608,7 @@ void MediaServer::startCitp(quint32 ipadd)
     }
 }
 
-void MediaServer::sendFrame()
+void msex::sendFrame()
 {
     emit frameRequest();
 }

@@ -1,0 +1,314 @@
+*******************************************************************************
+Pure Media Server 0.0.6
+(c) Santiago Noreña 2012-2013
+puremediaserver at gmail dot com
+*******************************************************************************
+
+Lee instalacion.txt para el proceso de instalación.
+
+*******************************************************************************
+
+Pure Media server es un programa para gestionar visuales en artes escénicas, eventos, performances, instalaciones,...
+
+Se controla mediante el Open Lighting Arquitecture que soporta una gran variedad de protocolos y dispositivos estandard de iluminación: Artnet, ShowNet, PathPort, ACN, Enttec Open DMX Pro,...
+
+Puedes controlarlo gratis con el programa MagicQ de ChamSys si no dispones de ninguna mesa o programa de iluminación. No es software libre, pero al menos es gratis. En la carpeta "MagicQ" hay un archivo de show y los archivos de personalidad, para audio y video.
+
+El motor gráfico y de audio es Pure Data, que se ejecuta en background invisible al usuario. Ahora mismo podemos reproducir 255 carpetas con 255 videos cada una en cualquier formato en que esté el codec instalado en el sistema. Si lo puede leer en el reproductor de medios de gnome podrá reproducirlo PMS. También podemos reproducir fotos y textos. El reproductor de medios podemos variar la velocidad, ejecutarlo en distintas direcciones (hacia delante, hacia atrás, ping-pong), y en bucle o en un sólo disparo. 
+
+PMS tiene 8 capas de video o texto, cada dispone de una correción Bezier de 4 puntos, por lo que podemos mapear diferentes superficies, o lados de objetos. También podemos corregir el keystone mediante estos ajustes. Por supuesto, hay ajustes de color, posición, tamaño y rotación por cada capa.
+
+Las mezclas entre capas se realizan mediante 7 canales: 3 canales pasa altos RGB, 3 canales Pasabajos RGB, con lo que se puden hacer lumas y cromas entre capas, y otro canal que define el método OpenGL de blending. El orden de las capas se controla mediante el canal de posición Z: cuanto más grande sea más al fondo se encuentra.
+
+También podemos manejar 8 capas de audio, cada una reproduciendo un archivo .ogg. El control de volumen es en 16 bits de precisión y logarítmico.
+
+El interface gráfico es muy simple, sólo sirve para manejar la configuración de Pure Data y sirve para ver el archivo que cada capa está reproduciendo. Tenemos dos pestañas: Una para la configuración de Video y otra para la de Audio, que se deberá patchear en la mesa independientemente. Como los controles son parecidos para las dos ventanas, las explicamos juntas. Empezando de arriba hacia abajo:
+
+A. Terminal. Se muestran mensajes de estado y de error.
+
+B. 8 Capas. Representan las 8 capas de video.
+	B.1 Botón de activado de la capa. Si no está en on la capa no está activada y no renderiza, se quedará en la pantalla el último frame renderizado; desactivando no va a negro.
+	B.2 Dirección DMX. Hay que introducir el primer canal DMX de la capa, la misma a la que se patcheó en la mesa.
+	B.3 Ventana de Preview. Muestra el archivo que está siendo reproducido en la capa, sin efectos ni modificaciones.
+
+C. Change Media Path. Cambia el path al árbol de directorios de los media. Este control es común para el video y el audio, sólo hace falta introducirlo una vez, aunque se muestr en las dos pestañas.
+
+D. Video/Audio. Inicia o detiene los procesos de video y de audio.
+
+F. ReadDMX. Empieza o termina la lectura de datos DMX
+
+H. OLA Universe. El universo de Open Lighting Arquitecture que hemos configurado como entrada y al que el proceso escuchará. Ver instalacion.txt para detalles.
+
+G. Window. Crea y destruye la ventana de reproducción.
+
+I. Window Position. Posición de la ventana de renderizado en pixeles x,y.
+
+J. Window Size. Tamaño de la ventana de renderizado en pixeles x, y.
+
+K. IP Adress. Dirección IP de la inerface que queremos usar. Dejar en 0.0.0.0 para todas las interfaces.
+
+E. Init CITP/MSEx. Inicia el peer CITP y manda los thumbs si alguna mesa lo solicita.
+
+El CITP/MSEx no funciona en el interface localhost. Sin embargo la recepción de datos ArtNet sí. Necesita tener un interface de red activo en el momento de lanzar el programa, pero después se puede desconectar. Se puede usar en el mismo ordenador PMS y MagicQLinux para controlarlo.
+
+Generación de thumbs:
+
+Es necesario generar lo thumbnails de tus medias para poder transmitirlos por CITP/MSEx. Lo puedes hacer mediante el fichero make_thumbs.sh en la carpeta scripts. Primero ábrelo con un editor de texto y edita el path a tus medias. Guarda, cierra, y ejecuta el archivo. Debería de crear una subcarpeta llamada thumbs por cada carpeta de medias, y en ella el thumbnail con el primer fotograma de cada archivo, con el mismo nombre, pero acabado en jpeg. En siguientes versiones intentaré integrar esto cuando se pulse el botón "Init CITP/MSEx"
+
+La ventana de renderizado se muestra sobre todas las demás ventanas y sin que aparezca el cursor en ella. Si tenemos problemas en la configuración, por ejemplo nos quedamos sin ver el escritorio,  siempre podemos llevar el cursor a la ventana de renderizado y presionar Escape para cerrarla. La posición de la ventana se configura con los controles "Window Position" y el tamaño de la ventana con "Window Size", los dos primero el ancho y después el alto. Para hacer algo útil deberemos tener el escritorio extendido a un segundo monitor y configurar en estos controles los valores de ese monitor. Para aplicar cambios hay que cerrar la ventana y reabrirla.  	
+
+*******************************************************************************
+
+Estructura de medias:
+
+Los archivos de medios que utiliza PMS deben de estar ordenados en un árbol de ficheros. La dirección superior del árbol es la que se tiene que introducir en el archivo scripts/make_thumbs.sh y configurar en PMS mediante el botón "Change media Path".
+
+El árbol de ficheros tiene el siguiente esquema:
+
++ media
+	+ video
+		+ 000-descripcion
+ 			- 000-miloop.mov
+			- 001-milooocool.avi
+			- 002-mipelo.mpg
+			...
+			- 255-ultimo.avi		
+		
+		+ 001-otrodir
+			- 000-otrapeli.mov
+			- 001-maspelis.mov
+			...
+			- 255.ultimodelasegundacarpeta.mov
+		+ 002-fuego		
+			- 000-Boladefuego.avi
+			- 001-Murodefuego.avi
+			...
+			- 255-fuentedefuego.avi		
+		...
+		
+		+ 255-ultimodir
+			+255.ultimapeli.mov
+	+ audio
+		+ 000-mifichero.ogg
+		...
+		+ 255-miultimofichero.ogg
+	+ fonts
+		- 000-mifuente.ttf
+		...
+		- 255-miultimafuente.ttf
+	+ images
+		- 000-miprimerafoto.jpg
+		...
+		- 255-miultimafoto.jpg
+
+Los números al principio de ficheros y directorios no son obligatorios, pero ayudan mucho a organizar el material. PMS busca por orden alfabético en los directorios/ficheros, y ese orden es el que determina  los valores de los canales Folder y File para reproducirlos.
+
+*******************************************************************************
+
+Textos:
+
+Puedes definir hasta 255 frases editando con un editor ASCII el fichero text.txt. El formato es:
+
+1, Esto es una frase;
+2, El número es el valor del canal 6 folder;
+3, no se pueden usar comas;
+4, las frases tienen que acabar con punto y coma;
+
+*******************************************************************************
+
+Listado de canales DMX:
+
+PureMediaServer Video:
+
+Entre paréntesis el valor normal de uso (locate).
+
+1 Alpha/Dimmer (255)
+2 Rojo	(127)
+3 Verde (127)
+4 Azul  (127)
+5 Speed (40; esto se corresponde a 25 fps. El valor del canal son los milisegundos del metro, por lo que la inversa es el valor real de FPS).
+     0-244: Velocidad
+     245-249: Autodeteccion fps, una sola vez
+     250-255: Autodeteccion fps, loop	
+
+En los modos auto el inicio y el fin del loop no son aplicables, se reproduce la película completa.
+
+6 Directorio / Texto
+7 Archivo / Fuente
+8 Tipo de Media
+    0-24:    OFF
+    25-49:   Video
+    50-75:   Imagenes
+    75-99:   Texto	
+9 Reproduccion: Valores en 100%
+    00-10 Normal loop 
+    11-20 Back loop 
+    21-30 Ping-pong loop 
+    31-40 Normal una vez
+    41-50 Back una vez 
+    51-60 Ping-Pong una vez 
+    61-70 Stop/pause
+    71-80 Continue
+10 Inicio loop (0 principio peli- 255 final)  (0)
+11 Final Loop  (0 principio peli - 255 final) (255)
+12 Rotate X (0)
+13 Rotate Y (0)
+14 Rotate Z (0)
+15 Size X Size Font (127)
+16 Size Y (127)
+17 Z (127)
+18 X (127)
+19 Y (127)
+20 X Fino (127)
+21 Y Fino (127)
+
+Los siguientes canales son usados para transparencias
+
+Los High filtran los pixeles con ese y los convierte en transparente (croma)
+
+22 Alpha High Red   (255)
+23 Alpha High Green (255)
+24 Alpha High Blue  (255)
+
+Los Low filtran todo menos los pixel con ese valor (máscara)
+
+25 Alpha Low Red    (0)
+26 Alpha Low Green  (0)
+27 Alpha Low Blue   (0) 
+
+Los siguientes canales se usan para correción de keystone y videomapping. Hay configuración por capa, el resto de configuraciones de posición y tamaño se reajustarán dentro de la nueva capa
+
+28 Corner Bottom Left X  (0)
+29 Corner Bottom Left Y  (0)
+30 Corner Top Left X     (0)
+31 Corner Top Left Y     (255)
+32 Corner Bottom Right X (255)
+33 Corner Bottom Right Y (0)
+34 Corner Top Right X    (255) 
+35 Corner Top Right Y    (255)
+
+Los siguientes canales son usados para control de efectos
+
+36 Selección FX 1
+37 Selección FX 2
+38 Param 1 FX 1
+39 Param 2 FX 1
+40 Param 3 FX 1
+41 Param 4 FX 1
+42 Param 5 FX 1
+43 Param 6 FX 1
+44 Param 7 FX 1
+45 Param 8 FX 1
+
+46 - Blending Mode.  Este canal elige el tipo de mezcla entre capas. Se corresponde a los modos de mezcla OpenGL:
+	
+	0:  GL_ONE_MINUS_SRC_ALPHA;
+	1:  GL_ONE;
+	2:  GL_ZERO;
+	3:  GL_SRC_COLOR;
+	4:  GL_ONE_MINUS_SRC_COLOR; (Locate, mezcla normal)
+	5:  GL_DST_COLOR;
+	6:  GL_ONE_MINUS_DST_COLOR;
+	7:  GL_SRC_ALPHA;
+	8:  GL_ONE_MINUS_SRC_ALPHA;
+	9:  GL_DST_ALPHA;
+	10: GL_ONE_MINUS_DST_ALPHA;
+	11: GL_CONSTANT_COLOR;
+	12: GL_ONE_MINUS_CONSTANT_COLOR;
+	13: GL_CONSTANT_ALPHA;
+	14: GL_ONE_MINUS_CONSTANT_ALPHA;
+	15: GL_SRC_ALPHA_SATURATE;
+	16: GL_SRC1_COLOR;
+	17: GL_ONE_MINUS_SRC1_COLOR;
+	18: GL_SRC1_ALPHA;
+	19: GL_ONE_MINUS_SRC1_ALPHA;
+	20: GL_ONE_MINUS_SRC_ALPHA;
+
+Más información sobre los distintos tipos de blending en http://www.opengl.org/wiki/GLAPI/glBlendFunc.
+
+*******************************************************************************
+
+Efectos Video:
+
+0 - No effect
+1 - Bitmask 
+	Fx 1 All   (255)
+	Fx 2 Red   (255)
+	Fx 3 Green (255)
+	Fx 4 Blue  (255)
+2 - Halftone
+	FX 1 Size
+	FX 2 Angle
+	FX 3 Smooth
+	FX 4 Style 
+3 - Rds
+ 	FX 1 Method
+	FX 2 Stride
+4 - Roll
+	FX 1 Axis
+	FX 2 Roll
+5 - Invert
+	FX 1 On/Off
+6 - Scanline
+	FX 1 Mode
+	Fx 2 Interlace
+7 - Threshold
+	FX 1 All
+	FX 2 Red
+	Fx 3 Green
+	Fx 4 Blue
+8 - Metaimage
+	FX 1 Cheap
+	FX 2 Distance
+	FX 3 Size	
+9 - Refraction
+	FX 1 Width
+	FX 2 Height
+	FX 3 Mag
+	FX 4 Refract
+10 - Convolve
+	FX 1 Escala
+	FX 2 Modo (none, smooth, edge1, edge2)
+11 - Gain
+	FX 1 Common
+	FX 2 Red
+	FX 3 Green
+	FX 4 Blue
+12 - Lumaoffset
+	FX 1 Fill On/Off
+	FX 2 Smooth On/Off
+	FX 3 Gap
+	FX 4 Offset
+13 - tIIR
+	FX 1 Feedback 1
+	FX 2 Feedback 2
+	FX 3 Feedback 3
+	FX 4 Feedforward 1
+	FX 5 Feedforward 2
+14 - rtx
+	FX 1 Clamp discontinuity to the edge (On/Off)
+15 - Normalize
+	No Params
+16 - Kaleidoskope
+	FX 1 Segments
+	FX 2 Source Angle
+	FX 3 X
+	FX 4 Y
+	FX 5 cX
+	FX 6 CY
+	FX 7 RLP
+	FX 8 SAP
+	
+*******************************************************************************
+
+PureMediaServer Audio:
+
+1 - Volumen Coarse
+2 - Pan
+3 - Folder
+4 - File
+5 - Playback
+6 - Control
+7 - Volume Fine
+8 - Entry Point Coarse - El valor de estos dos canales en centésimas de segundo.
+9 - Entry Point Fine

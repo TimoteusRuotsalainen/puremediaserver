@@ -2,7 +2,7 @@
 /*
 The MIT License
 
-Copyright (c) 2012-2013 Santi Noreña puremediaserver@gmail.com
+Copyright (c) 2012-2013 Santi Noreña libremediaserver@gmail.com
 
 Copyright (c) 2009 John Warwick
 
