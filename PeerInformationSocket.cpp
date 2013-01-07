@@ -26,18 +26,14 @@ THE SOFTWARE.
 
 
 #include "PeerInformationSocket.h"
+#include "citp-lib.h"
+#include "CITPDefines.h"
+#include "PacketCreator.h"
+//#include "MediaServer.h"
 
 #include <QTimer>
 #include <QtDebug>
-
-#include "citp-lib.h"
-
-#include "CITPDefines.h"
-#include "PacketCreator.h"
-#include "MediaServer.h"
-
 #include <QNetworkInterface>
-
 #ifdef Q_OS_WIN
   #include <winsock2.h>
   #include <ws2tcpip.h>
@@ -47,8 +43,6 @@ THE SOFTWARE.
   #include <netinet/in.h>
   #include <arpa/inet.h>
 #endif
-
-
 
 PeerInformationSocket::PeerInformationSocket(QObject *parent)
   : QUdpSocket(parent),

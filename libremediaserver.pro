@@ -1,33 +1,26 @@
 TEMPLATE = app
-TARGET = PureMediaServer
+TARGET = libremediaserver
 QT += network script
 CONFIG += debug qtestlib
 DESTDIR = ./debug
 
-#win32: LIBS += wsock32.lib
-#macx {
-#	QMAKE_MAC_SDK=/Developer/SDKs/MacOSX10.4u.sdk
-#	#####CONFIG += x86 ppc
-#	CONFIG += x86
-#}
-
-HEADERS += PureMediaServer.h \
-					citp-lib.h \
-					PacketCreator.h \
-                                        PeerInformationSocket.h \
-					MediaServer.h	\				
-                                        CITPDefines.h \
-                                        MSEXDefines.h
+HEADERS += libremediaserver.h \
+           citp-lib.h \
+           PacketCreator.h \
+           PeerInformationSocket.h \
+           msex.h	\
+           CITPDefines.h \
+           MSEXDefines.h
 
 SOURCES += main.cpp \
-           PureMediaServer.cpp \
+           libremediaserver.cpp \
            citp-lib.cpp \
            PacketCreator.cpp \
            PeerInformationSocket.cpp \
-           MediaServer.cpp
+           msex.cpp
 
 FORMS += \
-    PureMediaServer.ui
+    libremediaserver.ui
 
 #INCLUDEPATH += ./
 

@@ -1,30 +1,27 @@
-0.0.6:
-
-+ Mejorar método alpha de blending.
-+ Cambiar el mensaje de error de Nop puedo mandar mensaje a función y salir por terminal
-+ Cambios en la GUI para adaptarse a las tres personalidades.
-+ Audio.
-+ Muchos más mensajes de error y de estado
-+ Añadir comprobación de inicio para no repetir mensajes de error en el arranque.
-+ Previews en el GUI. 
-+ CTIP/MSEx 1.1. Thumbs de imágenes, video preview. 
-- Carpetas para imágenes y sonidos.
-- sincronismo de audio con videos --> Parece que hay que hacer un script para separar el audio del video, y luego ejecutarlos juntos. Un poco chapu, la verdad. La aternativa es volver a pdp mediante pdp2gem (qué horror!) --> De momento separando el .ogg del video, ejecutando en auto, y mandando play a la vez debería de estaar sincronizados. Ahora mismo se podría separando el audio en un fichero .ogg y presionando el play a la vez en modo auto. Investigarlo.
-- Watchdog reinicia
-- Documentar el código
-- Documentación en inglés
-
------------------
 Próximas versiones:
 
 - Modularidad, sumar ventanas por instancias de PMS-video. NO SE PUEDE POR USAR LOS MISMOS PUERTOS. Opción de arranque?. Blending entre proyectores.Mirar ejemplo Gem multiprojection. Añdir shaders a la capa?
 - Cambiar alpha por glgs. Mirar ejemplos en doc de Gem. Mirar requerimientos de tarjetas gráficas. Añadir shaders glgs.
+- Cuadro de diálogo en open/save para diferentes archivos de configuración.
+- Mover la configuración de ip address a un menú.
+- Configuración para anular los previews y salvar tiempo de proceso.
+- CITP/MSEx 1.1.
+- Carpetas para imágenes y sonidos.
+- sincronismo de audio con videos --> Parece que hay que hacer un script para separar el audio del video, y luego ejecutarlos juntos. Un poco chapu, la verdad. La aternativa es volver a pdp mediante pdp2gem (inviable, demasiado proceso) --> De momento separando el .ogg del video, ejecutando en auto, y mandando play a la vez debería de estar sincronizados. Ahora mismo se podría separando el audio en un fichero .ogg y presionando el play a la vez en modo auto.
+- PD Watchdog reinicia.
+- Documentación en inglés.
+- Medidor de CPU en el GUI
+
 -----------------
+
 Para considerar:
 
 - Necesidad de 16 bits en size, rotation, entry-end points, puntos de bezier?
 - Más puntos de Bezier?
+- Hacer external con reproductor de pix_film --> Merece la pena codificarlo en C una vez hecho en PD? Ahorrará consumo de CPU?
+
 -----------------
+
 Descartados:
 
-- Separar textos en otra personalidad --> No posible, al iniciar un nuevo proceso inicia una nueva ventana- Malo para textos, bueno para varios proyectores y blending!.
+- Separar textos en otra personalidad --> No posible, al iniciar un nuevo proceso inicia una nueva ventana- Malo para textos, bueno para varios proyectores y blending!. Investigar soft edge. 

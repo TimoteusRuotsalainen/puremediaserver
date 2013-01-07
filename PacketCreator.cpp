@@ -1,5 +1,5 @@
 /*
-   Pure Media Server - A Media Server Sotfware for stage and performing
+   Libre Media Server - A Media Server Sotfware for stage and performing
 
    Copyright (C) 2012-2013  Santiago Noreña puremediaserver@gmail.com
 
@@ -18,11 +18,10 @@
 */
 
 #include "PacketCreator.h"
-#include "PureMediaServer.h"
-#include "MediaServer.h"
+//#include "PureMediaServer.h"
+//#include "MediaServer.h"
 #include "CITPDefines.h"
 #include "MSEXDefines.h"
-#include "ui_PureMediaServer.h"
 
 #include <QtDebug>
 #include <QFileInfo>
@@ -451,7 +450,7 @@ const char * PacketCreator::createVSRCPacket(int &bufferLen)
     memcpy((buffer+offset), post, post.size());
     return buffer;
 }
-
+/* This will be the send frme for CITP/MSEx 1.1 in the CITP Socket. 1.0 uses the TCP Socket in msex class
 const char * PacketCreator::createFrame(uchar *frame, int &bufferLen)
 {
     int bufferLenTot = sizeof(struct CITP_MSEX_10_StFr ) + bufferLen;
@@ -484,3 +483,4 @@ const char * PacketCreator::createFrame(uchar *frame, int &bufferLen)
     bufferLen = bufferLenTot;
     return buffer;
 }
+*/

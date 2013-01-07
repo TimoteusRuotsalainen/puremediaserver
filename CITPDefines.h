@@ -32,29 +32,6 @@ typedef QString ucs2;
 #define COOKIE_PINF       0x464e4950 // 'PINF'
 #define COOKIE_PINF_PNAM  0x6d614e50 // 'PNam'
 #define COOKIE_PINF_PLOC  0x636f4c50 // 'PLoc'
-#define COOKIE_MSEX      0X5845534d  //	'MSEX'
-#define COOKIE_MSEX_CINF 0x666e4943  // 'CInf'
-#define COOKIE_MSEX_SINF 0x666e4953  // 'SInf'
-#define COOKIE_MSEX_NACK 0x6b63614e  // 'Nack'
-#define COOKIE_MSEX_LSTA 0x6174534c  // 'LSta'
-
-// están al revés
-
-#define COOKIE_MSEX_GELI 0x494c4547  // GELI
-#define COOKIE_MSEX_ELIN 0x6e494c45  // ELIn
-#define COOKIE_MSEX_ELUP 0x71554c45  // ELUp
-#define COOKIE_MSEX_GEIN 0x6e494547  // GEIn
-#define COOKIE_MSEX_MEIN 0x6e49454d  // MEIn
-#define COOKIE_MSEX_EEIN 0x6e494545  // EEIn
-#define COOKIE_MSEX_GLEI 0x49454c47  // GLEI
-#define COOKIE_MSEX_GELT 0x544c4547  // GELT
-#define COOKIE_MSEX_ELTH 0x68544c45  // ELTh
-#define COOKIE_MSEX_GETH 0x68544547  // GETh
-#define COOKIE_MSEX_ETHN 0x6e685445  // EThn
-#define COOKIE_MSEX_GVSR 0x72535647  // GVsr
-#define COOKIE_MSEX_VSRC 0x63725356  // VSrc
-#define COOKIE_MSEX_RQST 0x74537152  // RqSt
-#define COOKIE_MSEX_STFR 0x72467453  // StFr
 
 #pragma pack(1)
 

@@ -1,27 +1,35 @@
-*******************************
+*******************************************************************************
 
-Pure Media Server ChangeLog
+Lbre Media Server ChangeLog
 
-********************************
-* 0.01 (16-05-2011)
+*******************************************************************************
+0.0.6:
 
-- Primera versión liberada!
-- 2 capas de video con control de reproducción avanzado mediante pix_film_player.
-- Control de Alpha y Color RGB
-- Control por ArtNet mediante Artnetin, sólo en el universo 0, subnet 0.
++ Audio en un proceso independiente. Reproducción de .oggs
++ Nuevos tipos de Alpha Blending. Nuevo canal DMX en la personalidad de video para el tipo de Alpha.
++ Preview de capas y mezcla final en el GUI.
++ Cambios en la GUI para adaptarse a las tres personalidades.
++ Muchos más mensajes de error y de estado
++ Añadir comprobación de inicio para no repetir mensajes de error en el arranque.
++ CTIP/MSEx 1.0. Thumbs de imágenes, video preview. 
++ Cambio de nombre de "Pure Media Server" a "Libre Media Server"
++ Cambio de nombre de la clase "MediaServer" a "msex".
++ Mejoras en ola2pd.
 
-* 0.02 (9-6-2011) SVN Rev 58
+* 0.0.5 (20-11-2012)
+- Interface en Qt y C++. PD y OLA se ejecutan desde ella.
+- Descontinuado el audio.
+- Mapeo por capa.
 
-- Direccionamiento de las capas (issue 14).
-- Metodos de creacion y destruccion de nodo ArtNet. Configuracion del nodo por patch dmx.pd (issue 15).
-- imágenes (issue 5).
-- Metodos de reproduccion auto (issue 8). pix_film_player.pd
-- Nuevo subpatch de control manual
-- Añadidos canales DMX de tamaños por ejes (XYZ), rotacion y posicion (issue 9) 
-- Textos - Nuevo archivo Gem compilado con soporte de fuentes (issue 4)
+* 0.0.4
+- Añadidos efectos
+- 8 capas
+- Selección de encendido por capa
+- Añadido medidor de CPU0
+- Cambio de pdp_qt por pix_filmQT (se pierde la reproducción de sonido)
+- Se separan los parches de audio y de video
 
 * 0.0.3 (2-7-2012) SVN Rev 114 
-
 - Posición en 16 bits
 - Control mediante Open Lighting Arquitecture y external ola2pd
 - 64 canales reservados por capa
@@ -32,23 +40,19 @@ Pure Media Server ChangeLog
 - Cambiados valores de locate para hacerlos más sensibles
 - 4 capas
 
- * 0.0.4
-0
-- Añadidos efectos
-- 8 capas
-- Selección de encendido por capa
-- Añadido medidor de CPU0
-- Cambio de pdp_qt por pix_filmQT (se pierde la reproducción de sonido)
-- Se separan los parches de audio y de video
+* 0.02 (9-6-2011) SVN Rev 58
+- Direccionamiento de las capas (issue 14).
+- Metodos de creacion y destruccion de nodo ArtNet. Configuracion del nodo por patch dmx.pd (issue 15).
+- imágenes (issue 5).
+- Metodos de reproduccion auto (issue 8). pix_film_player.pd
+- Nuevo subpatch de control manual
+- Añadidos canales DMX de tamaños por ejes (XYZ), rotacion y posicion (issue 9) 
+- Textos - Nuevo archivo Gem compilado con soporte de fuentes (issue 4)
 
-* 0.0.5 (20-11-2012)
-- Interface en Qt y C++. PD y OLA se ejecutan desde ella.
-- Descontinuado el audio.
-- Mapeo por capa.
 
-* 0.0.6
-- Audio en un proceso independiente. Reproducción de .oggs
-- Nuevos tipos de Alpha Blending. Nuevo canal DMX en la personalidad de video para el tipo de Alpha.
-- Preview de capas y mezcla final en el GUI.
-- Preview de mezcla final por CITP/MSEx
+* 0.01 (16-05-2011)
+- Primera versión liberada!
+- 2 capas de video con control de reproducción avanzado mediante pix_film_player.
+- Control de Alpha y Color RGB
+- Control por ArtNet mediante Artnetin, sólo en el universo 0, subnet 0.
 

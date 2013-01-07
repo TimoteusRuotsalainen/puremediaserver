@@ -1,4 +1,4 @@
-#N canvas 711 436 450 300 10;
+#N canvas 533 109 610 300 10;
 #X obj 192 126 ola2pd;
 #X obj 324 52 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
@@ -16,7 +16,11 @@
 #X text 182 270 Channel 2;
 #X text 267 270 Channel 3;
 #X text 348 270 Channel 4;
-#X text 11 6 comment;
+#X text 11 6 ola2pd - Interface for reading dmx data from Open Lightin
+Arquitecture. (c) 2012-2013 Santi Noreña - GPL License;
+#X text 248 103 Start and configure olad before sending open to ola2pd!
+;
+#X text 16 52 OLA Universe to bind;
 #X connect 0 0 6 0;
 #X connect 1 0 0 0;
 #X connect 2 0 0 0;

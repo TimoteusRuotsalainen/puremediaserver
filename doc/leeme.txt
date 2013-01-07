@@ -1,8 +1,8 @@
-**************************************************************
-Pure Media Server 0.0.6
+*******************************************************************************
+LibreMediaServer - Un Media Server basado en software libre
 (c) Santiago Noreña 2012-2013
 puremediaserver at gmail dot com
-**************************************************************
+*******************************************************************************
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -18,39 +18,50 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
-****************************************************************
+*******************************************************************************
 
-Pure Media Server es un programa para manejar visuales y audio en actuaciones escénicas, instalaciones, eventos, performances,..., pero en Software Libre. 
+LibreMediaServer es un programa para manejar visuales y audio en actuaciones 
+escénicas, instalaciones, eventos, performances,...,  basado en Software Libre. 
 
-El control se realiza mediante el Open Lighting Arquitecture, por lo que podemos usar cualquier protocolo de iluminación abierto (ArtNet, PathPort, ShowNet, ACN,...) o dispositivo DMX-USB (Enttec Pro, Velleman, Anyuma,...)
+El control de LMS se realiza mediante el Open Lighting Arquitecture, por lo que 
+podemos usar cualquier protocolo de iluminación abierto (ArtNet, PathPort, 
+ShowNet, ACN,...) o dispositivo DMX-USB (Enttec Pro, Velleman, Anyuma,...).
 
-El motor gráfico y de audio es Pure Data con Gem corriendo en segundo plano. Se comunica con la aplicación principal mediante TCP.
+El motor gráfico y de audio es Pure Data con Gem. 
 
-Estoy desarrollando y testeando en Debian Wheezy. Todos los binarios han sido compilados para Wheezy. El código debería de compilar y funcionar en otras distribuciones Linux, incluso en MacOs X, pero no lo he testeado. Open Lighting Arquitecture no compila en Windows, por lo que en este moemnto no es posible usar Pure media Server es esa plataforma.
+LibreMediaServer funciona en GNU/Linux. Está testeado en Debian Wheezy y
+Ubuntu Precise 12.04, y debería funcionar en más distribuciones basadas
+en Debian. 
+
+*******************************************************************************
 
 Características:
 
 - 8 capas de video, imágenes o texto.
-- Playback avanzado (normal, back, ping.pong, entry point, exit point, speed, loop)
+- Playback avanzado.
 - Cada capa puede ser mapeada mediante 4 puntos de Bèzier. 
-- Un montón de formatos: avi, mov, mpg, HD, jpeg, tiff, ....
-- Algunos efectos .
+- Un montón de formatos de video: avi, mov, mpg, mp4, ogg.
+- Reproducción de audio en formato ogg.
+- Reproducción de imágenes en formato jpeg, tiff.
+- Efectos de Video.
 - Posición, rotación, tamaño, y color por capa.
 - Máscaras Croma/Luma, pasa-altos y/o pasabajos en RGB.
-- Textos a través de un fichero de texto, hasta 255 frases. Renderiza cualquier fuente TrueType.
- 
-****************************************************************
+- Reproducción de textos a través de un fichero de texto, hasta 255 frases con
+  hasta 255 fuentes distintas TrueType.
 
-Para instalar PMS vea instalacion.txt
- 
-Para usar PMS vea manual.txt
+*******************************************************************************
 
-****************************************************************
+Para instalar LMS vea instalacion.txt
+ 
+Para usar LMS vea manual.txt
+
+*******************************************************************************
 
 Desarrollo y soporte:
 
-puremediaserver@googlecode.com
+libremediaserver@googlecode.com
 
-http://code.google.com/p/puremediaserver
-****************************************************************
+http://code.google.com/p/libremediaserver
+
+*******************************************************************************
 

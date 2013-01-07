@@ -1,13 +1,15 @@
 /* 
  * ola2pd - interface from Open Lighting Arquitecture to Pure Data
- * v 0.02
- * This is an external for Pure Data and Max that reads one DMX512 
+ * v 0.02 - 5/1/2013
+ *
+ * Copyright (c) 2012-2013 Santiago Noreña (libremediaserver@gmail.com) 
+ *
+ * ola2pd is an external for Pure Data and Max that reads one DMX512 
  * universe from the Open Lighting Arquitecture and output it like a list
  * of 512 channels.  
  *
  * Based on dmxmonitor Copyright (C) 2001 Dirk Jagdmann <doj@cubic.org> 
- * and ola_dmxmonitor by Simon Newton (nomis52<AT>gmail.com) to use ola
- * Copyright (c) 2012 Santiago Noreña (puremediaserver@gmail.com) 
+ * and ola_dmxmonitor by Simon Newton (nomis52<AT>gmail.com) 
  * 
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -34,9 +36,6 @@
 #error You need at least flext version 0.5.0
 #endif
 
-
-
-
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -56,13 +55,11 @@
 #include <ola/io/SelectServer.h>
 #include <ola/network/TCPSocket.h>
 
-
 using ola::DmxBuffer;
 using ola::OlaCallbackClient;
 using ola::OlaCallbackClientWrapper;
 using ola::io::SelectServer;
 using std::string;
-
 
 class ola2pd:
 
@@ -76,7 +73,6 @@ public:
 	// constructor with no arguments
 	ola2pd():
 	// initialize data members
-//	  i_universe(0),
     m_universe(0),
 		m_clientpointer(NULL),    
 		m_counter(0)
@@ -86,8 +82,7 @@ public:
 		AddInAnything(); // default inlet
 		AddOutList();	// outlet for DMX list
    	post("ola2pd v0.02 - an interface to Open Lighting Arquitecture");
-		post("(C) 2012 Santi Noreña puremediaserver@gmail.com");
-		post("GPL License");	
+		post("(C) 2012-2013 Santi Noreña libremediaserver@gmail.com");
 }
 	void NewDmx(unsigned int universe,
                 const DmxBuffer &buffer,
@@ -111,37 +106,33 @@ void m_open() {
 //      m_client.GetSelectServer()->AddReadDescriptor(&m_stdin_descriptor);
 //      m_stdin_descriptor.SetOnData(ola::NewCallback(this, &ola2pd::StdinReady));
         m_client.GetSelectServer()->RegisterRepeatingTimeout(5000,ola::NewCallback(this, &ola2pd::CheckDataLoss));
-//      m_buffer.Blackout();	
-        post("ola2pd: Init complete");
+        post("ola2pd: Init complete. Start listening...");
 			  m_client.GetSelectServer()->Run();
         }    
 	}
 
 void m_close() {
-//    OlaCallbackClient *client = m_client.GetClient();
     if (m_clientpointer != NULL)
 		{
    		m_clientpointer->RegisterUniverse(m_universe,ola::UNREGISTER,ola::NewSingleCallback(this, &ola2pd::RegisterComplete));        
     	m_client.GetSelectServer()->Terminate();
 			post("ola2pd: Close complete");		
 		  m_clientpointer = NULL;	
-	}
+	  }
 }
 
-void m_bang()  // Utilidad del bang?
-	{
-		post("%s listening on universe %d",thisName(),m_universe);
+void m_bang() {
+    if (m_clientpointer != NULL) {post("%s listening on universe %d",thisName(),m_universe);}
+		else {post("%s configured on universe %d. Send open to start listening",thisName(),m_universe);}
 	}
 
 private:
-//    int i_universe;
     unsigned int m_universe;
     unsigned int m_counter;
 //    ola::io::UnmanagedFileDescriptor m_stdin_descriptor;
     struct timeval m_last_data;
     OlaCallbackClientWrapper m_client;
 		OlaCallbackClient *m_clientpointer;
-//    DmxBuffer m_buffer;
 
   static void setup(t_classid c)
 	{
@@ -169,7 +160,6 @@ FLEXT_NEW("ola2pd",ola2pd)
 void ola2pd::NewDmx(unsigned int universe,
                         const DmxBuffer &buffer,
                         const string &error) {
-//  m_buffer.Set(buffer); // Necesario?
   m_counter++;
   gettimeofday(&m_last_data, NULL);   
   int z;
@@ -188,9 +178,9 @@ bool ola2pd::CheckDataLoss() {
   if (timerisset(&m_last_data)) {
     gettimeofday(&now, NULL);
     timersub(&now, &m_last_data, &diff);
-    if (diff.tv_sec > 5 || (diff.tv_sec == 5 && diff.tv_usec > 5000000)) {
+    if (diff.tv_sec > 4 || (diff.tv_sec == 4 && diff.tv_usec > 4000000)) {
       // loss of data
-      post("ola2pd:Data Loss!");
+      post("ola2pd: Can not read DMX!");
     }
   }
   return true;

@@ -1,6 +1,6 @@
 /*
-   Pure Media Server - A Media Server Sotfware for stage and performing
-   Copyright (C) 2012-2013  Santiago Noreña puremediaserver@gmail.com
+   Libre Media Server - A Media Server Sotfware for stage and performing
+   Copyright (C) 2012-2013  Santiago Noreña libremediaserver@gmail.com
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -16,77 +16,69 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef PUREMEDIASERVER_H
-#define PUREMEDIASERVER_H
+#ifndef LIBREMEDIASERVER_H
+#define LIBREMEDIASERVER_H
 
 #include <QMainWindow>
-#include "MediaServer.h"
-#include "ui_PureMediaServer.h"
+#include "msex.h"
+#include "ui_libremediaserver.h"
 #include <QLocalServer>
 #include <QLocalSocket>
 
-class MediaServer;
+class msex;
 class QMenu;
 class QProcess;
 
-class PureMediaServer : public QMainWindow
+class libreMediaServer : public QMainWindow
 {
     Q_OBJECT
 
 public:
 
-    PureMediaServer (QWidget *parent = 0);
-    virtual ~PureMediaServer();
+    libreMediaServer (QWidget *parent = 0);
+    virtual ~libreMediaServer();
 
     Ui::PureMediaServer ui;
 
 protected:
 
     QString m_pathmedia; // Path to Medias
-    MediaServer *m_mediaserver; // MSEx
-    QProcess *ola; // OLA daemon process
+    msex *m_msex; // MSEx
+    QProcess *m_ola; // OLA daemon process
+    QProcess *m_pd_video; // Pure Data process for video
+    QProcess *m_pd_audio; // Pure Data process for audio
 
-    // Video TCP Sockets
-
+    // Video Sockets
     QTcpSocket *m_pd_write_video;
-    QProcess *pd; // Pure Data process for video
+    // Unix Local Sockets
+//    QLocalSocket *m_write_vid;
+    QLocalServer *m_server_vid;
+    QLocalSocket *m_read_vid;
 
     // Audio TCP Sockets
-
     QTcpSocket *m_pd_write_audio;
     QTcpServer *m_pd_read_audio;
     QTcpSocket *m_tcpsocket_audio;
-    QProcess *pd_audio; // Pure Data process for audio
 
     QTimer *m_preview;
 //  void contextMenuEvent(QContextMenuEvent *event);
 
-    // Unix Local Sockets
-    QLocalSocket *m_write_vid;
-    QLocalServer *m_server_vid;
-    QLocalSocket *m_read_vid;
-
 private:
 
     bool sendPacket(const char *buffer, int bufferLen);
-
     void pdstart();
-
     void errorsending();
-
     bool sendPacket_audio(const char *buffer, int bufferLen);
-
     void pdstart_audio();
-
     void errorsending_audio();
 
 public slots:
 
     void sendFrame();
+
 private slots:
 
     void olastart(); // Init the OLA daemon
-
     void on_ChangePath_clicked();// Change the path to medias
 
 // Video
@@ -158,4 +150,4 @@ private slots:
 
 };
 
-#endif // PUREMEDIASERVER_H
+#endif // LIBREMEDIASERVER_H
