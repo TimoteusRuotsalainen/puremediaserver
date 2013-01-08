@@ -1,20 +1,43 @@
 *******************************************************************************
 
+Libre Media Server - An Open source Media Server.
+(c) Santiago Noreña 2012-2013
+
+*******************************************************************************
+
+Developing and support: libremediaserver@gmail.com
+
+Code: http://code.google.com/p/libremediaserver
+
+*******************************************************************************
+
+This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+
+*******************************************************************************
+
 Lbre Media Server ChangeLog
 
 *******************************************************************************
-0.0.6:
+0.01 (8/1/2013) SVN Rev 1:
 
 + Audio en un proceso independiente. Reproducción de .oggs
 + Nuevos tipos de Alpha Blending. Nuevo canal DMX en la personalidad de video para el tipo de Alpha.
 + Preview de capas y mezcla final en el GUI.
-+ Cambios en la GUI para adaptarse a las tres personalidades.
++ Cambios en la GUI para acoger los dos procesos independientes de Pure Data.
 + Muchos más mensajes de error y de estado
 + Añadir comprobación de inicio para no repetir mensajes de error en el arranque.
-+ CTIP/MSEx 1.0. Thumbs de imágenes, video preview. 
-+ Cambio de nombre de "Pure Media Server" a "Libre Media Server"
++ CTIP/MSEx 1.0. Thumbs de videos, video preview. 
++ Cambio de nombre de "Pure Media Server" a "Libre Media Server". Primera beta.
 + Cambio de nombre de la clase "MediaServer" a "msex".
 + Mejoras en ola2pd.
+
+*******************************************************************************
+
+Pure Media Server ChangeLog:
 
 * 0.0.5 (20-11-2012)
 - Interface en Qt y C++. PD y OLA se ejecutan desde ella.

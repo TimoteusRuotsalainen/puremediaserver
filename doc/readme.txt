@@ -1,57 +1,49 @@
-**************************************************************
-Pure Media Server 0.0.6
+*******************************************************************************
+
+Libre Media Server - An Open source Media Server.
 (c) Santiago Noreña 2012-2013
-puremediaserver at gmail dot com
-**************************************************************
 
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
+*******************************************************************************
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+Developing and support: libremediaserver@gmail.com
 
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+Code: http://code.google.com/p/libremediaserver
 
-****************************************************************
+*******************************************************************************
 
-Pure Media Server is a project to manage visuals and audio in stage, perfoms, installations, events,,..., but Open Source. 
+This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
 
-The control input is through Open Lighting Arquitecture, so we can use any lighting protocolo or DMX-USB device. 
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 
-The graphic and audio engine are two Pure Data process running in the background. You will need a graphics card OpenGL capable and the driver for it correctly installed.
+You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
-I'm developing and testing in Debian Wheezy. All the binaries are compiled for Wheezy. It should compile and work in anothers Linux distros and MacOs X too. Open Lighting Arquitecture not compiles in Windows, so it's not posible use PMS in that platform.
+*******************************************************************************
+
+Pure Media Server is an Open Source project to manage visuals and audio in stage, perfomances, installations, events,,...,  
+
+The control input is through Open Lighting Arquitecture, so we can use any open lighting protocolo (ArtNet, PathPort, ShowNet, ACN, SandNet,...) or DMX-USB device (Enttec USB DMX Pro, Velleman, Anyuma,..). 
+
+The graphic and audio engine are two Pure Data process running in the background. You will need a graphics card OpenGL capable and the driver for it 
+correctly installed.
+
+I'm developing and testing in Debian Wheezy and Ubuntu precise 12.04. It should compile and work in anothers Debian based distros.
 
 Features:
 
-- 8 video, pictures or text layers
-- Advanced playback (normal, back, ping.pong, entry point, exit point, speed, loop)
+- 8 video, pictures or text layers.
+- 8 audio layers.
+- Advanced playback (normal, back, ping.pong, entry point, exit point, speed, loop).
 - Each layer can be mapped onto a surface with 4 point of Bèzier.
 - A lot of formats: avi, mov, mpg, HD,... 
-- Some Effects
+- Some video effects.
 - Position, Rotation, Size.
 - Croma/Luma mask.
 - Text through a text file, with 255 phrases. 
 
-At the moment, the doc is only in spanish:
+Sorry, at the moment the doc is only in spanish:
 
 Install guide : instalacion.txt
  
-Use guide : manual.txt
+Users guide : manual.txt
 
-****************************************************************
-
-Developing and support: 
-
-puremediaserver@googlecode.com
-
-http://code.google.com/p/puremediaserver
-
-****************************************************************
 

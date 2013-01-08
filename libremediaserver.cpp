@@ -795,7 +795,7 @@ void libreMediaServer::pdstart()
     Q_CHECK_PTR(m_pd_write_video);
     connect(m_pd_write_video, SIGNAL(connected()),this, SLOT(newconexion()));
     // Arrancamos el proceso Pure Data
-    m_pd_video->start("pd -lib Gem -d 4 -stderr pms-video.pd");
+    m_pd_video->start("pd -lib Gem -d 1 -nogui pms-video.pd");
     if (m_pd_video->waitForStarted(3000)){
         ui.textEdit->appendPlainText("Video Engine started.");
     }
@@ -806,7 +806,6 @@ void libreMediaServer::pdstart()
     }
     // Connect the output fropm PD Video to stdout slot to process it
     connect(m_pd_video, SIGNAL(readyReadStandardError()), this, SLOT(stdout()));
-//    connect(m_pd_video, SIGNAL(readyRead()),this,SLOT(stdout()));
     // Restart PD Video if crash
     connect(m_pd_video, SIGNAL(finished(int)), this, SLOT(pdrestart()));
 }
@@ -826,8 +825,8 @@ void libreMediaServer::stdout() {
         {
             ui.textEdit->appendPlainText("PD video watchdog detected.");
         }
-    int j = out.indexOf("togui",0);
-    if (j >= 0)
+    int j = out.indexOf("togui: ",0);
+    if ((j >= 0) && (out.size() > (j+7)))
          {
          int i = m_pathmedia.size() + 16;
          out.remove(0,j);
