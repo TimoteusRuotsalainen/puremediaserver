@@ -1,16 +1,41 @@
+*******************************************************************************
+
+Libre Media Server - An Open source Media Server.
+(c) Santiago Noreña 2012-2013
+
+*******************************************************************************
+
+Developing and support: libremediaserver@gmail.com
+
+Code: http://code.google.com/p/libremediaserver
+
+*******************************************************************************
+
+This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+
+*******************************************************************************
+
 Próximas versiones:
 
-- Modularidad, sumar ventanas por instancias de PMS-video. NO SE PUEDE POR USAR LOS MISMOS PUERTOS. Opción de arranque?. Blending entre proyectores.Mirar ejemplo Gem multiprojection. Añdir shaders a la capa?
-- Cambiar alpha por glgs. Mirar ejemplos en doc de Gem. Mirar requerimientos de tarjetas gráficas. Añadir shaders glgs.
-- Cuadro de diálogo en open/save para diferentes archivos de configuración.
-- Mover la configuración de ip address a un menú.
-- Configuración para anular los previews y salvar tiempo de proceso.
-- CITP/MSEx 1.1.
-- Carpetas para imágenes y sonidos.
-- sincronismo de audio con videos --> Parece que hay que hacer un script para separar el audio del video, y luego ejecutarlos juntos. Un poco chapu, la verdad. La aternativa es volver a pdp mediante pdp2gem (inviable, demasiado proceso) --> De momento separando el .ogg del video, ejecutando en auto, y mandando play a la vez debería de estar sincronizados. Ahora mismo se podría separando el audio en un fichero .ogg y presionando el play a la vez en modo auto.
-- PD Watchdog reinicia.
+- Pure Data Video: Modularidad, sumar ventanas por instancias de PMS-video. NO SE PUEDE POR USAR LOS MISMOS PUERTOS. Opción de arranque?. Blending entre proyectores.Mirar ejemplo Gem multiprojection. Añdir shaders a la capa?
+- Pure Data Video: Cambiar alpha por glgs. Mirar ejemplos en doc de Gem. Mirar requerimientos de tarjetas gráficas. Añadir shaders glgs.
+- GUI: Cuadro de diálogo en open/save para diferentes archivos de configuración.
+- GUI: Mover la configuración de ip address a un menú.
+- GUI: Configuración para anular los previews y salvar tiempo de proceso.
+- Conectividad: CITP/MSEx 1.1. Thumbs y previews de imágenes.
+- Pure Data: Carpetas para imágenes y sonidos. Diferentes ficheros de texto.
+- Pure Data: sincronismo de audio con videos --> Parece que hay que hacer un script para separar el audio del video, y luego ejecutarlos juntos. Un poco chapu, la verdad. La aternativa es volver a pdp mediante pdp2gem (inviable, demasiado proceso) --> De momento separando el .ogg del video, ejecutando en auto, y mandando play a la vez debería de estar sincronizados. Ahora mismo se podría separando el audio en un fichero .ogg y presionando el play a la vez en modo auto.
 - Documentación en inglés.
 - Medidor de CPU en el GUI
+- Incluir archivos en el ejecutable como recursos Qt --> Podrá leer Pure Data los .pd_linux?
+- Audio: Theremin, sintetizadores.
+- Audio: Música fractal mediante generadores de fx de las mesas
+- Audio: Tarjetas con varias salidas y varias mezclas.
+- Video: Live input
 
 -----------------
 
@@ -19,6 +44,7 @@ Para considerar:
 - Necesidad de 16 bits en size, rotation, entry-end points, puntos de bezier?
 - Más puntos de Bezier?
 - Hacer external con reproductor de pix_film --> Merece la pena codificarlo en C una vez hecho en PD? Ahorrará consumo de CPU?
+- GUI: PD Watchdog reinicia --> Puede que sea mejor que se reproduzca más lento a forzar un reinicio?
 
 -----------------
 
